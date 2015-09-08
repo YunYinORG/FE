@@ -10586,143 +10586,30 @@
 /* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ajax = __webpack_require__(76)
-	
 	module.exports = {
 	  el: '#app',
 	  components: {
-	    'login': __webpack_require__(77),
+	    'login': __webpack_require__(76),
 	  }
 	}
 
 /***/ },
 /* 76 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	/* 
-	andyjyuan@163.com 
-	
-	most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
-	*/
-	
-	(function($){
-		$.Yunyin_Request = {
-			rest_api: function(options) {
-	
-			},
-	
-			ajax: function(options) {
-				return new Yunyin_Request.yyajax(options);
-			},
-		};
-	
-		Yunyin_Request.yyajax = function(options) {
-			this.XHR = null;
-			this.method   = options["method"]   || "get"  ;
-			this.url      = options["url"]      || ""     ; 
-			this.user     = options["user"]     || null   ;
-			this.pwd      = options["password"] || null   ;
-			this.data     = options["data"]     || null   ;
-			this.encoding = options["encoding"] || "utf-8";
-			
-			this.success  = options["success"]
-			this.error    = options["error"]
-	
-			this.sendRequest();
-		};
-	
-		Yunyin_Request.yyajax.prototype = {
-			
-			sendRequest: function() {
-				var o = this,
-					reg = /\?/,
-					data = o.formatData(o.data),
-					url = reg.test(o.url)?o.data?o.url.substring(0,o.url.search(reg)):o.url:o.url;
-				if(o.method == "get"){
-					if(o.data) url += "?"+data;
-					data = null;
-				};
-				o.XHR = o.createXHR();
-				if(!o.XHR) return false;
-				o.XHR.open(o.method, url, true);
-				o.XHR.onreadystatechange = function(){
-					o.handleEvent(o,this);	
-				};
-				o.XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset="+o.code+"");
-			    o.XHR.send(data);
-			},
-	
-			handleEvent: function(o,x){
-				if (x.readyState == 4) {
-					switch(x.status){
-						case 200:
-							o.success.call(x,x.responseText,x.status,"success");
-							break;	
-						default:
-							o.error.call(x,x.status,"error");
-					};
-				};
-			},
-	
-			createXHR: function(){
-				try {
-					return new XMLHttpRequest();
-				} catch(e){
-					var MSXML = [ "MSXML2.XMLHTTP.5.0",
-								  "MSXML2.XMLHTTP.4.0",
-								  "MSXML2.XMLHTTP.3.0",
-								  "MSXML2.XMLHTTP",
-								  "Microsoft.XMLHTTP"
-								],
-						i,len = MSXML.length;
-					for(i = 0; i < len; i+=1) {
-						try {
-							return new ActiveXObject(MSXML[i]);        
-							break;
-						} catch(e){
-							return null;
-						};
-					}
-				}
-			},
-	
-			formatData: function(d) {
-				var s = function(d){
-						var arr = [];
-						for(var i in d){
-							arr.push( i + "=" + d[i] );
-						};
-						return arr;
-					};
-				if( typeof d == "object" ){
-					return s(d).join("&");
-				} else if(typeof d == "string" ){
-					var n = /{/g.test(d)?JSON.parse(d):d;
-					return typeof n == "string"?n:s(n).join("&");
-				};
-			},
-	
-		};
-	
-	}(window));
+	__webpack_require__(77)
+	module.exports = __webpack_require__(79)
+	module.exports.template = __webpack_require__(81)
+
 
 /***/ },
 /* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(78)
-	module.exports = __webpack_require__(80)
-	module.exports.template = __webpack_require__(81)
-
-
-/***/ },
-/* 78 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(79);
+	var content = __webpack_require__(78);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(74)(content, {});
@@ -10742,7 +10629,7 @@
 	}
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(73)();
@@ -10756,10 +10643,10 @@
 
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(83);
+	var yy_request = __webpack_require__(80);
 	
 	module.exports = {
 	  data: function() {
@@ -10771,39 +10658,35 @@
 	  },
 	  methods: {
 	    onSubmit: function(e) {
-	      yy_request.ajax({
-	        method: "get",
-	        url: "../index.php/auth/",
-	        data: {
-	          number: this.studentid,
-	          password: this.password,
-	        },       
-	        success: function(x) {
-	          alert(x)
-	        },       
-	        error: function(x) {
-	          alert(x)
-	        },
-	      });
+	      // student id format check
+	      var reg = /^\d{7}|\d{10}$/;
+	
+	      if(!reg.test(this.studentid)) {
+	        alert('请输入格式正确的学号');
+	      } else {
+	        yy_request.ajax({
+	          method: "get",
+	          url: "../index.php/auth/",
+	          data: {
+	            number: this.studentid,
+	            password: this.password,
+	          },       
+	          success: function(x) {
+	            alert(x)
+	          },       
+	          error: function(x) {
+	            alert(x)
+	          },
+	        });
+	      }
+	    
 	    },
 	
 	  },
 	}
 
 /***/ },
-/* 81 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"wrapper\">\n    <form action=\"\">\n      <div>\n        学号\n        <input type=\"text\" v-model=\"studentid\">\n      </div>\n      <div>\n        密码\n        <input type=\"text\" v-model=\"password\">\n      </div>\n      <div>\n        <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\n        <label for=\"rmb\">自动登录</label>\n        <a href=\"\">忘记密码?</a>\n      </div>\n      <div>\n        <input type=\"button\" v-on=\"click: onSubmit\" value=\"登陆\">\n      </div>\n    </form>\n  </div>";
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	module.exports = "<login></login>";
-
-/***/ },
-/* 83 */
+/* 80 */
 /***/ function(module, exports) {
 
 	/* 
@@ -10913,6 +10796,18 @@
 	
 	}
 
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"wrapper\">\n    <form action=\"\">\n      <div>\n        学号\n        <input type=\"text\" v-model=\"studentid\">\n      </div>\n      <div>\n        密码\n        <input type=\"password\" v-model=\"password\">\n      </div>\n      <div>\n        <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\n        <label for=\"rmb\">自动登录</label>\n        <a href=\"\">忘记密码?</a>\n      </div>\n      <div>\n        <input type=\"button\" v-on=\"click: onSubmit\" value=\"登陆\">\n      </div>\n    </form>\n  </div>";
+
+/***/ },
+/* 82 */
+/***/ function(module, exports) {
+
+	module.exports = "<login></login>";
 
 /***/ }
 /******/ ]);

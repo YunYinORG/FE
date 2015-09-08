@@ -3,7 +3,6 @@
 </template>
 
 <script>
-var ajax = require('../yunyin_request')
 
 module.exports = {
   el: '#app',
