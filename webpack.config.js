@@ -7,7 +7,8 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.vue$/, loader: "vue-loader" },
-      // { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
     ]
   },
   devtool: '#source-map'

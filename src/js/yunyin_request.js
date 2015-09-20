@@ -4,9 +4,32 @@ andyjyuan@163.com
 most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 */
 
-module.exports = {
-	rest_api: function(options) {
+var po = require('./public_object.js')
 
+var baseurl = 'http://127.0.0.1:8888/index.php/'
+
+module.exports = {
+	rest_api: function(method,resource,data,successfn) {
+		return new yyajax({
+			method: method,
+			url: baseurl + resource,
+			data: data,
+			success: function(responseText,status) {
+				var rpdata = JSON.parse(responseText)
+				if(resource=='auth/') {
+					successfn(rpdata.status,rpdata.info)
+				} else {
+					if(rpdata.status==-1) {
+						po.app.showLoginModal = true
+					} else {
+						successfn(rpdata.status,rpdata.info)
+					}
+				}
+			},
+			error: function(status) {
+				alert('网络请求出错：'+ status)
+			}
+		})
 	},
 
 	ajax: function(options) {
@@ -24,12 +47,14 @@ var yyajax = function(options) {
 	this.pwd      = options["password"] || null   ;
 	this.data     = options["data"]     || null   ;
 	this.encoding = options["encoding"] || "utf-8";
+
+	this.content = options["content"] || "urlencoded";
 	
 	this.success  = options["success"];
 	this.error    = options["error"];
 
 	this.sendRequest();
-};
+}
 
 yyajax.prototype = {	
 	sendRequest: function() {
@@ -39,7 +64,6 @@ yyajax.prototype = {
 			url = reg.test(o.url)?o.data?o.url.substring(0,o.url.search(reg)):o.url:o.url;
 		if(o.method == "get"){
 			if(o.data) url += "?"+data;
-			console.log(url);
 			data = null;
 		};
 		o.XHR = o.createXHR();
@@ -48,7 +72,12 @@ yyajax.prototype = {
 		o.XHR.onreadystatechange = function(){
 			o.handleEvent(o,this);	
 		};
-		o.XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset="+o.code+"");
+
+		if(this.content=="urlencoded"){
+			o.XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset="+o.encoding+"");
+		}
+			
+		o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
 	    o.XHR.send(data);
 	},
 
@@ -95,12 +124,22 @@ yyajax.prototype = {
 				return arr;
 		};
 		
-		if( typeof d == "object" ){
-			return s(d).join("&");
-		} else if(typeof d == "string" ){
-			var n = /{/g.test(d)?JSON.parse(d):d;
-			return typeof n == "string"?n:s(n).join("&");
-		};
+		if(this.content=="urlencoded") {
+			if( typeof d == "object" ){
+				return s(d).join("&");
+			} else if(typeof d == "string" ){
+				var n = /{/g.test(d)?JSON.parse(d):d;
+				return typeof n == "string"?n:s(n).join("&");
+			};
+		} else {
+			var myFormData = new FormData();
+			for(var i in d) {
+				myFormData.append(i,d[i]);
+			}
+			
+			return myFormData;
+		}
+
 	},
 
 }

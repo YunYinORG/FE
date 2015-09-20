@@ -40,4 +40,5 @@
 将目录置于vagrant测试环境的前端文件夹下，访问[http://127.0.0.1:8888/front/index.html](http://127.0.0.1:8888/front/index.html)
 
 ##待解决问题
-+ 实用iframe跨子域名的ajax请求问题
++ 使用iframe跨子域名的ajax请求问题
++ AJAX请求中加入requestedwith XMLHttpRequest header 
