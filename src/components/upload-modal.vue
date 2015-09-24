@@ -8,9 +8,10 @@
     <div class="modal-footer">
       <div class="upload-btn">
         <div class="upload-area">点击上传文件</div>
-        <input id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
+        <input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
       </div>
       <input type="button" value="完成" v-on="click: onFinish">
+      <input type="button" value="去打印" v-on="click: onToPrint">
     </div>    
   </modal>
 </template>
@@ -34,6 +35,7 @@ module.exports = {
       modalWidth: 600,
       title: "请选择需要上传的文件",
       files: [],
+      hasFileInput: true,
     }
   },
 
@@ -69,6 +71,8 @@ module.exports = {
         uploadFile(filedata)
 
       }
+      hasFileInput = false 
+      hasFileInput = true //in case sometimes onChange Event will not be fired
     },
 
     onFinish: function(e) {

@@ -1,47 +1,38 @@
 <template>
 	<div class="actions-wrapper">
-		<div id="upload-btn" v-on="click: onUpload">上传文件</div>
-		<div id="print-btn" v-on="click: onPrint">打印文件</div>
-		<div id="share-btn" v-on="click: onShare">分享文件</div>
-		<div id="delete-btn" v-on="click: onDelete">删除文件</div>
+		<div id="upload-btn" v-on="click: onUpload">添加新的打印任务</div>
 		<form id="search">
-			搜索文件
-			<input type="text" v-model="searchString">
+			搜索任务
+			<input type="text" v-model="searchTask">
 		</form>		
 	</div>
 	<table>
 		<thead>
 			<tr>
-				<th>
-					<input type="checkbox" v-model="checkedAll">
-				</th>
-				<th>
-					文件名
-				</th>
-				<th>
-					上传日期
-				</th>				
-				<th>
-					操作
-				</th>
+				<th>文件状态</th>
+				<th>文件名</th>
+				<th>上传时间</th>				
+        <th>打印店</th>
+        <th>份数</th>
+        <th>单双</th>
+        <th>彩印</th>
+        <th>格式</th>
+				<th>操作</th>
 			</tr>
 		</thead>
 		<tbody>
-			<template v-repeat="file:displayFile" track-by="id">
+			<template v-repeat="task:displayTask" track-by="id">
 				<tr>
+          <td>{{task.status}}</td>
+          <td>{{task.fname}}</td>
+          <td>{{task.time}}</td>
+          <td>{{task.printer}}</td>
+          <td>{{task.copies}}</td>
+          <td>{{task.double}}</td>
+          <td>{{task.color}}</td>
+          <td>{{task.ppt}}</td>
 					<td>
-						<input type="checkbox" v-model="file.checked">
-					</td>
-					<td>
-						{{file.name}}
-					</td>
-					<td>
-						{{file.time}}
-					</td>
-					<td>
-						<span>打印</span>
-						<span>分享</span>
-						<span v-on="click: onDelete($event,file)">删除</span>
+            <span>修改任务</span>
 					</td>
 				</tr>
  			</template>
@@ -49,7 +40,6 @@
 	</table>
 	<div v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
 	<upload-modal show="{{@showUploadModal}}" on-file-change="{{onFileChange}}"></upload-modal>
-	<newtask-modal show="{{@showNewTaskModal}}" pfiles={{pfiles}} mode="add"></newtask-modal>
 </template>
 
 <script>
@@ -60,15 +50,12 @@ module.exports = {
   data: function() {
   	return {
   		displayedPage: 1,
-  		filesPerPage: 10,
-  		fileData: [],
-  		displayFile: [],
-  		checkedAll: false,
+  		tasksPerPage: 10,
+  		taskData: [],
+  		displayTask: [],
   		searchString: '',
   		showUploadModal: false,
   		moreData: false,
-  		pfiles:[],
-  		showNewTaskModal: false,
   	}
   },
 
@@ -98,23 +85,19 @@ module.exports = {
   	onUpload: function(op_file) {
   		this.showUploadModal = true
   	},
-  	onPrint: function($event,op_file) {
-  		if(op_file!=undefined) {
-  			var checkedfile = [op_file]
-  		} else {
-  			var checkedfile = getCheckedList(this) 			
-  		}
-  		this.pfiles = checkedfile
-  		this.showNewTaskModal = true
+  	onPrint: function(op_file) {
+
   	},
   	onShare: function(op_file) {
 
   	},
 
   	onDelete: function($event,op_file) {
+  		console.log(op_file)
   		if(op_file!=undefined) {
   			var checkedfile = [op_file]
   		} else {
+  			console.log('haha')
   			var checkedfile = getCheckedList(this) 			
   		}
   		for(var i in checkedfile) {
@@ -135,36 +118,26 @@ module.exports = {
 
   components: {
   	'upload-modal': require('../components/upload-modal.vue'),
-    'newtask-modal': require('../components/newtask-modal.vue'),
   }
 
 }
 
-
-function loadData(vuemodel) {
-  yy_request.rest_api('get','file/',{page:vuemodel.displayedPage},function(status,info){
+function loadTask(vuemodel) {
+  yy_request.rest_api('get','task/',{page:vuemodel.displayedPage},function(status,info){
     if(status==1) {
-      var filedata = info
-      for(var i in filedata) {
-        filedata[i].checked = false
-      }
-      if(filedata.length==vuemodel.filesPerPage) {
+      var taskdata = info
+
+      if(tasklist.length==vuemodel.tasksPerPage) {
       	vuemodel.moreData = true
       } else {
       	vuemodel.moreData = false
       }
-      vuemodel.fileData = vuemodel.fileData.concat(filedata)
-      }
+      vuemodel.taskData = vuemodel.taskData.concat(taskdata)
+    }
   })
 }
 
-function getCheckedList(vuemodel) {
-	return vuemodel.displayFile.filter(function(x){
-		return x.checked
-	})
-}
-
-function deleteFile(vuemodel,file) {
+function deleteTask(vuemodel,file) {
   yy_request.rest_api('delete','file/'+file.id+'/',null,function(status,info){
   	if(status==1){
     	vuemodel.fileData.$remove(file)
