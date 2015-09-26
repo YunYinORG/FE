@@ -37,6 +37,15 @@
 >>
 
 ##测试说明
+
+### Building
+``` bash
+sudo npm install
+# watch:
+npm run dev
+# build:
+npm run build
+```
 将目录置于vagrant测试环境的前端文件夹下，访问[http://127.0.0.1:8888/front/index.html](http://127.0.0.1:8888/front/index.html)
 
 ##待解决问题
