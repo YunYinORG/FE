@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "yunyin front end with vue",
   "main": "index.js",
+  "license": "MIT",
   "scripts": {
     "dev": "webpack --watch",
     "build": "webpack"
@@ -14,7 +15,7 @@
   "homepage": "https://github.com/YunYinORG/FE",
   "author": "Andy",
   "devDependencies": {
-    "css-loader": "^0.19.0",
+    "css-loader": "^0.14.4",
     "html-loader": "^0.3.0",
     "style-loader": "^0.12.4",
     "file-loader": "^0.8.4",
