@@ -40,8 +40,11 @@
 
 ### Building
 ``` bash
+# if node.js & npm not exist, install node.js and npm first
+sudo yum install nodejs npm
+# change into project directory, install project package dependencies
 sudo npm install
-# watch:
+# build and watch project directory:
 npm run dev
 # build:
 npm run build
