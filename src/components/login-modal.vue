@@ -3,45 +3,69 @@
     <div class="modal-body">
       <div id="login-wrapper" v-if="showLogin">
         <form action="">
-          <div>
-            学号
-            <input type="text" v-model="studentid">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+              <input type="text" class="form-control" id="username" placeholder="请输入您的学号"
+                v-model="studentid">
+            </div>
           </div>
-          <div>
-            密码
-            <input type="password" v-on="keyup: onSubmit | key 'enter'" v-model="password">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+              <input type="password" class="form-control" id="pwd" placeholder="请输入您的密码"
+                v-on="keyup: onSubmit | key 'enter'"
+                v-model="password">
+            </div>
           </div>
           <div>
             <input id="rmb" type="checkbox" v-model="remeber">
             <label for="rmb">自动登录</label>
-            <a href="">忘记密码?</a>
+            <small class="pull-right">忘记密码?</small>
+          </div>        
+
+          <div v-show="showCode" class="form-group">
+            <img id="code-img" src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode" 
+              v-on="click: refreshCode">
+            <input type="text" class="form-control pull-right" id="code-input" 
+              placeholder="请输入验证码"
+              v-model="code">
           </div>
-          <div v-show="showCode">
-            <p>请输入验证码</p>
-            <input id="cd" type="text" v-model="code">
-            <img src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode" v-on="click: refreshCode">
-          </div>  
-          <div>
-            <input type="button" v-on="click: onSubmit" value="登陆">
+
+          <div class="form-group">
+            <button type="button" id="submit" class="btn btn-embossed btn-primary btn-block"
+              v-on="click: onSubmit">登录/注册</button>
           </div>
           <div>
-            <p v-text="errorinfo"></p>
+            <p class="help-block" v-text="errorinfo" v-show="erroinfo!=''"></p>
           </div>
         </form>
       </div> <!-- #login-wrapper -->
       <div id="reset-wrapper" v-if="showReset">
-        <p> 请为云印设置一个新的密码 </p>
-        <div>
-          <input type="password" v-model="pwnew">
-        </div> 
-        <input type="button" v-on="click: newPassword" value="确定">
+        <small> 请为云印设置一个新的密码，以后您将使用这个密码登录云印服务 </small>
+        <div class="form-group">
+          <input type="text" class="form-control" id="nwpd-input" 
+            placeholder="新的密码"
+            v-model="pwnew">
+        </div>  
+        <div class="form-group">     
+          <button type="button" id="newpwd" class="btn btn-embossed btn-primary btn-block"
+            v-on="click: newPassword">设置密码</button>
+        </div>
       </div> <!-- #reset-wrapper -->
       <div id="done-wrapper" v-if="showDone">
-        <h3>欢迎加入云印</h3>
-        <input type="button" v-on="click: afterLogin" value="立即使用">
+        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>
+        <br>
+        <br>
+        <div class="form-group">     
+          <button type="button" id="newpwd" class="btn btn-embossed btn-primary btn-block"
+            v-on="click: afterLogin">立即使用</button>
+        </div>
       </div> <!-- #done-wrapper -->
     </div> <!-- .modal-body -->
     <div class="modal-footer">
+      <small>首次注册请使用本校办公网系统账号及密码登录</small>
+      <small><a>了解更多</a></small> 
     </div>    
   </modal>
 </template>
@@ -77,6 +101,18 @@ module.exports = {
       showLogin: true,
       showReset: false,
       showDone: false,
+    }
+  },
+
+  computed: {
+    title: function() {
+      if(this.showLogin) {
+        return "登陆云印，享受校园便捷打印"
+      } else if(this.showReset) {
+        return "设置您的云印密码"
+      } else {
+        return "注册完成"
+      }
     }
   },
 
@@ -208,7 +244,10 @@ function loginSuccess(vuemodel) {
 </script>
 
 <style>
-.wrapper {
-
+#code-img {
+  width: 40%;
+}
+#code-input {
+  width: 40%;
 }
 </style>

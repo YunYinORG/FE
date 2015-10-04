@@ -1,7 +1,7 @@
 <template>
 	<input type="button" v-on="增加新任务">
 	<tasklist></tasklist>
-	<newtask-modal show="showTaskModal"></newtask-modal>	
+	<newtask-modal show="showTaskModal" mode="'modify'"></newtask-modal>	
 </template>
 
 <script>

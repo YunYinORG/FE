@@ -92,7 +92,7 @@ module.exports = {
 
   compiled: function() {
     getPrinterList(this)
-    if(mode=='modify') {
+    if(this.mode=='modify') {
       getTaskInfo(this)
     }
   },

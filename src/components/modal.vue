@@ -4,9 +4,9 @@
       <div class="modal-container" v-style="width: width+'px' ">
         <div class="modal-header">
           {{defaultTitle}}
-          <button class="modal-default-button"
+          <button type="button" class="close"
             v-on="click: show = false">
-            关闭
+            <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <content select=".modal-body">
@@ -63,12 +63,12 @@ module.exports = {
 
 .modal-container {
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 10px 20px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
+  /*font-family: Helvetica, Arial, sans-serif;*/
 }
 
 .modal-header h3 {
@@ -77,7 +77,8 @@ module.exports = {
 }
 
 .modal-body {
-  margin: 20px 0;
+  margin: 10px 0;
+  padding: 5px 15px;
 }
 
 .modal-default-button {

@@ -1,6 +1,6 @@
 <template>
 	<div class="actions-wrapper">
-		<div id="upload-btn" v-on="click: onUpload">上传文件</div>
+		<div id="upload-btn" v-on="click: onUpload"></div>
 		<div id="print-btn" v-on="click: onPrint">打印文件</div>
 		<div id="share-btn" v-on="click: onShare">分享文件</div>
 		<div id="delete-btn" v-on="click: onDelete">删除文件</div>
@@ -39,9 +39,7 @@
 						{{file.time}}
 					</td>
 					<td>
-						<span>打印</span>
-						<span>分享</span>
-						<span v-on="click: onDelete($event,file)">删除</span>
+						<span v-on="click: onDelete($event,file)">修改</span>
 					</td>
 				</tr>
  			</template>

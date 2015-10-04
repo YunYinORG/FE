@@ -60,14 +60,14 @@ module.exports = {
   },
 
   compiled: function () {
-  	loadData(this)
+  	loadTasks(this)
   },
 
   computed: {
   	displayFile: function() {
   		var searchstr = this.searchString
-  		var filtereddata = this.fileData.filter(function(x){
-  			return x.name.indexOf(searchstr)!=-1
+  		var filtereddata = this.TaskData.filter(function(x){
+  			return (x.filename.indexOf(searchstr)!=-1) || (x.printername.indexOf(serachString)!=-1)
   		})
   		return filtereddata
   	},
@@ -122,7 +122,7 @@ module.exports = {
 
 }
 
-function loadTask(vuemodel) {
+function loadTasks(vuemodel) {
   yy_request.rest_api('get','task/',{page:vuemodel.displayedPage},function(status,info){
     if(status==1) {
       var taskdata = info
@@ -137,10 +137,10 @@ function loadTask(vuemodel) {
   })
 }
 
-function deleteTask(vuemodel,file) {
-  yy_request.rest_api('delete','file/'+file.id+'/',null,function(status,info){
+function deleteTask(vuemodel,task) {
+  yy_request.rest_api('delete','task/'+task.id+'/',null,function(status,info){
   	if(status==1){
-    	vuemodel.fileData.$remove(file)
+    	vuemodel.taskData.$remove(task)
   	} else {
     	alert("OOps,删除失败啦")
   	}
