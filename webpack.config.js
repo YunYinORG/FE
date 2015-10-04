@@ -11,5 +11,9 @@ module.exports = {
       {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8192'},
     ]
   },
-  devtool: '#source-map'
-}
+  devtool: '#source-map',
+  watchOptions:{
+     aggregateTimeout: 300, // wait so long for more changes
+    poll: true 
+  }
+};
