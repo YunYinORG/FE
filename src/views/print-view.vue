@@ -1,7 +1,9 @@
 <template>
-	<input type="button" v-on="增加新任务">
-	<tasklist></tasklist>
-	<newtask-modal show="showTaskModal" mode="'modify'"></newtask-modal>	
+	<div class="print-view">
+		<input type="button" v-on="增加新任务">
+		<tasklist></tasklist>
+		<newtask-modal show="showTaskModal" mode="'modify'"></newtask-modal>		
+	</div>
 </template>
 
 <script>
@@ -22,5 +24,8 @@ module.exports = {
 </script>
 
 <style>
+.print-view {
+	position: relative;
+}
 
 </style>

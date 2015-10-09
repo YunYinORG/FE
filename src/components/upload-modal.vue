@@ -4,14 +4,14 @@
       <div id="files-wrapper">
         <upload-file v-repeat="files" on-remove="{{removeFile}}"></upload-file>
       </div>
-    </div>
-    <div class="modal-footer">
       <div class="upload-btn">
         <div class="upload-area">点击上传文件</div>
         <input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
       </div>
-      <input type="button" value="完成" v-on="click: onFinish">
-      <input type="button" value="去打印" v-on="click: onToPrint">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-wide" v-on="click: onFinish">完成</button>
+      <button class="btn btn-primary btn-wide" v-on="click: onToPrint">去打印</button>
     </div>    
   </modal>
 </template>
@@ -49,6 +49,9 @@ module.exports = {
             filedata.$remove(index)
           } else {
             filedata[index].status = "删除失败，请重试"
+            filedata[index].isfailed = true
+            filedata[index].issuccess = false
+            filedata[index].isuploading = false
           }
         })
       } else {
@@ -65,22 +68,31 @@ module.exports = {
         var filedata = {
           fileobject: ifile,
           status: "上传中",
+          isfailed: false,
+          issuccess: false,
+          isuploading: true,
         }
 
         this.files.push(filedata)
         uploadFile(filedata)
 
       }
-      hasFileInput = false 
-      hasFileInput = true //in case sometimes onChange Event will not be fired
+      this.hasFileInput = false 
+      this.hasFileInput = true //in case sometimes onChange Event will not be fired
     },
 
     onFinish: function(e) {
-      this.show = false
+      for(var i in this.files) {
+        if(this.files[i].isuploading==true) {
+          alert('请耐心等待文件上传完成，如出现上传时间过长请手动删除文件，我们会在近期加上进度显示 ^_^')
+          return 'fail'
+        }
+      }    
       if(this.files.length>0) {
         this.onFileChange()
       }
-      this.files = []    
+      this.files = []
+      this.show = false        
     }
   },
 
@@ -109,6 +121,9 @@ function uploadFile(filedata) {
         },
         error: function(rs) {
           filedata.status = '上传失败'
+          filedata.isfailed = true
+          filedata.issuccess = false
+          filedata.isuploading = false
         },
       })
     }
@@ -119,6 +134,9 @@ function uploadConfirm(filedata,key) {
   yy_request.rest_api('post','file',{key:key},function(status,info){
     if(status==1) {
       filedata.status = '上传成功'
+      filedata.isfailed = false
+      filedata.issuccess = true
+      filedata.isuploading = false
       filedata.id = info.id
     }
   })
@@ -134,6 +152,8 @@ function uploadConfirm(filedata,key) {
   border-width: 2px;
   background: #FFFFFF;
   position: relative;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .upload-area {

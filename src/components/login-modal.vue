@@ -237,8 +237,8 @@ function newUserVerify(vuemodel) {
 function loginSuccess(vuemodel) {
   vuemodel.show = false
   if(po.app.view=='intro-view') {
-    po.app.view = 'home-view'
-  } 
+    window.location.hash = '#/menu'
+  }
 }
 
 </script>

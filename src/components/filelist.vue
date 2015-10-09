@@ -1,15 +1,30 @@
 <template>
-	<div class="actions-wrapper">
-		<div id="upload-btn" v-on="click: onUpload">上传文件</div>
-		<div id="print-btn" v-on="click: onPrint">打印文件</div>
-		<div id="share-btn" v-on="click: onShare">分享文件</div>
-		<div id="delete-btn" v-on="click: onDelete">删除文件</div>
-		<form id="search">
-			搜索文件
-			<input type="text" v-model="searchString">
-		</form>		
+  <div class="filetable">
+	<div class="row actions-wrapper">
+    <div class="col-xs-8">
+      <button class="btn btn-embossed btn-primary" v-on="click: onUpload">
+        <span class="glyphicon glyphicon-open"></span>
+        上传文件
+      </button>
+      <button class="btn btn-embossed btn-primary" v-on="click: onPrint">
+        <span class="glyphicon glyphicon-print"></span>
+        打印文件
+      </button>
+      <button class="btn btn-embossed btn-primary" v-on="click: onShare">
+        <span class="glyphicon glyphicon-share"></span>
+        分享文件
+      </button>
+      <button class="btn btn-embossed btn-primary" v-on="click: onDelete">
+        <span class="glyphicon glyphicon-trash"></span>
+        删除文件
+      </button>
+    </div>
+    <div class="col-xs-3 col-xs-offset-1">
+      <input class="search-input form-control" type="text" v-model="searchString" placeholder="搜索您的文件">    
+    </div>
 	</div>
-	<table>
+
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>
@@ -38,16 +53,18 @@
 					<td>
 						{{file.time}}
 					</td>
-					<td>
-						<span>打印</span>
-						<span>分享</span>
-						<span v-on="click: onDelete($event,file)">删除</span>
+					<td class='action-line'>
+						<span class="glyphicon glyphicon-print"></span>
+						<span class="glyphicon glyphicon-share"></span>
+            <span class="glyphicon glyphicon-trash"
+              v-on="click: onDelete($event,file)"></span>
 					</td>
 				</tr>
  			</template>
 		</tbody>
 	</table>
-	<div v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
+	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
+  </div>
 	<upload-modal show="{{@showUploadModal}}" on-file-change="{{onFileChange}}"></upload-modal>
 	<newtask-modal show="{{@showNewTaskModal}}" pfiles="{{pfiles}}" mode="{{taskMode}}"></newtask-modal>
 </template>
@@ -182,5 +199,23 @@ function deleteFile(vuemodel,file) {
 </script>
 
 <style>
-	
+.actions-wrapper {
+  margin-bottom: 20px;
+}
+
+.more {
+  text-align: center;
+  width: 100%
+}
+
+.action-line {
+  width: 120px;
+}
+.action-line span {
+  margin-left: 8%;
+}
+
+/*.filetable {
+  max-height:10px;
+}*/
 </style>

@@ -1,28 +1,49 @@
 <template>
-	<div id="wrapper">
-		<div id="file-logo">
-			<!-- <img src="" alt=""> -->
+	<div class="file row">
+		<div class="col-xs-1 img-col">
+			<img v-el="filelogo" src="">
 		</div>
-		<div id="file-name" v-text="fileobject.name"></div>
-		<div id="upload-status">
-			<div class="outer-line">
-				<div class="inner-line" v-text="status"></div>
+		<div class="col-xs-7">
+			<small v-text="fileobject.name"></small>
+		</div>
+		<div class="col-xs-3">
+			<div id="upload-status">
+				<div class="outer-line">
+					<small v-class="
+						text: isuploading,
+						text-danger: isfailed,
+						text-primary: issuccess"
+						v-text="status"></small>
+				</div>
 			</div>
 		</div>
-		<div id="delete">
-			<input type="button" v-on="click: onRemove($index)" value="删除">
+		<div class="col-xs-1 delete-file">
+			<span class="glyphicon glyphicon-trash" v-on="click: onRemove($index)"></span>
 		</div>
 	</div>
 </template>
 
 <script>
 module.exports = {
-	props:['onRemove']
+	props:['onRemove'],
+
+	compiled: function() {
+		var img_src = 'src/img/' + this.fileobject.name.split('.').pop() + '.png'
+		this.$$.filelogo.src = img_src
+	}
 }
 </script>
 
 <style>
-/*	#wrapper>div {
-		display: inline;
-	}
-*/</style>
+.file {
+	margin-bottom: 5px;
+}
+.file img {
+    width: 80%;
+}
+
+.img-col {
+	padding: 0;
+}
+
+</style>
