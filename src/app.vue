@@ -51,7 +51,7 @@
         <li><a href="">微信平台</a></li>
       </ul>
   </footer>
-  <upload-modal show="{{@showUploadModal}}"></upload-modal>
+  <upload-modal show="{{@showUploadModal}}" on-file-change="{{onFileChange}}"></upload-modal>
   <login-modal show="{{@showLoginModal}}"></login-modal>
 </template>
 
@@ -77,6 +77,9 @@ module.exports = {
       this.$$.aside.classList.remove('open')
       this.$$.other.classList.remove('slide-aside')
       this.$$.header.classList.remove('slide-aside')
+    },
+    onFileChange: function() {
+      window.location.hash="#/file"
     }
   },
 
