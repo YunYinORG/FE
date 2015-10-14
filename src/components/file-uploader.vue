@@ -75,13 +75,13 @@ function uploadFile(filedata) {
   yy_request.rest_api('post','file/token/',{"name":filedata.fileobject.name},function(status,info){
     if(status==1) {
       filedata.token = info.token
-      filedata.key = info.key
+     // filedata.key = info.key
       yy_request.ajax({
         method: 'post',
         url: 'http://upload.qiniu.com/',
         data: {
           token: filedata.token,
-          key: filedata.key,
+      //    key: filedata.key,
           file: filedata.fileobject,
         },
         content: 'multipart',
