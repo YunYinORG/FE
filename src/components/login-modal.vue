@@ -134,19 +134,24 @@ module.exports = {
           }
           yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
             var sch_value = []
+            var sch_key = []
             if(status==1) {
               for(var key in info){
+                sch_key.push(key)
                 sch_value.push(info[key])
               }
               if(sch_value[0]==0) {
                 oldUserLogin(vuemodel)
               } else {
-                var si = require('../js/school_identify.js')
-                si.get_school_id(function(id,name){
-                  vuemodel.schoolid = id
-                  newuser_id.push(vuemodel.studentid)
-                  testCode(vuemodel)
-                })              
+                vuemodel.schoolid = sch_key[0]
+                newuser_id.push(vuemodel.studentid)
+                testCode(vuemodel)
+                // var si = require('../js/school_identify.js')
+                // si.get_school_id(function(id,name){
+                //   vuemodel.schoolid = id
+                //   newuser_id.push(vuemodel.studentid)
+                //   testCode(vuemodel)
+                // })              
               }
             }
           })

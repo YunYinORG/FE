@@ -230,30 +230,5 @@ function modifyTask(vuemodel) {
 </script>
 
 <style>
-.upload-btn{
-  height: 40px;
-  border-style: solid;
-  border-width: 2px;
-  background: #FFFFFF;
-  position: relative;
-}
 
-.upload-area {
-  text-align:center;
-  padding-top: 7px;
-  font-size: 15px;
-  font-weight: 800;
-}
-
-#upload-file {
-    cursor: pointer;
-    font-size: 30px;
-    outline: medium none;
-    position: absolute;
-    filter:alpha(opacity=0);
-    -moz-opacity:0;
-    opacity:0; 
-    left: 0px;
-    top: 0px;
-}
 </style>

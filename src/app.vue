@@ -35,7 +35,6 @@
     v-el="other">
     <component is="{{view}}"
       class="view"
-      keep-alive
       v-transition
       transition-mode="out-in">
     </component>
@@ -51,7 +50,8 @@
         <li><a href="">微信平台</a></li>
       </ul>
   </footer>
-  <upload-modal show="{{@showUploadModal}}" on-file-change="{{onFileChange}}"></upload-modal>
+  <filetask-modal show="{{@showFileTaskModal}}" on-file-change="{{onFileChange}}" 
+    mode="{{fileTaskMode}}"></filetask-modal>
   <login-modal show="{{@showLoginModal}}"></login-modal>
 </template>
 
@@ -63,7 +63,8 @@ module.exports = {
     return {
       view: '',
       showLoginModal: false,
-      showUploadModal: false,
+      showFileTaskModal: false,
+      fileTaskMode: "newfile",
     }
   },
 
@@ -92,7 +93,7 @@ module.exports = {
     'textbook-view': require('./views/textbook-view.vue'),
     'user-view': require('./views/user-view.vue'),
     'login-modal': require('./components/login-modal.vue'),
-    'upload-modal': require('./components/upload-modal.vue'),
+    'filetask-modal': require('./components/filetask-modal.vue'),
   }
 }
 </script>

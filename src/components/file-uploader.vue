@@ -1,47 +1,32 @@
 <template>
-  <modal show="{{@show}}" width="{{modalWidth}}" default-title="{{title}}">
-    <div class="modal-body">
-      <div id="files-wrapper">
-        <upload-file v-repeat="files" on-remove="{{removeFile}}"></upload-file>
-      </div>
-      <div class="upload-btn">
-        <div class="upload-area">点击上传文件</div>
-        <input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary btn-wide" v-on="click: onFinish">完成</button>
-      <button class="btn btn-primary btn-wide" v-on="click: onToPrint">去打印</button>
-    </div>    
-  </modal>
+	<div id="files-wrapper">
+		<upload-file v-repeat="fileList" on-remove="{{removeFile}}"></upload-file>
+	</div>
+	<div class="upload-btn">
+		<div class="upload-area">点击上传文件</div>
+		<input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
+	</div>		
 </template>
 
 <script>
-
+	
 var yy_request = require('../js/yunyin_request')
 
 module.exports = {
   props: {
-    show: {
-      type: Boolean,
-      required: true,
-      twoWay: true,
-    },
-    onFileChange: Function,
+    fileList: Array,
   },
 
   data: function () {
     return {
-      modalWidth: 600,
       title: "请选择需要上传的文件",
-      files: [],
       hasFileInput: true,
     }
   },
 
   methods: {
     removeFile: function(index) {
-      var filedata = this.files
+      var filedata = this.fileList
 
       if("id" in filedata[index]) {
         yy_request.rest_api('delete','file/'+filedata[index].id+'/',null,function(status,info){
@@ -56,8 +41,7 @@ module.exports = {
         })
       } else {
         filedata.$remove(index)
-      }
-          
+      }          
     },
 
     uploadFiles: function(e) {
@@ -73,31 +57,16 @@ module.exports = {
           isuploading: true,
         }
 
-        this.files.push(filedata)
+        this.fileList.push(filedata)
         uploadFile(filedata)
 
       }
       this.hasFileInput = false 
       this.hasFileInput = true //in case sometimes onChange Event will not be fired
     },
-
-    onFinish: function(e) {
-      for(var i in this.files) {
-        if(this.files[i].isuploading==true) {
-          alert('请耐心等待文件上传完成，如出现上传时间过长请手动删除文件，我们会在近期加上进度显示 ^_^')
-          return 'fail'
-        }
-      }    
-      if(this.files.length>0) {
-        this.onFileChange()
-      }
-      this.files = []
-      this.show = false        
-    }
   },
 
   components: {
-    'modal': require('./modal.vue'),
     'upload-file': require('./upload-file.vue')
   }
 }
@@ -142,11 +111,10 @@ function uploadConfirm(filedata,key) {
   })
 }
 
-
 </script>
 
 <style>
-.upload-btn{
+.upload-btn {
   height: 40px;
   border-style: solid;
   border-width: 2px;

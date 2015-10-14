@@ -24,7 +24,7 @@
 			<template v-repeat="task:displayTask" track-by="id">
 				<tr>
           <td>{{task.status}}</td>
-          <td>{{task.fname}}</td>
+          <td>{{task.url}}</td>
           <td>{{task.time}}</td>
           <td>{{task.printer}}</td>
           <td>{{task.copies}}</td>
@@ -39,7 +39,6 @@
 		</tbody>
 	</table>
 	<div v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
-	<upload-modal show="{{@showUploadModal}}" on-file-change="{{onFileChange}}"></upload-modal>
 </template>
 
 <script>
@@ -64,10 +63,10 @@ module.exports = {
   },
 
   computed: {
-  	displayFile: function() {
+  	displayTask: function() {
   		var searchstr = this.searchString
-  		var filtereddata = this.TaskData.filter(function(x){
-  			return (x.filename.indexOf(searchstr)!=-1) || (x.printername.indexOf(serachString)!=-1)
+  		var filtereddata = this.taskData.filter(function(x){
+  			return (x.url.indexOf(searchstr)!=-1) || (x.printer.indexOf(serachString)!=-1)
   		})
   		return filtereddata
   	},
@@ -107,18 +106,14 @@ module.exports = {
 
   	onLoadMore: function() {
   		this.displayedPage = this.displayedPage + 1
-  		loadData(this)
+  		loadTasks(this)
   	},
   	onFileChange: function() {
   		this.fileData = []
   		this.displayedPage = 1
-  		loadData(this)
+  		loadTasks(this)
   	}
   },
-
-  components: {
-  	'upload-modal': require('../components/upload-modal.vue'),
-  }
 
 }
 
@@ -127,7 +122,7 @@ function loadTasks(vuemodel) {
     if(status==1) {
       var taskdata = info
 
-      if(tasklist.length==vuemodel.tasksPerPage) {
+      if(taskdata.length==vuemodel.tasksPerPage) {
       	vuemodel.moreData = true
       } else {
       	vuemodel.moreData = false
