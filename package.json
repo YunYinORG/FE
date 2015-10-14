@@ -2,7 +2,7 @@
   "name": "yunyin-fe",
   "version": "1.0.0",
   "description": "yunyin front end with vue",
-  "main": "index.js",
+  "main": "src/main.js",
   "license": "MIT",
   "scripts": {
     "dev": "webpack --watch",
@@ -16,10 +16,11 @@
   "author": "Andy",
   "dependencies": {
     "blueimp-md5": "^1.1.1",
-    "vue": "^0.12.0"
+    "vue": "^0.12.0",
+    "director": "~1.2.8"
   },
   "devDependencies": {
-    "css-loader": "^0.14.4",
+    "css-loader": "^0.15.4",
     "file-loader": "^0.8.4",
     "html-loader": "^0.3.0",
     "style-loader": "^0.12.3",
