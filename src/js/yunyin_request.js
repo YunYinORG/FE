@@ -1,12 +1,12 @@
-/* 
-andyjyuan@163.com 
+/*
+andyjyuan@163.com
 
 most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 */
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://127.0.0.1:8888/index.php/'
+var baseurl = 'http://127.0.0.1/index.php/'
 
 module.exports = {
 	rest_api: function(method,resource,data,successfn) {
@@ -14,6 +14,7 @@ module.exports = {
 			method: method,
 			url: baseurl + resource,
 			data: data,
+			withCredentials:true,
 			success: function(responseText,status) {
 				var rpdata = JSON.parse(responseText)
 				if(resource=='auth/') {
@@ -34,7 +35,7 @@ module.exports = {
 
 	ajax: function(options) {
 		return new yyajax(options);
-	},	
+	},
 }
 
 
@@ -42,22 +43,21 @@ module.exports = {
 var yyajax = function(options) {
 	this.XHR = null;
 	this.method   = options["method"]   || "get"  ;
-	this.url      = options["url"]      || ""     ; 
+	this.url      = options["url"]      || ""     ;
 	this.user     = options["user"]     || null   ;
 	this.pwd      = options["password"] || null   ;
 	this.data     = options["data"]     || null   ;
 	this.encoding = options["encoding"] || "utf-8";
 
 	this.content = options["content"] || "urlencoded";
-	
 	this.success  = options["success"];
 	this.error    = options["error"];
 
-	this.sendRequest();
+	this.sendRequest(options["withCredentials"]);
 }
 
-yyajax.prototype = {	
-	sendRequest: function() {
+yyajax.prototype = {
+	sendRequest: function(withCredentials) {
 		var o = this,
 			reg = /\?/,
 			data = o.formatData(o.data),
@@ -70,13 +70,14 @@ yyajax.prototype = {
 		if(!o.XHR) return false;
 		o.XHR.open(o.method, url, true);
 		o.XHR.onreadystatechange = function(){
-			o.handleEvent(o,this);	
+			o.handleEvent(o,this);
 		};
 
 		if(this.content=="urlencoded"){
 			o.XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset="+o.encoding+"");
 		}
-			
+
+		o.XHR.withCredentials=withCredentials;
 		o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
 	    o.XHR.send(data);
 	},
@@ -86,7 +87,7 @@ yyajax.prototype = {
 			switch(x.status){
 				case 200:
 					o.success.call(x,x.responseText,x.status,"success");
-					break;	
+					break;
 				default:
 					o.error.call(x,x.status,"error");
 			};
@@ -106,7 +107,7 @@ yyajax.prototype = {
 				i,len = MSXML.length;
 			for(i = 0; i < len; i+=1) {
 				try {
-					return new ActiveXObject(MSXML[i]);        
+					return new ActiveXObject(MSXML[i]);
 					break;
 				} catch(e){
 					return null;
@@ -123,7 +124,7 @@ yyajax.prototype = {
 				};
 				return arr;
 		};
-		
+
 		if(this.content=="urlencoded") {
 			if( typeof d == "object" ){
 				return s(d).join("&");
@@ -136,7 +137,7 @@ yyajax.prototype = {
 			for(var i in d) {
 				myFormData.append(i,d[i]);
 			}
-			
+
 			return myFormData;
 		}
 
