@@ -6,7 +6,7 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://127.0.0.1/index.php/'
+var baseurl = 'http://localhost/index.php/'
 
 module.exports = {
 	rest_api: function(method,resource,data,successfn) {
@@ -62,6 +62,7 @@ yyajax.prototype = {
 			reg = /\?/,
 			data = o.formatData(o.data),
 			url = reg.test(o.url)?o.data?o.url.substring(0,o.url.search(reg)):o.url:o.url;
+
 		if(o.method == "get"){
 			if(o.data) url += "?"+data;
 			data = null;
@@ -120,7 +121,7 @@ yyajax.prototype = {
 		var s = function(d){
 				var arr = [];
 				for(var i in d){
-					arr.push( i + "=" + d[i] );
+					arr.push( i + "=" + d[i]);
 				};
 				return arr;
 		};

@@ -1,92 +1,64 @@
 <template>
   <div class="taskinfo-wrapper">
-    <form>
-      <div class="form-group">
-        <select class="form-control select select-primary mbl"
-          v-model="printerID"
-          options="printerList" 
-          v-on="change: showPrinterInfo">
-          <option value="">选择您想去的打印店</option>
-        </select>
-      </div>
-      <div class="panel panel-success text-center">
-        <div class="panel-heading">
-          <p style="font-size: 22px; margin-bottom:0">{{printerInfo.name}}</p>
-          <p style="font-size: 22px; margin-bottom:0">{{printerInfo.address}}</p>
-          <p style="font-size: 22px; margin-bottom:0">{{printerInfo.phone}}</p>
-        </div>
-        <div class="panel-body">
-          <p>黑白单面：{{printerInfo.price1}}</p>
-          <p>黑白双面：{{printerInfo.price2}}</p>
-          <p>彩印单面：{{printerInfo.price3}}</p>
-          <p style="margin-bottom: 0">彩印双面：{{printerInfo.price4}}</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="row">
-          <div class="col-xs-2">
-            <div class="bootstrap-switch-square">
-              <input v-model="isInStore" type="checkbox" data-on-text="到店" data-off-text="提前" id="is-pre-print" checked/>
-            </div>
-          </div>
-          <div class="col-xs-offset-2 col-xs-2">
-            <div class="bootstrap-switch-square more-setting">
-              <input v-model="isBlackWhite" type="checkbox" data-on-text="黑白" data-off-text="彩印" id="print-color" checked/>
-            </div>
-          </div>
-          <div class="col-xs-offset-2 col-xs-1">
-            <div class="bootstrap-switch-square more-setting">
-              <input v-model="isSingleSide" type="checkbox" data-on-text="单面" data-off-text="双面" id="is-double-print" checked/>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="form-group more-setting">
-        <div class="input-group">
-          <span class="input-group-addon">打印份数</span>
-          <input v-model="copies" type="number" placeholder="份数" class="form-control" id="print-copies" min="1" value="1"/>
-        </div>
-        <div class="clear"></div>
-      </div>
-    </form>
+    <my-select
+      options="{{printerList}}"
+      value="{{@taskSetting.printerId}}"
+      desc="选择想去的打印店"
+      on-select-change={{showPrinterInfo}}>
+    </my-select>
 
- <!--    <select v-model="printerID" options="printerList" v-on="change: showPrinter"></select>
-    <div class="info-wrapper">
-      <p>{{printerInfo.name}}</p>  
-      <p>{{printerInfo.address}}</p>  
-      <p>{{printerInfo.phone}}</p>  
+    <div class="panel panel-success text-center">
+      <div class="panel-heading">
+        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.name}}</p>
+        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.address}}</p>
+        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.phone}}</p>
+      </div>
+      <div class="panel-body">
+        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>
+        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>
+        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>
+        <p style="margin-bottom: 0">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>
+      </div>
     </div>
-    <div class="price-wrapper">
-      <p>单面打印: {{printerInfo.price1}}</p>
-      <p>双面打印: {{printerInfo.price2}}</p>
-      <p>单面复印: {{printerInfo.price3}}</p>
-      <p>双面复印: {{printerInfo.price4}}</p>
+    
+    <div class="row">
+      <div class="col-sm-3 cl">
+        <my-switch
+          true-text="到店"
+          false-text="提前"
+          value="{{@taskSetting.isInStore}}">
+        </my-switch>
+      </div>
+      <div class="col-sm-3 cl">
+        <my-switch
+          v-if="!taskSetting.isInStore"
+          v-transition="expand"
+          true-text="双面"
+          false-text="单面"
+          value="{{@taskSetting.isDoubleSide}}">
+        </my-switch>
+      </div>
+      <div class="col-sm-3 cl">
+        <my-switch
+          v-if="!taskSetting.isInStore"
+          v-transition="expand"
+          true-text="彩印"
+          false-text="黑白"
+          value="{{@taskSetting.isColor}}">
+        </my-switch>
+      </div>
+      <div class="col-sm-3">
+        <div class="input-group copies-wrapper" v-if="!taskSetting.isInStore" v-transition="expand">
+          <input v-model="taskSetting.copies" type="number" placeholder="份数" class="form-control input-sm" id="print-copies" min="1" value="1"/>
+          <span class="input-group-addon input-sm">份</span>
+        </div>
+      </div>
     </div>
-    <div>
-      <div>提前打印</div>
-      <span>设置</span>
+
+    <div class="requirement" v-if="!taskSetting.isInStore" v-transition="expand">
+      <textarea v-model="taskSetting.requirements" type="text" placeholder="还有什么需要告诉店家的请写在这里" class="form-control" ></textarea>
     </div>
-    <div>
-      <div v-text="isColor? '彩色打印':'黑白打印'"></div>
-      <span v-on="click: isColor = !isColor">颜色</span>
-    </div>
-    <div>
-      <input type="text" 
-        v-model="copies" 
-        style="ime-mode:disabled;" 
-        onpaste="return false;"
-        v-on="keypress: allowNumber">
-      </input>
-      <span>份</span>
-    </div>
-    <div>
-      <div v-text="isDouble? '双面打印':'单面打印'"></div>
-      <span v-on="click: isDouble = !isDouble">单双</span>
-    </div>
-    <div class="requirements">
-      <label for="req">还有什么需求请写在这里告诉店家哦</label>
-      <input id="req" type="textarea" v-model="requirements"></input>
-    </div> -->
+
   </div>  
 </template>
 
@@ -101,28 +73,13 @@ module.exports = {
 
   data: function () {
     return {
-      printerId: null,
       printerList: [],
       printerInfo: {},
-      isInStore: true,
-      isColor: false,
-      isDouble: false,
-      copies: 1,
-      requirements: '',
-
-      // isColor: false,
-      // isDouble: false,
-      // copies: 1,
-      // requirements: '',
-      // stn: 0,
     }
   },
 
   compiled: function() {
     getPrinterList(this)
-    if(this.taskSetting.isColor!=null) {
-      this.isInStore = false
-    }
   },
 
   methods: {
@@ -131,26 +88,10 @@ module.exports = {
     },
   },
 
-  computed: {
-    taskSetting: function() {
-      tasksetting = {
-        pid: this.printerId,
-      }
-      if(this.isInStore) {
-        tasksetting.copies = ''
-        tasksetting.color = ''
-        tasksetting.isdouble = ''
-        tasksetting.requirements = ''
-      } else {
-        tasksetting.copies = this.copies
-        tasksetting.color = this.isColor
-        tasksetting.isdouble = this.isDouble
-        tasksetting.requirements = this.requirements
-      }
-
-      return tasksetting
-    },
-  },
+  components: {
+    'my-select': require('../controls/my-select.vue'),
+    'my-switch': require('../controls/my-switch.vue'),
+  }
 }
 
 function getPrinterList(vuemodel) {
@@ -167,7 +108,7 @@ function getPrinterList(vuemodel) {
 }
 
 function getPrinterDetail(vuemodel) {
-  yy_request.rest_api('get','printers/'+vuemodel.printerID,null,function(status,info){
+  yy_request.rest_api('get','printers/'+vuemodel.taskSetting.printerId,null,function(status,info){
     if(status==1) {
       vuemodel.printerInfo = {
         name: info.name,
@@ -184,5 +125,35 @@ function getPrinterDetail(vuemodel) {
 
 </script>
 <style>
-  
+.panel-success > .panel-heading{
+    color: white;
+    background-color: #1abc9c;
+    border-color: #d6e9c6;
+}
+
+.panel-body > p{
+    font-size: 20px;
+    margin: 5px;
+}
+label[for='print-copies']{
+    font-size: 25px;
+    margin-top: -8px;
+    margin-left: 10px;
+}
+.cl {
+  margin-top: 2px;
+}
+
+.requirement {
+  margin-top: 15px;
+}
+
+.expand-enter,
+.expand-leave {
+  max-height: 0;
+  -webkit-transition: max-height 0.3s ease;
+  -o-transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease;
+}
+
 </style>

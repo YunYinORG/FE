@@ -9,7 +9,7 @@
     <div class="text-center">
       <ul class="default-list">
         <li><a class="button" href="#/print">打印</a></li>
-        <li><a class="button" v-on="click: this.$parent.showFileTaskModal = true">上传</a></li>
+        <li><a class="button" v-on="click: onOpenFileTaskModal">上传</a></li>
         <li><a class="button" href="#/share">共享</a></li>
         <li><a class="button" href="#/book">教材</a></li>
         <li><a class="button" href="#/file">文件</a></li>
@@ -21,7 +21,16 @@
 
 <script>
 module.exports = {
-
+  methods: {
+    onOpenFileTaskModal: function() {
+      this.$parent.fileTaskParams = {
+        mode: 'newfile',
+        fileList: [],
+        taskId: {},
+      }
+      this.$parent.showFileTaskModal = true
+    }
+  }
 }
 
 </script>

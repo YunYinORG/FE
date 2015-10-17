@@ -1,214 +1,156 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'director', '--save' ]
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'sticky-table-headers' ]
 2 info using npm@2.7.4
 3 info using node@v0.12.2
-4 silly cache add args [ 'director', null ]
-5 verbose cache add spec director
-6 silly cache add parsed spec { raw: 'director',
+4 silly cache add args [ 'sticky-table-headers', null ]
+5 verbose cache add spec sticky-table-headers
+6 silly cache add parsed spec { raw: 'sticky-table-headers',
 6 silly cache add   scope: null,
-6 silly cache add   name: 'director',
+6 silly cache add   name: 'sticky-table-headers',
 6 silly cache add   rawSpec: '',
 6 silly cache add   spec: '*',
 6 silly cache add   type: 'range' }
-7 verbose addNamed director@*
+7 verbose addNamed sticky-table-headers@*
 8 silly addNamed semver.valid null
 9 silly addNamed semver.validRange *
-10 silly addNameRange { name: 'director', range: '*', hasData: false }
-11 silly mapToRegistry name director
+10 silly addNameRange { name: 'sticky-table-headers', range: '*', hasData: false }
+11 silly mapToRegistry name sticky-table-headers
 12 silly mapToRegistry using default registry
 13 silly mapToRegistry registry https://registry.npmjs.org/
-14 silly mapToRegistry uri https://registry.npmjs.org/director
-15 verbose addNameRange registry:https://registry.npmjs.org/director not in flight; fetching
-16 verbose request uri https://registry.npmjs.org/director
+14 silly mapToRegistry uri https://registry.npmjs.org/sticky-table-headers
+15 verbose addNameRange registry:https://registry.npmjs.org/sticky-table-headers not in flight; fetching
+16 verbose request uri https://registry.npmjs.org/sticky-table-headers
 17 verbose request no auth needed
-18 info attempt registry request try #1 at 13:57:54
-19 verbose request id 968d8719495bb28c
-20 verbose etag "8HJ7RNT2JE5M8JWERW2WML8DS"
-21 http request GET https://registry.npmjs.org/director
-22 http 304 https://registry.npmjs.org/director
-23 silly get cb [ 304,
-23 silly get   { date: 'Fri, 09 Oct 2015 05:57:56 GMT',
-23 silly get     via: '1.1 varnish',
-23 silly get     'cache-control': 'max-age=60',
-23 silly get     etag: '"8HJ7RNT2JE5M8JWERW2WML8DS"',
-23 silly get     age: '51',
-23 silly get     connection: 'keep-alive',
-23 silly get     'x-served-by': 'cache-sjc3133-SJC',
-23 silly get     'x-cache': 'HIT',
-23 silly get     'x-cache-hits': '1',
-23 silly get     'x-timer': 'S1444370276.084540,VS0,VE0',
-23 silly get     vary: 'Accept' } ]
-24 verbose etag https://registry.npmjs.org/director from cache
-25 verbose get saving director to /Users/andy/.npm/registry.npmjs.org/director/.cache.json
-26 silly addNameRange number 2 { name: 'director', range: '*', hasData: true }
-27 silly addNameRange versions [ 'director',
-27 silly addNameRange   [ '1.0.2',
-27 silly addNameRange     '1.0.3',
-27 silly addNameRange     '1.0.4',
-27 silly addNameRange     '1.0.5',
-27 silly addNameRange     '1.0.6',
-27 silly addNameRange     '1.0.7',
-27 silly addNameRange     '1.0.8',
-27 silly addNameRange     '1.0.9',
-27 silly addNameRange     '1.0.9-1',
-27 silly addNameRange     '1.0.10',
-27 silly addNameRange     '1.0.11',
-27 silly addNameRange     '1.1.0',
-27 silly addNameRange     '1.1.1',
-27 silly addNameRange     '1.1.2',
-27 silly addNameRange     '1.1.3',
-27 silly addNameRange     '1.1.4',
-27 silly addNameRange     '1.1.6',
-27 silly addNameRange     '1.1.7',
-27 silly addNameRange     '1.1.8',
-27 silly addNameRange     '1.1.9',
-27 silly addNameRange     '1.1.10',
-27 silly addNameRange     '1.2.0',
-27 silly addNameRange     '1.2.1',
-27 silly addNameRange     '1.2.2',
-27 silly addNameRange     '1.2.3',
-27 silly addNameRange     '1.2.5',
-27 silly addNameRange     '1.2.6',
-27 silly addNameRange     '1.2.7',
-27 silly addNameRange     '1.2.8' ] ]
-28 verbose addNamed director@1.2.8
-29 silly addNamed semver.valid 1.2.8
-30 silly addNamed semver.validRange 1.2.8
-31 silly cache afterAdd director@1.2.8
-32 verbose afterAdd /Users/andy/.npm/director/1.2.8/package/package.json not in flight; writing
-33 verbose afterAdd /Users/andy/.npm/director/1.2.8/package/package.json written
-34 silly install resolved [ { name: 'director',
-34 silly install resolved     description: 'A client Side/Server Side Router',
-34 silly install resolved     author: { name: 'Charlie Robbins', email: 'charlie.robbins@gmail.com' },
-34 silly install resolved     version: '1.2.8',
-34 silly install resolved     maintainers: [ [Object], [Object], [Object] ],
-34 silly install resolved     repository: { type: 'git', url: 'http://github.com/flatiron/director.git' },
-34 silly install resolved     keywords:
-34 silly install resolved      [ 'URL',
-34 silly install resolved        'router',
-34 silly install resolved        'http',
-34 silly install resolved        'cli',
-34 silly install resolved        'flatiron',
-34 silly install resolved        'client side',
-34 silly install resolved        'ender' ],
-34 silly install resolved     devDependencies:
-34 silly install resolved      { 'api-easy': '0.4.x',
-34 silly install resolved        codesurgeon: 'https://github.com/hij1nx/codesurgeon/tarball/master',
-34 silly install resolved        colors: '1.0.x',
-34 silly install resolved        qunitjs: '1.9.x',
-34 silly install resolved        request: '2.49.x',
-34 silly install resolved        'uglify-js': '2.4.x',
-34 silly install resolved        vows: '0.8.0' },
-34 silly install resolved     ender: './build/ender.js',
-34 silly install resolved     browserify: './build/director',
-34 silly install resolved     main: './lib/director',
-34 silly install resolved     engines: { node: '>= 0.8.0' },
-34 silly install resolved     scripts: { test: 'vows test/server/*/*-test.js --spec' },
-34 silly install resolved     gitHead: 'b507baed25cfd38307808ea41a0d6305ee6e1ebf',
-34 silly install resolved     bugs: { url: 'https://github.com/flatiron/director/issues' },
-34 silly install resolved     homepage: 'https://github.com/flatiron/director',
-34 silly install resolved     _id: 'director@1.2.8',
-34 silly install resolved     _shasum: 'c6d9b4dd890e9aff5365183fe9cc8e73994cf2d5',
-34 silly install resolved     _from: 'director@*',
-34 silly install resolved     _npmVersion: '2.1.7',
-34 silly install resolved     _nodeVersion: '0.8.27',
-34 silly install resolved     _npmUser: { name: 'jcrugzz', email: 'jcrugzz@gmail.com' },
-34 silly install resolved     dist:
-34 silly install resolved      { shasum: 'c6d9b4dd890e9aff5365183fe9cc8e73994cf2d5',
-34 silly install resolved        tarball: 'http://registry.npmjs.org/director/-/director-1.2.8.tgz' },
-34 silly install resolved     directories: {},
-34 silly install resolved     _resolved: 'https://registry.npmjs.org/director/-/director-1.2.8.tgz',
-34 silly install resolved     readme: 'ERROR: No README data found!' } ]
-35 info install director@1.2.8 into /Users/andy/yunyin_fe
-36 info installOne director@1.2.8
-37 verbose installOne of director to /Users/andy/yunyin_fe not in flight; installing
-38 verbose lock using /Users/andy/.npm/_locks/director-3e409d32a0819527.lock for /Users/andy/yunyin_fe/node_modules/director
-39 silly install write writing director 1.2.8 to /Users/andy/yunyin_fe/node_modules/director
-40 silly cache addNamed cb director@1.2.8
-41 verbose unbuild node_modules/director
-42 silly gentlyRm /Users/andy/yunyin_fe/node_modules/director is being purged from base /Users/andy/yunyin_fe
-43 verbose gentlyRm don't care about contents; nuking /Users/andy/yunyin_fe/node_modules/director
-44 verbose tar unpack /Users/andy/.npm/director/1.2.8/package.tgz
-45 verbose tar unpacking to /Users/andy/yunyin_fe/node_modules/director
-46 silly gentlyRm /Users/andy/yunyin_fe/node_modules/director is being purged
-47 verbose gentlyRm don't care about contents; nuking /Users/andy/yunyin_fe/node_modules/director
-48 silly gunzTarPerm modes [ '755', '644' ]
-49 silly gunzTarPerm extractEntry package.json
-50 silly gunzTarPerm extractEntry .npmignore
-51 silly gunzTarPerm extractEntry README.md
-52 silly gunzTarPerm extractEntry LICENSE
-53 silly gunzTarPerm extractEntry bin/build
-54 silly gunzTarPerm extractEntry bower.json
-55 silly gunzTarPerm extractEntry .travis.yml
-56 silly gunzTarPerm extractEntry examples/http.js
-57 silly gunzTarPerm extractEntry img/director.png
-58 silly gunzTarPerm extractEntry img/hashRoute.png
-59 silly gunzTarPerm extractEntry lib/director.js
-60 silly gunzTarPerm extractEntry lib/director/browser.js
-61 silly gunzTarPerm extractEntry lib/director/cli.js
-62 silly gunzTarPerm extractEntry lib/director/router.js
-63 silly gunzTarPerm extractEntry lib/director/http/index.js
-64 silly gunzTarPerm extractEntry lib/director/http/methods.js
-65 silly gunzTarPerm extractEntry lib/director/http/responses.js
-66 silly gunzTarPerm extractEntry test/browser/html5-routes-test.js
-67 silly gunzTarPerm extractEntry test/browser/routes-test.js
-68 silly gunzTarPerm extractEntry test/browser/backend/backend.js
-69 silly gunzTarPerm extractEntry test/browser/browserify-harness.html
-70 silly gunzTarPerm extractEntry test/browser/helpers/api.js
-71 silly gunzTarPerm extractEntry test/browser/html5-routes-harness.html
-72 silly gunzTarPerm extractEntry test/browser/routes-harness.html
-73 silly gunzTarPerm extractEntry test/server/cli/dispatch-test.js
-74 silly gunzTarPerm extractEntry test/server/cli/mount-test.js
-75 silly gunzTarPerm extractEntry test/server/cli/path-test.js
-76 silly gunzTarPerm extractEntry test/server/core/dispatch-test.js
-77 silly gunzTarPerm extractEntry test/server/core/insert-test.js
-78 silly gunzTarPerm extractEntry test/server/core/mount-test.js
-79 silly gunzTarPerm extractEntry test/server/core/on-test.js
-80 silly gunzTarPerm extractEntry test/server/core/path-test.js
-81 silly gunzTarPerm extractEntry test/server/core/regifystring-test.js
-82 silly gunzTarPerm extractEntry test/server/helpers/index.js
-83 silly gunzTarPerm extractEntry test/server/helpers/macros.js
-84 silly gunzTarPerm extractEntry test/server/http/accept-test.js
-85 silly gunzTarPerm extractEntry test/server/http/attach-test.js
-86 silly gunzTarPerm extractEntry test/server/http/before-test.js
-87 silly gunzTarPerm extractEntry test/server/http/configure-test.js
-88 silly gunzTarPerm extractEntry test/server/http/http-test.js
-89 silly gunzTarPerm extractEntry test/server/http/methods-test.js
-90 silly gunzTarPerm extractEntry test/server/http/recursion-test.js
-91 silly gunzTarPerm extractEntry test/server/http/responses-test.js
-92 silly gunzTarPerm extractEntry test/server/http/stream-test.js
-93 silly gunzTarPerm extractEntry build/director.js
-94 silly gunzTarPerm extractEntry build/director.min.js
-95 silly gunzTarPerm extractEntry build/ender.js
-96 info preinstall director@1.2.8
-97 silly install resolved []
-98 verbose about to build /Users/andy/yunyin_fe/node_modules/director
-99 info build /Users/andy/yunyin_fe/node_modules/director
-100 verbose linkStuff [ false, false, false, '/Users/andy/yunyin_fe/node_modules' ]
-101 info linkStuff director@1.2.8
-102 verbose linkBins director@1.2.8
-103 verbose linkMans director@1.2.8
-104 verbose rebuildBundles director@1.2.8
-105 info install director@1.2.8
-106 info postinstall director@1.2.8
-107 verbose unlock done using /Users/andy/.npm/_locks/director-3e409d32a0819527.lock for /Users/andy/yunyin_fe/node_modules/director
-108 verbose stack Error: The package css-loader does not satisfy its siblings' peerDependencies requirements!
-108 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
-108 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:264:7
-108 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
-108 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-108 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-108 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-108 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-108 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-108 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-108 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-109 verbose cwd /Users/andy/yunyin_fe
-110 error Darwin 14.4.0
-111 error argv "node" "/usr/local/bin/npm" "install" "director" "--save"
-112 error node v0.12.2
-113 error npm  v2.7.4
-114 error code EPEERINVALID
-115 error peerinvalid The package css-loader does not satisfy its siblings' peerDependencies requirements!
-115 error peerinvalid Peer vue-loader@2.1.1 wants css-loader@^0.15.4
-116 verbose exit [ 1, true ]
+18 info attempt registry request try #1 at 12:47:45
+19 verbose request id 3cb08f74304f9a80
+20 http request GET https://registry.npmjs.org/sticky-table-headers
+21 http 200 https://registry.npmjs.org/sticky-table-headers
+22 silly get cb [ 200,
+22 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly get     etag: '"DQXR2ERDUMDL10MMKE9ZR27SZ"',
+22 silly get     'content-type': 'application/json',
+22 silly get     'cache-control': 'max-age=60',
+22 silly get     'content-length': '9221',
+22 silly get     'accept-ranges': 'bytes',
+22 silly get     date: 'Sat, 17 Oct 2015 04:47:47 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     age: '0',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-nrt6125-NRT',
+22 silly get     'x-cache': 'MISS',
+22 silly get     'x-cache-hits': '0',
+22 silly get     'x-timer': 'S1445057267.745200,VS0,VE124',
+22 silly get     vary: 'Accept' } ]
+23 verbose get saving sticky-table-headers to /Users/andy/.npm/registry.npmjs.org/sticky-table-headers/.cache.json
+24 silly addNameRange number 2 { name: 'sticky-table-headers', range: '*', hasData: true }
+25 silly addNameRange versions [ 'sticky-table-headers',
+25 silly addNameRange   [ '0.1.16', '0.1.17', '0.1.18', '0.1.19' ] ]
+26 verbose addNamed sticky-table-headers@0.1.19
+27 silly addNamed semver.valid 0.1.19
+28 silly addNamed semver.validRange 0.1.19
+29 silly mapToRegistry name sticky-table-headers
+30 silly mapToRegistry using default registry
+31 silly mapToRegistry registry https://registry.npmjs.org/
+32 silly mapToRegistry uri https://registry.npmjs.org/sticky-table-headers
+33 verbose addRemoteTarball https://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz not in flight; adding
+34 verbose addRemoteTarball [ 'https://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz',
+34 verbose addRemoteTarball   '265731b39e462fdf251dcbd5e84bf1bb26d9746d' ]
+35 info retry fetch attempt 1 at 12:47:48
+36 info attempt registry request try #1 at 12:47:48
+37 http fetch GET https://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz
+38 http fetch 200 https://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz
+39 silly fetchAndShaCheck shasum 265731b39e462fdf251dcbd5e84bf1bb26d9746d
+40 verbose addTmpTarball /tmp/npm-33033-653fdffd/registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz not in flight; adding
+41 verbose addTmpTarball already have metadata; skipping unpack for sticky-table-headers@0.1.19
+42 silly cache afterAdd sticky-table-headers@0.1.19
+43 verbose afterAdd /Users/andy/.npm/sticky-table-headers/0.1.19/package/package.json not in flight; writing
+44 verbose afterAdd /Users/andy/.npm/sticky-table-headers/0.1.19/package/package.json written
+45 silly install resolved [ { name: 'sticky-table-headers',
+45 silly install resolved     description: 'jQuery sticky table headers plugin',
+45 silly install resolved     keywords: [ 'jquery', 'sticky', 'table', 'headers' ],
+45 silly install resolved     repository:
+45 silly install resolved      { type: 'git',
+45 silly install resolved        url: 'https://github.com/jmosbech/StickyTableHeaders' },
+45 silly install resolved     author: { name: 'Jonas Mosbech', email: 'https://github.com/jmosbech' },
+45 silly install resolved     version: '0.1.19',
+45 silly install resolved     main: 'js/jquery.stickytableheaders.js',
+45 silly install resolved     license: 'MIT',
+45 silly install resolved     devDependencies:
+45 silly install resolved      { grunt: '0.4.0',
+45 silly install resolved        'grunt-contrib-jshint': '~0.3.0',
+45 silly install resolved        'grunt-contrib-uglify': '~0.2.0' },
+45 silly install resolved     gitHead: 'd73d4fa8d0c6978fb7a58c74d02f99cf4d430324',
+45 silly install resolved     bugs: { url: 'https://github.com/jmosbech/StickyTableHeaders/issues' },
+45 silly install resolved     homepage: 'https://github.com/jmosbech/StickyTableHeaders',
+45 silly install resolved     _id: 'sticky-table-headers@0.1.19',
+45 silly install resolved     scripts: {},
+45 silly install resolved     _shasum: '265731b39e462fdf251dcbd5e84bf1bb26d9746d',
+45 silly install resolved     _from: 'sticky-table-headers@*',
+45 silly install resolved     _npmVersion: '2.1.3',
+45 silly install resolved     _nodeVersion: '0.10.32',
+45 silly install resolved     _npmUser: { name: 'jmosbech', email: 'jonas@mosbech.net' },
+45 silly install resolved     maintainers: [ [Object] ],
+45 silly install resolved     dist:
+45 silly install resolved      { shasum: '265731b39e462fdf251dcbd5e84bf1bb26d9746d',
+45 silly install resolved        tarball: 'http://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz' },
+45 silly install resolved     directories: {},
+45 silly install resolved     _resolved: 'https://registry.npmjs.org/sticky-table-headers/-/sticky-table-headers-0.1.19.tgz' } ]
+46 info install sticky-table-headers@0.1.19 into /Users/andy/yunyin_fe
+47 info installOne sticky-table-headers@0.1.19
+48 verbose installOne of sticky-table-headers to /Users/andy/yunyin_fe not in flight; installing
+49 verbose lock using /Users/andy/.npm/_locks/sticky-table-headers-f441a84be227e832.lock for /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+50 silly install write writing sticky-table-headers 0.1.19 to /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+51 silly cache addNamed cb sticky-table-headers@0.1.19
+52 verbose unbuild node_modules/sticky-table-headers
+53 silly gentlyRm /Users/andy/yunyin_fe/node_modules/sticky-table-headers is being purged from base /Users/andy/yunyin_fe
+54 verbose gentlyRm don't care about contents; nuking /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+55 verbose tar unpack /Users/andy/.npm/sticky-table-headers/0.1.19/package.tgz
+56 verbose tar unpacking to /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+57 silly gentlyRm /Users/andy/yunyin_fe/node_modules/sticky-table-headers is being purged
+58 verbose gentlyRm don't care about contents; nuking /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+59 silly gunzTarPerm modes [ '755', '644' ]
+60 silly gunzTarPerm extractEntry package.json
+61 silly gunzTarPerm modified mode [ 'package.json', 438, 420 ]
+62 silly gunzTarPerm extractEntry js/jquery.stickytableheaders.js
+63 silly gunzTarPerm modified mode [ 'js/jquery.stickytableheaders.js', 438, 420 ]
+64 silly gunzTarPerm extractEntry js/jquery.stickytableheaders.min.js
+65 silly gunzTarPerm modified mode [ 'js/jquery.stickytableheaders.min.js', 438, 420 ]
+66 silly gunzTarPerm extractEntry license.txt
+67 silly gunzTarPerm modified mode [ 'license.txt', 438, 420 ]
+68 silly gunzTarPerm extractEntry readme.md
+69 silly gunzTarPerm modified mode [ 'readme.md', 438, 420 ]
+70 info preinstall sticky-table-headers@0.1.19
+71 silly install resolved []
+72 verbose about to build /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+73 info build /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+74 verbose linkStuff [ false, false, false, '/Users/andy/yunyin_fe/node_modules' ]
+75 info linkStuff sticky-table-headers@0.1.19
+76 verbose linkBins sticky-table-headers@0.1.19
+77 verbose linkMans sticky-table-headers@0.1.19
+78 verbose rebuildBundles sticky-table-headers@0.1.19
+79 info install sticky-table-headers@0.1.19
+80 info postinstall sticky-table-headers@0.1.19
+81 verbose unlock done using /Users/andy/.npm/_locks/sticky-table-headers-f441a84be227e832.lock for /Users/andy/yunyin_fe/node_modules/sticky-table-headers
+82 verbose stack Error: The package css-loader does not satisfy its siblings' peerDependencies requirements!
+82 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+82 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:264:7
+82 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
+82 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+82 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+82 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+82 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+82 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+82 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+82 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+83 verbose cwd /Users/andy/yunyin_fe
+84 error Darwin 14.4.0
+85 error argv "node" "/usr/local/bin/npm" "install" "sticky-table-headers"
+86 error node v0.12.2
+87 error npm  v2.7.4
+88 error code EPEERINVALID
+89 error peerinvalid The package css-loader does not satisfy its siblings' peerDependencies requirements!
+89 error peerinvalid Peer vue-loader@2.1.1 wants css-loader@^0.15.4
+90 verbose exit [ 1, true ]

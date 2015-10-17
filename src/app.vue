@@ -50,9 +50,13 @@
         <li><a href="">微信平台</a></li>
       </ul>
   </footer>
-  <filetask-modal show="{{@showFileTaskModal}}" on-file-change="{{onFileChange}}" 
-    mode="{{fileTaskMode}}"></filetask-modal>
+  <filetask-modal show="{{@showFileTaskModal}}" 
+    on-file-change="{{onFileChange}}"
+    on-task-change="{{onTaskChange}}" 
+    params="{{fileTaskParams}}"></filetask-modal>
   <login-modal show="{{@showLoginModal}}"></login-modal>
+  <info-modal show="{{@showInfoModal}}" 
+    info-text="{{infoModalText}}"></info-modal>
 </template>
 
 <script>
@@ -64,7 +68,18 @@ module.exports = {
       view: '',
       showLoginModal: false,
       showFileTaskModal: false,
-      fileTaskMode: "newfile",
+      showInfoModal: false,
+      fileTaskParams: {
+        mode: 'newfile',
+        fileList: [],
+        taskId: {},
+      },
+      infoModalText:'',
+      mySelectOptions: [
+        {value: 1, display: "这个打印店还不错哦"},
+        {value: 2, display: "超级无敌打印店2"},
+      ],
+      mySelectValue: null,
     }
   },
 
@@ -80,7 +95,18 @@ module.exports = {
       this.$$.header.classList.remove('slide-aside')
     },
     onFileChange: function() {
-      window.location.hash="#/file"
+      if(window.location.hash=="#/file") {
+        window.location.reload()
+      } else {
+        window.location.hash="#/file"
+      }
+    },
+    onTaskChange: function() {
+      if(window.location.hash=="#/print") {
+        window.location.reload()
+      } else {
+        window.location.hash="#/print"
+      }
     }
   },
 
@@ -94,6 +120,7 @@ module.exports = {
     'user-view': require('./views/user-view.vue'),
     'login-modal': require('./components/login-modal.vue'),
     'filetask-modal': require('./components/filetask-modal.vue'),
+    'info-modal': require('./components/info-modal.vue'),
   }
 }
 </script>
@@ -268,5 +295,8 @@ footer a{
     color: #13202c;
 }
 
+body.modal-open {
+  overflow: hidden;
+}
 
 </style>

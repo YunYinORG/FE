@@ -1,7 +1,7 @@
 <template>
 	<div class="file row">
 		<div class="col-xs-1 img-col">
-			<img v-el="filelogo" src="">
+			<img v-el="filelogo">
 		</div>
 		<div class="col-xs-7">
 			<small v-text="fileobject.name"></small>

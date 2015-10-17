@@ -49,9 +49,11 @@
 				</div>
 				<div id="mail-wrapper" v-if="showMailEdit" v-transition="expand">
 					<div class='input-group row col-sm-offset-1 col-sm-10' style='margin-top:10px'>
-						<input type="email" placeholder='你的常用邮箱' class="form-control"/>
+						<input type="email" placeholder='你的常用邮箱' class="form-control" v-model="newMail"/>
 						<span class="input-group-btn">
-							<button class='btn btn-primary'><span class="glyphicon glyphicon-check"></span>验证</button>
+							<button class='btn btn-primary' v-on="click: onVerifyMail">
+								<span class="glyphicon glyphicon-check"></span>验证
+							</button>
 							<span class='btn btn-default cancel' v-on="click: showMailEdit=false">
 								<span class="glyphicon glyphicon-remove"></span>
 							</span>
@@ -64,56 +66,44 @@
 					<div class="col-xs-3 col-sm-offset-1">
 						密码
 					</div>
-					<span class="col-sm-6">初始密码为学号</span>
+					<span class="col-sm-6">********</span>
 					<span class='col-sm-1 glyphicon glyphicon-pencil' v-on="click: showPasswordEdit=!showPasswordEdit"></span>
 				</div>
 				<div class='password-reset row col-sm-offset-1' style='margin-top:10px' v-if="showPasswordEdit" v-transition="expand">
-					<form>
-						<div class="input-group col-sm-10 ip">
-							<span class="input-group-addon">当前密码</span>
-							<input class="form-control" placeholder='正在使用的密码' type="password" required>
-						</div>
-						<div class="input-group col-sm-10 ip">
-							<span class="input-group-addon">新的密码</span>
-							<input class="form-control" placeholder='要设置的密码' type="password" required>
-						</div>
-						<div class="input-group col-sm-10 ip">
-							<span class="input-group-addon">确认密码</span>
-							<input  class="form-control" placeholder='重复刚设置的密码' type="password" required>
-						</div>
-						<br/>
-						<div class="input-group text-center row col-sm-10">
-							<button type="submit" class="btn btn-embossed btn-primary col-sm-4 col-sm-offset-1">确定</button>
-							<span class='cancel btn btn-embossed btn-primary col-sm-4 col-sm-offset-2'
-								v-on="click: showPasswordEdit=false">取消</span>
-						</div>
-					</form>
+					<div class="input-group col-sm-10 ip">
+						<span class="input-group-addon">当前密码</span>
+						<input class="form-control" placeholder='正在使用的密码' type="password" required v-model="oldPwd">
+					</div>
+					<div class="input-group col-sm-10 ip">
+						<span class="input-group-addon">新的密码</span>
+						<input class="form-control" placeholder='要设置的密码' type="password" required v-model="newPwd">
+					</div>
+					<div class="input-group col-sm-10 ip">
+						<span class="input-group-addon">确认密码</span>
+						<input  class="form-control" placeholder='重复刚设置的密码' type="password" required v-model="newPwdRepeat">
+					</div>
+					<br/>
+					<div class="input-group text-center row col-sm-10">
+						<button class="btn btn-embossed btn-primary col-sm-4 col-sm-offset-1"
+							v-on="click: onChangePassword">确定</button>
+						<span class='cancel btn btn-embossed btn-primary col-sm-4 col-sm-offset-2'
+							v-on="click: showPasswordEdit=false">取消</span>
+					</div>
 				</div>
 			</div>
 		</div>
-<!-- 		<input type="button" value="退出登录">
-		<input type="button" value="信息有误？">
-		<div class="auth-wrapper">
-			<div><sapn>姓名: </span> <span v-text="userName"></span> </div>
-			<div><sapn>学生卡号: </span> <span v-text="userSID"></span> </div>
-			<div><sapn>学校名称: </span> <span v-text="userSch"></span> </div>
-		</div>
-		<div class="info-wrapper">
-			<div><sapn>手机: </span> <span v-text="userPhone"></span> <span v-on="click: verifyPhone"></span></div>
-			<div><sapn>邮箱: </span> <span v-text="userMail"></span> <span v-on="click: verifyMail"></span></div>		
-		</div>
-		<div class="pw-wrapp">
-			<div><sapn v-on="click: changePassword">修改密码 </span>
-		</div> -->
 	</div>
 </template>
 
 <script>
 var yy_request = require('../js/yunyin_request')
+var po = require('../js/public_object.js')
+var md5 = require("blueimp-md5")
 
 module.exports = {
 	data: function() {
 		return {
+			uid: '',
 			userName: '',
 			userSID: '',
 			userSch: '',
@@ -122,11 +112,53 @@ module.exports = {
 			showPhoneEdit: false,
 			showMailEdit: false,
 			showPasswordEdit: false,
+			newMail: '',
+			oldPwd: '',
+			newPwd: '',
+			newPwdRepeat: '',
 		}
 	},
 
 	compiled: function() {
 		get_user_detail(this)
+	},
+
+	methods: {
+		onChangePassword: function() {
+			var vuemodel = this
+			if(this.newPwd!=this.newPwdRepeat) {
+				po.app.infoModalText = "两次密码输入不一致"
+				po.app.showInfoModal = true
+			} else {
+				var ajax_data = {
+					old: md5(this.oldPwd),
+					password: md5(this.newPwd)
+				}
+				yy_request.rest_api('put','user/'+this.uid,ajax_data,function(status,info){
+					if(status==1) {
+						po.app.infoModalText = "密码修改成功"
+						po.app.showInfoModal = true
+						vuemodel.showPasswordEdit = false
+					} else {
+						po.app.infoModalText = info
+						po.app.showInfoModal = true
+					}
+				})
+			}
+		},
+
+		onVerifyMail: function() {
+			var ajax_data = {
+				email: this.newMail
+			}
+			yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
+				if(status==1) {
+					po.app.infoModalText = info
+					po.app.showInfoModal = true
+					vuemodel.showMailEdit = false
+				}
+			})
+		},
 	},
 }
 
@@ -134,8 +166,8 @@ module.exports = {
 function get_user_detail(vuemodel) {
 	yy_request.rest_api('get','user/',null,function(status,info){
 		if(status==1) {
-			var uid = info.id
-			yy_request.rest_api('get','user/'+uid,null,function(status,info){
+			vuemodel.uid = info.id
+			yy_request.rest_api('get','user/'+vuemodel.uid,null,function(status,info){
 				if(status==1) {
 					vuemodel.userName = info.name
 					vuemodel.userSID = info.number
