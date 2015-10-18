@@ -7,7 +7,8 @@
             <div class="input-group">
               <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
               <input type="text" class="form-control" id="username" placeholder="请输入您的学号"
-                v-model="studentid">
+                v-model="studentid"
+                v-on="change: onNumberChange">
             </div>
           </div>
           <div class="form-group">
@@ -26,7 +27,7 @@
 
           <div v-show="showCode" class="form-group">
             <img id="code-img" src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode" 
-              v-on="click: refreshCode">
+              v-on="click: changeCode">
             <input type="text" class="form-control pull-right" id="code-input" 
               placeholder="请输入验证码"
               v-model="code">
@@ -37,12 +38,14 @@
               v-on="click: onSubmit">登录/注册</button>
           </div>
           <div>
-            <p class="help-block" v-text="errorinfo" v-show="erroinfo!=''"></p>
+            <small class="text-danger" v-text="errorinfo" v-show="erroinfo!=''"></small>
           </div>
         </form>
       </div> <!-- #login-wrapper -->
       <div id="reset-wrapper" v-if="showReset">
-        <small> 请为云印设置一个新的密码，以后您将使用这个密码登录云印服务 </small>
+        <p class="text-center">
+          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>
+        </p>    
         <div class="form-group">
           <input type="text" class="form-control" id="nwpd-input" 
             placeholder="新的密码"
@@ -74,8 +77,6 @@
 var yy_request = require('../js/yunyin_request');
 var po = require('../js/public_object.js') 
 
-var newuser_id = []
-
 module.exports = {
   props: {
     show: {
@@ -95,6 +96,7 @@ module.exports = {
       studentid: '',
       password: '',
       schoolid: 0,
+      usertype: '',
       remeber: false,
       errorinfo: '',
       pwnew: '',
@@ -117,48 +119,44 @@ module.exports = {
   },
 
   methods: {
-    onSubmit: function(e) {
-      // student id format check
-      var reg = /^\d{7}|\d{10}$/
-
+    onNumberChange: function(e) {
       var vuemodel = this
-
-      if(!reg.test(vuemodel.studentid)) {
-        alert('请输入格式正确的学号')
-      } else {
-        if(newuser_id.indexOf(vuemodel.studentid)!=-1) {
-          newUserVerify(vuemodel)
-        } else {
-          var ajax_data = {
-            number: vuemodel.studentid
+      var ajax_data = {
+        number: vuemodel.studentid
+      }
+      yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
+        var sch_value = []
+        var sch_key = []
+        if(status==1) {
+          for(var key in info){
+            sch_key.push(key)
+            sch_value.push(info[key])
           }
-          yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
-            var sch_value = []
-            var sch_key = []
-            if(status==1) {
-              for(var key in info){
-                sch_key.push(key)
-                sch_value.push(info[key])
-              }
-              if(sch_value[0]==0) {
-                oldUserLogin(vuemodel)
-              } else {
-                vuemodel.schoolid = sch_key[0]
-                newuser_id.push(vuemodel.studentid)
-                testCode(vuemodel)
-                // var si = require('../js/school_identify.js')
-                // si.get_school_id(function(id,name){
-                //   vuemodel.schoolid = id
-                //   newuser_id.push(vuemodel.studentid)
-                //   testCode(vuemodel)
-                // })              
-              }
-            }
-          })
-        
-        }
 
-      }  
+          vuemodel.schoolid = sch_key[0]
+
+          if(sch_value[0]==0) {
+            vuemodel.usertype = 'old'
+            vuemodel.errorinfo = ""
+          } else {
+            vuemodel.usertype = 'new'
+            vuemodel.errorinfo = ""
+            refreshCode(vuemodel)             
+          }
+        } else {
+          vuemodel.usertype = 'wrong'
+          vuemodel.errorinfo = "学号格式有误"
+        }
+      })
+    },
+
+    onSubmit: function(e) {
+      var vuemodel = this
+      if(vuemodel.usertype=='old') {
+        oldUserLogin(vuemodel)
+      } else if(vuemodel.usertype=='new') {
+        newUserVerify(vuemodel)
+      }
     },
 
     newPassword: function(e) {
@@ -178,8 +176,8 @@ module.exports = {
       })
     },
 
-    refreshCode: function(e) {
-      testCode(this)
+    changeCode: function(e) {
+      refreshCode(this)
     },
 
     afterLogin: function(e) {
@@ -201,22 +199,22 @@ function oldUserLogin(vuemodel) {
   yy_request.rest_api('post','auth/',ajax_data,function(status,info){
     if(status==1) {
       loginSuccess(vuemodel)
+      vuemodel.errorinfo = ""
     } else {
-      vuemodel.errorinfo = "密码错误，请重新尝试"
+      vuemodel.errorinfo = "账号或密码错误，请重新尝试"
     }
   })
 }
 
-function testCode(vuemodel) {
-  var testCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
-  yy_request.rest_api('get',testCodeAPI,null,function(status,info) {
-    if(status==0) {
-      newUserVerify(vuemodel)
-    } else {
+function refreshCode(vuemodel) {
+  var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
+  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
+    if(status==1) {
       vuemodel.$$.verifycode.src = info
       vuemodel.showCode = true
+    } else {
+      vuemodel.showCode = false
     }
-
   })
 }
 
@@ -230,8 +228,10 @@ function newUserVerify(vuemodel) {
 
   yy_request.rest_api('post','auth/',ajax_data,function(status,info){
     if(status==-1) {
-      vuemodel.errorinfo = "验证失败，请重新验证"
-      testCode(vuemodel)
+      vuemodel.errorinfo = "学校身份信息验证失败，请确认信息正确"
+      if(vuemodel.showCode) {
+        refreshCode(vuemodel)
+      }
     } else {
       vuemodel.showReset = true
       vuemodel.showLogin = false    
@@ -240,7 +240,22 @@ function newUserVerify(vuemodel) {
 }
 
 function loginSuccess(vuemodel) {
+  yy_request.rest_api('get','user/',null,function(status,info){
+    if(status==1) {
+      po.app.username = info.name
+    } else {
+      po.app.username = '云印用户'
+    }
+  })
+
   vuemodel.show = false
+
+  setTimeout(function(){
+    vuemodel.showReset = false
+    vuemodel.showLogin = true
+    vuemodel.showDone = false   
+  },1000)
+
   if(po.app.view=='intro-view') {
     window.location.hash = '#/menu'
   }

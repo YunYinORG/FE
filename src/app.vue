@@ -8,7 +8,7 @@
       <div class="line"></div>
       <div class="line"></div>
     </div>
-    <a class="signin" v-on="click: showLoginModal = true">登录</a>
+    <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
     <div class="clear"></div>
   </header>
   <!--aside-->
@@ -60,6 +60,8 @@
 </template>
 
 <script>
+var yy_request = require('./js/yunyin_request') 
+
 module.exports = {
   el: '#app',
   
@@ -80,10 +82,19 @@ module.exports = {
         {value: 2, display: "超级无敌打印店2"},
       ],
       mySelectValue: null,
+      username: null,
     }
   },
 
   methods: {
+    onClickLogin: function() {
+      if(this.username==null) {
+        this.showLoginModal = true
+      } else {
+        window.location.hash = "#/user"
+      }
+    },
+
     toggleMenu: function() {
       this.$$.aside.classList.toggle('open')
       this.$$.other.classList.toggle('slide-aside')
@@ -108,6 +119,17 @@ module.exports = {
         window.location.hash="#/print"
       }
     }
+  },
+
+  compiled: function() {
+    var vuemodel = this
+    yy_request.rest_api('get','user/',null,function(status,info){
+      if(status==1) {
+        vuemodel.username = info.name
+      } else {
+        vuemodel.username = null
+      }
+    })
   },
 
   components: {
@@ -261,6 +283,7 @@ aside > ul{
     font-size: 20px;
     float: right;
     margin: 8px 40px 0 0;
+    cursor: pointer;
 }
 
 .view {
