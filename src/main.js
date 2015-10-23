@@ -37,4 +37,4 @@ router.on('/user', function (page) {
   app.view = 'user-view'
 })
 
-router.init('/intro')
+router.init('/menu')
