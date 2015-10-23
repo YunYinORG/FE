@@ -149,7 +149,8 @@ module.exports = {
 
 <style>
 body {
-  background-color: #1abc9c;
+  background-color: #00A6E9;
+  color:#FEFEFE;
     position: relative;
     overflow-x: hidden;
 }
@@ -236,11 +237,11 @@ section {
   height: 4px;
     border-radius: 1px;
     margin-bottom: 5px;
-    background-color: #13202c;
+    background-color: #def;
 }
 
 .nav-switch:hover > .line {
-    background-color: white;
+    background-color: #FFF;
 }
 
 .nav-switch > div {
@@ -305,7 +306,7 @@ aside > ul{
 
 footer {
     width: 100%;
-    background-color: #1abc9c;
+    background-color: #00A6E9;
     transition:0.25s ease-out;
     -webkit-transition:0.25s ease-out;
 }
@@ -315,7 +316,7 @@ footer > ul{
 }
 
 footer a{
-    color: #13202c;
+    color: #00A6E9;
 }
 
 body.modal-open {
