@@ -83,7 +83,7 @@
 	  app.view = 'user-view'
 	})
 	
-	router.init('/intro')
+	router.init('/menu')
 
 /***/ },
 /* 1 */,
@@ -10406,7 +10406,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\r\n  background-color: #1abc9c;\r\n    position: relative;\r\n    overflow-x: hidden;\r\n}\r\n\r\na { \r\n  text-decoration: none;\r\n    color: #13202c;\r\n}\r\n\r\na:link {\r\n    color: #13202c;\r\n}\r\n\r\na:visited{\r\n    color: #13202c;\r\n}\r\n\r\nheader a:hover, footer a:hover{\r\n    color: white;\r\n}\r\n\r\na:hover{\r\n    color: #1abc9c;\r\n}\r\n\r\na:active {\r\n    color: #13202c;\r\n}\r\n\r\n\r\nul{\r\n    list-style: none;\r\n}\r\n\r\nheader {\r\n    top: .1em;\r\n    width: 100%;\r\n    color: #bac1c8;\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nsection {\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\n.slide-aside {\r\n    -webkit-transform: translateX(-200px);\r\n    -moz-transform: translateX(-200px);\r\n    -ms-transform: translateX(-200px);\r\n    -o-transform: translateX(-200px);\r\n    transform: translateX(-200px);\r\n}\r\n\r\n\r\n\r\n.clear{\r\n    clear: both;\r\n}\r\n\r\n.logo {\r\n  float: left;\r\n    width: 55px;\r\n    height: 55px;\r\n    margin: -5px 0 0 10px;\r\n    background: url(" + __webpack_require__(91) + ") no-repeat center;\r\n    background-size: 100%;\r\n}\r\n\r\n/*aside*/\r\n.nav-switch{\r\n  width: 32px;\r\n    height: 32px;\r\n    float: right;\r\n    margin-top: 14px;\r\n    margin-right: 14px;\r\n    cursor: pointer;\r\n}\r\n\r\n.nav-switch > .line {\r\n  height: 4px;\r\n    border-radius: 1px;\r\n    margin-bottom: 5px;\r\n    background-color: #13202c;\r\n}\r\n\r\n.nav-switch:hover > .line {\r\n    background-color: white;\r\n}\r\n\r\n.nav-switch > div {\r\n    width: 100%;\r\n    height: 0;\r\n    background-color: #ffffff;\r\n    -webkit-transition: all 0.4s ease-in-out;\r\n    -moz-transition: all 0.4s ease-in-out;\r\n    transition: all 0.4s ease-in-out;\r\n}\r\n\r\n.on-nav{\r\n    padding-right: 200px !important;\r\n}\r\n.open{\r\n    right: 0px !important;\r\n}\r\n\r\naside{\r\n    position:absolute;\r\n    top: 0;\r\n    height:100vh;\r\n    right: -200px;\r\n    width: 200px;\r\n    background: #edeff1;\r\n    min-height: 100%;\r\n    transition:0.3s ease-out;\r\n    -webkit-transition:0.2s ease-out;\r\n}\r\n\r\naside > h6{\r\n    margin-left:30px;\r\n}\r\n\r\naside > ul{\r\n    margin-left: 20px;\r\n}\r\n\r\n.signin {\r\n    font-size: 20px;\r\n    float: right;\r\n    margin: 8px 40px 0 0;\r\n    cursor: pointer;\r\n}\r\n\r\n.view {\r\n  opacity: 1;\r\n  position: absolute;\r\n  -moz-transition: opacity 0.2s ease;\r\n  -webkit-transition: opacity 0.2s ease;\r\n  -o-transition: opacity 0.2s ease;\r\n  transition: opacity 0.2s ease;\r\n}\r\n\r\n.view.v-enter {\r\n  opacity: 0;\r\n}\r\n\r\n.view.v-leave {\r\n  opacity: 0;\r\n}\r\n\r\nfooter {\r\n    width: 100%;\r\n    background-color: #1abc9c;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nfooter > ul{\r\n    margin: 10px auto 10px auto;\r\n}\r\n\r\nfooter a{\r\n    color: #13202c;\r\n}\r\n\r\nbody.modal-open {\r\n  overflow: hidden;\r\n}", ""]);
+	exports.push([module.id, "body {\r\n  background-color: #00A6E9;\r\n  color:#FEFEFE;\r\n    position: relative;\r\n    overflow-x: hidden;\r\n}\r\n\r\na { \r\n  text-decoration: none;\r\n    color: #13202c;\r\n}\r\n\r\na:link {\r\n    color: #13202c;\r\n}\r\n\r\na:visited{\r\n    color: #13202c;\r\n}\r\n\r\nheader a:hover, footer a:hover{\r\n    color: white;\r\n}\r\n\r\na:hover{\r\n    color: #1abc9c;\r\n}\r\n\r\na:active {\r\n    color: #13202c;\r\n}\r\n\r\n\r\nul{\r\n    list-style: none;\r\n}\r\n\r\nheader {\r\n    top: .1em;\r\n    width: 100%;\r\n    color: #bac1c8;\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nsection {\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\n.slide-aside {\r\n    -webkit-transform: translateX(-200px);\r\n    -moz-transform: translateX(-200px);\r\n    -ms-transform: translateX(-200px);\r\n    -o-transform: translateX(-200px);\r\n    transform: translateX(-200px);\r\n}\r\n\r\n\r\n\r\n.clear{\r\n    clear: both;\r\n}\r\n\r\n.logo {\r\n  float: left;\r\n    width: 55px;\r\n    height: 55px;\r\n    margin: -5px 0 0 10px;\r\n    background: url(" + __webpack_require__(91) + ") no-repeat center;\r\n    background-size: 100%;\r\n}\r\n\r\n/*aside*/\r\n.nav-switch{\r\n  width: 32px;\r\n    height: 32px;\r\n    float: right;\r\n    margin-top: 14px;\r\n    margin-right: 14px;\r\n    cursor: pointer;\r\n}\r\n\r\n.nav-switch > .line {\r\n  height: 4px;\r\n    border-radius: 1px;\r\n    margin-bottom: 5px;\r\n    background-color: #def;\r\n}\r\n\r\n.nav-switch:hover > .line {\r\n    background-color: #FFF;\r\n}\r\n\r\n.nav-switch > div {\r\n    width: 100%;\r\n    height: 0;\r\n    background-color: #ffffff;\r\n    -webkit-transition: all 0.4s ease-in-out;\r\n    -moz-transition: all 0.4s ease-in-out;\r\n    transition: all 0.4s ease-in-out;\r\n}\r\n\r\n.on-nav{\r\n    padding-right: 200px !important;\r\n}\r\n.open{\r\n    right: 0px !important;\r\n}\r\n\r\naside{\r\n    position:absolute;\r\n    top: 0;\r\n    height:100vh;\r\n    right: -200px;\r\n    width: 200px;\r\n    background: #edeff1;\r\n    min-height: 100%;\r\n    transition:0.3s ease-out;\r\n    -webkit-transition:0.2s ease-out;\r\n}\r\n\r\naside > h6{\r\n    margin-left:30px;\r\n}\r\n\r\naside > ul{\r\n    margin-left: 20px;\r\n}\r\n\r\n.signin {\r\n    font-size: 20px;\r\n    float: right;\r\n    margin: 8px 40px 0 0;\r\n    cursor: pointer;\r\n}\r\n\r\n.view {\r\n  opacity: 1;\r\n  position: absolute;\r\n  -moz-transition: opacity 0.2s ease;\r\n  -webkit-transition: opacity 0.2s ease;\r\n  -o-transition: opacity 0.2s ease;\r\n  transition: opacity 0.2s ease;\r\n}\r\n\r\n.view.v-enter {\r\n  opacity: 0;\r\n}\r\n\r\n.view.v-leave {\r\n  opacity: 0;\r\n}\r\n\r\nfooter {\r\n    width: 100%;\r\n    background-color: #00A6E9;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nfooter > ul{\r\n    margin: 10px auto 10px auto;\r\n}\r\n\r\nfooter a{\r\n    color: #00A6E9;\r\n}\r\n\r\nbody.modal-open {\r\n  overflow: hidden;\r\n}", ""]);
 	
 	// exports
 
@@ -10800,7 +10800,7 @@
 	
 	var po = __webpack_require__(95)
 	
-	var baseurl = 'http://api.yunyin.org/'
+	var baseurl = 'http://localhost/index.php/'
 	
 	module.exports = {
 		rest_api: function(method,resource,data,successfn) {
@@ -12085,7 +12085,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var yy_request = __webpack_require__(94);
-	var po = __webpack_require__(95) 
+	var po = __webpack_require__(95)
 	
 	module.exports = {
 	  props: {
@@ -12151,7 +12151,7 @@
 	          } else {
 	            vuemodel.usertype = 'new'
 	            vuemodel.errorinfo = ""
-	            refreshCode(vuemodel)             
+	            refreshCode(vuemodel)
 	          }
 	        } else {
 	          vuemodel.usertype = 'wrong'
@@ -12175,10 +12175,10 @@
 	      var vuemodel = this
 	
 	      var ajax_data = {
-	        password: md5(vuemodel.pwnew)    
+	        password: md5(vuemodel.pwnew)
 	      }
 	
-	      yy_request.rest_api('post','auth/register/',ajax_data,function(status,info){
+	      yy_request.rest_api('post','user/',ajax_data,function(status,info){
 	        if(status==1) {
 	          vuemodel.showDone  = true
 	          vuemodel.showReset = false
@@ -12220,7 +12220,8 @@
 	  var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
 	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
 	    if(status==1) {
-	      vuemodel.$$.verifycode.src = info
+	      vuemodel.$$.verifycode.src = info.img
+	      vuemodel.cookie=info.verify_cookie
 	      vuemodel.showCode = true
 	    } else {
 	      vuemodel.showCode = false
@@ -12233,7 +12234,12 @@
 	    number: vuemodel.studentid,
 	    password: vuemodel.password,
 	    sch_id: vuemodel.schoolid,
-	    code: vuemodel.code,
+	  }
+	  //显示验证码
+	  if(vuemodel.showCode)
+	  {
+	    ajax_data.code=vuemodel.code;
+	    ajax_data.verify_cookie=vuemodel.cookie;
 	  }
 	
 	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
@@ -12244,7 +12250,7 @@
 	      }
 	    } else {
 	      vuemodel.showReset = true
-	      vuemodel.showLogin = false    
+	      vuemodel.showLogin = false
 	    }
 	  })
 	}
@@ -12263,7 +12269,7 @@
 	  setTimeout(function(){
 	    vuemodel.showReset = false
 	    vuemodel.showLogin = true
-	    vuemodel.showDone = false   
+	    vuemodel.showDone = false
 	  },1000)
 	
 	  if(po.app.view=='intro-view') {
@@ -12366,7 +12372,7 @@
 /* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\r\n        <form action=\"\">\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\r\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\r\n                v-model=\"studentid\"\r\n                v-on=\"change: onNumberChange\">\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\r\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\r\n                v-on=\"keyup: onSubmit | key 'enter'\"\r\n                v-model=\"password\">\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\r\n            <label for=\"rmb\">自动登录</label>\r\n            <small class=\"pull-right\">忘记密码?</small>\r\n          </div>        \r\n\r\n          <div v-show=\"showCode\" class=\"form-group\">\r\n            <img id=\"code-img\" src=\"" + __webpack_require__(144) + "\" alt=\"验证码\" v-el=\"verifycode\" \r\n              v-on=\"click: changeCode\">\r\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \r\n              placeholder=\"请输入验证码\"\r\n              v-model=\"code\">\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\r\n              v-on=\"click: onSubmit\">登录/注册</button>\r\n          </div>\r\n          <div>\r\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\r\n          </div>\r\n        </form>\r\n      </div> <!-- #login-wrapper -->\r\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\r\n        <p class=\"text-center\">\r\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\r\n        </p>    \r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\" \r\n            placeholder=\"新的密码\"\r\n            v-model=\"pwnew\">\r\n        </div>  \r\n        <div class=\"form-group\">     \r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: newPassword\">设置密码</button>\r\n        </div>\r\n      </div> <!-- #reset-wrapper -->\r\n      <div id=\"done-wrapper\" v-if=\"showDone\">\r\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\r\n        <br>\r\n        <br>\r\n        <div class=\"form-group\">     \r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: afterLogin\">立即使用</button>\r\n        </div>\r\n      </div> <!-- #done-wrapper -->\r\n    </div> <!-- .modal-body -->\r\n    <div class=\"modal-footer\">\r\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\r\n      <small><a>了解更多</a></small> \r\n    </div>    \r\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\r\n        <form action=\"\">\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\r\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\r\n                v-model=\"studentid\"\r\n                v-on=\"change: onNumberChange\">\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\r\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\r\n                v-on=\"keyup: onSubmit | key 'enter'\"\r\n                v-model=\"password\">\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\r\n            <label for=\"rmb\">自动登录</label>\r\n            <small class=\"pull-right\">忘记密码?</small>\r\n          </div>\r\n\r\n          <div v-show=\"showCode\" class=\"form-group\">\r\n            <img id=\"code-img\" src=\"" + __webpack_require__(144) + "\" alt=\"验证码\" v-el=\"verifycode\"\r\n              v-on=\"click: changeCode\">\r\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\"\r\n              placeholder=\"请输入验证码\"\r\n              v-model=\"code\">\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\r\n              v-on=\"click: onSubmit\">登录/注册</button>\r\n          </div>\r\n          <div>\r\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\r\n          </div>\r\n        </form>\r\n      </div> <!-- #login-wrapper -->\r\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\r\n        <p class=\"text-center\">\r\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\r\n        </p>\r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\r\n            placeholder=\"新的密码\"\r\n            v-model=\"pwnew\">\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: newPassword\">设置密码</button>\r\n        </div>\r\n      </div> <!-- #reset-wrapper -->\r\n      <div id=\"done-wrapper\" v-if=\"showDone\">\r\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\r\n        <br>\r\n        <br>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: afterLogin\">立即使用</button>\r\n        </div>\r\n      </div> <!-- #done-wrapper -->\r\n    </div> <!-- .modal-body -->\r\n    <div class=\"modal-footer\">\r\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\r\n      <small><a>了解更多</a></small>\r\n    </div>\r\n  </modal>";
 
 /***/ },
 /* 144 */
