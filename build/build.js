@@ -45,6 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var Vue = __webpack_require__(20)
 	var app = new Vue(__webpack_require__(87))
 	
@@ -101,6 +102,48 @@
 	
 
 >>>>>>> master
+=======
+	var Vue = __webpack_require__(20)
+	var app = new Vue(__webpack_require__(87))
+	
+	var po = __webpack_require__(95)
+	po.app = app
+	
+	window.bb = app
+	
+	var Router = __webpack_require__(181).Router
+	var router = new Router()
+	
+	router.on('/intro', function (page) {
+	  app.view = 'intro-view'
+	})
+	
+	router.on('/menu', function (page) {
+	  	app.view = 'menu-view'
+	})
+	
+	router.on('/print', function (page) {
+	  app.view = 'print-view'
+	})
+	
+	router.on('/share', function (page) {
+	  app.view = 'share-view'
+	})
+	
+	router.on('/book', function (page) {
+	  app.view = 'textbook-view'
+	})
+	
+	router.on('/file', function (page) {
+	  app.view = 'file-view'
+	})
+	
+	router.on('/user', function (page) {
+	  app.view = 'user-view'
+	})
+	
+	router.init('/menu')
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 1 */,
@@ -10421,11 +10464,22 @@
 
 <<<<<<< HEAD
 	exports = module.exports = __webpack_require__(90)();
+<<<<<<< HEAD
 	exports.push([module.id, "body {\n  background-color: #1abc9c;\n    position: relative;\n    overflow-x: hidden;\n}\n\na { \n  text-decoration: none;\n    color: #13202c;\n}\n\na:link {\n    color: #13202c;\n}\n\na:visited{\n    color: #13202c;\n}\n\nheader a:hover, footer a:hover{\n    color: white;\n}\n\na:hover{\n    color: #1abc9c;\n}\n\na:active {\n    color: #13202c;\n}\n\n\nul{\n    list-style: none;\n}\n\nheader {\n    top: .1em;\n    width: 100%;\n    color: #bac1c8;\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nsection {\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\n.slide-aside {\n    -webkit-transform: translateX(-200px);\n    -moz-transform: translateX(-200px);\n    -ms-transform: translateX(-200px);\n    -o-transform: translateX(-200px);\n    transform: translateX(-200px);\n}\n\n\n\n.clear{\n    clear: both;\n}\n\n.logo {\n  float: left;\n    width: 55px;\n    height: 55px;\n    margin: -5px 0 0 10px;\n    background: url("+__webpack_require__(91)+") no-repeat center;\n    background-size: 100%;\n}\n\n/*aside*/\n.nav-switch{\n  width: 32px;\n    height: 32px;\n    float: right;\n    margin-top: 14px;\n    margin-right: 14px;\n    cursor: pointer;\n}\n\n.nav-switch > .line {\n  height: 4px;\n    border-radius: 1px;\n    margin-bottom: 5px;\n    background-color: #13202c;\n}\n\n.nav-switch:hover > .line {\n    background-color: white;\n}\n\n.nav-switch > div {\n    width: 100%;\n    height: 0;\n    background-color: #ffffff;\n    -webkit-transition: all 0.4s ease-in-out;\n    -moz-transition: all 0.4s ease-in-out;\n    transition: all 0.4s ease-in-out;\n}\n\n.on-nav{\n    padding-right: 200px !important;\n}\n.open{\n    right: 0px !important;\n}\n\naside{\n    position:absolute;\n    top: 0;\n    height:100vh;\n    right: -200px;\n    width: 200px;\n    background: #edeff1;\n    min-height: 100%;\n    transition:0.3s ease-out;\n    -webkit-transition:0.2s ease-out;\n}\n\naside > h6{\n    margin-left:30px;\n}\n\naside > ul{\n    margin-left: 20px;\n}\n\n.signin {\n    font-size: 20px;\n    float: right;\n    margin: 8px 40px 0 0;\n    cursor: pointer;\n}\n\n.view {\n  opacity: 1;\n  position: absolute;\n  -moz-transition: opacity 0.2s ease;\n  -webkit-transition: opacity 0.2s ease;\n  -o-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease;\n}\n\n.view.v-enter {\n  opacity: 0;\n}\n\n.view.v-leave {\n  opacity: 0;\n}\n\nfooter {\n    width: 100%;\n    background-color: #1abc9c;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nfooter > ul{\n    margin: 10px auto 10px auto;\n}\n\nfooter a{\n    color: #13202c;\n}\n\nbody.modal-open {\n  overflow: hidden;\n}", ""]);
 =======
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, "body {\n  background-color: #00A6E9;\n  color:#FEFEFE;\n    position: relative;\n    overflow-x: hidden;\n}\n\na { \n  text-decoration: none;\n    color: #13202c;\n}\n\na:link {\n    color: #13202c;\n}\n\na:visited{\n    color: #13202c;\n}\n\nheader a:hover, footer a:hover{\n    color: white;\n}\n\na:hover{\n    color: #1abc9c;\n}\n\na:active {\n    color: #13202c;\n}\n\n\nul{\n    list-style: none;\n}\n\nheader {\n    top: .1em;\n    width: 100%;\n    color: #bac1c8;\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nsection {\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\n.slide-aside {\n    -webkit-transform: translateX(-200px);\n    -moz-transform: translateX(-200px);\n    -ms-transform: translateX(-200px);\n    -o-transform: translateX(-200px);\n    transform: translateX(-200px);\n}\n\n\n\n.clear{\n    clear: both;\n}\n\n.logo {\n  float: left;\n    width: 55px;\n    height: 55px;\n    margin: -5px 0 0 10px;\n    background: url("+__webpack_require__(92)+") no-repeat center;\n    background-size: 100%;\n}\n\n/*aside*/\n.nav-switch{\n  width: 32px;\n    height: 32px;\n    float: right;\n    margin-top: 14px;\n    margin-right: 14px;\n    cursor: pointer;\n}\n\n.nav-switch > .line {\n  height: 4px;\n    border-radius: 1px;\n    margin-bottom: 5px;\n    background-color: #def;\n}\n\n.nav-switch:hover > .line {\n    background-color: #FFF;\n}\n\n.nav-switch > div {\n    width: 100%;\n    height: 0;\n    background-color: #ffffff;\n    -webkit-transition: all 0.4s ease-in-out;\n    -moz-transition: all 0.4s ease-in-out;\n    transition: all 0.4s ease-in-out;\n}\n\n.on-nav{\n    padding-right: 200px !important;\n}\n.open{\n    right: 0px !important;\n}\n\naside{\n    position:absolute;\n    top: 0;\n    height:100vh;\n    right: -200px;\n    width: 200px;\n    background: #edeff1;\n    min-height: 100%;\n    transition:0.3s ease-out;\n    -webkit-transition:0.2s ease-out;\n}\n\naside > h6{\n    margin-left:30px;\n}\n\naside > ul{\n    margin-left: 20px;\n}\n\n.signin {\n    font-size: 20px;\n    float: right;\n    margin: 8px 40px 0 0;\n    cursor: pointer;\n}\n\n.view {\n  opacity: 1;\n  position: absolute;\n  -moz-transition: opacity 0.2s ease;\n  -webkit-transition: opacity 0.2s ease;\n  -o-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease;\n}\n\n.view.v-enter {\n  opacity: 0;\n}\n\n.view.v-leave {\n  opacity: 0;\n}\n\nfooter {\n    width: 100%;\n    background-color: #00A6E9;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nfooter > ul{\n    margin: 10px auto 10px auto;\n}\n\nfooter a{\n    color: #00A6E9;\n}\n\nbody.modal-open {\n  overflow: hidden;\n}", ""]);
 >>>>>>> master
+=======
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "body {\r\n  background-color: #00A6E9;\r\n  color:#FEFEFE;\r\n    position: relative;\r\n    overflow-x: hidden;\r\n}\r\n\r\na { \r\n  text-decoration: none;\r\n    color: #13202c;\r\n}\r\n\r\na:link {\r\n    color: #13202c;\r\n}\r\n\r\na:visited{\r\n    color: #13202c;\r\n}\r\n\r\nheader a:hover, footer a:hover{\r\n    color: white;\r\n}\r\n\r\na:hover{\r\n    color: #1abc9c;\r\n}\r\n\r\na:active {\r\n    color: #13202c;\r\n}\r\n\r\n\r\nul{\r\n    list-style: none;\r\n}\r\n\r\nheader {\r\n    top: .1em;\r\n    width: 100%;\r\n    color: #bac1c8;\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nsection {\r\n    position: relative;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\n.slide-aside {\r\n    -webkit-transform: translateX(-200px);\r\n    -moz-transform: translateX(-200px);\r\n    -ms-transform: translateX(-200px);\r\n    -o-transform: translateX(-200px);\r\n    transform: translateX(-200px);\r\n}\r\n\r\n\r\n\r\n.clear{\r\n    clear: both;\r\n}\r\n\r\n.logo {\r\n  float: left;\r\n    width: 55px;\r\n    height: 55px;\r\n    margin: -5px 0 0 10px;\r\n    background: url(" + __webpack_require__(91) + ") no-repeat center;\r\n    background-size: 100%;\r\n}\r\n\r\n/*aside*/\r\n.nav-switch{\r\n  width: 32px;\r\n    height: 32px;\r\n    float: right;\r\n    margin-top: 14px;\r\n    margin-right: 14px;\r\n    cursor: pointer;\r\n}\r\n\r\n.nav-switch > .line {\r\n  height: 4px;\r\n    border-radius: 1px;\r\n    margin-bottom: 5px;\r\n    background-color: #def;\r\n}\r\n\r\n.nav-switch:hover > .line {\r\n    background-color: #FFF;\r\n}\r\n\r\n.nav-switch > div {\r\n    width: 100%;\r\n    height: 0;\r\n    background-color: #ffffff;\r\n    -webkit-transition: all 0.4s ease-in-out;\r\n    -moz-transition: all 0.4s ease-in-out;\r\n    transition: all 0.4s ease-in-out;\r\n}\r\n\r\n.on-nav{\r\n    padding-right: 200px !important;\r\n}\r\n.open{\r\n    right: 0px !important;\r\n}\r\n\r\naside{\r\n    position:absolute;\r\n    top: 0;\r\n    height:100vh;\r\n    right: -200px;\r\n    width: 200px;\r\n    background: #edeff1;\r\n    min-height: 100%;\r\n    transition:0.3s ease-out;\r\n    -webkit-transition:0.2s ease-out;\r\n}\r\n\r\naside > h6{\r\n    margin-left:30px;\r\n}\r\n\r\naside > ul{\r\n    margin-left: 20px;\r\n}\r\n\r\n.signin {\r\n    font-size: 20px;\r\n    float: right;\r\n    margin: 8px 40px 0 0;\r\n    cursor: pointer;\r\n}\r\n\r\n.view {\r\n  opacity: 1;\r\n  position: absolute;\r\n  -moz-transition: opacity 0.2s ease;\r\n  -webkit-transition: opacity 0.2s ease;\r\n  -o-transition: opacity 0.2s ease;\r\n  transition: opacity 0.2s ease;\r\n}\r\n\r\n.view.v-enter {\r\n  opacity: 0;\r\n}\r\n\r\n.view.v-leave {\r\n  opacity: 0;\r\n}\r\n\r\nfooter {\r\n    width: 100%;\r\n    background-color: #00A6E9;\r\n    transition:0.25s ease-out;\r\n    -webkit-transition:0.25s ease-out;\r\n}\r\n\r\nfooter > ul{\r\n    margin: 10px auto 10px auto;\r\n}\r\n\r\nfooter a{\r\n    color: #00A6E9;\r\n}\r\n\r\nbody.modal-open {\r\n  overflow: hidden;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 91 */
@@ -10719,6 +10773,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	var yy_request = __webpack_require__(94) 
 =======
 	var yy_request = __webpack_require__(95) 
@@ -10820,6 +10875,92 @@
 	    'info-modal': __webpack_require__(181),
 >>>>>>> master
 	  }
+=======
+	var yy_request = __webpack_require__(94) 
+	
+	module.exports = {
+	  el: '#app',
+	  
+	  data: function () {
+	    return {
+	      view: '',
+	      showLoginModal: false,
+	      showFileTaskModal: false,
+	      showInfoModal: false,
+	      fileTaskParams: {
+	        mode: 'newfile',
+	        fileList: [],
+	        taskId: {},
+	      },
+	      infoModalText:'',
+	      mySelectOptions: [
+	        {value: 1, display: "这个打印店还不错哦"},
+	        {value: 2, display: "超级无敌打印店2"},
+	      ],
+	      mySelectValue: null,
+	      username: null,
+	    }
+	  },
+	
+	  methods: {
+	    onClickLogin: function() {
+	      if(this.username==null) {
+	        this.showLoginModal = true
+	      } else {
+	        window.location.hash = "#/user"
+	      }
+	    },
+	
+	    toggleMenu: function() {
+	      this.$$.aside.classList.toggle('open')
+	      this.$$.other.classList.toggle('slide-aside')
+	      this.$$.header.classList.toggle('slide-aside')
+	    },
+	    hideAside: function() {
+	      this.$$.aside.classList.remove('open')
+	      this.$$.other.classList.remove('slide-aside')
+	      this.$$.header.classList.remove('slide-aside')
+	    },
+	    onFileChange: function() {
+	      if(window.location.hash=="#/file") {
+	        window.location.reload()
+	      } else {
+	        window.location.hash="#/file"
+	      }
+	    },
+	    onTaskChange: function() {
+	      if(window.location.hash=="#/print") {
+	        window.location.reload()
+	      } else {
+	        window.location.hash="#/print"
+	      }
+	    }
+	  },
+	
+	  compiled: function() {
+	    var vuemodel = this
+	    yy_request.rest_api('get','user/',null,function(status,info){
+	      if(status==1) {
+	        vuemodel.username = info.name
+	      } else {
+	        vuemodel.username = null
+	      }
+	    })
+	  },
+	
+	  components: {
+	    'intro-view': __webpack_require__(96),
+	    'menu-view': __webpack_require__(101),
+	    'print-view': __webpack_require__(106),
+	    'file-view': __webpack_require__(116),
+	    'share-view': __webpack_require__(126),
+	    'textbook-view': __webpack_require__(127),
+	    'user-view': __webpack_require__(128),
+	    'login-modal': __webpack_require__(134),
+	    'filetask-modal': __webpack_require__(145),
+	    'info-modal': __webpack_require__(175),
+	  }
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -10908,7 +11049,7 @@
 			}
 	
 			o.XHR.withCredentials=withCredentials;
-			o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
+			// o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
 		    o.XHR.send(data);
 		},
 	
@@ -11028,7 +11169,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".intro-view {\n  position: relative;\n}", ""]);
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".intro-view {\r\n  position: relative;\r\n}", ""]);
+	
+	// exports
+
 
 /***/ },
 /* 99 */
@@ -11047,7 +11195,7 @@
 /* 100 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"intro-view\">\n    <h1>这里是介绍页</h1>\n    <h2>云印是什么</h2>\n    <hr>\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>  \n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>\n    <h3>如何使用云印</h3>\n    <hr>\n    <h3>加入云印</h3>\n    <hr>\n    <button v-on=\"click: this.$parent.showLoginModal = true\">立即使用</button>   \n  </div>";
+	module.exports = "<div class=\"intro-view\">\r\n    <h1>这里是介绍页</h1>\r\n    <h2>云印是什么</h2>\r\n    <hr>\r\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\r\n    <hr>  \r\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\r\n    <hr>\r\n    <h3>如何使用云印</h3>\r\n    <hr>\r\n    <h3>加入云印</h3>\r\n    <hr>\r\n    <button v-on=\"click: this.$parent.showLoginModal = true\">立即使用</button>   \r\n  </div>";
 
 /***/ },
 /* 101 */
@@ -11068,6 +11216,7 @@
 	
 	var baseurl = 'http://localhost/index.php/'
 	
+<<<<<<< HEAD
 	module.exports = {
 		rest_api: function(method,resource,data,successfn) {
 			return new yyajax({
@@ -11098,6 +11247,79 @@
 			return new yyajax(options);
 		},
 	}
+=======
+	// load the styles
+	var content = __webpack_require__(103);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(92)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./menu-view.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./menu-view.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".menu-view {\r\n  position: relative;\r\n}\r\n\r\n.button{\r\n    color: #22252C;\r\n    border-radius: 17px;\r\n    display: inline-block;\r\n    text-decoration: none;\r\n    text-transform: uppercase;\r\n    font-size: 0.875em;\r\n    padding: 8px 150px;\r\n    border: 2px solid;\r\n}\r\n\r\n\r\n.default-list{\r\n    padding-left: 0;\r\n}\r\n\r\n.default-list > li{\r\n    margin: 10px 0 10px 0;\r\n    font-size: 23px;\r\n}\r\n\r\n.default-list > li > a:hover{\r\n    color: white;\r\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 104 */
+/***/ function(module, exports) {
+
+	module.exports = {
+	  methods: {
+	    onOpenFileTaskModal: function() {
+	      this.$parent.fileTaskParams = {
+	        mode: 'newfile',
+	        fileList: [],
+	        taskId: {},
+	      }
+	      this.$parent.showFileTaskModal = true
+	    }
+	  }
+	}
+
+/***/ },
+/* 105 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"menu-view\">\r\n    <div class=\"text-center\">\r\n      <h3>云印南天</h3>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <h6>总觉得这里还该放点什么话</h6>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <ul class=\"default-list\">\r\n        <li><a class=\"button\" href=\"#/print\">打印</a></li>\r\n        <li><a class=\"button\" v-on=\"click: onOpenFileTaskModal\">上传</a></li>\r\n        <li><a class=\"button\" href=\"#/share\">共享</a></li>\r\n        <li><a class=\"button\" href=\"#/book\">教材</a></li>\r\n        <li><a class=\"button\" href=\"#/file\">文件</a></li>\r\n        <li><a class=\"button\" href=\"#/user\">个人</a></li>\r\n      </ul>\r\n    </div>\r\n  </div>";
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(107)
+	module.exports = __webpack_require__(109)
+	module.exports.template = __webpack_require__(115)
+
+
+/***/ },
+/* 107 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+>>>>>>> origin/gh-pages
 	
 	
 	
@@ -11370,7 +11592,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".print-view\t{\n\tposition: relative;\n\tmargin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n    padding: 10px 30px;\n    border-radius: 5px;\n}", ""]);
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".print-view\t{\r\n\tposition: relative;\r\n\tmargin-left: 16.777777%;\r\n    margin-right: 16.777777%;\r\n    min-height: 55%;\r\n    background-color: #edeff1;\r\n    padding: 10px 30px;\r\n    border-radius: 5px;\r\n}", ""]);
+	
+	// exports
+
 
 /***/ },
 /* 109 */
@@ -11451,6 +11680,7 @@
 >>>>>>> master
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	module.exports = {
 		data: function() {
 			return {
@@ -11465,6 +11695,18 @@
 	    'tasklist': __webpack_require__(111),
 >>>>>>> master
 	  }
+=======
+	module.exports = {
+		data: function() {
+			return {
+				showTaskModal:false,
+			}
+		},
+	
+	  components: {
+	    'tasklist': __webpack_require__(110),
+	  }
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -11527,14 +11769,27 @@
 >>>>>>> master
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-task {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\ntbody.table-body {\n  overflow-y: scroll;\n  max-height: 500px;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".actions-wrapper {\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.more-task {\r\n  text-align: center;\r\n  width: 100%;\r\n  margin-top: -10px;\r\n  cursor: pointer;\r\n}\r\n\r\ntbody.table-body {\r\n  overflow-y: scroll;\r\n  max-height: 500px;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 <<<<<<< HEAD
 /* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	var yy_request = __webpack_require__(94)
 	var po = __webpack_require__(95)
 =======
@@ -11629,6 +11884,95 @@
 	    	alert("OOps,删除失败啦")
 	  	}
 		})	
+=======
+	var yy_request = __webpack_require__(94)
+	var po = __webpack_require__(95)
+	
+	module.exports = {
+	
+	  data: function() {
+	  	return {
+	  		displayedPage: 1,
+	  		tasksPerPage: 10,
+	  		taskData: [],
+	  		displayTask: [],
+	  		searchString: '',
+	  		showUploadModal: false,
+	  		moreData: false,
+	  	}
+	  },
+	
+	  compiled: function () {
+	  	loadTasks(this)
+	  },
+	
+	  computed: {
+	  	displayTask: function() {
+	  		var searchstr = this.searchString
+	  		var filtereddata = this.taskData.filter(function(x){
+	  			return (x.name.indexOf(searchstr)!=-1) || (x.printer.indexOf(searchstr)!=-1)
+	  		})
+	  		return filtereddata
+	  	},
+	  },
+	
+	  methods: {
+	    onUploadFile: function() {
+	      po.app.fileTaskParams = {
+	        mode: 'newfile',
+	        fileList: [],
+	        taskId: {},
+	      }
+	      po.app.showFileTaskModal = true
+	    },
+	
+	    onEditTask: function($event,task) {
+	      po.app.showFileTaskModal = true
+	      po.app.fileTaskParams = {
+	        mode: 'edittask',
+	        fileList: [],
+	        taskId: task.id,
+	      }
+	      
+	    },
+	  	onLoadMore: function() {
+	  		this.displayedPage = this.displayedPage + 1
+	  		loadTasks(this)
+	  	},
+	
+	  	onFileChange: function() {
+	  		this.fileData = []
+	  		this.displayedPage = 1
+	  		loadTasks(this)
+	  	}
+	  },
+	
+	}
+	
+	function loadTasks(vuemodel) {
+	  yy_request.rest_api('get','task/',{page:vuemodel.displayedPage},function(status,info){
+	    if(status==1) {
+	      var taskdata = info
+	
+	      if(taskdata.length==vuemodel.tasksPerPage) {
+	      	vuemodel.moreData = true
+	      } else {
+	      	vuemodel.moreData = false
+	      }
+	      vuemodel.taskData = vuemodel.taskData.concat(taskdata)
+	    }
+	  })
+	}
+	
+	function deleteTask(vuemodel,task) {
+	  yy_request.rest_api('delete','task/'+task.id+'/',null,function(status,info){
+	  	if(status==1){
+	    	vuemodel.taskData.$remove(task)
+	  	} else {
+	    	alert("OOps,删除失败啦")
+	  	}
+		})	
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -11636,13 +11980,13 @@
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <span class=\"glyphicon glyphicon-open\"></span>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"col-xs-3 col-xs-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>文件状态</th>\n          <th>文件名</th>\n          <th>上传时间</th>       \n          <th>打印店</th>\n          <th>份数</th>\n          <th>单双</th>\n          <th>彩印</th>\n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\n          <tr>\n            <td>{{task.status}}</td>\n            <td>{{task.name}}</td>\n            <td>{{task.time}}</td>\n            <td>{{task.printer}}</td>\n            <td>{{task.copies}}</td>\n            <td>{{task.isdouble==null? \"-\":(task.isdouble==\"1\"? \"双面\":\"单面\")}}</td>\n            <td>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</td>\n            <td style=\"text-align:center\">\n              <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n                v-on=\"click: onEditTask($event,task)\"></span>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more-task\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
+	module.exports = "<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-8\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <span class=\"glyphicon glyphicon-open\"></span>\r\n        添加新打印任务\r\n      </button>\r\n    </div>\r\n    <div class=\"col-xs-3 col-xs-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>文件状态</th>\r\n          <th>文件名</th>\r\n          <th>上传时间</th>       \r\n          <th>打印店</th>\r\n          <th>份数</th>\r\n          <th>单双</th>\r\n          <th>彩印</th>\r\n          <th>操作</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody class=\"table-body\">\r\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\r\n          <tr>\r\n            <td>{{task.status}}</td>\r\n            <td>{{task.name}}</td>\r\n            <td>{{task.time}}</td>\r\n            <td>{{task.printer}}</td>\r\n            <td>{{task.copies}}</td>\r\n            <td>{{task.isdouble==null? \"-\":(task.isdouble==\"1\"? \"双面\":\"单面\")}}</td>\r\n            <td>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</td>\r\n            <td style=\"text-align:center\">\r\n              <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\r\n                v-on=\"click: onEditTask($event,task)\"></span>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>  \r\n  </div>\r\n\r\n  <div class=\"more-task\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"print-view\">\n\t\t<tasklist></tasklist>\t\t\n\t</div>";
+	module.exports = "<div class=\"print-view\">\r\n\t\t<tasklist></tasklist>\t\t\r\n\t</div>";
 
 /***/ },
 /* 116 */
@@ -11684,7 +12028,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".file-view\t{\n\tposition: relative;\n\tmargin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n    padding: 10px 30px;\n    border-radius: 5px;\n\n}", ""]);
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".file-view\t{\r\n\tposition: relative;\r\n\tmargin-left: 16.777777%;\r\n    margin-right: 16.777777%;\r\n    min-height: 55%;\r\n    background-color: #edeff1;\r\n    padding: 10px 30px;\r\n    border-radius: 5px;\r\n\r\n}", ""]);
+	
+	// exports
+
 
 /***/ },
 /* 119 */
@@ -11807,6 +12158,7 @@
 /* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 >>>>>>> master
 	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-file {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\n.action-line {\n  width: 120px;\n}\n.action-line span {\n  margin-left: 8%;\n}\n\n.action-info {\n  padding-left: 10px;\n  height: 30px;\n  overflow: hidden;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n.infoexpand-enter, \n.infoexpand-leave {\n  height: 0px;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n/*.filetable {\n  max-height:10px;\n}*/", ""]);
@@ -11822,6 +12174,149 @@
 	var yy_request = __webpack_require__(95)
 	var po = __webpack_require__(96)
 >>>>>>> master
+	
+	module.exports = {
+	
+	  data: function() {
+	  	return {
+	  		displayedPage: 1,
+	  		filesPerPage: 10,
+	  		fileData: [],
+	  		displayFile: [],
+	  		checkedAll: false,
+	  		searchString: '',
+	  		showUploadModal: false,
+	  		moreData: false,
+	  		pfiles:[],
+	  		showNewTaskModal: false,
+	      taskMode: 'add',
+	      showActionInfo: false,
+	      actionName: '',
+	      actionFileDone: 0,
+	      actionFileFail: 0,
+	      actionFileTotal: 0,
+	  	}
+	  },
+	
+	  compiled: function () {
+	  	loadData(this)
+	  },
+	
+	  computed: {
+	  	displayFile: function() {
+	  		var searchstr = this.searchString
+	  		var filtereddata = this.fileData.filter(function(x){
+	  			return x.name.indexOf(searchstr)!=-1
+	  		})
+	  		return filtereddata
+	  	},
+	
+	  	checkedAll: {
+	  		set: function(value) {
+	  			for(var i in this.displayFile) {
+	  				this.displayFile[i].checked = value
+	  			}
+	  		}
+	  	},
+	
+	    actionInfoText: function() {
+	      var vuemodel = this
+	      if(this.actionName=='delete') {
+	        this.showActionInfo = true
+	        
+	        if(this.actionFileDone+this.actionFileFail==this.actionFileTotal && this.actionFileTotal!=0) {
+	          setTimeout(function(){
+	            vuemodel.actionName = ''
+	          },1000)
+	        }
+	        return  "正在删除文件中... 成功："+this.actionFileDone  +"，失败："+ this.actionFileFail
+	      } else {
+	        this.showActionInfo = false
+	        return ''
+	      }
+	    }
+	
+	  },
+	
+	  methods: {
+	    onUploadFile: function() {
+	      po.app.fileTaskParams = {
+	        mode: 'newfile',
+	        fileList: [],
+	        taskId: {},
+	      }
+	      po.app.showFileTaskModal = true
+	    },
+	
+	  	onPrint: function($event,op_file) {
+	  		if(op_file!=undefined) {
+	  			var checkedfile = [op_file]
+	  		} else {
+	  			var checkedfile = getCheckedList(this) 			
+	  		}
+	      po.app.fileTaskParams.mode = "newtask"
+	      po.app.fileTaskParams.fileList = checkedfile
+	      po.app.fileTaskParams.taskId = null     
+	  		po.app.showFileTaskModal = true
+	  	},
+	
+	  	onShare: function(op_file) {
+	
+	  	},
+	
+	  	onDelete: function($event,op_file) {
+	      if(this.actionName=='') {
+	        this.actionName = 'delete'
+	
+	        if(op_file!=undefined) {
+	          var checkedfile = [op_file]
+	        } else {
+	          var checkedfile = getCheckedList(this)      
+	        }
+	
+	        this.actionFileTotal = checkedfile.length
+	        this.actionFileDone = 0
+	        this.actionFileFail = 0
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+>>>>>>> origin/gh-pages
+	
+	
+	// module
+	exports.push([module.id, ".actions-wrapper {\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.more-file {\r\n  text-align: center;\r\n  width: 100%;\r\n  margin-top: -10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.action-line {\r\n  width: 120px;\r\n}\r\n.action-line span {\r\n  margin-left: 8%;\r\n}\r\n\r\n.action-info {\r\n  padding-left: 10px;\r\n  height: 30px;\r\n  overflow: hidden;\r\n  -webkit-transition: all .3s ease;\r\n  -o-transition: all .3s ease;\r\n  transition: all .3s ease;\r\n}\r\n\r\n.infoexpand-enter, \r\n.infoexpand-leave {\r\n  height: 0px;\r\n  -webkit-transition: all .3s ease;\r\n  -o-transition: all .3s ease;\r\n  transition: all .3s ease;\r\n}\r\n\r\n/*.filetable {\r\n  max-height:10px;\r\n}*/", ""]);
+	
+	// exports
+
+<<<<<<< HEAD
+/***/ },
+/* 125 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <span class=\"glyphicon glyphicon-open\"></span>\n        上传文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <span class=\"glyphicon glyphicon-print\"></span>\n        打印文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <span class=\"glyphicon glyphicon-share\"></span>\n        分享文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <span class=\"glyphicon glyphicon-trash\"></span>\n        删除文件\n      </button>\n    </div>\n    <div class=\"col-xs-3 col-xs-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            上传日期\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\n          <tr>\n            <td>\n              <input type=\"checkbox\" v-model=\"file.checked\">\n            </td>\n            <td>\n              {{file.name}}\n            </td>\n            <td>\n              {{file.time}}\n            </td>\n            <td class='action-line'>\n              <span class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\n                v-on=\"click: onPrint($event,file)\"></span>\n              <span class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\n                ></span>\n              <span class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\n                v-on=\"click: onDelete($event,file)\"></span>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>\n  </div>\n\t<div class=\"more-file\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\n  </div>";
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"file-view\">\n  \t\t<filelist></filelist>\t\t\n\t</div>";
+
+/***/ },
+/* 127 */
+/***/ function(module, exports) {
+
+
+
+/***/ },
+/* 128 */
+=======
+
+/***/ },
+/* 123 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var yy_request = __webpack_require__(94)
+	var po = __webpack_require__(95)
 	
 	module.exports = {
 	
@@ -11984,25 +12479,26 @@
 	}
 
 /***/ },
+/* 124 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"filetable\">\r\n\t<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-8\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <span class=\"glyphicon glyphicon-open\"></span>\r\n        上传文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\r\n        <span class=\"glyphicon glyphicon-print\"></span>\r\n        打印文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\r\n        <span class=\"glyphicon glyphicon-share\"></span>\r\n        分享文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\r\n        <span class=\"glyphicon glyphicon-trash\"></span>\r\n        删除文件\r\n      </button>\r\n    </div>\r\n    <div class=\"col-xs-3 col-xs-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n\t</div>\r\n\r\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\r\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\r\n  </div>  \r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>\r\n            <input type=\"checkbox\" v-model=\"checkedAll\">\r\n          </th>\r\n          <th>\r\n            文件名\r\n          </th>\r\n          <th>\r\n            上传日期\r\n          </th>       \r\n          <th>\r\n            操作\r\n          </th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\r\n          <tr>\r\n            <td>\r\n              <input type=\"checkbox\" v-model=\"file.checked\">\r\n            </td>\r\n            <td>\r\n              {{file.name}}\r\n            </td>\r\n            <td>\r\n              {{file.time}}\r\n            </td>\r\n            <td class='action-line'>\r\n              <span class=\"glyphicon glyphicon-print\"></span>\r\n              <span class=\"glyphicon glyphicon-share\"></span>\r\n              <span class=\"glyphicon glyphicon-trash\"\r\n                v-on=\"click: onDelete($event,file)\"></span>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n\t<div class=\"more-file\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\r\n  </div>";
+
+/***/ },
 /* 125 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <span class=\"glyphicon glyphicon-open\"></span>\n        上传文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <span class=\"glyphicon glyphicon-print\"></span>\n        打印文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <span class=\"glyphicon glyphicon-share\"></span>\n        分享文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <span class=\"glyphicon glyphicon-trash\"></span>\n        删除文件\n      </button>\n    </div>\n    <div class=\"col-xs-3 col-xs-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            上传日期\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\n          <tr>\n            <td>\n              <input type=\"checkbox\" v-model=\"file.checked\">\n            </td>\n            <td>\n              {{file.name}}\n            </td>\n            <td>\n              {{file.time}}\n            </td>\n            <td class='action-line'>\n              <span class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\n                v-on=\"click: onPrint($event,file)\"></span>\n              <span class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\n                ></span>\n              <span class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\n                v-on=\"click: onDelete($event,file)\"></span>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>\n  </div>\n\t<div class=\"more-file\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\n  </div>";
+	module.exports = "<div class=\"file-view\">\r\n  \t\t<filelist></filelist>\t\t\r\n\t</div>";
 
 /***/ },
 /* 126 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file-view\">\n  \t\t<filelist></filelist>\t\t\n\t</div>";
+
 
 /***/ },
 /* 127 */
-/***/ function(module, exports) {
-
-
-
-/***/ },
-/* 128 */
+>>>>>>> origin/gh-pages
 /***/ function(module, exports) {
 
 
@@ -12046,13 +12542,26 @@
 /* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".user-view {\n\tposition: relative;\n}\n\n.user-view > .well{\n    margin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n}\n\n\n#userinfo > .well{\n    padding: 10px;\n}\n\n.input-group {\n\theight: 0;\n}\n.expand-transition {\n\ttransition: all 0.4s ease;\n\toverflow: hidden;\n\topacity: 1;\n\tmax-height: 250px;\n\twidth: 100%;\n}\n\n.expand-enter, .expand-leave {\n\topacity: 0;\n\twidth: 0;\n\tmax-height: 0;\n}\n\n.password-reset .ip {\n\tmargin-top: 5px;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".user-view {\r\n\tposition: relative;\r\n}\r\n\r\n.user-view > .well{\r\n    margin-left: 16.777777%;\r\n    margin-right: 16.777777%;\r\n    min-height: 55%;\r\n    background-color: #edeff1;\r\n}\r\n\r\n\r\n#userinfo > .well{\r\n    padding: 10px;\r\n}\r\n\r\n.input-group {\r\n\theight: 0;\r\n}\r\n.expand-transition {\r\n\ttransition: all 0.4s ease;\r\n\toverflow: hidden;\r\n\topacity: 1;\r\n\tmax-height: 250px;\r\n\twidth: 100%;\r\n}\r\n\r\n.expand-enter, .expand-leave {\r\n\topacity: 0;\r\n\twidth: 0;\r\n\tmax-height: 0;\r\n}\r\n\r\n.password-reset .ip {\r\n\tmargin-top: 5px;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	var yy_request = __webpack_require__(94)
 	var po = __webpack_require__(95)
@@ -12183,6 +12692,90 @@
 				})
 			}
 		})
+=======
+	var yy_request = __webpack_require__(94)
+	var po = __webpack_require__(95)
+	var md5 = __webpack_require__(132)
+	
+	module.exports = {
+		data: function() {
+			return {
+				uid: '',
+				userName: '',
+				userSID: '',
+				userSch: '',
+				userPhone: '',
+				userMail: '',
+				showPhoneEdit: false,
+				showMailEdit: false,
+				showPasswordEdit: false,
+				newMail: '',
+				oldPwd: '',
+				newPwd: '',
+				newPwdRepeat: '',
+			}
+		},
+	
+		compiled: function() {
+			get_user_detail(this)
+		},
+	
+		methods: {
+			onChangePassword: function() {
+				var vuemodel = this
+				if(this.newPwd!=this.newPwdRepeat) {
+					po.app.infoModalText = "两次密码输入不一致"
+					po.app.showInfoModal = true
+				} else {
+					var ajax_data = {
+						old: md5(this.oldPwd),
+						password: md5(this.newPwd)
+					}
+					yy_request.rest_api('put','user/'+this.uid,ajax_data,function(status,info){
+						if(status==1) {
+							po.app.infoModalText = "密码修改成功"
+							po.app.showInfoModal = true
+							vuemodel.showPasswordEdit = false
+						} else {
+							po.app.infoModalText = info
+							po.app.showInfoModal = true
+						}
+					})
+				}
+			},
+	
+			onVerifyMail: function() {
+				var ajax_data = {
+					email: this.newMail
+				}
+				yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
+					if(status==1) {
+						po.app.infoModalText = info
+						po.app.showInfoModal = true
+						vuemodel.showMailEdit = false
+					}
+				})
+			},
+		},
+	}
+	
+	
+	function get_user_detail(vuemodel) {
+		yy_request.rest_api('get','user/',null,function(status,info){
+			if(status==1) {
+				vuemodel.uid = info.id
+				yy_request.rest_api('get','user/'+vuemodel.uid,null,function(status,info){
+					if(status==1) {
+						vuemodel.userName = info.name
+						vuemodel.userSID = info.number
+						vuemodel.userSch = info.school 
+						vuemodel.userPhone = info.phone || "还没有绑定手机" 
+						vuemodel.userMail = info.email || "还没有绑定邮箱"
+					}
+				})
+			}
+		})
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -12800,7 +13393,11 @@
 /* 143 */
 /***/ function(module, exports) {
 
+<<<<<<< HEAD
 	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
+=======
+	module.exports = "<div class=\"user-view\">\r\n\t\t<div class=\"text-center\">\r\n\t\t\t<h3>个人信息</h3>\r\n\t\t</div>\r\n\t\t<div class=\"well\" id=\"userinfo\">\r\n\t\t\t<div id=\"user_name\" class='well'>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">姓名</div>\r\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userName\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div id=\"user_school\" class='well'>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学校</div>\r\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSch\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div id=\"user_sch_id\" class='well'>\r\n\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学号</div>\r\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSID\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div id=\"user_tel\" class='well'>\r\n\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">手机</div>\r\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userPhone\"></span>\r\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPhoneEdit=!showPhoneEdit\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div id=\"phone-wrapper\" v-if=\"showPhoneEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t<div class=\"input-group row col-sm-offset-1 col-sm-10\" style='margin-top:10px'>\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">+86</span>\r\n\t\t\t\t\t\t<input type=\"text\" placeholder='你的手机号' class=\"form-control\"/>\r\n\t\t\t\t\t\t<span class=\"input-group-btn\">\r\n\t\t\t\t\t\t\t<button class='btn btn-primary'><span class=\"glyphicon glyphicon-check\"></span>验证</button>\r\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showPhoneEdit=false\">\r\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div id=\"user_mail\" class='well'>\r\n\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t<div class='col-xs-3 col-sm-offset-1'>邮箱</div>\r\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userMail\"></span>\r\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showMailEdit=!showMailEdit\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div id=\"mail-wrapper\" v-if=\"showMailEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t<div class='input-group row col-sm-offset-1 col-sm-10' style='margin-top:10px'>\r\n\t\t\t\t\t\t<input type=\"email\" placeholder='你的常用邮箱' class=\"form-control\" v-model=\"newMail\"/>\r\n\t\t\t\t\t\t<span class=\"input-group-btn\">\r\n\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onVerifyMail\">\r\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>验证\r\n\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showMailEdit=false\">\r\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</span>\r\n\t\t\t\t\t</div>\t\t\t\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t\t<div id=\"user_pwd\" class='well'>\r\n\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">\r\n\t\t\t\t\t\t密码\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<span class=\"col-sm-6\">********</span>\r\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPasswordEdit=!showPasswordEdit\"></span>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div class='password-reset row col-sm-offset-1' style='margin-top:10px' v-if=\"showPasswordEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">当前密码</span>\r\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='正在使用的密码' type=\"password\" required v-model=\"oldPwd\">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">新的密码</span>\r\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='要设置的密码' type=\"password\" required v-model=\"newPwd\">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">确认密码</span>\r\n\t\t\t\t\t\t<input  class=\"form-control\" placeholder='重复刚设置的密码' type=\"password\" required v-model=\"newPwdRepeat\">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<br/>\r\n\t\t\t\t\t<div class=\"input-group text-center row col-sm-10\">\r\n\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary col-sm-4 col-sm-offset-1\"\r\n\t\t\t\t\t\t\tv-on=\"click: onChangePassword\">确定</button>\r\n\t\t\t\t\t\t<span class='cancel btn btn-embossed btn-primary col-sm-4 col-sm-offset-2'\r\n\t\t\t\t\t\t\tv-on=\"click: showPasswordEdit=false\">取消</span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>";
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 144 */
@@ -12854,13 +13451,26 @@
 /* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, "#code-img {\n  width: 40%;\n}\n#code-input {\n  width: 40%;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "#code-img {\r\n  width: 40%;\r\n}\r\n#code-input {\r\n  width: 40%;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	var yy_request = __webpack_require__(94);
 	var po = __webpack_require__(95) 
@@ -13067,6 +13677,199 @@
 	  // if(po.app.view=='intro-view') {
 	  //   window.location.hash = '#/menu'
 	  // }
+=======
+	var yy_request = __webpack_require__(94);
+	var po = __webpack_require__(95)
+	
+	module.exports = {
+	  props: {
+	    show: {
+	      type: Boolean,
+	      required: true,
+	      twoWay: true,
+	    }
+	  },
+	
+	  data: function () {
+	    return {
+	      modalWidth: 400,
+	      title: "请先登录云印",
+	      showCode: false,
+	      code: '',
+	      codeSrc: '',
+	      studentid: '',
+	      password: '',
+	      schoolid: 0,
+	      usertype: '',
+	      remeber: false,
+	      errorinfo: '',
+	      pwnew: '',
+	      showLogin: true,
+	      showReset: false,
+	      showDone: false,
+	    }
+	  },
+	
+	  computed: {
+	    title: function() {
+	      if(this.showLogin) {
+	        return "登陆云印，享受校园便捷打印"
+	      } else if(this.showReset) {
+	        return "设置您的云印密码"
+	      } else {
+	        return "注册完成"
+	      }
+	    }
+	  },
+	
+	  methods: {
+	    onNumberChange: function(e) {
+	      var vuemodel = this
+	      var ajax_data = {
+	        number: vuemodel.studentid
+	      }
+	      yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
+	        var sch_value = []
+	        var sch_key = []
+	        if(status==1) {
+	          for(var key in info){
+	            sch_key.push(key)
+	            sch_value.push(info[key])
+	          }
+	
+	          vuemodel.schoolid = sch_key[0]
+	
+	          if(sch_value[0]==0) {
+	            vuemodel.usertype = 'old'
+	            vuemodel.errorinfo = ""
+	          } else {
+	            vuemodel.usertype = 'new'
+	            vuemodel.errorinfo = ""
+	            refreshCode(vuemodel)
+	          }
+	        } else {
+	          vuemodel.usertype = 'wrong'
+	          vuemodel.errorinfo = "学号格式有误"
+	        }
+	      })
+	    },
+	
+	    onSubmit: function(e) {
+	      var vuemodel = this
+	      if(vuemodel.usertype=='old') {
+	        oldUserLogin(vuemodel)
+	      } else if(vuemodel.usertype=='new') {
+	        newUserVerify(vuemodel)
+	      }
+	    },
+	
+	    newPassword: function(e) {
+	      var md5 = __webpack_require__(132)
+	
+	      var vuemodel = this
+	
+	      var ajax_data = {
+	        password: md5(vuemodel.pwnew)
+	      }
+	
+	      yy_request.rest_api('post','user/',ajax_data,function(status,info){
+	        if(status==1) {
+	          vuemodel.showDone  = true
+	          vuemodel.showReset = false
+	        }
+	      })
+	    },
+	
+	    changeCode: function(e) {
+	      refreshCode(this)
+	    },
+	
+	    afterLogin: function(e) {
+	      loginSuccess(this)
+	    }
+	
+	  },
+	
+	  components: {
+	    'modal': __webpack_require__(138),
+	  }
+	}
+	
+	function oldUserLogin(vuemodel) {
+	  var ajax_data = {
+	    number: vuemodel.studentid,
+	    password: vuemodel.password,
+	  }
+	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
+	    if(status==1) {
+	      loginSuccess(vuemodel)
+	      vuemodel.errorinfo = ""
+	    } else {
+	      vuemodel.errorinfo = "账号或密码错误，请重新尝试"
+	    }
+	  })
+	}
+	
+	function refreshCode(vuemodel) {
+	  var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
+	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
+	    if(status==1) {
+	      vuemodel.$$.verifycode.src = info.img
+	      vuemodel.cookie=info.verify_cookie
+	      vuemodel.showCode = true
+	    } else {
+	      vuemodel.showCode = false
+	    }
+	  })
+	}
+	
+	function newUserVerify(vuemodel) {
+	  var ajax_data = {
+	    number: vuemodel.studentid,
+	    password: vuemodel.password,
+	    sch_id: vuemodel.schoolid,
+	  }
+	  //显示验证码
+	  if(vuemodel.showCode)
+	  {
+	    ajax_data.code=vuemodel.code;
+	    ajax_data.verify_cookie=vuemodel.cookie;
+	  }
+	
+	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
+	    if(status==-1) {
+	      vuemodel.errorinfo = "学校身份信息验证失败，请确认信息正确"
+	      if(vuemodel.showCode) {
+	        refreshCode(vuemodel)
+	      }
+	    } else {
+	      vuemodel.showReset = true
+	      vuemodel.showLogin = false
+	    }
+	  })
+	}
+	
+	function loginSuccess(vuemodel) {
+	  yy_request.rest_api('get','user/',null,function(status,info){
+	    if(status==1) {
+	      po.app.username = info.name
+	    } else {
+	      po.app.username = '云印用户'
+	    }
+	  })
+	
+	  vuemodel.show = false
+	
+	  setTimeout(function(){
+	    vuemodel.showReset = false
+	    vuemodel.showLogin = true
+	    vuemodel.showDone = false
+	  },1000)
+	
+	  if(po.app.view=='intro-view') {
+	    window.location.hash = '#/menu'
+	  }
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -13108,8 +13911,20 @@
 /* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".modal-mask {\n  position: fixed;\n  z-index: 9000;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: rgba(0, 0, 0, .5);\n  /*display: table;*/\n  transition: opacity .3s ease;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.modal-wrapper {\n  position: relative;\n  margin: 20px auto;\n  top: 40px;\n  transition: top .3s ease;\n  /*display: table-cell;*/\n  /*vertical-align: middle;*/\n}\n\n.modal-container {\n  overflow-y: scroll;\n  margin: 0px auto;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n  /*transition: all .3s ease;*/\n  /*font-family: Helvetica, Arial, sans-serif;*/\n}\n\n.modal-header h3 {\n  margin-top: 0;\n  color: #42b983;\n}\n\n.modal-body {\n  margin: 10px 0;\n  padding: 5px 15px;\n}\n\n.modal-default-button {\n  float: right;\n}\n\n/*\n * the following styles are auto-applied to elements with\n * v-transition=\"modal\" when their visiblity is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n\n.modal-enter, .modal-leave {\n  opacity: 0;\n}\n\n.modal-enter .modal-wrapper,\n.modal-leave .modal-wrapper {\n/*  -webkit-transform: scale(1.1);\n  transform: scale(1.1);*/\n  top: -80px;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".modal-mask {\r\n  position: fixed;\r\n  z-index: 9000;\r\n  top: 0;\r\n  left: 0;\r\n  bottom: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, .5);\r\n  /*display: table;*/\r\n  transition: opacity .3s ease;\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.modal-wrapper {\r\n  position: relative;\r\n  margin: 20px auto;\r\n  top: 20px;\r\n  transition: top .3s ease;\r\n  /*display: table-cell;*/\r\n  /*vertical-align: middle;*/\r\n}\r\n\r\n.modal-container {\r\n  overflow-y: scroll;\r\n  margin: 0px auto;\r\n  padding: 10px 20px;\r\n  background-color: #fff;\r\n  border-radius: 4px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\r\n  /*transition: all .3s ease;*/\r\n  /*font-family: Helvetica, Arial, sans-serif;*/\r\n}\r\n\r\n.modal-header h3 {\r\n  margin-top: 0;\r\n  color: #42b983;\r\n}\r\n\r\n.modal-body {\r\n  margin: 10px 0;\r\n  padding: 5px 15px;\r\n}\r\n\r\n.modal-default-button {\r\n  float: right;\r\n}\r\n\r\n/*\r\n * the following styles are auto-applied to elements with\r\n * v-transition=\"modal\" when their visiblity is toggled\r\n * by Vue.js.\r\n *\r\n * You can easily play with the modal transition by editing\r\n * these styles.\r\n */\r\n\r\n.modal-enter, .modal-leave {\r\n  opacity: 0;\r\n}\r\n\r\n.modal-enter .modal-wrapper,\r\n.modal-leave .modal-wrapper {\r\n/*  -webkit-transform: scale(1.1);\r\n  transform: scale(1.1);*/\r\n  top: -80px;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 153 */
@@ -13151,14 +13966,14 @@
 /* 154 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"modal-mask\" v-show=\"show\" v-transition=\"modal\" v-class=\"open: bodyModalOpen\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" v-style=\"width: width+'px' \">\n        <div class=\"modal-header\">\n          {{defaultTitle}}\n          <button type=\"button\" class=\"close\"\n            v-on=\"click: show = false\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n        <content select=\".modal-body\">\n          <div class=\"modal-body\">\n            default body\n          </div>\n        </content>\n        <content select=\".modal-footer\">\n          <div class=\"modal-footer\">\n            default footer\n          </div>\n        </content>\n      </div>\n    </div>\n  </div>";
+	module.exports = "<div class=\"modal-mask\" v-show=\"show\" v-transition=\"modal\" v-class=\"open: bodyModalOpen\">\r\n    <div class=\"modal-wrapper\">\r\n      <div class=\"modal-container\" v-style=\"width: width+'px' \">\r\n        <div class=\"modal-header\">\r\n          {{defaultTitle}}\r\n          <button type=\"button\" class=\"close\"\r\n            v-on=\"click: show = false\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <content select=\".modal-body\">\r\n          <div class=\"modal-body\">\r\n            default body\r\n          </div>\r\n        </content>\r\n        <content select=\".modal-footer\">\r\n          <div class=\"modal-footer\">\r\n            default footer\r\n          </div>\r\n        </content>\r\n      </div>\r\n    </div>\r\n  </div>";
 
 /***/ },
 <<<<<<< HEAD
 /* 143 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\n        <form action=\"\">\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\n                v-model=\"studentid\"\n                v-on=\"change: onNumberChange\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\n                v-on=\"keyup: onSubmit | key 'enter'\"\n                v-model=\"password\">\n            </div>\n          </div>\n          <div>\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\n            <label for=\"rmb\">自动登录</label>\n            <small class=\"pull-right\">忘记密码?</small>\n          </div>        \n\n          <div v-show=\"showCode\" class=\"form-group\">\n            <img id=\"code-img\" src=\"" + __webpack_require__(144) + "\" alt=\"验证码\" v-el=\"verifycode\" \n              v-on=\"click: changeCode\">\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \n              placeholder=\"请输入验证码\"\n              v-model=\"code\">\n          </div>\n\n          <div class=\"form-group\">\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\n              v-on=\"click: onSubmit\">登录/注册</button>\n          </div>\n          <div>\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n          </div>\n        </form>\n      </div> <!-- #login-wrapper -->\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\n        <p class=\"text-center\">\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\n        </p>    \n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\" \n            placeholder=\"新的密码\"\n            v-model=\"pwnew\">\n        </div>  \n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: newPassword\">设置密码</button>\n        </div>\n      </div> <!-- #reset-wrapper -->\n      <div id=\"done-wrapper\" v-if=\"showDone\">\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\n        <br>\n        <br>\n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: afterLogin\">立即使用</button>\n        </div>\n      </div> <!-- #done-wrapper -->\n    </div> <!-- .modal-body -->\n    <div class=\"modal-footer\">\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\n      <small><a>了解更多</a></small> \n    </div>    \n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\r\n        <form action=\"\">\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\r\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\r\n                v-model=\"studentid\"\r\n                v-on=\"change: onNumberChange\">\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\r\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\r\n                v-on=\"keyup: onSubmit | key 'enter'\"\r\n                v-model=\"password\">\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\r\n            <label for=\"rmb\">自动登录</label>\r\n            <small class=\"pull-right\">忘记密码?</small>\r\n          </div>\r\n\r\n          <div v-show=\"showCode\" class=\"form-group\">\r\n            <img id=\"code-img\" src=\"" + __webpack_require__(144) + "\" alt=\"验证码\" v-el=\"verifycode\"\r\n              v-on=\"click: changeCode\">\r\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\"\r\n              placeholder=\"请输入验证码\"\r\n              v-model=\"code\">\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\r\n              v-on=\"click: onSubmit\">登录/注册</button>\r\n          </div>\r\n          <div>\r\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\r\n          </div>\r\n        </form>\r\n      </div> <!-- #login-wrapper -->\r\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\r\n        <p class=\"text-center\">\r\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\r\n        </p>\r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\r\n            placeholder=\"新的密码\"\r\n            v-model=\"pwnew\">\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: newPassword\">设置密码</button>\r\n        </div>\r\n      </div> <!-- #reset-wrapper -->\r\n      <div id=\"done-wrapper\" v-if=\"showDone\">\r\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\r\n        <br>\r\n        <br>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: afterLogin\">立即使用</button>\r\n        </div>\r\n      </div> <!-- #done-wrapper -->\r\n    </div> <!-- .modal-body -->\r\n    <div class=\"modal-footer\">\r\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\r\n      <small><a>了解更多</a></small>\r\n    </div>\r\n  </modal>";
 
 /***/ },
 /* 144 */
@@ -13213,15 +14028,27 @@
 
 <<<<<<< HEAD
 	exports = module.exports = __webpack_require__(90)();
+<<<<<<< HEAD
 =======
 	exports = module.exports = __webpack_require__(91)();
 >>>>>>> master
 	exports.push([module.id, ".modal-body {\n  -webkit-transition: height .3s ease;\n  -o-transition: height .3s ease;\n  transition: height .3s ease;\n}\n\n.textshow-enter,\n.textshow-leave {\n   opacity: 0;\n   -webkit-transition: all .3s ease;\n   -o-transition: all .3s ease;\n   transition: all .3s ease;\n}\n\n.info-text {\n  float: left;\n  width: 200px;\n}", ""]);
+=======
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".modal-body {\r\n  -webkit-transition: height .3s ease;\r\n  -o-transition: height .3s ease;\r\n  transition: height .3s ease;\r\n}\r\n\r\n.textshow-enter,\r\n.textshow-leave {\r\n   opacity: 0;\r\n   -webkit-transition: all .3s ease;\r\n   -o-transition: all .3s ease;\r\n   transition: all .3s ease;\r\n}\r\n\r\n.info-text {\r\n  float: left;\r\n  width: 200px;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	var yy_request = __webpack_require__(94)
 =======
@@ -13526,6 +14353,256 @@
 	  var div = document.createElement('div')
 	  div.innerHTML = s
 	  return div.innerText || div.textContent
+=======
+	var yy_request = __webpack_require__(94)
+	
+	module.exports = {
+	  props: {
+	    show: {
+	      type: Boolean,
+	      required: true,
+	      twoWay: true,
+	    },
+	    onFileChange: Function,
+	    onTaskChange: Function,
+	    params: Object,
+	  },
+	
+	  data: function() {
+	    return {
+	      modalWidth: 600,
+	      taskSetting: {
+	        printerId: null,
+	        isInStore: true,
+	        isDoubleSide: false,
+	        isColor: false,
+	        copies: 1,
+	        requirements: "",
+	      },
+	      taskId: null,
+	      currentBody: '',
+	      fileInfoText: "",
+	      taskInfoText: "",
+	      stn: 0,
+	    }
+	  },
+	
+	  computed: {
+	    modalTitle: function() {
+	      if(this.params.mode=="newfile") {
+	        return "请选择需要上传的文件"
+	      } else if(this.params.mode=="newtask") {
+	        return "请选择要去的打印店" 
+	      } else if(this.params.mode=="edittask") {
+	        getTaskSetting(this)
+	        return "请核对或修改您的打印任务"
+	      }
+	    },
+	    currentBody: function() {
+	      if(this.params.mode=="newfile") {
+	        return 'file-uploader'
+	      } else {
+	        return 'task-setting'
+	      }
+	    },
+	    newTask: function() {
+	      if(this.params.mode=="newtask") {
+	        return true
+	      } else {
+	        return false
+	      }
+	    },
+	
+	
+	
+	    submittedTaskNumber: {
+	      get: function() {
+	        return this.stn
+	      },
+	      set: function(newValue) {
+	        var vuemodel = this
+	        this.stn = newValue
+	        if(newValue==this.params.fileList.length) {
+	          this.taskInfoText = "所有任务提交成功"
+	          setTimeout(function(){
+	            vuemodel.taskInfoText = ""
+	            vuemodel.show = false
+	            vuemodel.onTaskChange()
+	          },1000)
+	        }
+	      }
+	    },
+	  },
+	
+	  methods: {
+	    onFinish: function(e) {
+	      for(var i in this.params.fileList) {
+	        if(this.params.fileList[i].isuploading==true) {
+	          alert('请耐心等待文件上传完成，如出现上传时间过长请手动删除文件，我们会在近期加上进度显示 ^_^')
+	          return 'fail'
+	        }
+	      }    
+	      if(this.params.fileList.length>0) {
+	        this.onFileChange()
+	      }
+	      // this.params.fileList[i] = []
+	      this.show = false        
+	    },
+	
+	    onToPrint: function(e) {
+	      var count = 0
+	      for(var i in this.params.fileList) {
+	        if(this.params.fileList[i].issuccess==true) {
+	          count += 1
+	        }
+	      }    
+	      if(this.params.fileList.length==count) {
+	        this.params.mode="newtask"
+	      } else {
+	        this.fileInfoText = "请先等待文件上传完成或删除失败的文件"
+	      }
+	    },
+	
+	
+	    onAddTasks: function(e) {
+	      var ts = this.taskSetting
+	      var vuemodel = this
+	      var fileNumber = this.params.fileList.length
+	      
+	      var count = 0
+	      for(var i in this.params.fileList) {
+	        if(this.params.fileList[i].submitState=="done") {
+	          count += 1
+	        }
+	      }
+	      this.stn = count
+	
+	      vuemodel.taskInfoText = "正在提交打印任务(1/" + fileNumber + ")"
+	
+	      for(var i in this.params.fileList) {
+	        var pf = this.params.fileList[i]
+	        if(!("submitState" in pf) || pf.submitState=="fail") {
+	          var ajax_data = {
+	            fid: pf.id,
+	            pid: ts.printerId,
+	            copies: parseInt(ts.copies),
+	            color: ts.isInStore? '':(ts.isColor? '1':'0'),
+	            isdouble: ts.isInStore? '':(ts.isDoubleSide? '1':'0'),
+	            // ppt: vuemodel.ppt,
+	            requirements: ts.isInStore? '':ts.requirements
+	          }
+	          pf.submitState = "uploading"
+	          yy_request.rest_api('post','task/',ajax_data,function(status,info){
+	            if(status==1) {
+	              // vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
+	              pf.submitState = "done"
+	              var temp_number = vuemodel.submittedTaskNumber + 1
+	              vuemodel.taskInfoText = "正在提交打印任务("+ temp_number +"/" + fileNumber + ")"
+	
+	              vuemodel.submittedTaskNumber = temp_number
+	            } else {
+	              pf.submitState = "fail"
+	              vuemodel.taskInfoText = "好像出现了点问题，请重试"
+	            }
+	          })
+	        }
+	      } 
+	    },
+	
+	    onCancelTask: function() {
+	      if(this.params.fileList.length!=0){
+	        this.onFileChange()
+	        this.show = false 
+	      }
+	    },
+	
+	    onDeleteTask: function() {
+	      var vuemodel = this
+	      vuemodel.taskInfoText="正在删除打印任务"
+	      yy_request.rest_api('delete','task/'+this.params.taskId,null,function(status,info){
+	        if(status==1) {
+	          vuemodel.taskInfoText="任务删除成功"
+	          setTimeout(function(){
+	            vuemodel.taskInfoText = ""
+	            vuemodel.show = false
+	            vuemodel.onTaskChange()
+	          },1000)
+	        } else {
+	          vuemodel.taskInfoText="删除失败"
+	        }
+	      }) 
+	    },
+	
+	    onEditTask: function() {
+	      var vuemodel = this
+	      vuemodel.taskInfoText="正在修改打印任务"
+	      var ts = vuemodel.taskSetting
+	      var ajax_data = {
+	        pid: ts.printerId,
+	        copies: parseInt(ts.copies),
+	        color: ts.isInStore? '':ts.isColor,
+	        isdouble: ts.isInStore? '':ts.isDoubleSide,
+	        // ppt: vuemodel.ppt,
+	        requirements: ts.isInStore? '':ts.requirements
+	      }
+	      yy_request.rest_api('put','task/'+this.params.taskId,ajax_data,function(status,info){
+	        if(status==1) {
+	          vuemodel.taskInfoText="修改成功"
+	        } else {
+	          vuemodel.taskInfoText="修改失败"
+	        }
+	      })
+	    },
+	
+	
+	  },
+	
+	  components: {
+	    'modal': __webpack_require__(138),
+	    'file-uploader': __webpack_require__(149),
+	    'task-setting': __webpack_require__(159)
+	  }
+	}
+	
+	function getTaskSetting(vuemodel) {
+	  yy_request.rest_api('get','task/'+vuemodel.params.taskId,null,function(status,info) {
+	    if(status==1) {
+	      vuemodel.taskSetting.printerId = info.pri_id
+	      vuemodel.taskSetting.copies = parseInt(info.copies)
+	      if(info.color==null && info.isdouble==null) {
+	        vuemodel.taskSetting.isInStore = true
+	      } else {
+	        vuemodel.taskSetting.isInStore = false
+	      }
+	      vuemodel.taskSetting.isColor = info.color==null? false:true
+	      vuemodel.taskSetting.isDoubleSide = info.isdouble==null? false:true
+	      vuemodel.taskSetting.requirements = htmldecode(info.requirements)
+	      console.log(htmldecode(info.requirements))
+	    }
+	  })
+	}
+	
+	function editTask(vuemodel) {
+	  var ajax_data = {
+	    pid: vuemodel.printerID,
+	    copies: parseInt(vuemodel.copies),
+	    color: vuemodel.isColor,
+	    isdouble: vuemodel.isDouble,
+	    // ppt: vuemodel.ppt,
+	    requirements: vuemodel.requirements
+	  }
+	  yy_request.rest_api('post','task/'+vuemodel.taskID,ajax_data,function(status,info){
+	    if(status==1) {
+	      vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
+	    }
+	  })
+	}
+	
+	function htmldecode(s) {
+	  var div = document.createElement('div')
+	  div.innerHTML = s
+	  return div.innerText || div.textContent
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -13588,14 +14665,27 @@
 >>>>>>> master
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".upload-btn {\n  height: 40px;\n  border-style: solid;\n  border-width: 2px;\n  border-radius: 3px;  \n  background: #ffffff;\n  position: relative;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\n\n.upload-area {\n  text-align:center;\n  padding-top: 7px;\n  font-size: 15px;\n  font-weight: 800;\n}\n\n#upload-file {\n    cursor: pointer;\n    font-size: 30px;\n    outline: medium none;\n    position: absolute;\n    filter:alpha(opacity=0);\n    -moz-opacity:0;\n    opacity:0; \n    left: 0px;\n    top: 0px;\n    width: 100%;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".upload-btn {\r\n  height: 40px;\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-radius: 3px;  \r\n  background: #ffffff;\r\n  position: relative;\r\n  margin-top: 20px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.upload-area {\r\n  text-align:center;\r\n  padding-top: 7px;\r\n  font-size: 15px;\r\n  font-weight: 800;\r\n}\r\n\r\n#upload-file {\r\n    cursor: pointer;\r\n    font-size: 30px;\r\n    outline: medium none;\r\n    position: absolute;\r\n    filter:alpha(opacity=0);\r\n    -moz-opacity:0;\r\n    opacity:0; \r\n    left: 0px;\r\n    top: 0px;\r\n    width: 100%;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 <<<<<<< HEAD
 /* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	var yy_request = __webpack_require__(94)
 =======
 /* 163 */
@@ -13718,6 +14808,107 @@
 	      filedata.id = info.id
 	    }
 	  })
+=======
+	var yy_request = __webpack_require__(94)
+	
+	module.exports = {
+	  props: {
+	    fileList: Array,
+	  },
+	
+	  data: function () {
+	    return {
+	      title: "请选择需要上传的文件",
+	      hasFileInput: true,
+	    }
+	  },
+	
+	  methods: {
+	    removeFile: function(index) {
+	      var filedata = this.fileList
+	
+	      if("id" in filedata[index]) {
+	        yy_request.rest_api('delete','file/'+filedata[index].id+'/',null,function(status,info){
+	          if(status==1){
+	            filedata.$remove(index)
+	          } else {
+	            filedata[index].status = "删除失败，请重试"
+	            filedata[index].isfailed = true
+	            filedata[index].issuccess = false
+	            filedata[index].isuploading = false
+	          }
+	        })
+	      } else {
+	        filedata.$remove(index)
+	      }          
+	    },
+	
+	    uploadFiles: function(e) {
+	      var input_files = this.$$.fileinput.files
+	     
+	      for(var i = 0;i<input_files.length;i++) {
+	        var ifile = input_files[i]
+	        var filedata = {
+	          fileobject: ifile,
+	          status: "上传中",
+	          isfailed: false,
+	          issuccess: false,
+	          isuploading: true,
+	        }
+	
+	        this.fileList.push(filedata)
+	        uploadFile(filedata)
+	
+	      }
+	      this.hasFileInput = false 
+	      this.hasFileInput = true //in case sometimes onChange Event will not be fired
+	    },
+	  },
+	
+	  components: {
+	    'upload-file': __webpack_require__(153)
+	  }
+	}
+	
+	function uploadFile(filedata) {
+	  yy_request.rest_api('post','file/token/',{"name":filedata.fileobject.name},function(status,info){
+	    if(status==1) {
+	      filedata.token = info.token
+	     // filedata.key = info.key
+	      yy_request.ajax({
+	        method: 'post',
+	        url: 'http://upload.qiniu.com/',
+	        data: {
+	          token: filedata.token,
+	      //    key: filedata.key,
+	          file: filedata.fileobject,
+	        },
+	        content: 'multipart',
+	        success: function(rs) {
+	          uploadConfirm(filedata,JSON.parse(rs).key)      
+	        },
+	        error: function(rs) {
+	          filedata.status = '上传失败'
+	          filedata.isfailed = true
+	          filedata.issuccess = false
+	          filedata.isuploading = false
+	        },
+	      })
+	    }
+	  })
+	}
+	
+	function uploadConfirm(filedata,key) {
+	  yy_request.rest_api('post','file',{key:key},function(status,info){
+	    if(status==1) {
+	      filedata.status = '上传成功'
+	      filedata.isfailed = false
+	      filedata.issuccess = true
+	      filedata.isuploading = false
+	      filedata.id = info.id
+	    }
+	  })
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
@@ -13763,8 +14954,20 @@
 /* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".file {\n\tmargin-bottom: 5px;\n}\n.file img {\n    width: 80%;\n}\n\n.img-col {\n\tpadding: 0;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".file {\r\n\tmargin-bottom: 5px;\r\n}\r\n.file img {\r\n    width: 80%;\r\n}\r\n\r\n.img-col {\r\n\tpadding: 0;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 167 */
@@ -13784,13 +14987,13 @@
 /* 157 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file row\">\n\t\t<div class=\"col-xs-1 img-col\">\n\t\t\t<img v-el=\"filelogo\">\n\t\t</div>\n\t\t<div class=\"col-xs-7\">\n\t\t\t<small v-text=\"fileobject.name\"></small>\n\t\t</div>\n\t\t<div class=\"col-xs-3\">\n\t\t\t<div id=\"upload-status\">\n\t\t\t\t<div class=\"outer-line\">\n\t\t\t\t\t<small v-class=\"\n\t\t\t\t\t\ttext: isuploading,\n\t\t\t\t\t\ttext-danger: isfailed,\n\t\t\t\t\t\ttext-primary: issuccess\"\n\t\t\t\t\t\tv-text=\"status\"></small>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-xs-1 delete-file\">\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\n\t\t</div>\n\t</div>";
+	module.exports = "<div class=\"file row\">\r\n\t\t<div class=\"col-xs-1 img-col\">\r\n\t\t\t<img v-el=\"filelogo\">\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-7\">\r\n\t\t\t<small v-text=\"fileobject.name\"></small>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-3\">\r\n\t\t\t<div id=\"upload-status\">\r\n\t\t\t\t<div class=\"outer-line\">\r\n\t\t\t\t\t<small v-class=\"\r\n\t\t\t\t\t\ttext: isuploading,\r\n\t\t\t\t\t\ttext-danger: isfailed,\r\n\t\t\t\t\t\ttext-primary: issuccess\"\r\n\t\t\t\t\t\tv-text=\"status\"></small>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-1 delete-file\">\r\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\r\n\t\t</div>\r\n\t</div>";
 
 /***/ },
 /* 158 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"files-wrapper\">\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\n\t</div>\n\t<div class=\"upload-btn\">\n\t\t<div class=\"upload-area\">点击上传文件</div>\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\n\t</div>";
+	module.exports = "<div id=\"files-wrapper\">\r\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\r\n\t</div>\r\n\t<div class=\"upload-btn\">\r\n\t\t<div class=\"upload-area\">点击上传文件</div>\r\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\r\n\t</div>";
 
 /***/ },
 /* 159 */
@@ -13832,7 +15035,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n.cl {\n  margin-top: 2px;\n}\n\n.requirement {\n  margin-top: 15px;\n}\n\n.expand-enter,\n.expand-leave {\n  max-height: 0;\n  -webkit-transition: max-height 0.3s ease;\n  -o-transition: max-height 0.3s ease;\n  transition: max-height 0.3s ease;\n}", ""]);
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".panel-success > .panel-heading{\r\n    color: white;\r\n    background-color: #1abc9c;\r\n    border-color: #d6e9c6;\r\n}\r\n\r\n.panel-body > p{\r\n    font-size: 20px;\r\n    margin: 5px;\r\n}\r\nlabel[for='print-copies']{\r\n    font-size: 25px;\r\n    margin-top: -8px;\r\n    margin-left: 10px;\r\n}\r\n.cl {\r\n  margin-top: 2px;\r\n}\r\n\r\n.requirement {\r\n  margin-top: 15px;\r\n}\r\n\r\n.expand-enter,\r\n.expand-leave {\r\n  max-height: 0;\r\n  -webkit-transition: max-height 0.3s ease;\r\n  -o-transition: max-height 0.3s ease;\r\n  transition: max-height 0.3s ease;\r\n}", ""]);
+	
+	// exports
+
 
 /***/ },
 /* 162 */
@@ -13973,8 +15183,20 @@
 >>>>>>> master
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n.cl {\n  margin-top: 2px;\n}\n\n.requirement {\n  margin-top: 15px;\n}\n\n.expand-enter,\n.expand-leave {\n  max-height: 0;\n  -webkit-transition: max-height 0.3s ease;\n  -o-transition: max-height 0.3s ease;\n  transition: max-height 0.3s ease;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".myselect-wrapper {\r\n\t\twidth: 100%;\r\n\t\theight: 41px;\r\n\t\tz-index: 9998;\r\n\t\toverflow: visible;\r\n\t\tbackground: #0BBD9E;\r\n\t\tborder-radius: 3px;\r\n\t\tmargin-bottom: 20px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.myselect-wrapper .btn-wrapper {\r\n\t\tpadding-left: 10px;\r\n\t\twidth: 100%;\r\n\t\theight: 41px;\r\n\t\tline-height: 41px;\r\n\t\tcolor: #FFFFFF;\t\t\r\n\t}\r\n\r\n\t.myselect-wrapper .chosen-text span {\r\n\t\tfloat: right;\t\r\n\t\tline-height: 41px;\r\n\t\tmargin-right: 10px; \r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper {\r\n\t\tposition: relative;\r\n\t\tbackground: #F3F4F5;\r\n\t\topacity: 1;\r\n\t\tmargin-top: 10px;\t\r\n\t\tborder-radius: 3px;\r\n\t\tmax-height: 300px;\r\n\t\toverflow:scroll;\r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper div{\r\n\t\theight: 35px;\r\n\t\tline-height: 35px;\r\n\t\tpadding-left: 10px;\r\n\t\tbackground: #F3F4F5;\r\n\t\t-webkit-transition: background .5s ease;\r\n\t\t-o-transition: background .5s ease;\r\n\t\ttransition: background .5s ease;\r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\r\n\t\tbackground: #E1E4E7;\r\n\t\t-webkit-transition: background .5s ease;\r\n\t\t-o-transition: background .5s ease;\r\n\t\ttransition: background .5s ease;\r\n\t}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 <<<<<<< HEAD
@@ -14024,7 +15246,7 @@
 /* 167 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
+	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\r\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\r\n\t\t\t<div class=\"chosen-text\">\r\n\t\t\t\t<small>{{displayText}}</small>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\r\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\r\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\r\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\r\n\t\t</div>\r\n\t</div>";
 
 /***/ },
 /* 168 */
@@ -14148,8 +15370,20 @@
 >>>>>>> master
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".myswitch-wrapper {\n\toverflow: hidden;\n\theight: 30px;\n\twidth: 80px;\n\tborder-radius: 4px;\n\tcursor: pointer;\n}\n\n.inframe {\n\tposition: relative;\n\twidth: 140px;\n\theight: 30px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.inframe.off {\n\tleft: -60px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.handle {\n\tfloat: left;\n\theight: 30px;\n\twidth: 20px;\n\tborder-width: 0;\n\tbackground-color: #0BBD9E;\n}\n\n.on-text, .off-text {\n\tfloat: left;\n\theight: 30px;\n\twidth: 60px;\n\tborder-width: 0;\n\ttext-align: center;\n\tline-height: 30px;\n\tcolor: #0BBD9E;\n\tbackground-color: #34495D;\n}", ""]);
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".myswitch-wrapper {\r\n\toverflow: hidden;\r\n\theight: 30px;\r\n\twidth: 80px;\r\n\tborder-radius: 4px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.inframe {\r\n\tposition: relative;\r\n\twidth: 140px;\r\n\theight: 30px;\r\n\t-webkit-transition: left .3s ease;\r\n\t-o-transition: left .3s ease;\r\n\ttransition: left .3s ease;\r\n}\r\n\r\n.inframe.off {\r\n\tleft: -60px;\r\n\t-webkit-transition: left .3s ease;\r\n\t-o-transition: left .3s ease;\r\n\ttransition: left .3s ease;\r\n}\r\n\r\n.handle {\r\n\tfloat: left;\r\n\theight: 30px;\r\n\twidth: 20px;\r\n\tborder-width: 0;\r\n\tbackground-color: #0BBD9E;\r\n}\r\n\r\n.on-text, .off-text {\r\n\tfloat: left;\r\n\theight: 30px;\r\n\twidth: 60px;\r\n\tborder-width: 0;\r\n\ttext-align: center;\r\n\tline-height: 30px;\r\n\tcolor: #0BBD9E;\r\n\tbackground-color: #34495D;\r\n}", ""]);
+	
+	// exports
+
+>>>>>>> origin/gh-pages
 
 /***/ },
 /* 177 */
@@ -14188,7 +15422,7 @@
 /* 178 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"myswitch-wrapper\">\n\t\t<div class=\"inframe\" v-on=\"click: onSwitch\" v-class=\"off: !value\">\n\t\t\t<div class=\"on-text\">\n\t\t\t\t{{trueText}}\n\t\t\t</div>\n\t\t\t<div class=\"handle\">\n\t\t\t</div>\n\t\t\t<div class=\"off-text\">\n\t\t\t\t{{falseText}}\n\t\t\t</div>\n\t\t</div>\n\t</div>";
+	module.exports = "<div class=\"myswitch-wrapper\">\r\n\t\t<div class=\"inframe\" v-on=\"click: onSwitch\" v-class=\"off: !value\">\r\n\t\t\t<div class=\"on-text\">\r\n\t\t\t\t{{trueText}}\r\n\t\t\t</div>\r\n\t\t\t<div class=\"handle\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"off-text\">\r\n\t\t\t\t{{falseText}}\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>";
 
 /***/ },
 <<<<<<< HEAD
@@ -14198,7 +15432,7 @@
 >>>>>>> master
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"taskinfo-wrapper\">\n    <my-select\n      options=\"{{printerList}}\"\n      value=\"{{@taskSetting.printerId}}\"\n      desc=\"选择想去的打印店\"\n      on-select-change={{showPrinterInfo}}>\n    </my-select>\n\n    <div class=\"panel panel-success text-center\">\n      <div class=\"panel-heading\">\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.name}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.address}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.phone}}</p>\n      </div>\n      <div class=\"panel-body\">\n        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>\n        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>\n        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>\n        <p style=\"margin-bottom: 0\">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          true-text=\"到店\"\n          false-text=\"提前\"\n          value=\"{{@taskSetting.isInStore}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"双面\"\n          false-text=\"单面\"\n          value=\"{{@taskSetting.isDoubleSide}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"彩印\"\n          false-text=\"黑白\"\n          value=\"{{@taskSetting.isColor}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3\">\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\n          <span class=\"input-group-addon input-sm\">份</span>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\n    </div>\n\n  </div>";
+	module.exports = "<div class=\"taskinfo-wrapper\">\r\n    <my-select\r\n      options=\"{{printerList}}\"\r\n      value=\"{{@taskSetting.printerId}}\"\r\n      desc=\"选择想去的打印店\"\r\n      on-select-change={{showPrinterInfo}}>\r\n    </my-select>\r\n\r\n    <div class=\"panel panel-success text-center\">\r\n      <div class=\"panel-heading\">\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.name}}</p>\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.address}}</p>\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.phone}}</p>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>\r\n        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>\r\n        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>\r\n        <p style=\"margin-bottom: 0\">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-sm-3 cl\">\r\n        <my-switch\r\n          true-text=\"到店\"\r\n          false-text=\"提前\"\r\n          value=\"{{@taskSetting.isInStore}}\">\r\n        </my-switch>\r\n      </div>\r\n      <div class=\"col-sm-3 cl\">\r\n        <my-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"双面\"\r\n          false-text=\"单面\"\r\n          value=\"{{@taskSetting.isDoubleSide}}\">\r\n        </my-switch>\r\n      </div>\r\n      <div class=\"col-sm-3 cl\">\r\n        <my-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"彩印\"\r\n          false-text=\"黑白\"\r\n          value=\"{{@taskSetting.isColor}}\">\r\n        </my-switch>\r\n      </div>\r\n      <div class=\"col-sm-3\">\r\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\r\n          <span class=\"input-group-addon input-sm\">份</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\r\n    </div>\r\n\r\n  </div>";
 
 /***/ },
 <<<<<<< HEAD
@@ -14208,7 +15442,7 @@
 >>>>>>> master
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" \n    width=\"{{modalWidth}}\" \n    default-title=\"{{modalTitle}}\">\n    <div class=\"modal-body\">\n      <file-uploader \n        v-if=\"currentBody=='file-uploader'\"\n        file-list=\"{{@params.fileList}}\"></file-uploader>\n      <task-setting\n        v-if=\"currentBody=='task-setting'\"\n        task-setting=\"{{@taskSetting}}\"></task-setting>\n    </div>\n    <div class=\"modal-footer\">\n      <div v-if=\"currentBody=='file-uploader'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"fileInfoText!=''\">\n          <small v-text=\"fileInfoText\"></small>\n        </div>   \n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onFinish\">完成</button>\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onToPrint\">去打印</button>\n      </div>\n      <div v-if=\"currentBody=='task-setting'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"taskInfoText!=''\">\n          <small v-text=\"taskInfoText\"></small>\n        </div>      \n        <button v-if=\"newTask\" class=\"btn btn-warning btn-wide\" v-on=\"click: onCancelTask\">取消任务</button>\n        <button v-if=\"newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onAddTasks\">提交任务</button>      \n        <button v-if=\"!newTask\" class=\"btn btn-danger btn-wide \" v-on=\"click: onDeleteTask\">删除任务</button>\n        <button v-if=\"!newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onEditTask\">修改任务</button>\n      </div>\n    </div>\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" \r\n    width=\"{{modalWidth}}\" \r\n    default-title=\"{{modalTitle}}\">\r\n    <div class=\"modal-body\">\r\n      <file-uploader \r\n        v-if=\"currentBody=='file-uploader'\"\r\n        file-list=\"{{@params.fileList}}\"></file-uploader>\r\n      <task-setting\r\n        v-if=\"currentBody=='task-setting'\"\r\n        task-setting=\"{{@taskSetting}}\"></task-setting>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <div v-if=\"currentBody=='file-uploader'\">\r\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"fileInfoText!=''\">\r\n          <small v-text=\"fileInfoText\"></small>\r\n        </div>   \r\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onFinish\">完成</button>\r\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onToPrint\">去打印</button>\r\n      </div>\r\n      <div v-if=\"currentBody=='task-setting'\">\r\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"taskInfoText!=''\">\r\n          <small v-text=\"taskInfoText\"></small>\r\n        </div>      \r\n        <button v-if=\"newTask\" class=\"btn btn-warning btn-wide\" v-on=\"click: onCancelTask\">取消任务</button>\r\n        <button v-if=\"newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onAddTasks\">提交任务</button>      \r\n        <button v-if=\"!newTask\" class=\"btn btn-danger btn-wide \" v-on=\"click: onDeleteTask\">删除任务</button>\r\n        <button v-if=\"!newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onEditTask\">修改任务</button>\r\n      </div>\r\n    </div>\r\n  </modal>";
 
 /***/ },
 <<<<<<< HEAD
@@ -14253,13 +15487,25 @@
 /* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	exports = module.exports = __webpack_require__(91)();
+=======
+	exports = module.exports = __webpack_require__(90)();
+	// imports
+	
+	
+	// module
+>>>>>>> origin/gh-pages
 	exports.push([module.id, "", ""]);
+	
+	// exports
+
 
 /***/ },
 /* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	var yy_request = __webpack_require__(94)
 =======
@@ -14286,19 +15532,43 @@
 	  components: {
 	    'modal': __webpack_require__(150),
 	  }
+=======
+	var yy_request = __webpack_require__(94)
+	
+	module.exports = {
+	  props: {
+	    show: {
+	      type: Boolean,
+	      required: true,
+	      twoWay: true,
+	    },
+	    infoText: String,
+	  },
+	
+	  data: function () {
+	    return {
+	      modalWidth: 600,
+	      title: "提示信息",
+	    }
+	  },
+	
+	  components: {
+	    'modal': __webpack_require__(138),
+	  }
+>>>>>>> origin/gh-pages
 	}
 
 /***/ },
 /* 185 */
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <h5 class=\"text-center text-primary\">{{infoText}}</h5>\n    </div>\n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show=false\">确定</button>\n    </div>    \n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <h5 class=\"text-center text-primary\">{{infoText}}</h5>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show=false\">确定</button>\r\n    </div>    \r\n  </modal>";
 
 /***/ },
 /* 186 */
 /***/ function(module, exports) {
 
-	module.exports = "<header class=\"turn-left\"\n    v-el='header'>\n    <a href='#/menu'><div class=\"logo\"></div></a>\n    <div class=\"nav-switch\"\n      v-on=\"click: toggleMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <!--aside-->\n  <aside v-el='aside'>\n    <h6><a href=\"#/menu\" v-on=\"click: hideAside\">首页</a></h6>\n    <h6>打印中心</h6>\n    <ul>\n      <li><a href=\"#/print\" v-on=\"click: hideAside\">打印</a></li>\n      <li><a href=\"#\" v-on=\"click: showUploadModal = true,\n                            click: hideAside\">上传</a></li>\n      <li><a href=\"#/file\" v-on=\"click: hideAside\">文件</a></li>\n    </ul>\n    <h6>共享中心</h6>\n    <ul>\n      <li><a href=\"#\">我的共享</a></li>\n      <li><a href=\"#\">所有共享</a></li>\n    </ul>\n    <h6><a href=\"#/book\" v-on=\"click: hideAside\">教材</a></h6>\n    <h6><a href=\"#/user\" v-on=\"click: hideAside\">个人</a></h6>\n    <h6><a href=\"#/card\" v-on=\"click: hideAside\">校园卡</a></h6>\n    <h6><a href=\"#/printer\" v-on=\"click: hideAside\">打印店</a></h6>\n  </aside>\n  <section class=\"other\"\n    v-el=\"other\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <footer class='text-center'>\n      <ul class=\"list-inline\">\n        <li><a href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a rel=\"nofollow\" href=\"#\">打印店</a></li>\n        <li><a href=\"\">隐私声明</a></li>\n        <li><a rel=\"nofollow\" href=\"https://github.com/YunYinORG/print\">开源项目</a></li>\n        <li><a href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\n        <li><a href=\"\">新浪微博</a></li>\n        <li><a href=\"\">微信平台</a></li>\n      </ul>\n  </footer>\n  <filetask-modal show=\"{{@showFileTaskModal}}\" \n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\" \n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\" \n    info-text=\"{{infoModalText}}\"></info-modal>";
+	module.exports = "<header class=\"turn-left\"\r\n    v-el='header'>\r\n    <a href='#/menu'><div class=\"logo\"></div></a>\r\n    <div class=\"nav-switch\"\r\n      v-on=\"click: toggleMenu\">\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n    </div>\r\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\r\n    <div class=\"clear\"></div>\r\n  </header>\r\n  <!--aside-->\r\n  <aside v-el='aside'>\r\n    <h6><a href=\"#/menu\" v-on=\"click: hideAside\">首页</a></h6>\r\n    <h6>打印中心</h6>\r\n    <ul>\r\n      <li><a href=\"#/print\" v-on=\"click: hideAside\">打印</a></li>\r\n      <li><a href=\"#\" v-on=\"click: showUploadModal = true,\r\n                            click: hideAside\">上传</a></li>\r\n      <li><a href=\"#/file\" v-on=\"click: hideAside\">文件</a></li>\r\n    </ul>\r\n    <h6>共享中心</h6>\r\n    <ul>\r\n      <li><a href=\"#\">我的共享</a></li>\r\n      <li><a href=\"#\">所有共享</a></li>\r\n    </ul>\r\n    <h6><a href=\"#/book\" v-on=\"click: hideAside\">教材</a></h6>\r\n    <h6><a href=\"#/user\" v-on=\"click: hideAside\">个人</a></h6>\r\n    <h6><a href=\"#/card\" v-on=\"click: hideAside\">校园卡</a></h6>\r\n    <h6><a href=\"#/printer\" v-on=\"click: hideAside\">打印店</a></h6>\r\n  </aside>\r\n  <section class=\"other\"\r\n    v-el=\"other\">\r\n    <component is=\"{{view}}\"\r\n      class=\"view\"\r\n      v-transition\r\n      transition-mode=\"out-in\">\r\n    </component>\r\n  </section>\r\n  <footer class='text-center'>\r\n      <ul class=\"list-inline\">\r\n        <li><a href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\r\n        <li><a rel=\"nofollow\" href=\"#\">打印店</a></li>\r\n        <li><a href=\"\">隐私声明</a></li>\r\n        <li><a rel=\"nofollow\" href=\"https://github.com/YunYinORG/print\">开源项目</a></li>\r\n        <li><a href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\r\n        <li><a href=\"\">新浪微博</a></li>\r\n        <li><a href=\"\">微信平台</a></li>\r\n      </ul>\r\n  </footer>\r\n  <filetask-modal show=\"{{@showFileTaskModal}}\" \r\n    on-file-change=\"{{onFileChange}}\"\r\n    on-task-change=\"{{onTaskChange}}\" \r\n    params=\"{{fileTaskParams}}\"></filetask-modal>\r\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\r\n  <info-modal show=\"{{@showInfoModal}}\" \r\n    info-text=\"{{infoModalText}}\"></info-modal>";
 
 /***/ },
 /* 187 */

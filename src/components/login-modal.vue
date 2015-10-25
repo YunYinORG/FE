@@ -26,6 +26,7 @@
           </div>        
 
 
+
           <div v-show="showCode" class="form-group">
             <img id="code-img" src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode"
               v-on="click: changeCode">

@@ -42,4 +42,3 @@ router.on('/forget', function (page) {
 })
 
 router.init('/menu')
-
