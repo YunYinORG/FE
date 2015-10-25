@@ -25,10 +25,11 @@
             <small class="pull-right" style="cursor:pointer" v-on="click: onForgetPassword">忘记密码?</small>
           </div>        
 
+
           <div v-show="showCode" class="form-group">
-            <img id="code-img" src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode" 
+            <img id="code-img" src="../img/dummy-verifycode.png" alt="验证码" v-el="verifycode"
               v-on="click: changeCode">
-            <input type="text" class="form-control pull-right" id="code-input" 
+            <input type="text" class="form-control pull-right" id="code-input"
               placeholder="请输入验证码"
               v-model="code">
           </div>
@@ -45,13 +46,13 @@
       <div id="reset-wrapper" v-if="showReset">
         <p class="text-center">
           <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>
-        </p>    
+        </p>
         <div class="form-group">
-          <input type="text" class="form-control" id="nwpd-input" 
+          <input type="text" class="form-control" id="nwpd-input"
             placeholder="新的密码"
             v-model="pwnew">
-        </div>  
-        <div class="form-group">     
+        </div>
+        <div class="form-group">
           <button type="button" id="newpwd" class="btn btn-embossed btn-primary btn-block"
             v-on="click: newPassword">设置密码</button>
         </div>
@@ -60,7 +61,7 @@
         <small>欢迎您加入云印,即刻开始您的云打印之旅</small>
         <br>
         <br>
-        <div class="form-group">     
+        <div class="form-group">
           <button type="button" id="newpwd" class="btn btn-embossed btn-primary btn-block"
             v-on="click: afterLogin">立即使用</button>
         </div>
@@ -68,14 +69,14 @@
     </div> <!-- .modal-body -->
     <div class="modal-footer">
       <small>首次注册请使用本校办公网系统账号及密码登录</small>
-      <small><a>了解更多</a></small> 
-    </div>    
+      <small><a>了解更多</a></small>
+    </div>
   </modal>
 </template>
 
 <script>
 var yy_request = require('../js/yunyin_request');
-var po = require('../js/public_object.js') 
+var po = require('../js/public_object.js')
 
 module.exports = {
   props: {
@@ -143,7 +144,7 @@ module.exports = {
           } else {
             vuemodel.usertype = 'new'
             vuemodel.errorinfo = ""
-            refreshCode(vuemodel)             
+            refreshCode(vuemodel)
           }
         } else {
           vuemodel.usertype = 'wrong'
@@ -167,7 +168,7 @@ module.exports = {
       var vuemodel = this
 
       var ajax_data = {
-        password: md5(vuemodel.pwnew)    
+        password: md5(vuemodel.pwnew)
       }
 
       yy_request.rest_api('post','user/',ajax_data,function(status,info){
@@ -234,8 +235,8 @@ function newUserVerify(vuemodel) {
   }
 
   if(vuemodel.showCode) {
-    ajax_data.code = vuemodel.code;
-    ajax_data.verify_cookie = vuemodel.cookie;
+    ajax_data.code = vuemodel.code
+    ajax_data.verify_cookie = vuemodel.cookie
   }
 
   yy_request.rest_api('post','auth/',ajax_data,function(status,info){
@@ -246,7 +247,7 @@ function newUserVerify(vuemodel) {
       }
     } else {
       vuemodel.showReset = true
-      vuemodel.showLogin = false    
+      vuemodel.showLogin = false
     }
   })
 }
@@ -267,6 +268,7 @@ function loginSuccess(vuemodel) {
     vuemodel.showLogin = true
     vuemodel.showDone = false
     vuemodel.showCode = false   
+
   },1000)
 
   if(po.app.view=='intro-view') {

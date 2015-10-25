@@ -80,7 +80,7 @@ yyajax.prototype = {
 		}
 
 		o.XHR.withCredentials=withCredentials;
-		o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
+		// o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
 	    o.XHR.send(data);
 	},
 

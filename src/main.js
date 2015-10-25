@@ -41,4 +41,5 @@ router.on('/forget', function (page) {
   app.view = 'forget-view'
 })
 
-router.init('/intro')
+router.init('/menu')
+
