@@ -29,7 +29,7 @@ module.exports = {
 
   computed: {
   	displayText: function() { 		
-  		if(this.value!=this.lastValue) {
+  		if(this.value!=this.lastValue && typeof(this.onSelectChange)=='function') {
   			this.onSelectChange()
   		}
   		this.lastValue = this.value
@@ -60,7 +60,7 @@ module.exports = {
 	.myselect-wrapper {
 		width: 100%;
 		height: 41px;
-		z-index: 9998;
+		/*z-index: 9999;*/
 		overflow: visible;
 		background: #0BBD9E;
 		border-radius: 3px;
@@ -83,6 +83,7 @@ module.exports = {
 	}
 
 	.myselect-wrapper .choice-wrapper {
+		z-index: 9999;
 		position: relative;
 		background: #F3F4F5;
 		opacity: 1;

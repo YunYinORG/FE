@@ -37,4 +37,9 @@ router.on('/user', function (page) {
   app.view = 'user-view'
 })
 
-router.init('/intro')
+router.on('/forget', function (page) {
+  app.view = 'forget-view'
+})
+
+router.init('/menu')
+

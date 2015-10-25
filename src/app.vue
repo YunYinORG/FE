@@ -140,6 +140,7 @@ module.exports = {
     'share-view': require('./views/share-view.vue'),
     'textbook-view': require('./views/textbook-view.vue'),
     'user-view': require('./views/user-view.vue'),
+    'forget-view': require('./views/forget-view.vue'),
     'login-modal': require('./components/login-modal.vue'),
     'filetask-modal': require('./components/filetask-modal.vue'),
     'info-modal': require('./components/info-modal.vue'),
@@ -149,7 +150,8 @@ module.exports = {
 
 <style>
 body {
-  background-color: #1abc9c;
+  background-color: #00A6E9;
+  color:#FEFEFE;
     position: relative;
     overflow-x: hidden;
 }
@@ -236,11 +238,11 @@ section {
   height: 4px;
     border-radius: 1px;
     margin-bottom: 5px;
-    background-color: #13202c;
+    background-color: #def;
 }
 
 .nav-switch:hover > .line {
-    background-color: white;
+    background-color: #FFF;
 }
 
 .nav-switch > div {
@@ -305,7 +307,7 @@ aside > ul{
 
 footer {
     width: 100%;
-    background-color: #1abc9c;
+    background-color: #00A6E9;
     transition:0.25s ease-out;
     -webkit-transition:0.25s ease-out;
 }
@@ -315,7 +317,7 @@ footer > ul{
 }
 
 footer a{
-    color: #13202c;
+    color: #00A6E9;
 }
 
 body.modal-open {

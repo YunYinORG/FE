@@ -31,9 +31,11 @@
 				<div id="phone-wrapper" v-if="showPhoneEdit" v-transition="expand">
 					<div class="input-group row col-sm-offset-1 col-sm-10" style='margin-top:10px'>
 						<span class="input-group-addon">+86</span>
-						<input type="text" placeholder='你的手机号' class="form-control"/>
+						<input type="text" placeholder='你的手机号' class="form-control" v-model="newPhone"/>
 						<span class="input-group-btn">
-							<button class='btn btn-primary'><span class="glyphicon glyphicon-check"></span>验证</button>
+							<button class='btn btn-primary' v-on="click: onBindPhone">
+								<span class="glyphicon glyphicon-check"></span>绑定
+							</button>
 							<span class='btn btn-default cancel' v-on="click: showPhoneEdit=false">
 								<span class="glyphicon glyphicon-remove"></span>
 							</span>
@@ -51,8 +53,8 @@
 					<div class='input-group row col-sm-offset-1 col-sm-10' style='margin-top:10px'>
 						<input type="email" placeholder='你的常用邮箱' class="form-control" v-model="newMail"/>
 						<span class="input-group-btn">
-							<button class='btn btn-primary' v-on="click: onVerifyMail">
-								<span class="glyphicon glyphicon-check"></span>验证
+							<button class='btn btn-primary' v-on="click: onBindMail">
+								<span class="glyphicon glyphicon-check"></span>绑定
 							</button>
 							<span class='btn btn-default cancel' v-on="click: showMailEdit=false">
 								<span class="glyphicon glyphicon-remove"></span>
@@ -91,8 +93,18 @@
 					</div>
 				</div>
 			</div>
+			<div class="logout-wrapper row">
+				<button class="btn btn-embossed btn-danger col-sm-12 col-md-6 col-md-offset-3"
+					v-on="click: onLogout">退出登录</button>
+			</div>
 		</div>
 	</div>
+  <verifycode-modal show="{{@showCodeModal}}"
+  	stage = "{{verifyStage}}" 
+    verify-type = "bind"
+    verify-way="{{verifyWay}}"
+    verify-info="{{verifyInfo}}"
+    user-id="{{uid}}"></verifycode-modal>
 </template>
 
 <script>
@@ -112,10 +124,16 @@ module.exports = {
 			showPhoneEdit: false,
 			showMailEdit: false,
 			showPasswordEdit: false,
+			newPhone: '',
 			newMail: '',
 			oldPwd: '',
 			newPwd: '',
 			newPwdRepeat: '',
+			showCodeModal: false,
+			verifyStage: 'code',
+			verifyWay:'',
+			verifyInfo:'',
+
 		}
 	},
 
@@ -147,21 +165,57 @@ module.exports = {
 			}
 		},
 
-		onVerifyMail: function() {
+		onBindPhone: function() {
+			var vuemodel = this
+			var ajax_data = {
+				phone: this.newPhone
+			}
+			yy_request.rest_api('post',"user/"+this.uid+"/phone",ajax_data,function(status,info){
+				if(status==1) {
+					vuemodel.verifyStage = 'code'
+					vuemodel.verifyWay = 'phone'
+					vuemodel.verifyInfo = vuemodel.newPhone
+					vuemodel.showCodeModal = true
+				} else {
+					po.app.infoModalText = info
+					po.app.showInfoModal = true
+				}
+			})
+		},
+
+
+		onBindMail: function() {
+			var vuemodel = this
 			var ajax_data = {
 				email: this.newMail
 			}
 			yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
 				if(status==1) {
+					vuemodel.verifyStage = 'code'
+					vuemodel.verifyWay = 'email'
+					vuemodel.verifyInfo = vuemodel.newMail
+					vuemodel.showCodeModal = true
+				} else {
 					po.app.infoModalText = info
 					po.app.showInfoModal = true
-					vuemodel.showMailEdit = false
 				}
 			})
 		},
-	},
-}
 
+		onLogout: function() {
+			yy_request.rest_api('get',"auth/logout",null,function(status,info){
+				if(status==1) {
+					window.location.hash = "#/menu"
+					po.app.showLoginModal = true 
+				}
+			})		
+		},
+	},
+
+	components: {
+    'verifycode-modal': require('../components/verifycode-modal.vue'),
+	}
+}
 
 function get_user_detail(vuemodel) {
 	yy_request.rest_api('get','user/',null,function(status,info){
