@@ -12521,7 +12521,7 @@
 	
 	  if(vuemodel.showCode) {
 	    ajax_data.code = vuemodel.code;
-	    // ajax_data.verify_cookie = vuemodel.cookie;
+	    ajax_data.verify_cookie = vuemodel.cookie;
 	  }
 	
 	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
