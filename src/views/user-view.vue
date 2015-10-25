@@ -99,6 +99,12 @@
 			</div>
 		</div>
 	</div>
+  <verifycode-modal show="{{@showCodeModal}}"
+  	stage = "{{verifyStage}}" 
+    verify-type = "bind"
+    verify-way="{{verifyWay}}"
+    verify-info="{{verifyInfo}}"
+    user-id="{{uid}}"></verifycode-modal>
 </template>
 
 <script>
@@ -123,6 +129,11 @@ module.exports = {
 			oldPwd: '',
 			newPwd: '',
 			newPwdRepeat: '',
+			showCodeModal: false,
+			verifyStage: 'code',
+			verifyWay:'',
+			verifyInfo:'',
+
 		}
 	},
 
@@ -155,28 +166,38 @@ module.exports = {
 		},
 
 		onBindPhone: function() {
+			var vuemodel = this
 			var ajax_data = {
-				email: this.newMail
+				phone: this.newPhone
 			}
-			yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
+			yy_request.rest_api('post',"user/"+this.uid+"/phone",ajax_data,function(status,info){
 				if(status==1) {
+					vuemodel.verifyStage = 'code'
+					vuemodel.verifyWay = 'phone'
+					vuemodel.verifyInfo = vuemodel.newPhone
+					vuemodel.showCodeModal = true
+				} else {
 					po.app.infoModalText = info
 					po.app.showInfoModal = true
-					vuemodel.showMailEdit = false
 				}
 			})
 		},
 
 
 		onBindMail: function() {
+			var vuemodel = this
 			var ajax_data = {
 				email: this.newMail
 			}
 			yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
 				if(status==1) {
+					vuemodel.verifyStage = 'code'
+					vuemodel.verifyWay = 'email'
+					vuemodel.verifyInfo = vuemodel.newMail
+					vuemodel.showCodeModal = true
+				} else {
 					po.app.infoModalText = info
 					po.app.showInfoModal = true
-					vuemodel.showMailEdit = false
 				}
 			})
 		},
@@ -189,8 +210,11 @@ module.exports = {
 				}
 			})		
 		},
-	
 	},
+
+	components: {
+    'verifycode-modal': require('../components/verifycode-modal.vue'),
+	}
 }
 
 function get_user_detail(vuemodel) {

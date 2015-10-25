@@ -8,9 +8,9 @@
 			<br>如果账号不在系统中，请前往云印南天首页直接登录。
 			</p>
 			<div class="btn-group btn-group-justified">
-				<a class="btn btn-primary" v-on="click: findWay='phone'" v-class="active : findWay=='phone'">绑定手机找回</a>
-				<a class="btn btn-primary" v-on="click: findWay='email'" v-class="active : findWay=='email'">绑定邮箱找回</a>
-				<a class="btn btn-primary" v-on="click: findWay='school'" v-class="active : findWay=='school'">校园账号找回</a>
+				<a class="btn btn-primary" v-on="click: onByPhone" v-class="active : findWay=='phone'">绑定手机找回</a>
+				<a class="btn btn-primary" v-on="click: onByMail" v-class="active : findWay=='email'">绑定邮箱找回</a>
+				<a class="btn btn-primary" v-on="click: onBySchool" v-class="active : findWay=='school'">校园账号找回</a>
 			</div>
 			<h5 class="text-center find-title" v-text="findTitle"></h5>
 			<div class="row">
@@ -50,6 +50,11 @@
 			</div>
 		</div>
 	</div>
+  <verifycode-modal show="{{@showCodeModal}}"
+  	stage = "{{verifyStage}}" 
+	  verify-type="reset"
+	  verify-way="{{verifyWay}}"
+	  verify-info="{{verifyInfo}}"></verifycode-modal>
 </template>
 
 <script>
@@ -70,6 +75,10 @@ module.exports = {
 			verifyInfo: '',
 			errorinfo: '',
 			usertype: '',
+			showCodeModal: false,
+			verifyStage: 'code',
+			verifyWay: '',
+			verifyInfo: '',
 		}
 	},
 
@@ -130,6 +139,18 @@ module.exports = {
 	},
 
 	methods: {
+		onByPhone: function() {
+			this.findWay = 'phone'
+			this.findInfo = ''
+		},
+		onByMail: function() {
+			this.findWay = 'email'
+			this.findInfo = ''
+		},
+		onBySchool: function() {
+			this.findWay = 'school'
+			this.findInfo = ''
+		},
 		onSchoolChange: function() {
 			for(var i in this.schoolList) {
 				if(this.schoolList[i].value==this.schoolId) {
@@ -148,12 +169,16 @@ module.exports = {
 				verifyUserSchool(this)
 			}
 		},
+
+		changeCode: function() {
+			refreshCode(this)
+		},
 	},  
 
 	components: {
     'my-select': require('../controls/my-select.vue'),
+    'verifycode-modal': require('../components/verifycode-modal.vue'),
   }
-
 
 }
 
@@ -176,9 +201,13 @@ function sendPhoneCode(vuemodel) {
 	}
   yy_request.rest_api('post','password/phone',ajax_data,function(status,info) {
     if(status==1) {
-    	alert("验证码发送成功")
+			vuemodel.verifyStage = 'code'
+			vuemodel.verifyWay = 'phone'
+			vuemodel.verifyInfo = vuemodel.findInfo
+			vuemodel.showCodeModal = true
     } else {
-      alert(info)
+			po.app.infoModalText = info
+			po.app.showInfoModal = true
     }
   })	
 }
@@ -190,9 +219,13 @@ function sendEmailCode(vuemodel) {
 	}
   yy_request.rest_api('post','password/email',ajax_data,function(status,info) {
     if(status==1) {
-    	alert("验证码发送成功")
+			vuemodel.verifyStage = 'code'
+			vuemodel.verifyWay = 'email'
+			vuemodel.verifyInfo = vuemodel.findInfo
+			vuemodel.showCodeModal = true
     } else {
-      alert(info)
+			po.app.infoModalText = info
+			po.app.showInfoModal = true
     }
   })	
 }
@@ -201,13 +234,18 @@ function verifyUserSchool(vuemodel) {
 	var ajax_data = {
 		number: vuemodel.findId,
 		password: vuemodel.findInfo,
-		code: vuemodel.code,
+		sch_id: vuemodel.schoolId,
+	}
+	if(vuemodel.showCode) {
+		ajax_data.code = vuemodel.code
 	}
   yy_request.rest_api('post','password/verify',ajax_data,function(status,info) {
     if(status==1) {
-    	alert("验证成功")
+			vuemodel.verifyStage = 'reset'
+			vuemodel.showCodeModal = true
     } else {
-      alert(info)
+			po.app.infoModalText = info
+			po.app.showInfoModal = true
     }
   })	
 }

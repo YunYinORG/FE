@@ -271,9 +271,11 @@ function loginSuccess(vuemodel) {
 
   },1000)
 
-  if(po.app.view=='intro-view') {
-    window.location.hash = '#/menu'
-  }
+  window.location.reload()
+
+  // if(po.app.view=='intro-view') {
+  //   window.location.hash = '#/menu'
+  // }
 }
 
 </script>

@@ -114,10 +114,10 @@ function getPrinterDetail(vuemodel) {
         name: info.name,
         address: info.address,
         phone: info.phone,
-        price1: info.price.split(',')[0],
-        price2: info.price.split(',')[1],
-        price3: info.price.split(',')[2],
-        price4: info.price.split(',')[3],
+        price1: info.price.c_s,
+        price2: info.price.c_d,
+        price3: info.price.s,
+        price4: info.price.d,
       }
     }
   })

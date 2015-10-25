@@ -63,9 +63,11 @@
               {{file.time}}
             </td>
             <td class='action-line'>
-              <span class="glyphicon glyphicon-print"></span>
-              <span class="glyphicon glyphicon-share"></span>
-              <span class="glyphicon glyphicon-trash"
+              <span class="glyphicon glyphicon-print" style="cursor:pointer"
+                v-on="click: onPrint($event,file)"></span>
+              <span class="glyphicon glyphicon-share" style="cursor:pointer"
+                ></span>
+              <span class="glyphicon glyphicon-trash" style="cursor:pointer"
                 v-on="click: onDelete($event,file)"></span>
             </td>
           </tr>
