@@ -22,7 +22,7 @@
           <div>
             <input id="rmb" type="checkbox" v-model="remeber">
             <label for="rmb">自动登录</label>
-            <small class="pull-right">忘记密码?</small>
+            <small class="pull-right" style="cursor:pointer" v-on="click: onForgetPassword">忘记密码?</small>
           </div>        
 
           <div v-show="showCode" class="form-group">
@@ -92,6 +92,7 @@ module.exports = {
       title: "请先登录云印",
       showCode: false,
       code: '',
+      cookie: '',
       codeSrc: '',
       studentid: '',
       password: '',
@@ -138,6 +139,7 @@ module.exports = {
           if(sch_value[0]==0) {
             vuemodel.usertype = 'old'
             vuemodel.errorinfo = ""
+            vuemodel.showCode = false
           } else {
             vuemodel.usertype = 'new'
             vuemodel.errorinfo = ""
@@ -168,7 +170,7 @@ module.exports = {
         password: md5(vuemodel.pwnew)    
       }
 
-      yy_request.rest_api('post','auth/register/',ajax_data,function(status,info){
+      yy_request.rest_api('post','user/',ajax_data,function(status,info){
         if(status==1) {
           vuemodel.showDone  = true
           vuemodel.showReset = false
@@ -182,7 +184,12 @@ module.exports = {
 
     afterLogin: function(e) {
       loginSuccess(this)
-    }
+    },
+
+    onForgetPassword: function(e) {
+      window.location.hash = "#/forget"
+      po.app.showLoginModal = false
+    },
 
   },
 
@@ -210,7 +217,8 @@ function refreshCode(vuemodel) {
   var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
   yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
     if(status==1) {
-      vuemodel.$$.verifycode.src = info
+      vuemodel.$$.verifycode.src = info.img
+      vuemodel.cookie = info.verify_cookie
       vuemodel.showCode = true
     } else {
       vuemodel.showCode = false
@@ -223,7 +231,11 @@ function newUserVerify(vuemodel) {
     number: vuemodel.studentid,
     password: vuemodel.password,
     sch_id: vuemodel.schoolid,
-    code: vuemodel.code,
+  }
+
+  if(vuemodel.showCode) {
+    ajax_data.code = vuemodel.code;
+    // ajax_data.verify_cookie = vuemodel.cookie;
   }
 
   yy_request.rest_api('post','auth/',ajax_data,function(status,info){
@@ -253,7 +265,8 @@ function loginSuccess(vuemodel) {
   setTimeout(function(){
     vuemodel.showReset = false
     vuemodel.showLogin = true
-    vuemodel.showDone = false   
+    vuemodel.showDone = false
+    vuemodel.showCode = false   
   },1000)
 
   if(po.app.view=='intro-view') {

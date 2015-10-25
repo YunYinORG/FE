@@ -140,6 +140,7 @@ module.exports = {
     'share-view': require('./views/share-view.vue'),
     'textbook-view': require('./views/textbook-view.vue'),
     'user-view': require('./views/user-view.vue'),
+    'forget-view': require('./views/forget-view.vue'),
     'login-modal': require('./components/login-modal.vue'),
     'filetask-modal': require('./components/filetask-modal.vue'),
     'info-modal': require('./components/info-modal.vue'),

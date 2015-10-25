@@ -44,15 +44,15 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Vue = __webpack_require__(20)
-	var app = new Vue(__webpack_require__(87))
+	var Vue = __webpack_require__(21)
+	var app = new Vue(__webpack_require__(88))
 	
-	var po = __webpack_require__(95)
+	var po = __webpack_require__(96)
 	po.app = app
 	
 	window.bb = app
 	
-	var Router = __webpack_require__(181).Router
+	var Router = __webpack_require__(187).Router
 	var router = new Router()
 	
 	router.on('/intro', function (page) {
@@ -83,6 +83,10 @@
 	  app.view = 'user-view'
 	})
 	
+	router.on('/forget', function (page) {
+	  app.view = 'forget-view'
+	})
+	
 	router.init('/intro')
 
 /***/ },
@@ -105,10 +109,11 @@
 /* 17 */,
 /* 18 */,
 /* 19 */,
-/* 20 */
+/* 20 */,
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var extend = _.extend
 	
 	/**
@@ -133,7 +138,7 @@
 	 * Mixin global API
 	 */
 	
-	extend(Vue, __webpack_require__(30))
+	extend(Vue, __webpack_require__(31))
 	
 	/**
 	 * Vue and every constructor that extends Vue has an
@@ -146,9 +151,9 @@
 	
 	Vue.options = {
 	  replace: true,
-	  directives: __webpack_require__(46),
-	  elementDirectives: __webpack_require__(68),
-	  filters: __webpack_require__(71),
+	  directives: __webpack_require__(47),
+	  elementDirectives: __webpack_require__(69),
+	  filters: __webpack_require__(72),
 	  transitions: {},
 	  components: {},
 	  partials: {}
@@ -180,42 +185,42 @@
 	 * Mixin internal instance methods
 	 */
 	
-	extend(p, __webpack_require__(73))
 	extend(p, __webpack_require__(74))
 	extend(p, __webpack_require__(75))
-	extend(p, __webpack_require__(79))
-	extend(p, __webpack_require__(81))
+	extend(p, __webpack_require__(76))
+	extend(p, __webpack_require__(80))
+	extend(p, __webpack_require__(82))
 	
 	/**
 	 * Mixin public API methods
 	 */
 	
-	extend(p, __webpack_require__(82))
 	extend(p, __webpack_require__(83))
 	extend(p, __webpack_require__(84))
 	extend(p, __webpack_require__(85))
 	extend(p, __webpack_require__(86))
+	extend(p, __webpack_require__(87))
 	
 	module.exports = _.Vue = Vue
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var lang = __webpack_require__(22)
+	var lang = __webpack_require__(23)
 	var extend = lang.extend
 	
 	extend(exports, lang)
-	extend(exports, __webpack_require__(23))
 	extend(exports, __webpack_require__(24))
-	extend(exports, __webpack_require__(27))
+	extend(exports, __webpack_require__(25))
 	extend(exports, __webpack_require__(28))
 	extend(exports, __webpack_require__(29))
+	extend(exports, __webpack_require__(30))
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	/**
@@ -531,7 +536,7 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports) {
 
 	// can we use __proto__?
@@ -622,11 +627,11 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
 	
 	/**
 	 * Query an element selector if it's not an element already.
@@ -898,10 +903,10 @@
 	    : document.createTextNode(persist ? ' ' : '')
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports) {
 
 	// shim for using process in browser
@@ -998,7 +1003,7 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -1128,11 +1133,11 @@
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
 	var extend = _.extend
 	
 	/**
@@ -1489,13 +1494,13 @@
 	  return asset
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	
 	/**
 	 * Check if an element is a component, if yes return its
@@ -1620,10 +1625,10 @@
 	  return Object.prototype.toString.call(val).slice(8, -1)
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1632,7 +1637,7 @@
 	
 	if (process.env.NODE_ENV !== 'production') {
 	
-	  var config = __webpack_require__(26)
+	  var config = __webpack_require__(27)
 	  var hasConsole = typeof console !== 'undefined'
 	
 	  /**
@@ -1691,14 +1696,14 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
 	
 	/**
 	 * Expose useful internals
@@ -1707,14 +1712,14 @@
 	exports.util = _
 	exports.config = config
 	exports.nextTick = _.nextTick
-	exports.compiler = __webpack_require__(31)
+	exports.compiler = __webpack_require__(32)
 	
 	exports.parsers = {
-	  path: __webpack_require__(41),
-	  text: __webpack_require__(34),
-	  template: __webpack_require__(43),
-	  directive: __webpack_require__(36),
-	  expression: __webpack_require__(40)
+	  path: __webpack_require__(42),
+	  text: __webpack_require__(35),
+	  template: __webpack_require__(44),
+	  directive: __webpack_require__(37),
+	  expression: __webpack_require__(41)
 	}
 	
 	/**
@@ -1829,27 +1834,27 @@
 
 
 /***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var _ = __webpack_require__(21)
-	
-	_.extend(exports, __webpack_require__(32))
-	_.extend(exports, __webpack_require__(45))
-
-
-/***/ },
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var compileProps = __webpack_require__(33)
-	var config = __webpack_require__(26)
-	var textParser = __webpack_require__(34)
-	var dirParser = __webpack_require__(36)
-	var templateParser = __webpack_require__(43)
+	var _ = __webpack_require__(22)
+	
+	_.extend(exports, __webpack_require__(33))
+	_.extend(exports, __webpack_require__(46))
+
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var compileProps = __webpack_require__(34)
+	var config = __webpack_require__(27)
+	var textParser = __webpack_require__(35)
+	var dirParser = __webpack_require__(37)
+	var templateParser = __webpack_require__(44)
 	var resolveAsset = _.resolveAsset
-	var componentDef = __webpack_require__(44)
+	var componentDef = __webpack_require__(45)
 	
 	// terminal directives
 	var terminalDirectives = [
@@ -2473,19 +2478,19 @@
 	  return a > b ? 1 : -1
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var textParser = __webpack_require__(34)
-	var propDef = __webpack_require__(37)
-	var propBindingModes = __webpack_require__(26)._propBindingModes
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var textParser = __webpack_require__(35)
+	var propDef = __webpack_require__(38)
+	var propBindingModes = __webpack_require__(27)._propBindingModes
 	
 	// regexes
-	var identRE = __webpack_require__(41).identRE
+	var identRE = __webpack_require__(42).identRE
 	var dataAttrRE = /^data-/
 	var settablePathRE = /^[A-Za-z_$][\w$]*(\.[A-Za-z_$][\w$]*|\[[^\[\]]+\])*$/
 	var literalValueRE = /^(true|false)$|^\d.*/
@@ -2663,15 +2668,15 @@
 	    : def
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Cache = __webpack_require__(35)
-	var config = __webpack_require__(26)
-	var dirParser = __webpack_require__(36)
+	var Cache = __webpack_require__(36)
+	var config = __webpack_require__(27)
+	var dirParser = __webpack_require__(37)
 	var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
 	var cache, tagRE, htmlRE, firstChar, lastChar
 	
@@ -2850,7 +2855,7 @@
 
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	/**
@@ -2968,11 +2973,11 @@
 
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var Cache = __webpack_require__(35)
+	var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(36)
 	var cache = new Cache(1000)
 	var argRE = /^[^\{\?]+$|^'[^']*'$|^"[^"]*"$/
 	var filterTokenRE = /[^\s'"]+|'[^']*'|"[^"]*"/g
@@ -3154,7 +3159,7 @@
 
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// NOTE: the prop internal directive is compiled and linked
@@ -3162,9 +3167,9 @@
 	// The purpose is to make the initial prop values available
 	// inside `created` hooks and `data` functions.
 	
-	var _ = __webpack_require__(21)
-	var Watcher = __webpack_require__(38)
-	var bindingModes = __webpack_require__(26)._propBindingModes
+	var _ = __webpack_require__(22)
+	var Watcher = __webpack_require__(39)
+	var bindingModes = __webpack_require__(27)._propBindingModes
 	
 	module.exports = {
 	
@@ -3222,14 +3227,14 @@
 
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
-	var Dep = __webpack_require__(39)
-	var expParser = __webpack_require__(40)
-	var batcher = __webpack_require__(42)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
+	var Dep = __webpack_require__(40)
+	var expParser = __webpack_require__(41)
+	var batcher = __webpack_require__(43)
 	var uid = 0
 	
 	/**
@@ -3538,13 +3543,13 @@
 	
 	module.exports = Watcher
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var uid = 0
 	
 	/**
@@ -3608,12 +3613,12 @@
 
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var Path = __webpack_require__(41)
-	var Cache = __webpack_require__(35)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var Path = __webpack_require__(42)
+	var Cache = __webpack_require__(36)
 	var expressionCache = new Cache(1000)
 	
 	var allowedKeywords =
@@ -3876,14 +3881,14 @@
 	    exp.slice(0, 5) !== 'Math.'
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var Cache = __webpack_require__(35)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(36)
 	var pathCache = new Cache(1000)
 	var identRE = exports.identRE = /^[$_a-zA-Z]+[\w$]*$/
 	
@@ -4231,14 +4236,14 @@
 	  )
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
 	
 	// we have two separate queues: one for directive updates
 	// and one for user watcher registered via $watch().
@@ -4336,14 +4341,14 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var Cache = __webpack_require__(35)
+	var _ = __webpack_require__(22)
+	var Cache = __webpack_require__(36)
 	var templateCache = new Cache(1000)
 	var idSelectorCache = new Cache(1000)
 	
@@ -4633,12 +4638,12 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
-	var templateParser = __webpack_require__(43)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
+	var templateParser = __webpack_require__(44)
 	
 	module.exports = {
 	
@@ -4981,15 +4986,15 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
-	var templateParser = __webpack_require__(43)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
+	var templateParser = __webpack_require__(44)
 	
 	/**
 	 * Process an element or a DocumentFragment based on a
@@ -5132,43 +5137,43 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// manipulation directives
-	exports.text = __webpack_require__(47)
-	exports.html = __webpack_require__(48)
-	exports.attr = __webpack_require__(49)
-	exports.show = __webpack_require__(50)
-	exports['class'] = __webpack_require__(52)
-	exports.el = __webpack_require__(53)
-	exports.ref = __webpack_require__(54)
-	exports.cloak = __webpack_require__(55)
-	exports.style = __webpack_require__(56)
-	exports.transition = __webpack_require__(57)
-	
-	// event listener directives
-	exports.on = __webpack_require__(60)
-	exports.model = __webpack_require__(61)
-	
-	// logic control directives
-	exports.repeat = __webpack_require__(66)
-	exports['if'] = __webpack_require__(67)
-	
-	// internal directives that should not be used directly
-	// but we still want to expose them for advanced usage.
-	exports._component = __webpack_require__(44)
-	exports._prop = __webpack_require__(37)
-
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
 /* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	// manipulation directives
+	exports.text = __webpack_require__(48)
+	exports.html = __webpack_require__(49)
+	exports.attr = __webpack_require__(50)
+	exports.show = __webpack_require__(51)
+	exports['class'] = __webpack_require__(53)
+	exports.el = __webpack_require__(54)
+	exports.ref = __webpack_require__(55)
+	exports.cloak = __webpack_require__(56)
+	exports.style = __webpack_require__(57)
+	exports.transition = __webpack_require__(58)
+	
+	// event listener directives
+	exports.on = __webpack_require__(61)
+	exports.model = __webpack_require__(62)
+	
+	// logic control directives
+	exports.repeat = __webpack_require__(67)
+	exports['if'] = __webpack_require__(68)
+	
+	// internal directives that should not be used directly
+	// but we still want to expose them for advanced usage.
+	exports._component = __webpack_require__(45)
+	exports._prop = __webpack_require__(38)
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -5185,11 +5190,11 @@
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var templateParser = __webpack_require__(43)
+	var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(44)
 	
 	module.exports = {
 	
@@ -5231,7 +5236,7 @@
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	// xlink
@@ -5296,10 +5301,10 @@
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var transition = __webpack_require__(51)
+	var transition = __webpack_require__(52)
 	
 	module.exports = function (value) {
 	  var el = this.el
@@ -5310,10 +5315,10 @@
 
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	/**
 	 * Append with transition.
@@ -5444,10 +5449,10 @@
 
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var addClass = _.addClass
 	var removeClass = _.removeClass
 	
@@ -5520,7 +5525,7 @@
 
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -5538,10 +5543,10 @@
 
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -5564,13 +5569,13 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var config = __webpack_require__(26)
+	var config = __webpack_require__(27)
 	
 	module.exports = {
 	  bind: function () {
@@ -5583,10 +5588,10 @@
 
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var prefixes = ['-webkit-', '-moz-', '-ms-']
 	var camelPrefixes = ['Webkit', 'Moz', 'ms']
 	var importantRE = /!important;?$/
@@ -5699,11 +5704,11 @@
 
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var Transition = __webpack_require__(58)
+	var _ = __webpack_require__(22)
+	var Transition = __webpack_require__(59)
 	
 	module.exports = {
 	
@@ -5731,11 +5736,11 @@
 
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var queue = __webpack_require__(59)
+	var _ = __webpack_require__(22)
+	var queue = __webpack_require__(60)
 	var addClass = _.addClass
 	var removeClass = _.removeClass
 	var transitionEndEvent = _.transitionEndEvent
@@ -6094,10 +6099,10 @@
 
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var queue = []
 	var queued = false
 	
@@ -6135,10 +6140,10 @@
 
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -6198,19 +6203,19 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	
 	var handlers = {
-	  text: __webpack_require__(62),
-	  radio: __webpack_require__(63),
-	  select: __webpack_require__(64),
-	  checkbox: __webpack_require__(65)
+	  text: __webpack_require__(63),
+	  radio: __webpack_require__(64),
+	  select: __webpack_require__(65),
+	  checkbox: __webpack_require__(66)
 	}
 	
 	module.exports = {
@@ -6287,13 +6292,13 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -6428,10 +6433,10 @@
 
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -6467,12 +6472,12 @@
 
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var Watcher = __webpack_require__(38)
-	var dirParser = __webpack_require__(36)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var Watcher = __webpack_require__(39)
+	var dirParser = __webpack_require__(37)
 	
 	module.exports = {
 	
@@ -6707,13 +6712,13 @@
 	  return -1
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	module.exports = {
 	
@@ -6758,17 +6763,17 @@
 
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
 	var isObject = _.isObject
 	var isPlainObject = _.isPlainObject
-	var textParser = __webpack_require__(34)
-	var expParser = __webpack_require__(40)
-	var templateParser = __webpack_require__(43)
-	var compiler = __webpack_require__(31)
+	var textParser = __webpack_require__(35)
+	var expParser = __webpack_require__(41)
+	var templateParser = __webpack_require__(44)
+	var compiler = __webpack_require__(32)
 	var uid = 0
 	
 	// async component resolution states
@@ -7532,17 +7537,17 @@
 	    type === 'boolean'
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var compiler = __webpack_require__(31)
-	var templateParser = __webpack_require__(43)
-	var transition = __webpack_require__(51)
-	var Cache = __webpack_require__(35)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var compiler = __webpack_require__(32)
+	var templateParser = __webpack_require__(44)
+	var transition = __webpack_require__(52)
+	var Cache = __webpack_require__(36)
 	var cache = new Cache(1000)
 	
 	module.exports = {
@@ -7664,22 +7669,22 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports.content = __webpack_require__(69)
-	exports.partial = __webpack_require__(70)
-
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
 /* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var clone = __webpack_require__(43).clone
+	exports.content = __webpack_require__(70)
+	exports.partial = __webpack_require__(71)
+
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var _ = __webpack_require__(22)
+	var clone = __webpack_require__(44).clone
 	
 	// This is the elementDirective that handles <content>
 	// transclusions. It relies on the raw content of an
@@ -7792,18 +7797,18 @@
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var templateParser = __webpack_require__(43)
-	var textParser = __webpack_require__(34)
-	var compiler = __webpack_require__(31)
-	var Cache = __webpack_require__(35)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var templateParser = __webpack_require__(44)
+	var textParser = __webpack_require__(35)
+	var compiler = __webpack_require__(32)
+	var Cache = __webpack_require__(36)
 	var cache = new Cache(1000)
 	
 	// v-partial reuses logic from v-if
-	var vIf = __webpack_require__(67)
+	var vIf = __webpack_require__(68)
 	
 	module.exports = {
 	
@@ -7869,13 +7874,13 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	/**
 	 * Stringify value.
@@ -8020,15 +8025,15 @@
 	 * Install special array filters
 	 */
 	
-	_.extend(exports, __webpack_require__(72))
+	_.extend(exports, __webpack_require__(73))
 
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var Path = __webpack_require__(41)
+	var _ = __webpack_require__(22)
+	var Path = __webpack_require__(42)
 	
 	/**
 	 * Filter filter for v-repeat
@@ -8127,10 +8132,10 @@
 
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mergeOptions = __webpack_require__(21).mergeOptions
+	var mergeOptions = __webpack_require__(22).mergeOptions
 	
 	/**
 	 * The main init sequence. This is called for every
@@ -8222,10 +8227,10 @@
 
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	var inDoc = _.inDoc
 	
 	/**
@@ -8365,17 +8370,17 @@
 	  this.$emit('hook:' + hook)
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var compiler = __webpack_require__(31)
-	var Observer = __webpack_require__(76)
-	var Dep = __webpack_require__(39)
-	var Watcher = __webpack_require__(38)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var compiler = __webpack_require__(32)
+	var Observer = __webpack_require__(77)
+	var Dep = __webpack_require__(40)
+	var Watcher = __webpack_require__(39)
 	
 	/**
 	 * Setup the scope of an instance, which contains:
@@ -8654,18 +8659,18 @@
 	  })
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
-	var Dep = __webpack_require__(39)
-	var arrayMethods = __webpack_require__(77)
+	var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
+	var Dep = __webpack_require__(40)
+	var arrayMethods = __webpack_require__(78)
 	var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
-	__webpack_require__(78)
+	__webpack_require__(79)
 	
 	/**
 	 * Observer class that are attached to each observed
@@ -8897,10 +8902,10 @@
 
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var arrayProto = Array.prototype
 	var arrayMethods = Object.create(arrayProto)
 	
@@ -9001,10 +9006,10 @@
 
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	var objProto = Object.prototype
 	
 	/**
@@ -9089,12 +9094,12 @@
 
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var Directive = __webpack_require__(80)
-	var compiler = __webpack_require__(31)
+	var _ = __webpack_require__(22)
+	var Directive = __webpack_require__(81)
+	var compiler = __webpack_require__(32)
 	
 	/**
 	 * Transclude, compile and link element.
@@ -9295,14 +9300,14 @@
 
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var config = __webpack_require__(26)
-	var Watcher = __webpack_require__(38)
-	var textParser = __webpack_require__(34)
-	var expParser = __webpack_require__(40)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var config = __webpack_require__(27)
+	var Watcher = __webpack_require__(39)
+	var textParser = __webpack_require__(35)
+	var expParser = __webpack_require__(41)
 	function noop () {}
 	
 	/**
@@ -9553,13 +9558,13 @@
 	
 	module.exports = Directive
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
 	
 	/**
 	 * Apply a list of filter (descriptors) to a value.
@@ -9653,17 +9658,17 @@
 	  }
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Watcher = __webpack_require__(38)
-	var Path = __webpack_require__(41)
-	var textParser = __webpack_require__(34)
-	var dirParser = __webpack_require__(36)
-	var expParser = __webpack_require__(40)
+	var Watcher = __webpack_require__(39)
+	var Path = __webpack_require__(42)
+	var textParser = __webpack_require__(35)
+	var dirParser = __webpack_require__(37)
+	var expParser = __webpack_require__(41)
 	var filterRE = /[^|]\|[^|]/
 	
 	/**
@@ -9821,11 +9826,11 @@
 
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
-	var transition = __webpack_require__(51)
+	var _ = __webpack_require__(22)
+	var transition = __webpack_require__(52)
 	
 	/**
 	 * Convenience on-instance nextTick. The callback is
@@ -10053,10 +10058,10 @@
 
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	/**
 	 * Listen on the given `event` with `fn`.
@@ -10233,10 +10238,10 @@
 
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var _ = __webpack_require__(21)
+	var _ = __webpack_require__(22)
 	
 	/**
 	 * Create a child instance that prototypally inherits
@@ -10288,11 +10293,11 @@
 
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(21)
-	var compiler = __webpack_require__(31)
+	/* WEBPACK VAR INJECTION */(function(process) {var _ = __webpack_require__(22)
+	var compiler = __webpack_require__(32)
 	
 	/**
 	 * Set instance target element and kick off the compilation
@@ -10360,28 +10365,28 @@
 	  return compiler.compile(el, this.$options, true)(this, el, host)
 	}
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
-
-/***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(88)
-	module.exports = __webpack_require__(93)
-	module.exports.template = __webpack_require__(180)
-
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ },
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(89)
+	module.exports = __webpack_require__(94)
+	module.exports.template = __webpack_require__(186)
+
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(89);
+	var content = __webpack_require__(90);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10398,14 +10403,14 @@
 	}
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, "body {\n  background-color: #1abc9c;\n    position: relative;\n    overflow-x: hidden;\n}\n\na { \n  text-decoration: none;\n    color: #13202c;\n}\n\na:link {\n    color: #13202c;\n}\n\na:visited{\n    color: #13202c;\n}\n\nheader a:hover, footer a:hover{\n    color: white;\n}\n\na:hover{\n    color: #1abc9c;\n}\n\na:active {\n    color: #13202c;\n}\n\n\nul{\n    list-style: none;\n}\n\nheader {\n    top: .1em;\n    width: 100%;\n    color: #bac1c8;\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nsection {\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\n.slide-aside {\n    -webkit-transform: translateX(-200px);\n    -moz-transform: translateX(-200px);\n    -ms-transform: translateX(-200px);\n    -o-transform: translateX(-200px);\n    transform: translateX(-200px);\n}\n\n\n\n.clear{\n    clear: both;\n}\n\n.logo {\n  float: left;\n    width: 55px;\n    height: 55px;\n    margin: -5px 0 0 10px;\n    background: url("+__webpack_require__(91)+") no-repeat center;\n    background-size: 100%;\n}\n\n/*aside*/\n.nav-switch{\n  width: 32px;\n    height: 32px;\n    float: right;\n    margin-top: 14px;\n    margin-right: 14px;\n    cursor: pointer;\n}\n\n.nav-switch > .line {\n  height: 4px;\n    border-radius: 1px;\n    margin-bottom: 5px;\n    background-color: #13202c;\n}\n\n.nav-switch:hover > .line {\n    background-color: white;\n}\n\n.nav-switch > div {\n    width: 100%;\n    height: 0;\n    background-color: #ffffff;\n    -webkit-transition: all 0.4s ease-in-out;\n    -moz-transition: all 0.4s ease-in-out;\n    transition: all 0.4s ease-in-out;\n}\n\n.on-nav{\n    padding-right: 200px !important;\n}\n.open{\n    right: 0px !important;\n}\n\naside{\n    position:absolute;\n    top: 0;\n    height:100vh;\n    right: -200px;\n    width: 200px;\n    background: #edeff1;\n    min-height: 100%;\n    transition:0.3s ease-out;\n    -webkit-transition:0.2s ease-out;\n}\n\naside > h6{\n    margin-left:30px;\n}\n\naside > ul{\n    margin-left: 20px;\n}\n\n.signin {\n    font-size: 20px;\n    float: right;\n    margin: 8px 40px 0 0;\n    cursor: pointer;\n}\n\n.view {\n  opacity: 1;\n  position: absolute;\n  -moz-transition: opacity 0.2s ease;\n  -webkit-transition: opacity 0.2s ease;\n  -o-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease;\n}\n\n.view.v-enter {\n  opacity: 0;\n}\n\n.view.v-leave {\n  opacity: 0;\n}\n\nfooter {\n    width: 100%;\n    background-color: #1abc9c;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nfooter > ul{\n    margin: 10px auto 10px auto;\n}\n\nfooter a{\n    color: #13202c;\n}\n\nbody.modal-open {\n  overflow: hidden;\n}", ""]);
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, "body {\n  background-color: #1abc9c;\n    position: relative;\n    overflow-x: hidden;\n}\n\na { \n  text-decoration: none;\n    color: #13202c;\n}\n\na:link {\n    color: #13202c;\n}\n\na:visited{\n    color: #13202c;\n}\n\nheader a:hover, footer a:hover{\n    color: white;\n}\n\na:hover{\n    color: #1abc9c;\n}\n\na:active {\n    color: #13202c;\n}\n\n\nul{\n    list-style: none;\n}\n\nheader {\n    top: .1em;\n    width: 100%;\n    color: #bac1c8;\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nsection {\n    position: relative;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\n.slide-aside {\n    -webkit-transform: translateX(-200px);\n    -moz-transform: translateX(-200px);\n    -ms-transform: translateX(-200px);\n    -o-transform: translateX(-200px);\n    transform: translateX(-200px);\n}\n\n\n\n.clear{\n    clear: both;\n}\n\n.logo {\n  float: left;\n    width: 55px;\n    height: 55px;\n    margin: -5px 0 0 10px;\n    background: url("+__webpack_require__(92)+") no-repeat center;\n    background-size: 100%;\n}\n\n/*aside*/\n.nav-switch{\n  width: 32px;\n    height: 32px;\n    float: right;\n    margin-top: 14px;\n    margin-right: 14px;\n    cursor: pointer;\n}\n\n.nav-switch > .line {\n  height: 4px;\n    border-radius: 1px;\n    margin-bottom: 5px;\n    background-color: #13202c;\n}\n\n.nav-switch:hover > .line {\n    background-color: white;\n}\n\n.nav-switch > div {\n    width: 100%;\n    height: 0;\n    background-color: #ffffff;\n    -webkit-transition: all 0.4s ease-in-out;\n    -moz-transition: all 0.4s ease-in-out;\n    transition: all 0.4s ease-in-out;\n}\n\n.on-nav{\n    padding-right: 200px !important;\n}\n.open{\n    right: 0px !important;\n}\n\naside{\n    position:absolute;\n    top: 0;\n    height:100vh;\n    right: -200px;\n    width: 200px;\n    background: #edeff1;\n    min-height: 100%;\n    transition:0.3s ease-out;\n    -webkit-transition:0.2s ease-out;\n}\n\naside > h6{\n    margin-left:30px;\n}\n\naside > ul{\n    margin-left: 20px;\n}\n\n.signin {\n    font-size: 20px;\n    float: right;\n    margin: 8px 40px 0 0;\n    cursor: pointer;\n}\n\n.view {\n  opacity: 1;\n  position: absolute;\n  -moz-transition: opacity 0.2s ease;\n  -webkit-transition: opacity 0.2s ease;\n  -o-transition: opacity 0.2s ease;\n  transition: opacity 0.2s ease;\n}\n\n.view.v-enter {\n  opacity: 0;\n}\n\n.view.v-leave {\n  opacity: 0;\n}\n\nfooter {\n    width: 100%;\n    background-color: #1abc9c;\n    transition:0.25s ease-out;\n    -webkit-transition:0.25s ease-out;\n}\n\nfooter > ul{\n    margin: 10px auto 10px auto;\n}\n\nfooter a{\n    color: #13202c;\n}\n\nbody.modal-open {\n  overflow: hidden;\n}", ""]);
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports) {
 
 	/*
@@ -10461,13 +10466,13 @@
 
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IuWbvuWxgl8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjE0MTcuMzJweCIgaGVpZ2h0PSIxNDE3LjMycHgiIHZpZXdCb3g9IjAgMCAxNDE3LjMyIDE0MTcuMzIiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDE0MTcuMzIgMTQxNy4zMiINCgkgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8Y2lyY2xlIGZpbGw9IiNGM0Q3NTkiIHN0cm9rZT0iI0YzRDc1OSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGN4PSI1MjEuNjQ0IiBjeT0iNzQ4Ljc0IiByPSIxODYuNjU1Ii8+DQo8Y2lyY2xlIGZpbGw9IiM1RkI0QzkiIHN0cm9rZT0iIzVGQjRDOSIgc3Ryb2tlLXdpZHRoPSIwLjI1IiBzdHJva2UtbWl0ZXJsaW1pdD0iMTAiIGN4PSI4MTcuNzIzIiBjeT0iODI4Ljk5OCIgcj0iMjA3LjM5NSIvPg0KPHBvbHlnb24gZmlsbD0iIzIyNzdBQiIgc3Ryb2tlPSIjMjI3N0FCIiBzdHJva2Utd2lkdGg9IjAuMjUiIHN0cm9rZS1taXRlcmxpbWl0PSIxMCIgcG9pbnRzPSI4NTcuNDU2LDUyNi4zNzEgODY4LjUwOSw1MjYuMzcxIA0KCTg5NC4yMzQsNDgzLjI2OSA5MDYuNjM4LDQ4My4yNjkgOTM0LjczNCw0NTIuMDY0IDkzNS4zOTEsNDUyLjA2NCA5MzUuMDMsNDUxLjczNCA5MzUuMzkxLDQ1MS4zMzQgOTM0LjU5MSw0NTEuMzM0IDkxMi40MDQsNDMxLjEwNyANCgk4OTYuNzksNDMxLjEwNyA4OTAuNTY2LDQwMi42NjEgODY3LjAwOCw0MDIuNjYxIDg2Ny4wMDgsMzY1LjY0NiA4MjcuNTc2LDM2NS42NDYgODE2LjMwMywyMTAuMzI5IDgwNS4wMywzNjUuNjQ2IDc2Ni43NzMsMzY1LjY0NiANCgk3NjYuNzczLDQwMi42NjEgNzQyLjA0MSw0MDIuNjYxIDczNS44MTYsNDMxLjEwNyA3MjEuMzc3LDQzMS4xMDcgNjk5LjE5Myw0NTEuMzMzIDY5OC4zOTEsNDUxLjMzMyA2OTguNzUyLDQ1MS43MzQgDQoJNjk4LjM5Miw0NTIuMDY0IDY5OS4wNDksNDUyLjA2NCA3MjcuMTQ1LDQ4My4yNjggNzM5LjU0OSw0ODMuMjY4IDc2NS4yNzMsNTI2LjM3MSA3NzUuMTUsNTI2LjM3MSA3NzUuMTUsNTQ1LjAyNyA3ODMuMTM0LDU0NS4wMjcgDQoJNjk4LjM5MSwxMjAzLjgwNSA5MzUuMzgxLDEyMDMuNzk1IDg1MC41NzYsNTQ1LjAyNyA4NTcuNDU2LDU0NS4wMjcgIi8+DQo8cGF0aCBmaWxsPSIjNUZCNEM5IiBzdHJva2U9IiM1RkI0QzkiIHN0cm9rZS13aWR0aD0iMC4yNSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBkPSJNOTgzLjcwNCw3OTEuOTM2DQoJYy03MS40MTMsMC0xMzQuMzkxLDM2LjA5Ny0xNzEuNjk2LDkxLjAzNWMtMTYuMzMtODYuNDIyLTkyLjIyMS0xNTEuNzkxLTE4My4zOTEtMTUxLjc5MWMtOTEuNDUsMC0xNjcuNTMxLDY1Ljc3MS0xODMuNTQzLDE1Mi41ODgNCgljLTE2LjgzMS01Ljc0OS0zNC44NzktOC44NzMtNTMuNjU3LTguODczYy05MS42MzMsMC0xNjUuOTE2LDc0LjI4My0xNjUuOTE2LDE2NS45MTZjMCw4Mi42NDIsNjAuNDI0LDE1MS4xNiwxMzkuNSwxNjMuODEzdjAuNjM5DQoJaDY0My4zNDJjMTAyLjkyNS0xMi4xODYsMTgyLjc1Ni05OS43MjksMTgyLjc1Ni0yMDUuOTMyQzExOTEuMDk5LDg4NC43OSwxMDk4LjI0NSw3OTEuOTM2LDk4My43MDQsNzkxLjkzNnoiLz4NCjwvc3ZnPg0K"
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -10692,10 +10697,10 @@
 
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94) 
+	var yy_request = __webpack_require__(95) 
 	
 	module.exports = {
 	  el: '#app',
@@ -10768,21 +10773,22 @@
 	  },
 	
 	  components: {
-	    'intro-view': __webpack_require__(96),
-	    'menu-view': __webpack_require__(101),
-	    'print-view': __webpack_require__(106),
-	    'file-view': __webpack_require__(116),
-	    'share-view': __webpack_require__(126),
-	    'textbook-view': __webpack_require__(127),
-	    'user-view': __webpack_require__(128),
-	    'login-modal': __webpack_require__(134),
-	    'filetask-modal': __webpack_require__(145),
-	    'info-modal': __webpack_require__(175),
+	    'intro-view': __webpack_require__(97),
+	    'menu-view': __webpack_require__(102),
+	    'print-view': __webpack_require__(107),
+	    'file-view': __webpack_require__(117),
+	    'share-view': __webpack_require__(127),
+	    'textbook-view': __webpack_require__(128),
+	    'user-view': __webpack_require__(129),
+	    'forget-view': __webpack_require__(135),
+	    'login-modal': __webpack_require__(146),
+	    'filetask-modal': __webpack_require__(156),
+	    'info-modal': __webpack_require__(181),
 	  }
 	}
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -10791,9 +10797,9 @@
 	most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 	*/
 	
-	var po = __webpack_require__(95)
+	var po = __webpack_require__(96)
 	
-	var baseurl = 'http://api.yunyin.org/'
+	var baseurl = 'http://localhost/index.php/'
 	
 	module.exports = {
 		rest_api: function(method,resource,data,successfn) {
@@ -10809,6 +10815,7 @@
 					} else {
 						if(rpdata.status==-1) {
 							po.app.showLoginModal = true
+							po.app.username = null
 						} else {
 							successfn(rpdata.status,rpdata.info)
 						}
@@ -10935,7 +10942,7 @@
 
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10943,25 +10950,25 @@
 	}
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(97)
-	module.exports = __webpack_require__(99)
-	module.exports.template = __webpack_require__(100)
+	__webpack_require__(98)
+	module.exports = __webpack_require__(100)
+	module.exports.template = __webpack_require__(101)
 
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(98);
+	var content = __webpack_require__(99);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10978,14 +10985,14 @@
 	}
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".intro-view {\n  position: relative;\n}", ""]);
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10998,31 +11005,31 @@
 	}
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"intro-view\">\n    <h1>这里是介绍页</h1>\n    <h2>云印是什么</h2>\n    <hr>\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>  \n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>\n    <h3>如何使用云印</h3>\n    <hr>\n    <h3>加入云印</h3>\n    <hr>\n    <button v-on=\"click: this.$parent.showLoginModal = true\">立即使用</button>   \n  </div>";
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(102)
-	module.exports = __webpack_require__(104)
-	module.exports.template = __webpack_require__(105)
+	__webpack_require__(103)
+	module.exports = __webpack_require__(105)
+	module.exports.template = __webpack_require__(106)
 
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(103);
+	var content = __webpack_require__(104);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11039,14 +11046,14 @@
 	}
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".menu-view {\n  position: relative;\n}\n\n.button{\n    color: #22252C;\n    border-radius: 17px;\n    display: inline-block;\n    text-decoration: none;\n    text-transform: uppercase;\n    font-size: 0.875em;\n    padding: 8px 150px;\n    border: 2px solid;\n}\n\n\n.default-list{\n    padding-left: 0;\n}\n\n.default-list > li{\n    margin: 10px 0 10px 0;\n    font-size: 23px;\n}\n\n.default-list > li > a:hover{\n    color: white;\n}", ""]);
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -11063,31 +11070,31 @@
 	}
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"menu-view\">\n    <div class=\"text-center\">\n      <h3>云印南天</h3>\n    </div>\n    <div class=\"text-center\">\n      <h6>总觉得这里还该放点什么话</h6>\n    </div>\n    <div class=\"text-center\">\n      <ul class=\"default-list\">\n        <li><a class=\"button\" href=\"#/print\">打印</a></li>\n        <li><a class=\"button\" v-on=\"click: onOpenFileTaskModal\">上传</a></li>\n        <li><a class=\"button\" href=\"#/share\">共享</a></li>\n        <li><a class=\"button\" href=\"#/book\">教材</a></li>\n        <li><a class=\"button\" href=\"#/file\">文件</a></li>\n        <li><a class=\"button\" href=\"#/user\">个人</a></li>\n      </ul>\n    </div>\n  </div>";
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(107)
-	module.exports = __webpack_require__(109)
-	module.exports.template = __webpack_require__(115)
+	__webpack_require__(108)
+	module.exports = __webpack_require__(110)
+	module.exports.template = __webpack_require__(116)
 
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(108);
+	var content = __webpack_require__(109);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11104,14 +11111,14 @@
 	}
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".print-view\t{\n\tposition: relative;\n\tmargin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n    padding: 10px 30px;\n    border-radius: 5px;\n}", ""]);
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -11122,30 +11129,30 @@
 		},
 	
 	  components: {
-	    'tasklist': __webpack_require__(110),
+	    'tasklist': __webpack_require__(111),
 	  }
 	}
-
-/***/ },
-/* 110 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(111)
-	module.exports = __webpack_require__(113)
-	module.exports.template = __webpack_require__(114)
-
 
 /***/ },
 /* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(112)
+	module.exports = __webpack_require__(114)
+	module.exports.template = __webpack_require__(115)
+
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(112);
+	var content = __webpack_require__(113);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11162,18 +11169,18 @@
 	}
 
 /***/ },
-/* 112 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-task {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\ntbody.table-body {\n  overflow-y: scroll;\n  max-height: 500px;\n}", ""]);
-
-/***/ },
 /* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
-	var po = __webpack_require__(95)
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-task {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\ntbody.table-body {\n  overflow-y: scroll;\n  max-height: 500px;\n}", ""]);
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var yy_request = __webpack_require__(95)
+	var po = __webpack_require__(96)
 	
 	module.exports = {
 	
@@ -11262,37 +11269,37 @@
 	}
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <span class=\"glyphicon glyphicon-open\"></span>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"col-xs-3 col-xs-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>文件状态</th>\n          <th>文件名</th>\n          <th>上传时间</th>       \n          <th>打印店</th>\n          <th>份数</th>\n          <th>单双</th>\n          <th>彩印</th>\n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\n          <tr>\n            <td>{{task.status}}</td>\n            <td>{{task.name}}</td>\n            <td>{{task.time}}</td>\n            <td>{{task.printer}}</td>\n            <td>{{task.copies}}</td>\n            <td>{{task.isdouble==null? \"-\":(task.isdouble==\"1\"? \"双面\":\"单面\")}}</td>\n            <td>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</td>\n            <td style=\"text-align:center\">\n              <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n                v-on=\"click: onEditTask($event,task)\"></span>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more-task\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"print-view\">\n\t\t<tasklist></tasklist>\t\t\n\t</div>";
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(117)
-	module.exports = __webpack_require__(119)
-	module.exports.template = __webpack_require__(125)
+	__webpack_require__(118)
+	module.exports = __webpack_require__(120)
+	module.exports.template = __webpack_require__(126)
 
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(118);
+	var content = __webpack_require__(119);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11309,43 +11316,43 @@
 	}
 
 /***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".file-view\t{\n\tposition: relative;\n\tmargin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n    padding: 10px 30px;\n    border-radius: 5px;\n\n}", ""]);
-
-/***/ },
 /* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = {
-	
-	  components: {
-	    'filelist': __webpack_require__(120),
-	  }
-	}
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".file-view\t{\n\tposition: relative;\n\tmargin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n    padding: 10px 30px;\n    border-radius: 5px;\n\n}", ""]);
 
 /***/ },
 /* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(121)
-	module.exports = __webpack_require__(123)
-	module.exports.template = __webpack_require__(124)
-
+	module.exports = {
+	
+	  components: {
+	    'filelist': __webpack_require__(121),
+	  }
+	}
 
 /***/ },
 /* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(122)
+	module.exports = __webpack_require__(124)
+	module.exports.template = __webpack_require__(125)
+
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(122);
+	var content = __webpack_require__(123);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11362,18 +11369,18 @@
 	}
 
 /***/ },
-/* 122 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-file {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\n.action-line {\n  width: 120px;\n}\n.action-line span {\n  margin-left: 8%;\n}\n\n.action-info {\n  padding-left: 10px;\n  height: 30px;\n  overflow: hidden;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n.infoexpand-enter, \n.infoexpand-leave {\n  height: 0px;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n/*.filetable {\n  max-height:10px;\n}*/", ""]);
-
-/***/ },
 /* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
-	var po = __webpack_require__(95)
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".actions-wrapper {\n  margin-bottom: 15px;\n}\n\n.more-file {\n  text-align: center;\n  width: 100%;\n  margin-top: -10px;\n  cursor: pointer;\n}\n\n.action-line {\n  width: 120px;\n}\n.action-line span {\n  margin-left: 8%;\n}\n\n.action-info {\n  padding-left: 10px;\n  height: 30px;\n  overflow: hidden;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n.infoexpand-enter, \n.infoexpand-leave {\n  height: 0px;\n  -webkit-transition: all .3s ease;\n  -o-transition: all .3s ease;\n  transition: all .3s ease;\n}\n\n/*.filetable {\n  max-height:10px;\n}*/", ""]);
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var yy_request = __webpack_require__(95)
+	var po = __webpack_require__(96)
 	
 	module.exports = {
 	
@@ -11536,22 +11543,16 @@
 	}
 
 /***/ },
-/* 124 */
+/* 125 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <span class=\"glyphicon glyphicon-open\"></span>\n        上传文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <span class=\"glyphicon glyphicon-print\"></span>\n        打印文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <span class=\"glyphicon glyphicon-share\"></span>\n        分享文件\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <span class=\"glyphicon glyphicon-trash\"></span>\n        删除文件\n      </button>\n    </div>\n    <div class=\"col-xs-3 col-xs-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            上传日期\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\n          <tr>\n            <td>\n              <input type=\"checkbox\" v-model=\"file.checked\">\n            </td>\n            <td>\n              {{file.name}}\n            </td>\n            <td>\n              {{file.time}}\n            </td>\n            <td class='action-line'>\n              <span class=\"glyphicon glyphicon-print\"></span>\n              <span class=\"glyphicon glyphicon-share\"></span>\n              <span class=\"glyphicon glyphicon-trash\"\n                v-on=\"click: onDelete($event,file)\"></span>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>\n  </div>\n\t<div class=\"more-file\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\n  </div>";
 
 /***/ },
-/* 125 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"file-view\">\n  \t\t<filelist></filelist>\t\t\n\t</div>";
-
-/***/ },
 /* 126 */
 /***/ function(module, exports) {
 
-
+	module.exports = "<div class=\"file-view\">\n  \t\t<filelist></filelist>\t\t\n\t</div>";
 
 /***/ },
 /* 127 */
@@ -11561,24 +11562,30 @@
 
 /***/ },
 /* 128 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	__webpack_require__(129)
-	module.exports = __webpack_require__(131)
-	module.exports.template = __webpack_require__(133)
 
 
 /***/ },
 /* 129 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(130)
+	module.exports = __webpack_require__(132)
+	module.exports.template = __webpack_require__(134)
+
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(130);
+	var content = __webpack_require__(131);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11595,19 +11602,19 @@
 	}
 
 /***/ },
-/* 130 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".user-view {\n\tposition: relative;\n}\n\n.user-view > .well{\n    margin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n}\n\n\n#userinfo > .well{\n    padding: 10px;\n}\n\n.input-group {\n\theight: 0;\n}\n.expand-transition {\n\ttransition: all 0.4s ease;\n\toverflow: hidden;\n\topacity: 1;\n\tmax-height: 250px;\n\twidth: 100%;\n}\n\n.expand-enter, .expand-leave {\n\topacity: 0;\n\twidth: 0;\n\tmax-height: 0;\n}\n\n.password-reset .ip {\n\tmargin-top: 5px;\n}", ""]);
-
-/***/ },
 /* 131 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
-	var po = __webpack_require__(95)
-	var md5 = __webpack_require__(132)
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".user-view {\n\tposition: relative;\n}\n\n.user-view > .well{\n    margin-left: 16.777777%;\n    margin-right: 16.777777%;\n    min-height: 55%;\n    background-color: #edeff1;\n}\n\n\n#userinfo > .well{\n    padding: 10px;\n}\n\n.input-group {\n\theight: 0;\n}\n.expand-transition {\n\ttransition: all 0.4s ease;\n\toverflow: hidden;\n\topacity: 1;\n\tmax-height: 250px;\n\twidth: 100%;\n}\n\n.expand-enter, .expand-leave {\n\topacity: 0;\n\twidth: 0;\n\tmax-height: 0;\n}\n\n.password-reset .ip {\n\tmargin-top: 5px;\n}", ""]);
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var yy_request = __webpack_require__(95)
+	var po = __webpack_require__(96)
+	var md5 = __webpack_require__(133)
 	
 	module.exports = {
 		data: function() {
@@ -11621,6 +11628,7 @@
 				showPhoneEdit: false,
 				showMailEdit: false,
 				showPasswordEdit: false,
+				newPhone: '',
 				newMail: '',
 				oldPwd: '',
 				newPwd: '',
@@ -11656,7 +11664,7 @@
 				}
 			},
 	
-			onVerifyMail: function() {
+			onBindPhone: function() {
 				var ajax_data = {
 					email: this.newMail
 				}
@@ -11668,9 +11676,32 @@
 					}
 				})
 			},
+	
+	
+			onBindMail: function() {
+				var ajax_data = {
+					email: this.newMail
+				}
+				yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
+					if(status==1) {
+						po.app.infoModalText = info
+						po.app.showInfoModal = true
+						vuemodel.showMailEdit = false
+					}
+				})
+			},
+	
+			onLogout: function() {
+				yy_request.rest_api('get',"auth/logout",null,function(status,info){
+					if(status==1) {
+						window.location.hash = "#/menu"
+						po.app.showLoginModal = true 
+					}
+				})		
+			},
+		
 		},
 	}
-	
 	
 	function get_user_detail(vuemodel) {
 		yy_request.rest_api('get','user/',null,function(status,info){
@@ -11690,7 +11721,7 @@
 	}
 
 /***/ },
-/* 132 */
+/* 133 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -11970,31 +12001,339 @@
 
 
 /***/ },
-/* 133 */
+/* 134 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"user-view\">\n\t\t<div class=\"text-center\">\n\t\t\t<h3>个人信息</h3>\n\t\t</div>\n\t\t<div class=\"well\" id=\"userinfo\">\n\t\t\t<div id=\"user_name\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">姓名</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userName\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_school\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学校</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSch\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_sch_id\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学号</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSID\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_tel\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">手机</div>\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userPhone\"></span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPhoneEdit=!showPhoneEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"phone-wrapper\" v-if=\"showPhoneEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class=\"input-group row col-sm-offset-1 col-sm-10\" style='margin-top:10px'>\n\t\t\t\t\t\t<span class=\"input-group-addon\">+86</span>\n\t\t\t\t\t\t<input type=\"text\" placeholder='你的手机号' class=\"form-control\"/>\n\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t<button class='btn btn-primary'><span class=\"glyphicon glyphicon-check\"></span>验证</button>\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showPhoneEdit=false\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_mail\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class='col-xs-3 col-sm-offset-1'>邮箱</div>\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userMail\"></span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showMailEdit=!showMailEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"mail-wrapper\" v-if=\"showMailEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class='input-group row col-sm-offset-1 col-sm-10' style='margin-top:10px'>\n\t\t\t\t\t\t<input type=\"email\" placeholder='你的常用邮箱' class=\"form-control\" v-model=\"newMail\"/>\n\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onVerifyMail\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>验证\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showMailEdit=false\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\t\t\t\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_pwd\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">\n\t\t\t\t\t\t密码\n\t\t\t\t\t</div>\n\t\t\t\t\t<span class=\"col-sm-6\">********</span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPasswordEdit=!showPasswordEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class='password-reset row col-sm-offset-1' style='margin-top:10px' v-if=\"showPasswordEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">当前密码</span>\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='正在使用的密码' type=\"password\" required v-model=\"oldPwd\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">新的密码</span>\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='要设置的密码' type=\"password\" required v-model=\"newPwd\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">确认密码</span>\n\t\t\t\t\t\t<input  class=\"form-control\" placeholder='重复刚设置的密码' type=\"password\" required v-model=\"newPwdRepeat\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<br/>\n\t\t\t\t\t<div class=\"input-group text-center row col-sm-10\">\n\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary col-sm-4 col-sm-offset-1\"\n\t\t\t\t\t\t\tv-on=\"click: onChangePassword\">确定</button>\n\t\t\t\t\t\t<span class='cancel btn btn-embossed btn-primary col-sm-4 col-sm-offset-2'\n\t\t\t\t\t\t\tv-on=\"click: showPasswordEdit=false\">取消</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
-
-/***/ },
-/* 134 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(135)
-	module.exports = __webpack_require__(137)
-	module.exports.template = __webpack_require__(143)
-
+	module.exports = "<div class=\"user-view\">\n\t\t<div class=\"text-center\">\n\t\t\t<h3>个人信息</h3>\n\t\t</div>\n\t\t<div class=\"well\" id=\"userinfo\">\n\t\t\t<div id=\"user_name\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">姓名</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userName\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_school\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学校</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSch\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_sch_id\" class='well'>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">学号</div>\n\t\t\t\t\t<span class=\"col-sm-6\" v-text=\"userSID\"></span>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_tel\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">手机</div>\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userPhone\"></span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPhoneEdit=!showPhoneEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"phone-wrapper\" v-if=\"showPhoneEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class=\"input-group row col-sm-offset-1 col-sm-10\" style='margin-top:10px'>\n\t\t\t\t\t\t<span class=\"input-group-addon\">+86</span>\n\t\t\t\t\t\t<input type=\"text\" placeholder='你的手机号' class=\"form-control\" v-model=\"newPhone\"/>\n\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindPhone\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showPhoneEdit=false\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_mail\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class='col-xs-3 col-sm-offset-1'>邮箱</div>\n\t\t\t\t\t<span class='info col-sm-6' v-text=\"userMail\"></span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showMailEdit=!showMailEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"mail-wrapper\" v-if=\"showMailEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class='input-group row col-sm-offset-1 col-sm-10' style='margin-top:10px'>\n\t\t\t\t\t\t<input type=\"email\" placeholder='你的常用邮箱' class=\"form-control\" v-model=\"newMail\"/>\n\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindMail\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\n\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t<span class='btn btn-default cancel' v-on=\"click: showMailEdit=false\">\n\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-remove\"></span>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</span>\n\t\t\t\t\t</div>\t\t\t\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div id=\"user_pwd\" class='well'>\n\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t<div class=\"col-xs-3 col-sm-offset-1\">\n\t\t\t\t\t\t密码\n\t\t\t\t\t</div>\n\t\t\t\t\t<span class=\"col-sm-6\">********</span>\n\t\t\t\t\t<span class='col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPasswordEdit=!showPasswordEdit\"></span>\n\t\t\t\t</div>\n\t\t\t\t<div class='password-reset row col-sm-offset-1' style='margin-top:10px' v-if=\"showPasswordEdit\" v-transition=\"expand\">\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">当前密码</span>\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='正在使用的密码' type=\"password\" required v-model=\"oldPwd\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">新的密码</span>\n\t\t\t\t\t\t<input class=\"form-control\" placeholder='要设置的密码' type=\"password\" required v-model=\"newPwd\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group col-sm-10 ip\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">确认密码</span>\n\t\t\t\t\t\t<input  class=\"form-control\" placeholder='重复刚设置的密码' type=\"password\" required v-model=\"newPwdRepeat\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<br/>\n\t\t\t\t\t<div class=\"input-group text-center row col-sm-10\">\n\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary col-sm-4 col-sm-offset-1\"\n\t\t\t\t\t\t\tv-on=\"click: onChangePassword\">确定</button>\n\t\t\t\t\t\t<span class='cancel btn btn-embossed btn-primary col-sm-4 col-sm-offset-2'\n\t\t\t\t\t\t\tv-on=\"click: showPasswordEdit=false\">取消</span>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div class=\"logout-wrapper row\">\n\t\t\t\t<button class=\"btn btn-embossed btn-danger col-sm-12 col-md-6 col-md-offset-3\"\n\t\t\t\t\tv-on=\"click: onLogout\">退出登录</button>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
 
 /***/ },
 /* 135 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(136)
+	module.exports = __webpack_require__(138)
+	module.exports.template = __webpack_require__(144)
+
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(136);
+	var content = __webpack_require__(137);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./forget-view.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./forget-view.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 137 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".forget-view {\n\tposition: relative;\n}\n\n.forget-view > .well {\n  margin-left: 16.777777%;\n  margin-right: 16.777777%;\n  min-height: 55%;\n  background-color: #edeff1;\n}\t\n\n.find-title {\n\tmargin-top: 30px;\n}\n\n.input-group {\n\tmargin-bottom: 10px;\n}", ""]);
+
+/***/ },
+/* 138 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var yy_request = __webpack_require__(95)
+	var po = __webpack_require__(96)
+	var md5 = __webpack_require__(133)
+	
+	module.exports = {
+		data: function() {
+			return {
+				findWay: 'phone',
+				findId: '',
+				findInfo: '',
+				showCode: false,
+				code:'',
+				schoolList: [],
+				schoolId: null,
+				verifyInfo: '',
+				errorinfo: '',
+				usertype: '',
+			}
+		},
+	
+		computed: {
+			findTitle: function() {
+				if(this.findWay=="phone") {
+					return "通过已验证的手机接收验证码，并重设密码"
+				} else if(this.findWay=="email") {
+					return "通过已验证的邮箱接收验证码，并重设密码"
+				} else if(this.findWay=="school"){
+					return "重新验证校园账号，并重设密码"
+				}
+			},
+			findHint: function() {
+				if(this.findWay=="phone") {
+					return "手机"
+				} else if(this.findWay=="email") {
+					return "邮箱"
+				} else if(this.findWay=="school"){
+					return "密码"
+				}
+			},
+			findPlaceholder: function() {
+				if(this.findWay=="phone") {
+					return "请输入您绑定的手机号"
+				} else if(this.findWay=="email") {
+					return "请输入您绑定的邮箱"
+				} else if(this.findWay=="school"){
+					return "请输入南开URP或天大办公网密码"
+				}			
+			},
+			findType: function() {
+				if(this.findWay=="phone") {
+					return "tel"
+				} else if(this.findWay=="email") {
+					return "email"
+				} else if(this.findWay=="school"){
+					return "password"
+				}	
+			},
+		},
+	
+		compiled: function() {
+			var vuemodel = this
+			yy_request.rest_api('get','school/',null,function(status,info) {
+				if(status==1) {
+					var options = []
+					for(var key in info) {
+						options.push({
+							value: info[key].id,
+							text: info[key].name,
+							verifyinfo: '验证系统：' + info[key].verify +'(' +info[key].verifyurl +')'
+						})
+					}
+					vuemodel.schoolList = options
+				}
+			})
+		},
+	
+		methods: {
+			onSchoolChange: function() {
+				for(var i in this.schoolList) {
+					if(this.schoolList[i].value==this.schoolId) {
+						this.verifyInfo = this.schoolList[i].verifyinfo
+					}
+				}
+	      refreshCode(this)
+			},
+	
+			onSubmit: function() {
+				if(this.findWay=="phone") {
+					sendPhoneCode(this)
+				} else if(this.findWay=="email") {
+					sendEmailCode(this)
+				} else if(this.findWay=="school") {
+					verifyUserSchool(this)
+				}
+			},
+		},  
+	
+		components: {
+	    'my-select': __webpack_require__(139),
+	  }
+	
+	
+	}
+	
+	function refreshCode(vuemodel) {
+	  var refreshCodeAPI = 'school/' + vuemodel.schoolId + '/code/'
+	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
+	    if(status==1) {
+	      vuemodel.$$.verifycode.src = info.img
+	      vuemodel.showCode = true
+	    } else {
+	      vuemodel.showCode = false
+	    }
+	  })
+	}
+	
+	function sendPhoneCode(vuemodel) {
+		var ajax_data = {
+			number: vuemodel.findId,
+			phone: vuemodel.findInfo,
+		}
+	  yy_request.rest_api('post','password/phone',ajax_data,function(status,info) {
+	    if(status==1) {
+	    	alert("验证码发送成功")
+	    } else {
+	      alert(info)
+	    }
+	  })	
+	}
+	
+	function sendEmailCode(vuemodel) {
+		var ajax_data = {
+			number: vuemodel.findId,
+			email: vuemodel.findInfo,
+		}
+	  yy_request.rest_api('post','password/email',ajax_data,function(status,info) {
+	    if(status==1) {
+	    	alert("验证码发送成功")
+	    } else {
+	      alert(info)
+	    }
+	  })	
+	}
+	
+	function verifyUserSchool(vuemodel) {
+		var ajax_data = {
+			number: vuemodel.findId,
+			password: vuemodel.findInfo,
+			code: vuemodel.code,
+		}
+	  yy_request.rest_api('post','password/verify',ajax_data,function(status,info) {
+	    if(status==1) {
+	    	alert("验证成功")
+	    } else {
+	      alert(info)
+	    }
+	  })	
+	}
+
+/***/ },
+/* 139 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(140)
+	module.exports = __webpack_require__(142)
+	module.exports.template = __webpack_require__(143)
+
+
+/***/ },
+/* 140 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(141);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(93)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./my-select.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./my-select.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 141 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".myselect-wrapper {\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\t/*z-index: 9999;*/\n\t\toverflow: visible;\n\t\tbackground: #0BBD9E;\n\t\tborder-radius: 3px;\n\t\tmargin-bottom: 20px;\n\t\tcursor: pointer;\n\t}\n\n\t.myselect-wrapper .btn-wrapper {\n\t\tpadding-left: 10px;\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tline-height: 41px;\n\t\tcolor: #FFFFFF;\t\t\n\t}\n\n\t.myselect-wrapper .chosen-text span {\n\t\tfloat: right;\t\n\t\tline-height: 41px;\n\t\tmargin-right: 10px; \n\t}\n\n\t.myselect-wrapper .choice-wrapper {\n\t\tz-index: 9999;\n\t\tposition: relative;\n\t\tbackground: #F3F4F5;\n\t\topacity: 1;\n\t\tmargin-top: 10px;\t\n\t\tborder-radius: 3px;\n\t\tmax-height: 300px;\n\t\toverflow:scroll;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div{\n\t\theight: 35px;\n\t\tline-height: 35px;\n\t\tpadding-left: 10px;\n\t\tbackground: #F3F4F5;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\n\t\tbackground: #E1E4E7;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}", ""]);
+
+/***/ },
+/* 142 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		props: ["options","value","desc","onSelectChange"],
+	  
+	  data: function () {
+	    return {
+	    	chosenOption: null,
+	    	showChoices: false,
+	    	lastValue: null,
+	    }
+	  },
+	
+	  computed: {
+	  	displayText: function() { 		
+	  		if(this.value!=this.lastValue && typeof(this.onSelectChange)=='function') {
+	  			this.onSelectChange()
+	  		}
+	  		this.lastValue = this.value
+	
+	  		for(var i in this.options) {
+	  			if(this.options[i].value==this.value) {
+	  				return this.options[i].text
+	  			}
+	  		}
+				return this.desc
+	  	}
+	  },
+	
+	  methods: {
+	  	onChoose: function($event,option) {
+	  		this.value = option.value
+	  		this.showChoices = false
+	  	}
+	  },
+	
+	  // components: {	
+	
+	  // },
+	}
+
+/***/ },
+/* 143 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
+
+/***/ },
+/* 144 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "<div class=\"forget-view\">\n\t\t<div class=\"text-center\">\n\t\t\t<h3>云印密码找回</h3>\n\t\t</div>\n\t\t<div class=\"well\">\n\t\t\t<p class=\"well text-center\">为了防止你的账号信息滥用，你可以通过手机验证、邮箱验证、或校园账号验证（南开URP或者天大办公网），找回你的密码。 \n\t\t\t<br>如果账号不在系统中，请前往云印南天首页直接登录。\n\t\t\t</p>\n\t\t\t<div class=\"btn-group btn-group-justified\">\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: findWay='phone'\" v-class=\"active : findWay=='phone'\">绑定手机找回</a>\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: findWay='email'\" v-class=\"active : findWay=='email'\">绑定邮箱找回</a>\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: findWay='school'\" v-class=\"active : findWay=='school'\">校园账号找回</a>\n\t\t\t</div>\n\t\t\t<h5 class=\"text-center find-title\" v-text=\"findTitle\"></h5>\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"form-group col-sm-12 col-md-6 col-md-offset-3\" style=\"margin-bottom: 0\">\n\t\t\t\t\t<div v-show=\"findWay=='school'\">\n\t\t\t\t    <my-select\n\t\t\t\t      options=\"{{schoolList}}\"\n\t\t\t\t      value=\"{{@schoolId}}\"\n\t\t\t\t      desc=\"请选择您的学校\"\n\t\t\t\t      on-select-change={{onSchoolChange}}>\n\t\t\t    \t</my-select>\n\t\t\t    \t<p class=\"text-center\" v-if=\"verifyInfo!=''\">{{verifyInfo}}</p>\t\t\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">学号</span>\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入您的学号\" v-model=\"findId\">\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t<span class=\"input-group-addon\">{{findHint}}</span>\n\t\t\t\t\t\t<input type=\"{{findType}}\" class=\"form-control\" placeholder=\"{{findPlaceholder}}\" v-model=\"findInfo\">\n\t\t\t\t\t</div>\n\t        <p>\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n        \t</p>\n\t\t\t\t</div>\n        <div v-show=\"showCode && findWay=='school'\" class=\"form-group col-sm-12 col-md-6 col-md-offset-3\">\n          <img id=\"code-img\" src=\"" + __webpack_require__(145) + "\" alt=\"验证码\" v-el=\"verifycode\" style=\"width:auto;height:45px\"\n            v-on=\"click: changeCode\">\n          <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \n            placeholder=\"请输入验证码\"\n            v-model=\"code\">\n        </div>\n\t\t\t\t<div class=\"submit-wrapper col-sm-12 col-md-6 col-md-offset-3\">\n\t\t\t\t\t<button class=\"btn btn-embossed btn-primary btn-block\"\n\t\t\t\t\t\tv-on=\"click: onSubmit\">提交</button>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t</div>";
+
+/***/ },
+/* 145 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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ALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMACAYGBwYFCAcHBwkJCAoMFA0MCwsMGRITDxQdGh8eHRocHCAkLicgIiwjHBwoNyksMDE0NDQfJzk9ODI8LjM0Mv/bAEMBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/dAAQAE//aAAwDAQACEQMRAD8A9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//Q9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//R9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//S9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//Z"
+
+/***/ },
+/* 146 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(147)
+	module.exports = __webpack_require__(149)
+	module.exports.template = __webpack_require__(155)
+
+
+/***/ },
+/* 147 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(148);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12011,18 +12350,18 @@
 	}
 
 /***/ },
-/* 136 */
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, "#code-img {\n  width: 40%;\n}\n#code-input {\n  width: 40%;\n}", ""]);
 
 /***/ },
-/* 137 */
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94);
-	var po = __webpack_require__(95) 
+	var yy_request = __webpack_require__(95);
+	var po = __webpack_require__(96) 
 	
 	module.exports = {
 	  props: {
@@ -12039,6 +12378,7 @@
 	      title: "请先登录云印",
 	      showCode: false,
 	      code: '',
+	      cookie: '',
 	      codeSrc: '',
 	      studentid: '',
 	      password: '',
@@ -12085,6 +12425,7 @@
 	          if(sch_value[0]==0) {
 	            vuemodel.usertype = 'old'
 	            vuemodel.errorinfo = ""
+	            vuemodel.showCode = false
 	          } else {
 	            vuemodel.usertype = 'new'
 	            vuemodel.errorinfo = ""
@@ -12107,7 +12448,7 @@
 	    },
 	
 	    newPassword: function(e) {
-	      var md5 = __webpack_require__(132)
+	      var md5 = __webpack_require__(133)
 	
 	      var vuemodel = this
 	
@@ -12115,7 +12456,7 @@
 	        password: md5(vuemodel.pwnew)    
 	      }
 	
-	      yy_request.rest_api('post','auth/register/',ajax_data,function(status,info){
+	      yy_request.rest_api('post','user/',ajax_data,function(status,info){
 	        if(status==1) {
 	          vuemodel.showDone  = true
 	          vuemodel.showReset = false
@@ -12129,12 +12470,17 @@
 	
 	    afterLogin: function(e) {
 	      loginSuccess(this)
-	    }
+	    },
+	
+	    onForgetPassword: function(e) {
+	      window.location.hash = "#/forget"
+	      po.app.showLoginModal = false
+	    },
 	
 	  },
 	
 	  components: {
-	    'modal': __webpack_require__(138),
+	    'modal': __webpack_require__(150),
 	  }
 	}
 	
@@ -12157,7 +12503,8 @@
 	  var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
 	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
 	    if(status==1) {
-	      vuemodel.$$.verifycode.src = info
+	      vuemodel.$$.verifycode.src = info.img
+	      vuemodel.cookie = info.verify_cookie
 	      vuemodel.showCode = true
 	    } else {
 	      vuemodel.showCode = false
@@ -12170,7 +12517,11 @@
 	    number: vuemodel.studentid,
 	    password: vuemodel.password,
 	    sch_id: vuemodel.schoolid,
-	    code: vuemodel.code,
+	  }
+	
+	  if(vuemodel.showCode) {
+	    ajax_data.code = vuemodel.code;
+	    // ajax_data.verify_cookie = vuemodel.cookie;
 	  }
 	
 	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
@@ -12200,7 +12551,8 @@
 	  setTimeout(function(){
 	    vuemodel.showReset = false
 	    vuemodel.showLogin = true
-	    vuemodel.showDone = false   
+	    vuemodel.showDone = false
+	    vuemodel.showCode = false   
 	  },1000)
 	
 	  if(po.app.view=='intro-view') {
@@ -12209,25 +12561,25 @@
 	}
 
 /***/ },
-/* 138 */
+/* 150 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(139)
-	module.exports = __webpack_require__(141)
-	module.exports.template = __webpack_require__(142)
+	__webpack_require__(151)
+	module.exports = __webpack_require__(153)
+	module.exports.template = __webpack_require__(154)
 
 
 /***/ },
-/* 139 */
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(140);
+	var content = __webpack_require__(152);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12244,14 +12596,14 @@
 	}
 
 /***/ },
-/* 140 */
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".modal-mask {\n  position: fixed;\n  z-index: 9000;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: rgba(0, 0, 0, .5);\n  /*display: table;*/\n  transition: opacity .3s ease;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.modal-wrapper {\n  position: relative;\n  margin: 20px auto;\n  top: 20px;\n  transition: top .3s ease;\n  /*display: table-cell;*/\n  /*vertical-align: middle;*/\n}\n\n.modal-container {\n  overflow-y: scroll;\n  margin: 0px auto;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n  /*transition: all .3s ease;*/\n  /*font-family: Helvetica, Arial, sans-serif;*/\n}\n\n.modal-header h3 {\n  margin-top: 0;\n  color: #42b983;\n}\n\n.modal-body {\n  margin: 10px 0;\n  padding: 5px 15px;\n}\n\n.modal-default-button {\n  float: right;\n}\n\n/*\n * the following styles are auto-applied to elements with\n * v-transition=\"modal\" when their visiblity is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n\n.modal-enter, .modal-leave {\n  opacity: 0;\n}\n\n.modal-enter .modal-wrapper,\n.modal-leave .modal-wrapper {\n/*  -webkit-transform: scale(1.1);\n  transform: scale(1.1);*/\n  top: -80px;\n}", ""]);
+	exports = module.exports = __webpack_require__(91)();
+	exports.push([module.id, ".modal-mask {\n  position: fixed;\n  z-index: 9000;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: rgba(0, 0, 0, .5);\n  /*display: table;*/\n  transition: opacity .3s ease;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.modal-wrapper {\n  position: relative;\n  margin: 20px auto;\n  top: 40px;\n  transition: top .3s ease;\n  /*display: table-cell;*/\n  /*vertical-align: middle;*/\n}\n\n.modal-container {\n  overflow-y: scroll;\n  margin: 0px auto;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n  /*transition: all .3s ease;*/\n  /*font-family: Helvetica, Arial, sans-serif;*/\n}\n\n.modal-header h3 {\n  margin-top: 0;\n  color: #42b983;\n}\n\n.modal-body {\n  margin: 10px 0;\n  padding: 5px 15px;\n}\n\n.modal-default-button {\n  float: right;\n}\n\n/*\n * the following styles are auto-applied to elements with\n * v-transition=\"modal\" when their visiblity is toggled\n * by Vue.js.\n *\n * You can easily play with the modal transition by editing\n * these styles.\n */\n\n.modal-enter, .modal-leave {\n  opacity: 0;\n}\n\n.modal-enter .modal-wrapper,\n.modal-leave .modal-wrapper {\n/*  -webkit-transform: scale(1.1);\n  transform: scale(1.1);*/\n  top: -80px;\n}", ""]);
 
 /***/ },
-/* 141 */
+/* 153 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -12287,43 +12639,37 @@
 	}
 
 /***/ },
-/* 142 */
+/* 154 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"modal-mask\" v-show=\"show\" v-transition=\"modal\" v-class=\"open: bodyModalOpen\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" v-style=\"width: width+'px' \">\n        <div class=\"modal-header\">\n          {{defaultTitle}}\n          <button type=\"button\" class=\"close\"\n            v-on=\"click: show = false\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n        <content select=\".modal-body\">\n          <div class=\"modal-body\">\n            default body\n          </div>\n        </content>\n        <content select=\".modal-footer\">\n          <div class=\"modal-footer\">\n            default footer\n          </div>\n        </content>\n      </div>\n    </div>\n  </div>";
 
 /***/ },
-/* 143 */
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\n        <form action=\"\">\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\n                v-model=\"studentid\"\n                v-on=\"change: onNumberChange\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\n                v-on=\"keyup: onSubmit | key 'enter'\"\n                v-model=\"password\">\n            </div>\n          </div>\n          <div>\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\n            <label for=\"rmb\">自动登录</label>\n            <small class=\"pull-right\">忘记密码?</small>\n          </div>        \n\n          <div v-show=\"showCode\" class=\"form-group\">\n            <img id=\"code-img\" src=\"" + __webpack_require__(144) + "\" alt=\"验证码\" v-el=\"verifycode\" \n              v-on=\"click: changeCode\">\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \n              placeholder=\"请输入验证码\"\n              v-model=\"code\">\n          </div>\n\n          <div class=\"form-group\">\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\n              v-on=\"click: onSubmit\">登录/注册</button>\n          </div>\n          <div>\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n          </div>\n        </form>\n      </div> <!-- #login-wrapper -->\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\n        <p class=\"text-center\">\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\n        </p>    \n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\" \n            placeholder=\"新的密码\"\n            v-model=\"pwnew\">\n        </div>  \n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: newPassword\">设置密码</button>\n        </div>\n      </div> <!-- #reset-wrapper -->\n      <div id=\"done-wrapper\" v-if=\"showDone\">\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\n        <br>\n        <br>\n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: afterLogin\">立即使用</button>\n        </div>\n      </div> <!-- #done-wrapper -->\n    </div> <!-- .modal-body -->\n    <div class=\"modal-footer\">\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\n      <small><a>了解更多</a></small> \n    </div>    \n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\n        <form action=\"\">\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\n                v-model=\"studentid\"\n                v-on=\"change: onNumberChange\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\n                v-on=\"keyup: onSubmit | key 'enter'\"\n                v-model=\"password\">\n            </div>\n          </div>\n          <div>\n            <input id=\"rmb\" type=\"checkbox\" v-model=\"remeber\">\n            <label for=\"rmb\">自动登录</label>\n            <small class=\"pull-right\" style=\"cursor:pointer\" v-on=\"click: onForgetPassword\">忘记密码?</small>\n          </div>        \n\n          <div v-show=\"showCode\" class=\"form-group\">\n            <img id=\"code-img\" src=\"" + __webpack_require__(145) + "\" alt=\"验证码\" v-el=\"verifycode\" \n              v-on=\"click: changeCode\">\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \n              placeholder=\"请输入验证码\"\n              v-model=\"code\">\n          </div>\n\n          <div class=\"form-group\">\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\n              v-on=\"click: onSubmit\">登录/注册</button>\n          </div>\n          <div>\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n          </div>\n        </form>\n      </div> <!-- #login-wrapper -->\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\n        <p class=\"text-center\">\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\n        </p>    \n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\" \n            placeholder=\"新的密码\"\n            v-model=\"pwnew\">\n        </div>  \n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: newPassword\">设置密码</button>\n        </div>\n      </div> <!-- #reset-wrapper -->\n      <div id=\"done-wrapper\" v-if=\"showDone\">\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\n        <br>\n        <br>\n        <div class=\"form-group\">     \n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: afterLogin\">立即使用</button>\n        </div>\n      </div> <!-- #done-wrapper -->\n    </div> <!-- .modal-body -->\n    <div class=\"modal-footer\">\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\n      <small><a>了解更多</a></small> \n    </div>    \n  </modal>";
 
 /***/ },
-/* 144 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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ALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMACAYGBwYFCAcHBwkJCAoMFA0MCwsMGRITDxQdGh8eHRocHCAkLicgIiwjHBwoNyksMDE0NDQfJzk9ODI8LjM0Mv/bAEMBCQkJDAsMGA0NGDIhHCEyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMv/dAAQAE//aAAwDAQACEQMRAD8A9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//Q9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//R9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//S9/ooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooAKKACigAooA//Z"
-
-/***/ },
-/* 145 */
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(146)
-	module.exports = __webpack_require__(148)
-	module.exports.template = __webpack_require__(174)
+	__webpack_require__(157)
+	module.exports = __webpack_require__(159)
+	module.exports.template = __webpack_require__(180)
 
 
 /***/ },
-/* 146 */
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(147);
+	var content = __webpack_require__(158);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12340,17 +12686,17 @@
 	}
 
 /***/ },
-/* 147 */
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".modal-body {\n  -webkit-transition: height .3s ease;\n  -o-transition: height .3s ease;\n  transition: height .3s ease;\n}\n\n.textshow-enter,\n.textshow-leave {\n   opacity: 0;\n   -webkit-transition: all .3s ease;\n   -o-transition: all .3s ease;\n   transition: all .3s ease;\n}\n\n.info-text {\n  float: left;\n  width: 200px;\n}", ""]);
 
 /***/ },
-/* 148 */
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
+	var yy_request = __webpack_require__(95)
 	
 	module.exports = {
 	  props: {
@@ -12554,9 +12900,9 @@
 	  },
 	
 	  components: {
-	    'modal': __webpack_require__(138),
-	    'file-uploader': __webpack_require__(149),
-	    'task-setting': __webpack_require__(159)
+	    'modal': __webpack_require__(150),
+	    'file-uploader': __webpack_require__(160),
+	    'task-setting': __webpack_require__(170)
 	  }
 	}
 	
@@ -12601,25 +12947,25 @@
 	}
 
 /***/ },
-/* 149 */
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(150)
-	module.exports = __webpack_require__(152)
-	module.exports.template = __webpack_require__(158)
+	__webpack_require__(161)
+	module.exports = __webpack_require__(163)
+	module.exports.template = __webpack_require__(169)
 
 
 /***/ },
-/* 150 */
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(151);
+	var content = __webpack_require__(162);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12636,17 +12982,17 @@
 	}
 
 /***/ },
-/* 151 */
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".upload-btn {\n  height: 40px;\n  border-style: solid;\n  border-width: 2px;\n  border-radius: 3px;  \n  background: #ffffff;\n  position: relative;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\n\n.upload-area {\n  text-align:center;\n  padding-top: 7px;\n  font-size: 15px;\n  font-weight: 800;\n}\n\n#upload-file {\n    cursor: pointer;\n    font-size: 30px;\n    outline: medium none;\n    position: absolute;\n    filter:alpha(opacity=0);\n    -moz-opacity:0;\n    opacity:0; \n    left: 0px;\n    top: 0px;\n    width: 100%;\n}", ""]);
 
 /***/ },
-/* 152 */
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
+	var yy_request = __webpack_require__(95)
 	
 	module.exports = {
 	  props: {
@@ -12703,7 +13049,7 @@
 	  },
 	
 	  components: {
-	    'upload-file': __webpack_require__(153)
+	    'upload-file': __webpack_require__(164)
 	  }
 	}
 	
@@ -12748,25 +13094,25 @@
 	}
 
 /***/ },
-/* 153 */
+/* 164 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(154)
-	module.exports = __webpack_require__(156)
-	module.exports.template = __webpack_require__(157)
+	__webpack_require__(165)
+	module.exports = __webpack_require__(167)
+	module.exports.template = __webpack_require__(168)
 
 
 /***/ },
-/* 154 */
+/* 165 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(155);
+	var content = __webpack_require__(166);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12783,14 +13129,14 @@
 	}
 
 /***/ },
-/* 155 */
+/* 166 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".file {\n\tmargin-bottom: 5px;\n}\n.file img {\n    width: 80%;\n}\n\n.img-col {\n\tpadding: 0;\n}", ""]);
 
 /***/ },
-/* 156 */
+/* 167 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -12803,37 +13149,37 @@
 	}
 
 /***/ },
-/* 157 */
+/* 168 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"file row\">\n\t\t<div class=\"col-xs-1 img-col\">\n\t\t\t<img v-el=\"filelogo\">\n\t\t</div>\n\t\t<div class=\"col-xs-7\">\n\t\t\t<small v-text=\"fileobject.name\"></small>\n\t\t</div>\n\t\t<div class=\"col-xs-3\">\n\t\t\t<div id=\"upload-status\">\n\t\t\t\t<div class=\"outer-line\">\n\t\t\t\t\t<small v-class=\"\n\t\t\t\t\t\ttext: isuploading,\n\t\t\t\t\t\ttext-danger: isfailed,\n\t\t\t\t\t\ttext-primary: issuccess\"\n\t\t\t\t\t\tv-text=\"status\"></small>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-xs-1 delete-file\">\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\n\t\t</div>\n\t</div>";
 
 /***/ },
-/* 158 */
+/* 169 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"files-wrapper\">\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\n\t</div>\n\t<div class=\"upload-btn\">\n\t\t<div class=\"upload-area\">点击上传文件</div>\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\n\t</div>";
 
 /***/ },
-/* 159 */
+/* 170 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(160)
-	module.exports = __webpack_require__(162)
-	module.exports.template = __webpack_require__(173)
+	__webpack_require__(171)
+	module.exports = __webpack_require__(173)
+	module.exports.template = __webpack_require__(179)
 
 
 /***/ },
-/* 160 */
+/* 171 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(161);
+	var content = __webpack_require__(172);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -12850,17 +13196,17 @@
 	}
 
 /***/ },
-/* 161 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n.cl {\n  margin-top: 2px;\n}\n\n.requirement {\n  margin-top: 15px;\n}\n\n.expand-enter,\n.expand-leave {\n  max-height: 0;\n  -webkit-transition: max-height 0.3s ease;\n  -o-transition: max-height 0.3s ease;\n  transition: max-height 0.3s ease;\n}", ""]);
 
 /***/ },
-/* 162 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
+	var yy_request = __webpack_require__(95)
 	
 	module.exports = {
 	  props: {
@@ -12885,8 +13231,8 @@
 	  },
 	
 	  components: {
-	    'my-select': __webpack_require__(163),
-	    'my-switch': __webpack_require__(168),
+	    'my-select': __webpack_require__(139),
+	    'my-switch': __webpack_require__(174),
 	  }
 	}
 	
@@ -12920,116 +13266,25 @@
 	}
 
 /***/ },
-/* 163 */
+/* 174 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(164)
-	module.exports = __webpack_require__(166)
-	module.exports.template = __webpack_require__(167)
+	__webpack_require__(175)
+	module.exports = __webpack_require__(177)
+	module.exports.template = __webpack_require__(178)
 
 
 /***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(165);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./my-select.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./my-select.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 165 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(90)();
-	exports.push([module.id, ".myselect-wrapper {\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tz-index: 9998;\n\t\toverflow: visible;\n\t\tbackground: #0BBD9E;\n\t\tborder-radius: 3px;\n\t\tmargin-bottom: 20px;\n\t\tcursor: pointer;\n\t}\n\n\t.myselect-wrapper .btn-wrapper {\n\t\tpadding-left: 10px;\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tline-height: 41px;\n\t\tcolor: #FFFFFF;\t\t\n\t}\n\n\t.myselect-wrapper .chosen-text span {\n\t\tfloat: right;\t\n\t\tline-height: 41px;\n\t\tmargin-right: 10px; \n\t}\n\n\t.myselect-wrapper .choice-wrapper {\n\t\tposition: relative;\n\t\tbackground: #F3F4F5;\n\t\topacity: 1;\n\t\tmargin-top: 10px;\t\n\t\tborder-radius: 3px;\n\t\tmax-height: 300px;\n\t\toverflow:scroll;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div{\n\t\theight: 35px;\n\t\tline-height: 35px;\n\t\tpadding-left: 10px;\n\t\tbackground: #F3F4F5;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\n\t\tbackground: #E1E4E7;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}", ""]);
-
-/***/ },
-/* 166 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		props: ["options","value","desc","onSelectChange"],
-	  
-	  data: function () {
-	    return {
-	    	chosenOption: null,
-	    	showChoices: false,
-	    	lastValue: null,
-	    }
-	  },
-	
-	  computed: {
-	  	displayText: function() { 		
-	  		if(this.value!=this.lastValue) {
-	  			this.onSelectChange()
-	  		}
-	  		this.lastValue = this.value
-	
-	  		for(var i in this.options) {
-	  			if(this.options[i].value==this.value) {
-	  				return this.options[i].text
-	  			}
-	  		}
-				return this.desc
-	  	}
-	  },
-	
-	  methods: {
-	  	onChoose: function($event,option) {
-	  		this.value = option.value
-	  		this.showChoices = false
-	  	}
-	  },
-	
-	  // components: {	
-	
-	  // },
-	}
-
-/***/ },
-/* 167 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
-
-/***/ },
-/* 168 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(169)
-	module.exports = __webpack_require__(171)
-	module.exports.template = __webpack_require__(172)
-
-
-/***/ },
-/* 169 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(170);
+	var content = __webpack_require__(176);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -13046,14 +13301,14 @@
 	}
 
 /***/ },
-/* 170 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, ".myswitch-wrapper {\n\toverflow: hidden;\n\theight: 30px;\n\twidth: 80px;\n\tborder-radius: 4px;\n\tcursor: pointer;\n}\n\n.inframe {\n\tposition: relative;\n\twidth: 140px;\n\theight: 30px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.inframe.off {\n\tleft: -60px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.handle {\n\tfloat: left;\n\theight: 30px;\n\twidth: 20px;\n\tborder-width: 0;\n\tbackground-color: #0BBD9E;\n}\n\n.on-text, .off-text {\n\tfloat: left;\n\theight: 30px;\n\twidth: 60px;\n\tborder-width: 0;\n\ttext-align: center;\n\tline-height: 30px;\n\tcolor: #0BBD9E;\n\tbackground-color: #34495D;\n}", ""]);
 
 /***/ },
-/* 171 */
+/* 177 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -13086,43 +13341,43 @@
 	}
 
 /***/ },
-/* 172 */
+/* 178 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"myswitch-wrapper\">\n\t\t<div class=\"inframe\" v-on=\"click: onSwitch\" v-class=\"off: !value\">\n\t\t\t<div class=\"on-text\">\n\t\t\t\t{{trueText}}\n\t\t\t</div>\n\t\t\t<div class=\"handle\">\n\t\t\t</div>\n\t\t\t<div class=\"off-text\">\n\t\t\t\t{{falseText}}\n\t\t\t</div>\n\t\t</div>\n\t</div>";
 
 /***/ },
-/* 173 */
+/* 179 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"taskinfo-wrapper\">\n    <my-select\n      options=\"{{printerList}}\"\n      value=\"{{@taskSetting.printerId}}\"\n      desc=\"选择想去的打印店\"\n      on-select-change={{showPrinterInfo}}>\n    </my-select>\n\n    <div class=\"panel panel-success text-center\">\n      <div class=\"panel-heading\">\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.name}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.address}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.phone}}</p>\n      </div>\n      <div class=\"panel-body\">\n        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>\n        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>\n        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>\n        <p style=\"margin-bottom: 0\">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          true-text=\"到店\"\n          false-text=\"提前\"\n          value=\"{{@taskSetting.isInStore}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"双面\"\n          false-text=\"单面\"\n          value=\"{{@taskSetting.isDoubleSide}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <my-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"彩印\"\n          false-text=\"黑白\"\n          value=\"{{@taskSetting.isColor}}\">\n        </my-switch>\n      </div>\n      <div class=\"col-sm-3\">\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\n          <span class=\"input-group-addon input-sm\">份</span>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\n    </div>\n\n  </div>";
 
 /***/ },
-/* 174 */
+/* 180 */
 /***/ function(module, exports) {
 
 	module.exports = "<modal show=\"{{@show}}\" \n    width=\"{{modalWidth}}\" \n    default-title=\"{{modalTitle}}\">\n    <div class=\"modal-body\">\n      <file-uploader \n        v-if=\"currentBody=='file-uploader'\"\n        file-list=\"{{@params.fileList}}\"></file-uploader>\n      <task-setting\n        v-if=\"currentBody=='task-setting'\"\n        task-setting=\"{{@taskSetting}}\"></task-setting>\n    </div>\n    <div class=\"modal-footer\">\n      <div v-if=\"currentBody=='file-uploader'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"fileInfoText!=''\">\n          <small v-text=\"fileInfoText\"></small>\n        </div>   \n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onFinish\">完成</button>\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onToPrint\">去打印</button>\n      </div>\n      <div v-if=\"currentBody=='task-setting'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"taskInfoText!=''\">\n          <small v-text=\"taskInfoText\"></small>\n        </div>      \n        <button v-if=\"newTask\" class=\"btn btn-warning btn-wide\" v-on=\"click: onCancelTask\">取消任务</button>\n        <button v-if=\"newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onAddTasks\">提交任务</button>      \n        <button v-if=\"!newTask\" class=\"btn btn-danger btn-wide \" v-on=\"click: onDeleteTask\">删除任务</button>\n        <button v-if=\"!newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onEditTask\">修改任务</button>\n      </div>\n    </div>\n  </modal>";
 
 /***/ },
-/* 175 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(176)
-	module.exports = __webpack_require__(178)
-	module.exports.template = __webpack_require__(179)
+	__webpack_require__(182)
+	module.exports = __webpack_require__(184)
+	module.exports.template = __webpack_require__(185)
 
 
 /***/ },
-/* 176 */
+/* 182 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(177);
+	var content = __webpack_require__(183);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(92)(content, {});
+	var update = __webpack_require__(93)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -13139,17 +13394,17 @@
 	}
 
 /***/ },
-/* 177 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(90)();
+	exports = module.exports = __webpack_require__(91)();
 	exports.push([module.id, "", ""]);
 
 /***/ },
-/* 178 */
+/* 184 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(94)
+	var yy_request = __webpack_require__(95)
 	
 	module.exports = {
 	  props: {
@@ -13169,24 +13424,24 @@
 	  },
 	
 	  components: {
-	    'modal': __webpack_require__(138),
+	    'modal': __webpack_require__(150),
 	  }
 	}
 
 /***/ },
-/* 179 */
+/* 185 */
 /***/ function(module, exports) {
 
 	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <h5 class=\"text-center text-primary\">{{infoText}}</h5>\n    </div>\n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show=false\">确定</button>\n    </div>    \n  </modal>";
 
 /***/ },
-/* 180 */
+/* 186 */
 /***/ function(module, exports) {
 
 	module.exports = "<header class=\"turn-left\"\n    v-el='header'>\n    <a href='#/menu'><div class=\"logo\"></div></a>\n    <div class=\"nav-switch\"\n      v-on=\"click: toggleMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <!--aside-->\n  <aside v-el='aside'>\n    <h6><a href=\"#/menu\" v-on=\"click: hideAside\">首页</a></h6>\n    <h6>打印中心</h6>\n    <ul>\n      <li><a href=\"#/print\" v-on=\"click: hideAside\">打印</a></li>\n      <li><a href=\"#\" v-on=\"click: showUploadModal = true,\n                            click: hideAside\">上传</a></li>\n      <li><a href=\"#/file\" v-on=\"click: hideAside\">文件</a></li>\n    </ul>\n    <h6>共享中心</h6>\n    <ul>\n      <li><a href=\"#\">我的共享</a></li>\n      <li><a href=\"#\">所有共享</a></li>\n    </ul>\n    <h6><a href=\"#/book\" v-on=\"click: hideAside\">教材</a></h6>\n    <h6><a href=\"#/user\" v-on=\"click: hideAside\">个人</a></h6>\n    <h6><a href=\"#/card\" v-on=\"click: hideAside\">校园卡</a></h6>\n    <h6><a href=\"#/printer\" v-on=\"click: hideAside\">打印店</a></h6>\n  </aside>\n  <section class=\"other\"\n    v-el=\"other\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <footer class='text-center'>\n      <ul class=\"list-inline\">\n        <li><a href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a rel=\"nofollow\" href=\"#\">打印店</a></li>\n        <li><a href=\"\">隐私声明</a></li>\n        <li><a rel=\"nofollow\" href=\"https://github.com/YunYinORG/print\">开源项目</a></li>\n        <li><a href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\n        <li><a href=\"\">新浪微博</a></li>\n        <li><a href=\"\">微信平台</a></li>\n      </ul>\n  </footer>\n  <filetask-modal show=\"{{@showFileTaskModal}}\" \n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\" \n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\" \n    info-text=\"{{infoModalText}}\"></info-modal>";
 
 /***/ },
-/* 181 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	

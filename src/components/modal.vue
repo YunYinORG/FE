@@ -76,7 +76,7 @@ module.exports = {
 .modal-wrapper {
   position: relative;
   margin: 20px auto;
-  top: 20px;
+  top: 40px;
   transition: top .3s ease;
   /*display: table-cell;*/
   /*vertical-align: middle;*/
