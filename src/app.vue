@@ -50,21 +50,21 @@
         <li><a href="">微信平台</a></li>
       </ul>
   </footer>
-  <filetask-modal show="{{@showFileTaskModal}}" 
+  <filetask-modal show="{{@showFileTaskModal}}"
     on-file-change="{{onFileChange}}"
-    on-task-change="{{onTaskChange}}" 
+    on-task-change="{{onTaskChange}}"
     params="{{fileTaskParams}}"></filetask-modal>
   <login-modal show="{{@showLoginModal}}"></login-modal>
-  <info-modal show="{{@showInfoModal}}" 
+  <info-modal show="{{@showInfoModal}}"
     info-text="{{infoModalText}}"></info-modal>
 </template>
 
 <script>
-var yy_request = require('./js/yunyin_request') 
+var yy_request = require('./js/yunyin_request')
 
 module.exports = {
   el: '#app',
-  
+
   data: function () {
     return {
       view: '',
@@ -155,8 +155,11 @@ body {
     position: relative;
     overflow-x: hidden;
 }
-
-a { 
+h1,h2{color: #FEFEFE};
+div,p{
+    color: #52E673
+}
+a {
   text-decoration: none;
     color: #13202c;
 }
