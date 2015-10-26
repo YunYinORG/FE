@@ -16,12 +16,12 @@
 			<div class="row">
 				<div class="form-group col-sm-12 col-md-6 col-md-offset-3" style="margin-bottom: 0">
 					<div v-show="findWay=='school'">
-				    <my-select
+				    <custom-select
 				      options="{{schoolList}}"
 				      value="{{@schoolId}}"
 				      desc="请选择您的学校"
 				      on-select-change={{onSchoolChange}}>
-			    	</my-select>
+			    	</custom-select>
 			    	<p class="text-center" v-if="verifyInfo!=''">{{verifyInfo}}</p>					
 					</div>
 					<div class="input-group">
@@ -176,7 +176,7 @@ module.exports = {
 	},  
 
 	components: {
-    'my-select': require('../controls/my-select.vue'),
+    'custom-select': require('../controls/custom-select.vue'),
     'verifycode-modal': require('../components/verifycode-modal.vue'),
   }
 
