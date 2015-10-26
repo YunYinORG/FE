@@ -254,13 +254,13 @@ function newUserVerify(vuemodel) {
 }
 
 function loginSuccess(vuemodel) {
-  yy_request.rest_api('get','user/',null,function(status,info){
-    if(status==1) {
-      po.app.username = info.name
-    } else {
-      po.app.username = '云印用户'
-    }
-  })
+  // yy_request.rest_api('get','user/',null,function(status,info){
+  //   if(status==1) {
+  //     po.app.username = info.name
+  //   } else {
+  //     po.app.username = '云印用户'
+  //   }
+  // })
 
   vuemodel.show = false
 

@@ -1,11 +1,11 @@
 <template>
   <div class="taskinfo-wrapper">
-    <my-select
+    <custom-select
       options="{{printerList}}"
       value="{{@taskSetting.printerId}}"
       desc="选择想去的打印店"
       on-select-change={{showPrinterInfo}}>
-    </my-select>
+    </custom-select>
 
     <div class="panel panel-success text-center">
       <div class="panel-heading">
@@ -23,29 +23,29 @@
     
     <div class="row">
       <div class="col-sm-3 cl">
-        <my-switch
+        <custom-switch
           true-text="到店"
           false-text="提前"
           value="{{@taskSetting.isInStore}}">
-        </my-switch>
+        </custom-switch>
       </div>
       <div class="col-sm-3 cl">
-        <my-switch
+        <custom-switch
           v-if="!taskSetting.isInStore"
           v-transition="expand"
           true-text="双面"
           false-text="单面"
           value="{{@taskSetting.isDoubleSide}}">
-        </my-switch>
+        </custom-switch>
       </div>
       <div class="col-sm-3 cl">
-        <my-switch
+        <custom-switch
           v-if="!taskSetting.isInStore"
           v-transition="expand"
           true-text="彩印"
           false-text="黑白"
           value="{{@taskSetting.isColor}}">
-        </my-switch>
+        </custom-switch>
       </div>
       <div class="col-sm-3">
         <div class="input-group copies-wrapper" v-if="!taskSetting.isInStore" v-transition="expand">
@@ -89,8 +89,8 @@ module.exports = {
   },
 
   components: {
-    'my-select': require('../controls/my-select.vue'),
-    'my-switch': require('../controls/my-switch.vue'),
+    'custom-select': require('../controls/custom-select.vue'),
+    'custom-switch': require('../controls/custom-switch.vue'),
   }
 }
 
