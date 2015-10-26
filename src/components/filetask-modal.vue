@@ -161,15 +161,8 @@ module.exports = {
       for(var i in this.params.fileList) {
         var pf = this.params.fileList[i]
         if(!("submitState" in pf) || pf.submitState=="fail") {
-          var ajax_data = {
-            fid: pf.id,
-            pid: ts.printerId,
-            copies: parseInt(ts.copies),
-            color: ts.isInStore? '':(ts.isColor? '1':'0'),
-            isdouble: ts.isInStore? '':(ts.isDoubleSide? '1':'0'),
-            // ppt: vuemodel.ppt,
-            requirements: ts.isInStore? '':ts.requirements
-          }
+          var ajax_data = taskSettingToAjaxData(ts)
+          ajax_data.fid = pf.id
           pf.submitState = "uploading"
           yy_request.rest_api('post','task/',ajax_data,function(status,info){
             if(status==1) {
@@ -262,20 +255,29 @@ function getTaskSetting(vuemodel) {
 }
 
 function editTask(vuemodel) {
-  var ajax_data = {
-    pid: vuemodel.printerID,
-    copies: parseInt(vuemodel.copies),
-    color: vuemodel.isColor,
-    isdouble: vuemodel.isDouble,
-    // ppt: vuemodel.ppt,
-    requirements: vuemodel.requirements
-  }
+  var ajax_data = taskSettingToAjaxData(ts)
+
   yy_request.rest_api('post','task/'+vuemodel.taskID,ajax_data,function(status,info){
     if(status==1) {
       vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
     }
   })
 }
+
+function taskSettingToAjaxData(taskSetting) {
+  var ts = taskSetting
+  var ajax_data = {
+    pid: ts.printerId,
+  }
+  if(!ts.isInStore) {
+    ajax_data.copies = parseInt(ts.copies)
+    ajax_data.color = ts.isColor? '1':'0'
+    ajax_data.isdouble = ts.isDoubleSide? '1':'0'
+    ajax_data.requirements = ts.requirements
+  }
+  return ajax_data
+}
+
 
 function htmldecode(s) {
   var div = document.createElement('div')
