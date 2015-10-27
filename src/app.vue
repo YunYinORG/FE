@@ -1,14 +1,14 @@
 <template>
-  <header class="turn-left"
-    v-el='header'>
-    <a href='#/menu'><div class="logo"></div></a>
+  <header class="turn-left" v-el='header'>
     <div class="nav-switch"
       v-on="click: toggleMenu">
       <div class="line"></div>
       <div class="line"></div>
       <div class="line"></div>
     </div>
+    <a href='#/menu' class="logo"></a>
     <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
+    
     <div class="clear"></div>
   </header>
   <!--aside-->
@@ -31,6 +31,7 @@
     <h6><a href="#/card" v-on="click: hideAside">校园卡</a></h6>
     <h6><a href="#/printer" v-on="click: hideAside">打印店</a></h6>
   </aside>
+
   <section class="other"
     v-el="other">
     <component is="{{view}}"
@@ -152,8 +153,9 @@ module.exports = {
 body {
   background-color: #00A6E9;
   color:#FEFEFE;
-    position: relative;
-    overflow-x: hidden;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 h1,h2{color: #FEFEFE};
 div,p{
@@ -205,24 +207,23 @@ section {
 }
 
 .slide-aside {
-    -webkit-transform: translateX(-200px);
-    -moz-transform: translateX(-200px);
-    -ms-transform: translateX(-200px);
-    -o-transform: translateX(-200px);
-    transform: translateX(-200px);
+    -webkit-transform: translateX(200px);
+    -moz-transform: translateX(200px);
+    -ms-transform: translateX(200px);
+    -o-transform: translateX(200px);
+    transform: translateX(200px);
 }
-
-
 
 .clear{
     clear: both;
 }
 
 .logo {
-  float: left;
+    display: block;
+    float: right;
     width: 55px;
     height: 55px;
-    margin: -5px 0 0 10px;
+    margin: -5px 10px 0 10px;
     background: url(./img/logo_middle.svg) no-repeat center;
     background-size: 100%;
 }
@@ -231,9 +232,9 @@ section {
 .nav-switch{
   width: 32px;
     height: 32px;
-    float: right;
+    float: left;
     margin-top: 14px;
-    margin-right: 14px;
+    margin-left: 14px;
     cursor: pointer;
 }
 
@@ -260,15 +261,16 @@ section {
 .on-nav{
     padding-right: 200px !important;
 }
+
 .open{
-    right: 0px !important;
+    left: 0px !important;
 }
 
 aside{
     position:absolute;
     top: 0;
     height:100vh;
-    right: -200px;
+    left: -200px;
     width: 200px;
     background: #edeff1;
     min-height: 100%;
@@ -284,11 +286,16 @@ aside > ul{
     margin-left: 20px;
 }
 
-.signin {
-    font-size: 20px;
+a.signin {
+    display: block;
+    font-size: 18px;
     float: right;
-    margin: 8px 40px 0 0;
+    margin-top: 6px;
+    padding: 2px 10px;
     cursor: pointer;
+    border: solid 2px #eeeeee;
+    border-radius: 3px;
+    color: #eeeeee;
 }
 
 .view {

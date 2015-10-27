@@ -94,7 +94,7 @@
 				</div>
 			</div>
 			<div class="logout-wrapper row">
-				<button class="btn btn-embossed btn-danger col-sm-12 col-md-6 col-md-offset-3"
+				<button class="btn btn-embossed btn-danger col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
 					v-on="click: onLogout">退出登录</button>
 			</div>
 		</div>
