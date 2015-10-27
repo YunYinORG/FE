@@ -1,7 +1,7 @@
 <template id="modal-template">
   <div class="modal-mask" v-show="show" v-transition="modal" v-class="open: bodyModalOpen">
     <div class="modal-wrapper">
-      <div class="modal-container" v-style="width: width+'px' ">
+      <div class="modal-container" v-style="max-width: width+'px' ">
         <div class="modal-header">
           {{defaultTitle}}
           <button type="button" class="close"

@@ -1,34 +1,56 @@
 <template>
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" aria-expanded="false"
-        v-on="click: onShowMenu"
-        v-el="button">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
+<!--   <header class="turn-left"
+    v-el='header'>
+    <a href='#/menu'><div class="logo"></div></a>
+    <div class="nav-switch"
+      v-on="click: toggleMenu">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
     </div>
+    <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
+    <div class="clear"></div>
+  </header> -->
+  <!--aside-->
+<!--   <aside v-el='aside'>
+    <h6><a href="#/menu" v-on="click: hideAside">首页</a></h6>
+    <h6>打印中心</h6>
+    <ul>
+      <li><a href="#/print" v-on="click: hideAside">打印</a></li>
+      <li><a href="#" v-on="click: showUploadModal = true,
+                            click: hideAside">上传</a></li>
+      <li><a href="#/file" v-on="click: hideAside">文件</a></li>
+    </ul>
+    <h6>共享中心</h6>
+    <ul>
+      <li><a href="#">我的共享</a></li>
+      <li><a href="#">所有共享</a></li>
+    </ul>
+    <h6><a href="#/book" v-on="click: hideAside">教材</a></h6>
+    <h6><a href="#/user" v-on="click: hideAside">个人</a></h6>
+    <h6><a href="#/card" v-on="click: hideAside">校园卡</a></h6>
+    <h6><a href="#/printer" v-on="click: hideAside">打印店</a></h6>
+  </aside> -->
+  <div id="header">
+    <div class="nav-switch"
+      v-on="click: toggleMenu">
+      <div class="line"></div>
+      <div class="line"></div>
+      <div class="line"></div>
+    </div>
+    <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
+    <a href='#/menu'><div class="logo"></div></a>
+    <div class="clear"></div>
+  </div>
+  <div id="slide">
+    <ul>
+      <li v-repeat="nav in navs">
+        <a href="nav.href" >{{nav.text}}</a>
+      </li>
+    </ul>
+  </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" v-el="menu">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">打印任务 <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">文件管理</a></li>
-        <li><a href="#">分享</a></li>
-        <li><a href="#">课件</a></li>
-      </ul>   
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">登录云印</a></li>
-      </ul>   
-    </div><!-- /.navbar-collapse -->
-   
-  </div><!-- /.container-fluid -->
-</nav>
+
 </template>
 
 <script>
