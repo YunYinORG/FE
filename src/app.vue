@@ -287,7 +287,7 @@ a.signin {
     display: block;
     font-size: 18px;
     float: right;
-    margin-top: 5px;
+    margin-top: 6px;
     padding: 2px 10px;
     cursor: pointer;
     border: solid 2px #eeeeee;
