@@ -6,7 +6,7 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://api.yunyin.org/'
+var baseurl = 'http://localhost/index.php/'
 
 module.exports = {
 	rest_api: function(method,resource,data,successfn) {
