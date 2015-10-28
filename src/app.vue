@@ -1,7 +1,7 @@
 <template>
-  <header class="turn-left" v-el='header'>
+  <header class="turn-left" v-class="slide-aside : showSlideMenu">
     <div class="nav-switch"
-      v-on="click: toggleMenu">
+      v-on="click: showSlideMenu = !showSlideMenu">
       <div class="line"></div>
       <div class="line"></div>
       <div class="line"></div>
@@ -12,35 +12,34 @@
     <div class="clear"></div>
   </header>
   <!--aside-->
-  <aside v-el='aside'>
-    <h6><a href="#/menu" v-on="click: hideAside">首页</a></h6>
+  <aside v-class="open : showSlideMenu">
+    <h6><a href="#/menu" v-on="click: showSlideMenu = false">首页</a></h6>
     <h6>打印中心</h6>
     <ul>
-      <li><a href="#/print" v-on="click: hideAside">打印</a></li>
+      <li><a href="#/print" v-on="click: showSlideMenu = false">打印</a></li>
       <li><a href="#" v-on="click: showUploadModal = true,
-                            click: hideAside">上传</a></li>
-      <li><a href="#/file" v-on="click: hideAside">文件</a></li>
+                            click: showSlideMenu = false">上传</a></li>
+      <li><a href="#/file" v-on="click: showSlideMenu = false">文件</a></li>
     </ul>
     <h6>共享中心</h6>
     <ul>
       <li><a href="#">我的共享</a></li>
       <li><a href="#">所有共享</a></li>
     </ul>
-    <h6><a href="#/book" v-on="click: hideAside">教材</a></h6>
-    <h6><a href="#/user" v-on="click: hideAside">个人</a></h6>
-    <h6><a href="#/card" v-on="click: hideAside">校园卡</a></h6>
-    <h6><a href="#/printer" v-on="click: hideAside">打印店</a></h6>
+    <h6><a href="#/book" v-on="click: showSlideMenu = false">教材</a></h6>
+    <h6><a href="#/user" v-on="click: showSlideMenu = false">个人</a></h6>
+    <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡</a></h6>
+    <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店</a></h6>
   </aside>
 
-  <section class="other"
-    v-el="other">
+  <section class="other" v-class="slide-aside : showSlideMenu">
     <component is="{{view}}"
       class="view"
       v-transition
       transition-mode="out-in">
     </component>
   </section>
-  <footer class='text-center'>
+  <footer class='text-center' v-class="slide-aside : showSlideMenu">
       <ul class="list-inline">
         <li><a href="http://www.yunyin.org/">&copy;云印南天</a></li>
         <li><a rel="nofollow" href="#">打印店</a></li>
@@ -72,6 +71,7 @@ module.exports = {
       showLoginModal: false,
       showFileTaskModal: false,
       showInfoModal: false,
+      showSlideMenu: false,
       fileTaskParams: {
         mode: 'newfile',
         fileList: [],
@@ -94,17 +94,6 @@ module.exports = {
       } else {
         window.location.hash = "#/user"
       }
-    },
-
-    toggleMenu: function() {
-      this.$$.aside.classList.toggle('open')
-      this.$$.other.classList.toggle('slide-aside')
-      this.$$.header.classList.toggle('slide-aside')
-    },
-    hideAside: function() {
-      this.$$.aside.classList.remove('open')
-      this.$$.other.classList.remove('slide-aside')
-      this.$$.header.classList.remove('slide-aside')
     },
     onFileChange: function() {
       if(window.location.hash=="#/file") {
