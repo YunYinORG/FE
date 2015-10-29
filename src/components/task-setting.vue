@@ -95,21 +95,25 @@ module.exports = {
 }
 
 function getPrinterList(vuemodel) {
-  yy_request.rest_api('get','printers/',null,function(status,info){
-    if(status==1) { 
+  yy_request.rest_api({
+    method: 'get',
+    api: 'printers/',
+    opSuccess: function(info) {
       for(var i in info) {
         vuemodel.printerList.push({
           text: info[i].name+' ['+info[i].address+']',
           value: info[i].id,
         })
       }
-    }
+    },
   })
 }
 
 function getPrinterDetail(vuemodel) {
-  yy_request.rest_api('get','printers/'+vuemodel.taskSetting.printerId,null,function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'printers/'+vuemodel.taskSetting.printerId,
+    opSuccess: function(info) {
       vuemodel.printerInfo = {
         name: info.name,
         address: info.address,
@@ -119,7 +123,7 @@ function getPrinterDetail(vuemodel) {
         price3: info.price.s,
         price4: info.price.d,
       }
-    }
+    },
   })
 }
 

@@ -144,67 +144,78 @@ module.exports = {
 				po.app.infoModalText = "两次密码输入不一致"
 				po.app.showInfoModal = true
 			} else {
-				var ajax_data = {
-					old: md5(this.oldPwd),
-					password: md5(this.newPwd)
-				}
-				yy_request.rest_api('put','user/'+this.uid,ajax_data,function(status,info){
-					if(status==1) {
+			  yy_request.rest_api({
+			    method: 'put',
+			    api: 'user/' + this.uid,
+			    data: {
+						old: md5(this.oldPwd),
+						password: md5(this.newPwd)			    
+			    },
+			    opSuccess: function(info) {
 						po.app.infoModalText = "密码修改成功"
 						po.app.showInfoModal = true
 						vuemodel.showPasswordEdit = false
-					} else {
+			    },
+			    opFail: function(info) {
 						po.app.infoModalText = info
 						po.app.showInfoModal = true
-					}
-				})
+			    },
+			  })
 			}
 		},
 
 		onBindPhone: function() {
 			var vuemodel = this
-			var ajax_data = {
-				phone: this.newPhone
-			}
-			yy_request.rest_api('post',"user/"+this.uid+"/phone",ajax_data,function(status,info){
-				if(status==1) {
+		  yy_request.rest_api({
+		    method: 'post',
+		    api: "user/"+this.uid+"/phone",
+		    data: {
+  				phone: this.newPhone  
+		    },
+		    opSuccess: function(info) {
 					vuemodel.verifyStage = 'code'
 					vuemodel.verifyWay = 'phone'
 					vuemodel.verifyInfo = vuemodel.newPhone
 					vuemodel.showCodeModal = true
-				} else {
+		    },
+		    opFail: function(info) {
 					po.app.infoModalText = info
 					po.app.showInfoModal = true
-				}
-			})
+		    },
+		  })
 		},
 
 
 		onBindMail: function() {
 			var vuemodel = this
-			var ajax_data = {
-				email: this.newMail
-			}
-			yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
-				if(status==1) {
+		  yy_request.rest_api({
+		    method: 'post',
+		    api: "user/"+this.uid+"/email",
+		    data: {
+					email: this.newMail
+		    },
+		    opSuccess: function(info) {
 					vuemodel.verifyStage = 'code'
 					vuemodel.verifyWay = 'email'
 					vuemodel.verifyInfo = vuemodel.newMail
 					vuemodel.showCodeModal = true
-				} else {
+		    },
+		    opFail: function(info) {
 					po.app.infoModalText = info
 					po.app.showInfoModal = true
-				}
-			})
+		    },
+		  })
 		},
 
 		onLogout: function() {
-			yy_request.rest_api('get',"auth/logout",null,function(status,info){
-				if(status==1) {
+		  yy_request.rest_api({
+		    method: 'get',
+		    api: 'auth/logout',
+		    opSuccess: function(info) {
 					window.location.hash = "#/menu"
 					po.app.showLoginModal = true 
-				}
-			})		
+		    },
+		  })					
 		},
 	},
 
@@ -214,20 +225,24 @@ module.exports = {
 }
 
 function get_user_detail(vuemodel) {
-	yy_request.rest_api('get','user/',null,function(status,info){
-		if(status==1) {
-			vuemodel.uid = info.id
-			yy_request.rest_api('get','user/'+vuemodel.uid,null,function(status,info){
-				if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'user/',
+    opSuccess: function(info) {
+    	vuemodel.uid = info.id
+    	yy_request.rest_api({
+    		method: 'get',
+    		api: 'user/'+vuemodel.uid,
+    		opSuccess: function(info) {
 					vuemodel.userName = info.name
 					vuemodel.userSID = info.number
 					vuemodel.userSch = info.school 
 					vuemodel.userPhone = info.phone || "还没有绑定手机" 
-					vuemodel.userMail = info.email || "还没有绑定邮箱"
-				}
-			})
-		}
-	})
+					vuemodel.userMail = info.email || "还没有绑定邮箱"    			
+    		}
+    	})
+    },
+  })
 }
 
 </script>

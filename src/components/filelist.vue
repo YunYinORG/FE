@@ -210,19 +210,24 @@ module.exports = {
 
 
 function loadData(vuemodel) {
-  yy_request.rest_api('get','file/',{page:vuemodel.displayedPage},function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'file/',
+    data: {
+      page: vuemodel.displayedPage,
+    },  
+    opSuccess: function(info) {
       var filedata = info
       for(var i in filedata) {
         filedata[i].checked = false
       }
       if(filedata.length==vuemodel.filesPerPage) {
-      	vuemodel.moreData = true
+        vuemodel.moreData = true
       } else {
-      	vuemodel.moreData = false
+        vuemodel.moreData = false
       }
       vuemodel.fileData = vuemodel.fileData.concat(filedata)
-      }
+    },
   })
 }
 
@@ -233,19 +238,18 @@ function getCheckedList(vuemodel) {
 }
 
 function deleteFile(vuemodel,file) {
-  yy_request.rest_api('delete','file/'+file.id+'/',null,function(status,info){
-  	if(status==1){
-    	vuemodel.fileData.$remove(file)
+  yy_request.rest_api({
+    method: 'delete',
+    api: 'file/'+file.id+'/',
+    opSuccess: function(info) {
+      vuemodel.fileData.$remove(file)
       vuemodel.actionFileDone += 1
-  	} else {
-    	vuemodel.actionFileFail += 1
-  	}
-	})	
+    },
+    opFail: function(info) {
+      vuemodel.actionFileFail += 1
+    },
+  })	
 }
-
-
-
-
 
 </script>
 

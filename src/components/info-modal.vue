@@ -11,8 +11,6 @@
 
 <script>
 
-var yy_request = require('../js/yunyin_request')
-
 module.exports = {
   props: {
     show: {
