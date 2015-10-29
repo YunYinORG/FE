@@ -1,32 +1,25 @@
 <template>
 	<div class="user-view">
 		<div class="text-center">
-			<h3>个人信息</h3>
+			<h3><strong v-text="userName">我</strong>的信息</h3>
 		</div>
 		<div class="row">
-			<div class="well col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2" id="userinfo">
-				<div id="user_name" class='well'>
-					<div class="row">
-						<div class="col-xs-4 col-sm-2 text-right">姓名</div>
-						<span class="col-xs-8 col-sm-8 col-sm-offset-2" v-text="userName"></span>
+			<div class="well col-xs-12 col-sm-8 col-sm-offset-2" id="userinfo">
+				<div id="user_name">
+					<div class="row text-center text-info">
+					<span v-text="userSID">学号</span>(<span v-text="userSch">学校</span>)
 					</div>
 				</div>
-				<div id="user_school" class='well'>
+			<!-- 	<div id="user_school" class='well'>
 					<div class="row">
 						<div class="col-xs-4 col-sm-2 text-right">学校</div>
-						<span class="col-xs-8 col-sm-8 col-sm-offset-2" v-text="userSch"></span>
+						<span class="col-xs-8 col-sm-8 col-sm-offset-2 text-info" v-text="userSch"></span>
 					</div>
-				</div>
-				<div id="user_sch_id" class='well'>
-					<div class="row">
-						<div class="col-xs-4 col-sm-2 text-right">学号</div>
-						<span class="col-xs-8 col-sm-8 col-sm-offset-2" v-text="userSID"></span>
-					</div>
-				</div>
+				</div> -->
 				<div id="user_tel" class='well'>
 					<div class="row detail">
 						<div class="col-xs-4 col-sm-2 text-right">手机</div>
-						<span class='col-xs-6 col-sm-7 col-sm-offset-2' v-text="userPhone"></span>
+						<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text="userPhone"></span>
 						<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil' v-on="click: showPhoneEdit=!showPhoneEdit"></span>
 					</div>
 					<div id="phone-wrapper"  v-if="showPhoneEdit" v-transition="expand">
@@ -44,7 +37,7 @@
 				<div id="user_mail" class='well'>
 					<div class="row detail">
 						<div class='col-xs-4 col-sm-2 text-right'>邮箱</div>
-						<span class='col-xs-6 col-sm-7 col-sm-offset-2' v-text="userMail"></span>
+						<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text="userMail"></span>
 						<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on="click: showMailEdit=!showMailEdit"></span>
 					</div>
 					<div id="mail-wrapper" v-if="showMailEdit" v-transition="expand">
@@ -63,7 +56,7 @@
 						<div class="col-xs-4 col-sm-2 text-right">
 							密码
 						</div>
-						<span class="col-xs-6 col-sm-7 col-sm-offset-2">********</span>
+						<span class="col-xs-6 col-sm-7 col-sm-offset-2 text-primary">********</span>
 						<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on="click: showPasswordEdit=!showPasswordEdit"></span>
 					</div>
 					<div id='password-reset' style='margin-top:10px' v-if="showPasswordEdit" v-transition="expand">
@@ -84,14 +77,11 @@
 							<button class="btn btn-embossed btn-primary col-xs-4 col-xs-offset-1"
 								v-on="click: onChangePassword">确定</button>
 							<button class='cancel btn btn-embossed btn-primary col-xs-4 col-xs-offset-2'
-								v-on="click: showPasswordEdit=false">取消</span>
+								v-on="click: showPasswordEdit=false">取消</button>
 						</div>
 					</div>
 				</div>
-				<div class="logout-wrapper row">
-					<button class="btn btn-embossed btn-danger col-xs-10 col-xs-offset-1 col-md-6 col-md-offset-3"
-						v-on="click: onLogout">退出登录</button>
-				</div>
+				
 			</div>
 		</div>
 	</div>
@@ -205,17 +195,6 @@ module.exports = {
 					po.app.showInfoModal = true
 		    },
 		  })
-		},
-
-		onLogout: function() {
-		  yy_request.rest_api({
-		    method: 'get',
-		    api: 'auth/logout',
-		    opSuccess: function(info) {
-					window.location.hash = "#/menu"
-					po.app.showLoginModal = true 
-		    },
-		  })					
 		},
 	},
 

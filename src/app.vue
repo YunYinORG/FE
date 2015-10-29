@@ -112,7 +112,17 @@ module.exports = {
       } else {
         window.location.hash="#/print"
       }
-    }
+    },
+        onLogout: function() {
+      yy_request.rest_api({
+        method: 'get',
+        api: 'auth/logout',
+        opSuccess: function(info) {
+          window.location.hash = "#/home"
+          po.app.showLoginModal = true 
+        },
+      })          
+    },
   },
 
   compiled: function() {
