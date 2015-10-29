@@ -124,13 +124,16 @@ module.exports = {
   methods: {
     onNumberChange: function(e) {
       var vuemodel = this
-      var ajax_data = {
-        number: vuemodel.studentid
-      }
-      yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
-        var sch_value = []
-        var sch_key = []
-        if(status==1) {
+      var sch_value = []
+      var sch_key = []
+
+      yy_request.rest_api({
+        method: 'post',
+        api: 'school/number/',
+        data: {
+          number: vuemodel.studentid
+        },
+        opSuccess: function(info) {
           for(var key in info){
             sch_key.push(key)
             sch_value.push(info[key])
@@ -146,8 +149,9 @@ module.exports = {
             vuemodel.usertype = 'new'
             vuemodel.errorinfo = ""
             refreshCode(vuemodel)
-          }
-        } else {
+          }         
+        },
+        opFail: function(info) {
           vuemodel.usertype = 'wrong'
           vuemodel.errorinfo = "学号格式有误"
         }
@@ -165,17 +169,17 @@ module.exports = {
 
     newPassword: function(e) {
       var md5 = require("blueimp-md5")
-
       var vuemodel = this
 
-      var ajax_data = {
-        password: md5(vuemodel.pwnew)
-      }
-
-      yy_request.rest_api('post','user/',ajax_data,function(status,info){
-        if(status==1) {
+      yy_request.rest_api({
+        method: 'post',
+        api: 'user/',
+        data: {
+          password: md5(vuemodel.pwnew)
+        },
+        opSuccess: function(info) {
           vuemodel.showDone  = true
-          vuemodel.showReset = false
+          vuemodel.showReset = false        
         }
       })
     },
@@ -201,15 +205,18 @@ module.exports = {
 }
 
 function oldUserLogin(vuemodel) {
-  var ajax_data = {
-    number: vuemodel.studentid,
-    password: vuemodel.password,
-  }
-  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'auth/',
+    data: {
+      number: vuemodel.studentid,
+      password: vuemodel.password,
+    },
+    opSuccess: function(info) {
       loginSuccess(vuemodel)
-      vuemodel.errorinfo = ""
-    } else {
+      vuemodel.errorinfo = ""       
+    },
+    opFail: function(info) {
       vuemodel.errorinfo = "账号或密码错误，请重新尝试"
     }
   })
@@ -217,15 +224,20 @@ function oldUserLogin(vuemodel) {
 
 function refreshCode(vuemodel) {
   var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
-  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
-    if(status==1) {
+
+  yy_request.rest_api({
+    method: 'get',
+    api: refreshCodeAPI,
+    opSuccess: function(info) {
       vuemodel.$$.verifycode.src = info.img
       vuemodel.cookie = info.verify_cookie
-      vuemodel.showCode = true
-    } else {
+      vuemodel.showCode = true      
+    },
+    opFail: function(info) {
       vuemodel.showCode = false
     }
   })
+
 }
 
 function newUserVerify(vuemodel) {
@@ -240,27 +252,38 @@ function newUserVerify(vuemodel) {
     ajax_data.verify_cookie = vuemodel.cookie
   }
 
-  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
-    if(status==-1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'auth/',
+    data: ajax_data,
+    verifySuccess: function(info) {
+      vuemodel.showReset = true
+      vuemodel.showLogin = false    
+    },
+    authFail: function(info) {
       vuemodel.errorinfo = "学校身份信息验证失败，请确认信息正确"
       if(vuemodel.showCode) {
         refreshCode(vuemodel)
-      }
-    } else {
-      vuemodel.showReset = true
-      vuemodel.showLogin = false
+      }     
     }
   })
 }
 
 function loginSuccess(vuemodel) {
-  // yy_request.rest_api('get','user/',null,function(status,info){
-  //   if(status==1) {
-  //     po.app.username = info.name
-  //   } else {
-  //     po.app.username = '云印用户'
-  //   }
-  // })
+
+  yy_request.rest_api({
+      method: 'get',
+      api: 'user/',
+      opSuccess: function(info) {
+        po.app.username = info.name
+      },
+      opFail: function(info) {
+        po.app.username = null
+      },
+      authFail: function(info) {
+        po.app.username = null
+      }
+  })
 
   vuemodel.show = false
 
@@ -272,7 +295,7 @@ function loginSuccess(vuemodel) {
 
   },1000)
 
-  window.location.reload()
+  // window.location.reload()
 
   // if(po.app.view=='intro-view') {
   //   window.location.hash = '#/menu'

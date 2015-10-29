@@ -29,15 +29,18 @@ module.exports = {
       var filedata = this.fileList
 
       if("id" in filedata[index]) {
-        yy_request.rest_api('delete','file/'+filedata[index].id+'/',null,function(status,info){
-          if(status==1){
+        yy_request.rest_api({
+          method: 'delete',
+          api: 'file/'+filedata[index].id+'/',
+          opSuccess: function(info) {
             filedata.$remove(index)
-          } else {
+          },
+          opFail: function(info) {
             filedata[index].status = "删除失败，请重试"
             filedata[index].isfailed = true
             filedata[index].issuccess = false
             filedata[index].isuploading = false
-          }
+          },
         })
       } else {
         filedata.$remove(index)
@@ -72,16 +75,20 @@ module.exports = {
 }
 
 function uploadFile(filedata) {
-  yy_request.rest_api('post','file/token/',{"name":filedata.fileobject.name},function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'file/token/',
+    data: {
+      name: filedata.fileobject.name
+    },
+    opSuccess: function(info) {
       filedata.token = info.token
-     // filedata.key = info.key
+
       yy_request.ajax({
         method: 'post',
         url: 'http://upload.qiniu.com/',
         data: {
           token: filedata.token,
-      //    key: filedata.key,
           file: filedata.fileobject,
         },
         content: 'multipart',
@@ -95,24 +102,30 @@ function uploadFile(filedata) {
           filedata.isuploading = false
         },
       })
-    }
+    },
   })
 }
 
 function uploadConfirm(filedata,key) {
-  yy_request.rest_api('post','file',{key:key},function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'file/',
+    data: {
+      key: key,
+    },
+    opSuccess: function(info) {
       filedata.status = '上传成功'
       filedata.isfailed = false
       filedata.issuccess = true
       filedata.isuploading = false
       filedata.id = info.id
-    } else {
+    },
+    opFail: function(info) {
       filedata.status = '上传失败'
       filedata.isfailed = true
       filedata.issuccess = false
       filedata.isuploading = false
-    }
+    },
   })
 }
 
