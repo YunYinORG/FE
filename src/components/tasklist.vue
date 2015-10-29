@@ -1,16 +1,16 @@
 <template>
   <div class="row actions-wrapper">
-    <div class="col-xs-8">
+    <div class="col-xs-12 col-sm-8 text-center">
       <button class="btn btn-embossed btn-primary" v-on="click: onUploadFile">
-        <span class="glyphicon glyphicon-open"></span>
+        <i class="glyphicon glyphicon-open"></i>
         添加新打印任务
       </button>
     </div>
-    <div class="col-xs-3 col-xs-offset-1">
+    <div class="hidden-xs col-sm-3 col-sm-offset-1">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="搜索您的文件" v-model="searchString">
         <span class="input-group-btn">
-          <button class="btn"><span class="fui-search"></span></button>
+          <button class="btn"><i class="fui-search"></i></button>
         </span>
       </div>
     </div>
@@ -19,13 +19,11 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>文件状态</th>
-          <th>文件名</th>
-          <th>上传时间</th>       
+          <th>状态</th>
+          <th>任务名</th>
           <th>打印店</th>
-          <th>份数</th>
-          <th>单双</th>
-          <th>彩印</th>
+          <th>设置</th>
+          <th>时间</th>       
           <th>操作</th>
         </tr>
       </thead>
@@ -33,15 +31,13 @@
         <template v-repeat="task:displayTask" track-by="id">
           <tr>
             <td>{{task.status}}</td>
-            <td>{{task.name}}</td>
-            <td>{{task.time}}</td>
+            <td class="text-primary">{{task.name}}</td>
             <td>{{task.printer}}</td>
-            <td>{{task.copies}}</td>
-            <td>{{task.isdouble==null? "-":(task.isdouble=="1"? "双面":"单面")}}</td>
-            <td>{{task.color==null? "-": (task.color=="1"? "彩色":"黑白")}}</td>
+            <td><span>{{task.copies}}</span>份<span>{{task.double==null? " ":(task.double=="1"? "双面":"单面")}}</span><span>{{task.color==null? "-": (task.color=="1"? "彩色":"黑白")}}</span></td>
+            <td>{{task.time.substr(5,11)}}</td>
             <td style="text-align:center">
-              <span class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:pointer"
-                v-on="click: onEditTask($event,task)"></span>
+              <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:pointer"
+                v-on="click: onEditTask($event,task)"></i>
             </td>
           </tr>
         </template>
@@ -49,7 +45,7 @@
     </table>  
   </div>
 
-  <div class="more-task" v-on="click: onLoadMore" v-if="moreData">加载更多...</div><!--没有更多时应为灰色-->
+  <div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多...</div><!--没有更多时应为灰色-->
 </template>
 
 <script>
@@ -136,27 +132,4 @@ function loadTasks(vuemodel) {
     },
   })
 }
-
-
-
-
 </script>
-
-<style>
-.actions-wrapper {
-  margin-bottom: 15px;
-}
-
-.more-task {
-  text-align: center;
-  width: 100%;
-  margin-top: -10px;
-  cursor: pointer;
-}
-
-tbody.table-body {
-  overflow-y: scroll;
-  max-height: 500px;
-}
-
-</style>

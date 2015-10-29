@@ -11048,52 +11048,13 @@
 /* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(104)
 	module.exports = __webpack_require__(106)
 	module.exports.template = __webpack_require__(112)
 
 
 /***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(105);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(97)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./print-view.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./print-view.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 105 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".print-view\t{\r\n\tposition: relative;\r\n\tmargin-left: 16.777777%;\r\n    margin-right: 16.777777%;\r\n    min-height: 55%;\r\n    background-color: #edeff1;\r\n    padding: 10px 30px;\r\n    border-radius: 5px;\r\n}", ""]);
-	
-	// exports
-
-
-/***/ },
+/* 104 */,
+/* 105 */,
 /* 106 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11113,52 +11074,13 @@
 /* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(108)
 	module.exports = __webpack_require__(110)
 	module.exports.template = __webpack_require__(111)
 
 
 /***/ },
-/* 108 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(109);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(97)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./tasklist.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./tasklist.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 109 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".actions-wrapper {\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.more-task {\r\n  text-align: center;\r\n  width: 100%;\r\n  margin-top: -10px;\r\n  cursor: pointer;\r\n}\r\n\r\ntbody.table-body {\r\n  overflow-y: scroll;\r\n  max-height: 500px;\r\n}", ""]);
-	
-	// exports
-
-
-/***/ },
+/* 108 */,
+/* 109 */,
 /* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11250,64 +11172,25 @@
 /* 111 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-8\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <span class=\"glyphicon glyphicon-open\"></span>\r\n        添加新打印任务\r\n      </button>\r\n    </div>\r\n    <div class=\"col-xs-3 col-xs-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>文件状态</th>\r\n          <th>文件名</th>\r\n          <th>上传时间</th>       \r\n          <th>打印店</th>\r\n          <th>份数</th>\r\n          <th>单双</th>\r\n          <th>彩印</th>\r\n          <th>操作</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody class=\"table-body\">\r\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\r\n          <tr>\r\n            <td>{{task.status}}</td>\r\n            <td>{{task.name}}</td>\r\n            <td>{{task.time}}</td>\r\n            <td>{{task.printer}}</td>\r\n            <td>{{task.copies}}</td>\r\n            <td>{{task.isdouble==null? \"-\":(task.isdouble==\"1\"? \"双面\":\"单面\")}}</td>\r\n            <td>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</td>\r\n            <td style=\"text-align:center\">\r\n              <span class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\r\n                v-on=\"click: onEditTask($event,task)\"></span>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>  \r\n  </div>\r\n\r\n  <div class=\"more-task\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
+	module.exports = "<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-12 col-sm-8 text-center\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <i class=\"glyphicon glyphicon-open\"></i>\r\n        添加新打印任务\r\n      </button>\r\n    </div>\r\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>状态</th>\r\n          <th>任务名</th>\r\n          <th>打印店</th>\r\n          <th>设置</th>\r\n          <th>时间</th>       \r\n          <th>操作</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody class=\"table-body\">\r\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\r\n          <tr>\r\n            <td>{{task.status}}</td>\r\n            <td class=\"text-primary\">{{task.name}}</td>\r\n            <td>{{task.printer}}</td>\r\n            <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\r\n            <td>{{task.time.substr(5,11)}}</td>\r\n            <td style=\"text-align:center\">\r\n              <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\r\n                v-on=\"click: onEditTask($event,task)\"></i>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>  \r\n  </div>\r\n\r\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
 /* 112 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"print-view\">\r\n\t\t<tasklist></tasklist>\t\t\r\n\t</div>";
+	module.exports = "<div class=\"row\">\r\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\r\n  \t\t<tasklist></tasklist>\t\t\r\n\t</div>\r\n</div>";
 
 /***/ },
 /* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(114)
 	module.exports = __webpack_require__(116)
 	module.exports.template = __webpack_require__(122)
 
 
 /***/ },
-/* 114 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(115);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(97)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./file-view.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./file-view.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 115 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".file-view\t{\r\n\tposition: relative;\r\n\tmargin-left: 16.777777%;\r\n    margin-right: 16.777777%;\r\n    min-height: 55%;\r\n    background-color: #edeff1;\r\n    padding: 10px 30px;\r\n    border-radius: 5px;\r\n\r\n}", ""]);
-	
-	// exports
-
-
-/***/ },
+/* 114 */,
+/* 115 */,
 /* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11322,52 +11205,13 @@
 /* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(118)
 	module.exports = __webpack_require__(120)
 	module.exports.template = __webpack_require__(121)
 
 
 /***/ },
-/* 118 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(119);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(97)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./filelist.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./filelist.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".actions-wrapper {\r\n  margin-bottom: 15px;\r\n}\r\n\r\n.more-file {\r\n  text-align: center;\r\n  width: 100%;\r\n  margin-top: -10px;\r\n  cursor: pointer;\r\n}\r\n\r\n.action-line {\r\n  width: 120px;\r\n}\r\n.action-line span {\r\n  margin-left: 8%;\r\n}\r\n\r\n.action-info {\r\n  padding-left: 10px;\r\n  height: 30px;\r\n  overflow: hidden;\r\n  -webkit-transition: all .3s ease;\r\n  -o-transition: all .3s ease;\r\n  transition: all .3s ease;\r\n}\r\n\r\n.infoexpand-enter, \r\n.infoexpand-leave {\r\n  height: 0px;\r\n  -webkit-transition: all .3s ease;\r\n  -o-transition: all .3s ease;\r\n  transition: all .3s ease;\r\n}\r\n\r\n/*.filetable {\r\n  max-height:10px;\r\n}*/", ""]);
-	
-	// exports
-
-
-/***/ },
+/* 118 */,
+/* 119 */,
 /* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11546,13 +11390,13 @@
 /* 121 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"filetable\">\r\n\t<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-8\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <span class=\"glyphicon glyphicon-open\"></span>\r\n        上传文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\r\n        <span class=\"glyphicon glyphicon-print\"></span>\r\n        打印文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\r\n        <span class=\"glyphicon glyphicon-share\"></span>\r\n        分享文件\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\r\n        <span class=\"glyphicon glyphicon-trash\"></span>\r\n        删除文件\r\n      </button>\r\n    </div>\r\n    <div class=\"col-xs-3 col-xs-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><span class=\"fui-search\"></span></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n\t</div>\r\n\r\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\r\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\r\n  </div>  \r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>\r\n            <input type=\"checkbox\" v-model=\"checkedAll\">\r\n          </th>\r\n          <th>\r\n            文件名\r\n          </th>\r\n          <th>\r\n            上传日期\r\n          </th>       \r\n          <th>\r\n            操作\r\n          </th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\r\n          <tr>\r\n            <td>\r\n              <input type=\"checkbox\" v-model=\"file.checked\">\r\n            </td>\r\n            <td>\r\n              {{file.name}}\r\n            </td>\r\n            <td>\r\n              {{file.time}}\r\n            </td>\r\n            <td class='action-line'>\r\n              <span class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\r\n                v-on=\"click: onPrint($event,file)\"></span>\r\n              <span class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\r\n                ></span>\r\n              <span class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\r\n                v-on=\"click: onDelete($event,file)\"></span>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n\t<div class=\"more-file\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\r\n  </div>";
+	module.exports = "<div class=\"filetable\">\r\n\t<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-12 col-sm-9\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <i class=\"glyphicon glyphicon-open\"></i>\r\n        <span class=\"hidden-xs\">上传文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\r\n        <i class=\"glyphicon glyphicon-print\"></i>\r\n        <span class=\"hidden-xs\">打印文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\r\n        <i class=\"glyphicon glyphicon-share\"></i>\r\n        <span class=\"hidden-xs\">分享文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\r\n        <i class=\"glyphicon glyphicon-trash\"></i>\r\n        <span class=\"hidden-xs\">删除文件</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"hidden-xs col-sm-3\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n\t</div>\r\n\r\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\r\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\r\n  </div>  \r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>\r\n            <input type=\"checkbox\" v-model=\"checkedAll\">\r\n          </th>\r\n          <th>\r\n            文件名\r\n          </th>\r\n          <th>\r\n            时间\r\n          </th>       \r\n          <th>\r\n            操作\r\n          </th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\r\n          <tr>\r\n            <td>\r\n              <input type=\"checkbox\" v-model=\"file.checked\">\r\n            </td>\r\n            <td class=\"text-primary\">\r\n              {{file.name}}\r\n            </td>\r\n            <td>\r\n              {{file.time.substr(5,11)}}\r\n            </td>\r\n            <td class='action-line'>\r\n              <i class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\r\n                v-on=\"click: onPrint($event,file)\"></i>\r\n              <i class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\r\n                ></i>\r\n              <i class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\r\n                v-on=\"click: onDelete($event,file)\"></i>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n\t<div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\r\n  </div>";
 
 /***/ },
 /* 122 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file-view\">\r\n  \t\t<filelist></filelist>\t\t\r\n\t</div>";
+	module.exports = "<div class=\"row\">\r\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\r\n  \t\t<filelist></filelist>\t\t\r\n\t</div>\r\n</div>";
 
 /***/ },
 /* 123 */
