@@ -123,8 +123,10 @@ module.exports = {
 
 	compiled: function() {
 		var vuemodel = this
-		yy_request.rest_api('get','school/',null,function(status,info) {
-			if(status==1) {
+  	yy_request.rest_api({
+	    method: 'get',
+	    api: 'school/',
+	    opSuccess: function(info) {
 				var options = []
 				for(var key in info) {
 					options.push({
@@ -133,9 +135,9 @@ module.exports = {
 						verifyinfo: '验证系统：' + info[key].verify +'(' +info[key].verifyurl +')'
 					})
 				}
-				vuemodel.schoolList = options
-			}
-		})
+				vuemodel.schoolList = options	    	
+	    },
+	  })
 	},
 
 	methods: {
@@ -183,51 +185,59 @@ module.exports = {
 }
 
 function refreshCode(vuemodel) {
-  var refreshCodeAPI = 'school/' + vuemodel.schoolId + '/code/'
-  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'school/' + vuemodel.schoolId + '/code/',
+    opSuccess: function(info) {
       vuemodel.$$.verifycode.src = info.img
-      vuemodel.showCode = true
-    } else {
+      vuemodel.showCode = true    	
+    },
+    opFail: function(info) {
       vuemodel.showCode = false
-    }
+    },
   })
 }
 
 function sendPhoneCode(vuemodel) {
-	var ajax_data = {
-		number: vuemodel.findId,
-		phone: vuemodel.findInfo,
-	}
-  yy_request.rest_api('post','password/phone',ajax_data,function(status,info) {
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'password/phone/',
+    data: {
+			number: vuemodel.findId,
+			phone: vuemodel.findInfo,    
+    },
+    opSuccess: function(info) {
 			vuemodel.verifyStage = 'code'
 			vuemodel.verifyWay = 'phone'
 			vuemodel.verifyInfo = vuemodel.findInfo
 			vuemodel.showCodeModal = true
-    } else {
+    },
+    opFail: function(info) {
 			po.app.infoModalText = info
 			po.app.showInfoModal = true
-    }
-  })	
+    },
+  })
 }
 
 function sendEmailCode(vuemodel) {
-	var ajax_data = {
-		number: vuemodel.findId,
-		email: vuemodel.findInfo,
-	}
-  yy_request.rest_api('post','password/email',ajax_data,function(status,info) {
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'password/email/',
+    data: {
+			number: vuemodel.findId,
+			email: vuemodel.findInfo,   
+    },
+    opSuccess: function(info) {
 			vuemodel.verifyStage = 'code'
 			vuemodel.verifyWay = 'email'
 			vuemodel.verifyInfo = vuemodel.findInfo
 			vuemodel.showCodeModal = true
-    } else {
+    },
+    opFail: function(info) {
 			po.app.infoModalText = info
 			po.app.showInfoModal = true
-    }
-  })	
+    },
+  })
 }
 
 function verifyUserSchool(vuemodel) {
@@ -239,14 +249,18 @@ function verifyUserSchool(vuemodel) {
 	if(vuemodel.showCode) {
 		ajax_data.code = vuemodel.code
 	}
-  yy_request.rest_api('post','password/verify',ajax_data,function(status,info) {
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'password/verify/',
+    data: ajax_data,
+    opSuccess: function(info) {
 			vuemodel.verifyStage = 'reset'
 			vuemodel.showCodeModal = true
-    } else {
+    },
+    opFail: function(info) {
 			po.app.infoModalText = info
 			po.app.showInfoModal = true
-    }
+    },
   })	
 }
 

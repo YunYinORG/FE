@@ -117,12 +117,18 @@ module.exports = {
 
   compiled: function() {
     var vuemodel = this
-    yy_request.rest_api('get','user/',null,function(status,info){
-      if(status==1) {
-        vuemodel.username = info.name
-      } else {
-        vuemodel.username = null
-      }
+    yy_request.rest_api({
+    	method: 'get',
+    	api: 'user/',
+    	opSuccess: function(info) {
+    		vuemodel.username = info.name
+    	},
+    	opFail: function() {
+    		vuemodel.username = null
+    	},
+    	authFail: function() {
+    		vuemodel.username = null
+    	}
     })
   },
   components: {

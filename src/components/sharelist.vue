@@ -141,6 +141,7 @@ module.exports = {
 
 
 function loadData(vuemodel) {
+
   yy_request.rest_api('get','file/',{page:vuemodel.displayedPage},function(status,info){
     if(status==1) {
       var filedata = info

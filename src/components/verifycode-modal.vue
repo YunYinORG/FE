@@ -112,17 +112,19 @@ module.exports = {
 }
 
 function bindUserInfo(vuemodel) {
-  var api_url = 'user/' + vuemodel.userId +'/' + vuemodel.verifyWay
-  var ajax_data = {
-    code: vuemodel.code,
-  }
-  yy_request.rest_api('put',api_url,ajax_data,function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'put',
+    api: 'user/' + vuemodel.userId +'/' + vuemodel.verifyWay,
+    data: {
+      code: vuemodel.code,
+    },
+    opSuccess: function(info) {
       vuemodel.stage = 'finish'
       vuemodel.errorInfo = ""
-    } else {
+    },
+    opFail: function(info) {
       vuemodel.errorInfo = info
-    }
+    },
   })
 }
 
@@ -131,30 +133,39 @@ function verifyResetCode(vuemodel) {
   var ajax_data = {
     code: vuemodel.code,
   }
-  yy_request.rest_api('post',api_url,ajax_data,function(status,info){
-    if(status==1) {
+
+  yy_request.rest_api({
+    method: 'post',
+    api: 'password/code',
+    data: {
+      code: vuemodel.code,
+    },
+    opSuccess: function(info) {
       vuemodel.stage = 'reset'
       vuemodel.errorInfo = ""
-    } else {
+    },
+    opFail: function(info) {
       vuemodel.errorInfo = info
-    }
+    },
   })
 }
 
 function resetPassword(vuemodel) {
-  var api_url = 'password/'
   var md5 = require("blueimp-md5")
-  var ajax_data = {
-    password: md5(vuemodel.password)
-  }
-  yy_request.rest_api('post',api_url,ajax_data,function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'post',
+    api: 'password/',
+    data: {
+      password: md5(vuemodel.password)
+    },
+    opSuccess: function(info) {
       vuemodel.stage = 'finish'
       vuemodel.errorInfo = ""
-    } else {
+    },
+    opFail: function(info) {
       vuemodel.errorInfo = info
-    }
-  }) 
+    },
+  })
 }
 
 </script>

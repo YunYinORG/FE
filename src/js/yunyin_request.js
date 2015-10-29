@@ -6,30 +6,60 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://localhost/index.php/'
+
+var baseurl = 'http://localhost/'
 
 module.exports = {
-	rest_api: function(method,resource,data,successfn) {
+	rest_api: function(options) {
+		var default_verifySuccess = function(info) {
+
+		}
+
+		var default_opSuccess = function(info) {
+
+		}
+
+		var default_opFail = function(info) {
+
+		}
+
+		var default_authFail = function(status) {
+			po.app.showLoginModal = true
+			po.app.username = null
+		}
+
+		var default_networkError = function(status) {
+			alert('网络请求出错：'+ status)
+		}
+
+		var method = options.method || 'get';
+		var api = options.api;
+		var data = options.data || null;
+		var verifySuccess = options.verifySuccess || default_verifySuccess;
+		var opSuccess = options.opSuccess || default_opSuccess;
+		var opFail = options.opFail || default_opFail;
+		var authFail = options.authFail || default_authFail;
+		var networkError= options.networkError || default_networkError;
+
 		return new yyajax({
 			method: method,
-			url: baseurl + resource,
+			url: baseurl + api,
 			data: data,
-			withCredentials:true,
+			withCredentials: true,
 			success: function(responseText,status) {
-				var rpdata = JSON.parse(responseText)
-				if(resource=='auth/') {
-					successfn(rpdata.status,rpdata.info)
-				} else {
-					if(rpdata.status==-1) {
-						po.app.showLoginModal = true
-						po.app.username = null
-					} else {
-						successfn(rpdata.status,rpdata.info)
-					}
+				var rpdata = JSON.parse(responseText);
+				if(rpdata.status==2) {
+					verifySuccess(rpdata.info);
+				} else if(rpdata.status==1) {
+					opSuccess(rpdata.info);
+				} else if(rpdata.status==0) {
+					opFail(rpdata.info);
+				} else if(rpdata.status==-1) {
+					authFail(rpdata.info);
 				}
 			},
 			error: function(status) {
-				alert('网络请求出错：'+ status)
+				networkError(status);
 			}
 		})
 	},
