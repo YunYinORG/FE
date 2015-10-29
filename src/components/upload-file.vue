@@ -46,4 +46,8 @@ module.exports = {
 	padding: 0;
 }
 
+/*.file > div {
+	display: inline-block;
+	vertical-align: middle;
+}*/
 </style>

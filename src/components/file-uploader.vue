@@ -107,6 +107,11 @@ function uploadConfirm(filedata,key) {
       filedata.issuccess = true
       filedata.isuploading = false
       filedata.id = info.id
+    } else {
+      filedata.status = '上传失败'
+      filedata.isfailed = true
+      filedata.issuccess = false
+      filedata.isuploading = false
     }
   })
 }

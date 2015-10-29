@@ -77,9 +77,7 @@ module.exports = {
   position: relative;
   margin: 20px auto;
   top: 40px;
-  transition: top .3s ease;
-  /*display: table-cell;*/
-  /*vertical-align: middle;*/
+  transition: all .3s ease;
 }
 
 .modal-container {
@@ -89,8 +87,6 @@ module.exports = {
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
-  /*transition: all .3s ease;*/
-  /*font-family: Helvetica, Arial, sans-serif;*/
 }
 
 .modal-header h3 {
@@ -107,24 +103,21 @@ module.exports = {
   float: right;
 }
 
-/*
- * the following styles are auto-applied to elements with
- * v-transition="modal" when their visiblity is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
-
 .modal-enter, .modal-leave {
   opacity: 0;
 }
 
 .modal-enter .modal-wrapper,
 .modal-leave .modal-wrapper {
-/*  -webkit-transform: scale(1.1);
-  transform: scale(1.1);*/
   top: -80px;
 }  
+
+@media screen and (max-width: 800px) {
+  .modal-enter .modal-wrapper,
+  .modal-leave .modal-wrapper {
+  opacity: 0;
+  top: 40px;
+  }  
+}
 
 </style>
