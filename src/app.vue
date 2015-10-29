@@ -12,24 +12,29 @@
     <div class="clear"></div>
   </header>
   <!--aside-->
-  <aside v-class="open : showSlideMenu">
-    <h6><a href="#/home" v-on="click: showSlideMenu = false">首页</a></h6>
-    <h6>打印中心</h6>
-    <ul>
-      <li><a href="#/print" v-on="click: showSlideMenu = false">打印</a></li>
-      <li><a href="#" v-on="click: showUploadModal = true,
-                            click: showSlideMenu = false">上传</a></li>
-      <li><a href="#/file" v-on="click: showSlideMenu = false">文件</a></li>
-    </ul>
-    <h6>共享中心</h6>
-    <ul>
-      <li><a href="#">我的共享</a></li>
-      <li><a href="#">所有共享</a></li>
-    </ul>
-    <h6><a href="#/book" v-on="click: showSlideMenu = false">教材</a></h6>
-    <h6><a href="#/user" v-on="click: showSlideMenu = false">个人</a></h6>
-    <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡</a></h6>
-    <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店</a></h6>
+   <aside v-class="open : showSlideMenu"> 
+   <h6><a href="#/home" v-on="click: showSlideMenu = false"> 首页 <i class="glyphicon glyphicon-home"></i></a></h6> 
+   <h6><a href="#/print">快速打印<i class="glyphicon glyphicon-print"></i></a></h6> 
+   <p class="small">文件</p>
+   <ul> 
+    <li><a href="#/print" v-on="click: showSlideMenu = false">订单管理<i class="glyphicon glyphicon-tasks"></i></a></li> 
+    <li><a href="#/upload" v-on="click: showUploadModal = true,
+                            click: showSlideMenu = false">上传文件<i class="fui-upload"></i></a></li> 
+    <li><a href="#/file" v-on="click: showSlideMenu = false">我的文件<i class="fui-folder"></i></a></li> 
+   </ul> 
+   <p class="small">资源</p> 
+   <ul> 
+    <li><a href="#">我的共享<i class="glyphicon glyphicon-star"></i> </a></li> 
+    <li><a href="#">共享文库<i class="glyphicon glyphicon-cloud"></i></a></li> 
+    <li><a href="#">店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
+   </ul> 
+   <p>个人</p> 
+   <ul> 
+    <li><a href="#/user">个人信息<i class="fui-user"></i></a></li> 
+    <li><a href="#" v-on="click: onLogout">退出登录<i class="fui-exit"></i></a></li> 
+   </ul> 
+   <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店 <i class="fui-home"></i></a></h6> 
+   <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡 <i class="fui-credit-card"></i></a></h6> 
   </aside>
 
   <section class="other" v-class="slide-aside : showSlideMenu">
@@ -42,11 +47,10 @@
   <footer class='text-center' v-class="slide-aside : showSlideMenu">
       <ul class="list-inline">
         <li><a target="_blank" href="http://www.yunyin.org/">&copy;云印南天</a></li>
-        <li><a href="#">隐私声明</a></li>
         <li><a target="_blank" rel="nofollow" href="https://github.com/YunYinORG/">开源项目</a></li>
         <li><a target="_blank" href="http://www.yunyin.org/pages/">文档中心</a></li>
         <li><a target="_blank" href="http://weibo.com/cloudPrint/">新浪微博</a></li>
-        <li><a href="#">微信平台</a></li>
+        <li><a href="#">微信</a></li>
         <li><a rel="nofollow" href="http://printer.yunyin.org/">打印店</a></li>
       </ul>
   </footer>

@@ -10461,6 +10461,7 @@
 /* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 	/*
 	andyjyuan@163.com
 	
@@ -10609,6 +10610,156 @@
 		},
 	
 	}
+=======
+	/*
+	andyjyuan@163.com
+	
+	most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
+	*/
+	
+	var po = __webpack_require__(92)
+	
+	var baseurl = 'http://localhost/index.php/'
+	
+	module.exports = {
+		rest_api: function(method,resource,data,successfn) {
+			return new yyajax({
+				method: method,
+				url: baseurl + resource,
+				data: data,
+				withCredentials:true,
+				success: function(responseText,status) {
+					var rpdata = JSON.parse(responseText)
+					if(resource=='auth/') {
+						successfn(rpdata.status,rpdata.info)
+					} else {
+						if(rpdata.status==-1) {
+							po.app.showLoginModal = true
+							po.app.username = null
+						} else {
+							successfn(rpdata.status,rpdata.info)
+						}
+					}
+				},
+				error: function(status) {
+					alert('网络请求出错：'+ status)
+				}
+			})
+		},
+	
+		ajax: function(options) {
+			return new yyajax(options);
+		},
+	}
+	
+	
+	
+	var yyajax = function(options) {
+		this.XHR = null;
+		this.method   = options["method"]   || "get"  ;
+		this.url      = options["url"]      || ""     ;
+		this.user     = options["user"]     || null   ;
+		this.pwd      = options["password"] || null   ;
+		this.data     = options["data"]     || null   ;
+		this.encoding = options["encoding"] || "utf-8";
+	
+		this.content = options["content"] || "urlencoded";
+		this.success  = options["success"];
+		this.error    = options["error"];
+	
+		this.sendRequest(options["withCredentials"]);
+	}
+	
+	yyajax.prototype = {
+		sendRequest: function(withCredentials) {
+			var o = this,
+				reg = /\?/,
+				data = o.formatData(o.data),
+				url = reg.test(o.url)?o.data?o.url.substring(0,o.url.search(reg)):o.url:o.url;
+	
+			if(o.method == "get"){
+				if(o.data) url += "?"+data;
+				data = null;
+			};
+			o.XHR = o.createXHR();
+			if(!o.XHR) return false;
+			o.XHR.open(o.method, url, true);
+			o.XHR.onreadystatechange = function(){
+				o.handleEvent(o,this);
+			};
+	
+			if(this.content=="urlencoded"){
+				o.XHR.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset="+o.encoding+"");
+			}
+	
+			o.XHR.withCredentials=withCredentials;
+			// o.XHR.setRequestHeader("X-Requested-With","XMLHttpRequest");
+		    o.XHR.send(data);
+		},
+	
+		handleEvent: function(o,x){
+			if (x.readyState == 4) {
+				switch(x.status){
+					case 200:
+						o.success.call(x,x.responseText,x.status,"success");
+						break;
+					default:
+						o.error.call(x,x.status,"error");
+				};
+			};
+		},
+	
+		createXHR: function(){
+			try {
+				return new XMLHttpRequest();
+			} catch(e){
+				var MSXML = [ "MSXML2.XMLHTTP.5.0",
+							  "MSXML2.XMLHTTP.4.0",
+							  "MSXML2.XMLHTTP.3.0",
+							  "MSXML2.XMLHTTP",
+							  "Microsoft.XMLHTTP"
+							],
+					i,len = MSXML.length;
+				for(i = 0; i < len; i+=1) {
+					try {
+						return new ActiveXObject(MSXML[i]);
+						break;
+					} catch(e){
+						return null;
+					};
+				}
+			}
+		},
+	
+		formatData: function(d) {
+			var s = function(d){
+					var arr = [];
+					for(var i in d){
+						arr.push( i + "=" + d[i]);
+					};
+					return arr;
+			};
+	
+			if(this.content=="urlencoded") {
+				if( typeof d == "object" ){
+					return s(d).join("&");
+				} else if(typeof d == "string" ){
+					var n = /{/g.test(d)?JSON.parse(d):d;
+					return typeof n == "string"?n:s(n).join("&");
+				};
+			} else {
+				var myFormData = new FormData();
+				for(var i in d) {
+					myFormData.append(i,d[i]);
+				}
+	
+				return myFormData;
+			}
+	
+		},
+	
+	}
+>>>>>>> 384707ac6a89071279befc8d3e1a5a92893e6777
 
 
 /***/ },
@@ -10990,7 +11141,11 @@
 /* 102 */
 /***/ function(module, exports) {
 
+<<<<<<< HEAD
 	module.exports = "<div class=\"menu-view\">\n    <div class=\"text-center\">\n      <h2>云印服务</h2>\n    </div>\n    <div class=\"text-center\">\n      <h5>make a Better campus!</h5>\n    </div>\n    <div class=\"text-center\">\n      <ul class=\"default-list\">\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-upload\"></i>上传</a></li>\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"glyphicon  glyphicon-folder-close\"></i>文件</a></li>\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-cloud\"></i>共享</a></li>\n      </ul>\n    </div>\n  </div>";
+=======
+	module.exports = "<div class=\"menu-view\">\r\n    <div class=\"text-center\">\r\n      <h2>云印服务</h2>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <h5>make a Better campus!</h5>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <ul class=\"default-list\">\r\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\r\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"fui-upload\"></i>上传</a></li>\r\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\r\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-cloud\"></i>共享</a></li>\r\n      </ul>\r\n    </div>\r\n  </div>";
+>>>>>>> 384707ac6a89071279befc8d3e1a5a92893e6777
 
 /***/ },
 /* 103 */
@@ -13594,7 +13749,11 @@
 /* 187 */
 /***/ function(module, exports) {
 
+<<<<<<< HEAD
 	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\n    <div class=\"nav-switch\"\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <!--aside-->\n  <aside v-class=\"open : showSlideMenu\">\n    <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\">首页</a></h6>\n    <h6>打印中心</h6>\n    <ul>\n      <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\">打印</a></li>\n      <li><a href=\"#\" v-on=\"click: showUploadModal = true,\n                            click: showSlideMenu = false\">上传</a></li>\n      <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">文件</a></li>\n    </ul>\n    <h6>共享中心</h6>\n    <ul>\n      <li><a href=\"#\">我的共享</a></li>\n      <li><a href=\"#\">所有共享</a></li>\n    </ul>\n    <h6><a href=\"#/book\" v-on=\"click: showSlideMenu = false\">教材</a></h6>\n    <h6><a href=\"#/user\" v-on=\"click: showSlideMenu = false\">个人</a></h6>\n    <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡</a></h6>\n    <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店</a></h6>\n  </aside>\n\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\n      <ul class=\"list-inline\">\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a href=\"#\">隐私声明</a></li>\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\n        <li><a href=\"#\">微信平台</a></li>\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\n      </ul>\n  </footer>\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\"\n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\"\n    info-text=\"{{infoModalText}}\"></info-modal>";
+=======
+	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\r\n    <div class=\"nav-switch\"\r\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n    </div>\r\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\r\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\r\n    <div class=\"clear\"></div>\r\n  </header>\r\n  <!--aside-->\r\n   <aside v-class=\"open : showSlideMenu\"> \r\n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\"> 首页 <i class=\"glyphicon glyphicon-home\"></i></a></h6> \r\n   <h6><a href=\"#/print\">快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \r\n   <p class=\"small\">文件</p>\r\n   <ul> \r\n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\">订单管理<i class=\"glyphicon glyphicon-tasks\"></i></a></li> \r\n    <li><a href=\"#/upload\" v-on=\"click: showUploadModal = true,\r\n                            click: showSlideMenu = false\">上传文件<i class=\"fui-upload\"></i></a></li> \r\n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"fui-folder\"></i></a></li> \r\n   </ul> \r\n   <p class=\"small\">资源</p> \r\n   <ul> \r\n    <li><a href=\"#\">我的共享<i class=\"glyphicon glyphicon-star\"></i> </a></li> \r\n    <li><a href=\"#\">共享文库<i class=\"glyphicon glyphicon-cloud\"></i></a></li> \r\n    <li><a href=\"#\">店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \r\n   </ul> \r\n   <p>个人</p> \r\n   <ul> \r\n    <li><a href=\"#/user\">个人信息<i class=\"fui-user\"></i></a></li> \r\n    <li><a href=\"#\" v-on=\"click: onLogout\">退出登录<i class=\"fui-exit\"></i></a></li> \r\n   </ul> \r\n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店 <i class=\"fui-home\"></i></a></h6> \r\n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡 <i class=\"fui-credit-card\"></i></a></h6> \r\n  </aside>\r\n\r\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\r\n    <component is=\"{{view}}\"\r\n      class=\"view\"\r\n      v-transition\r\n      transition-mode=\"out-in\">\r\n    </component>\r\n  </section>\r\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\r\n      <ul class=\"list-inline\">\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\r\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\r\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\r\n        <li><a href=\"#\">微信</a></li>\r\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\r\n      </ul>\r\n  </footer>\r\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\r\n    on-file-change=\"{{onFileChange}}\"\r\n    on-task-change=\"{{onTaskChange}}\"\r\n    params=\"{{fileTaskParams}}\"></filetask-modal>\r\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\r\n  <info-modal show=\"{{@showInfoModal}}\"\r\n    info-text=\"{{infoModalText}}\"></info-modal>";
+>>>>>>> 384707ac6a89071279befc8d3e1a5a92893e6777
 
 /***/ },
 /* 188 */

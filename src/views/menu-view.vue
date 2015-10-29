@@ -9,8 +9,8 @@
     <div class="text-center">
       <ul class="default-list">
         <li><a class="button" title="快速打印" href="#/print"><i class="glyphicon glyphicon-print"></i>打印</a></li>
-        <li><a class="button" title="上传文件到服务器上" v-on="click: onOpenFileTaskModal"><i class="glyphicon glyphicon-upload"></i>上传</a></li>
-        <li><a class="button" title="查看和管理我的文件" href="#/file"><i class="glyphicon  glyphicon-folder-close"></i>文件</a></li>
+        <li><a class="button" title="上传文件到服务器上" v-on="click: onOpenFileTaskModal"><i class="fui-upload"></i>上传</a></li>
+        <li><a class="button" title="查看和管理我的文件" href="#/file"><i class="fui-folder"></i>文件</a></li>
         <li><a class="button" title="共享的文件" href="#/share"><i class="glyphicon glyphicon-cloud"></i>共享</a></li>
       </ul>
     </div>
