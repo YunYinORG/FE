@@ -1,29 +1,29 @@
 <template>
   <div class="filetable">
 	<div class="row actions-wrapper">
-    <div class="col-xs-8">
+    <div class="col-xs-12 col-sm-9">
       <button class="btn btn-embossed btn-primary" v-on="click: onUploadFile">
-        <span class="glyphicon glyphicon-open"></span>
-        上传文件
+        <i class="glyphicon glyphicon-open"></i>
+        <span class="hidden-xs">上传文件</span>
       </button>
       <button class="btn btn-embossed btn-primary" v-on="click: onPrint">
-        <span class="glyphicon glyphicon-print"></span>
-        打印文件
+        <i class="glyphicon glyphicon-print"></i>
+        <span class="hidden-xs">打印文件</span>
       </button>
       <button class="btn btn-embossed btn-primary" v-on="click: onShare">
-        <span class="glyphicon glyphicon-share"></span>
-        分享文件
+        <i class="glyphicon glyphicon-share"></i>
+        <span class="hidden-xs">分享文件</span>
       </button>
       <button class="btn btn-embossed btn-primary" v-on="click: onDelete">
-        <span class="glyphicon glyphicon-trash"></span>
-        删除文件
+        <i class="glyphicon glyphicon-trash"></i>
+        <span class="hidden-xs">删除文件</span>
       </button>
     </div>
-    <div class="col-xs-3 col-xs-offset-1">
+    <div class="hidden-xs col-sm-3">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="搜索您的文件" v-model="searchString">
         <span class="input-group-btn">
-          <button class="btn"><span class="fui-search"></span></button>
+          <button class="btn"><i class="fui-search"></i></button>
         </span>
       </div>
     </div>
@@ -43,7 +43,7 @@
             文件名
           </th>
           <th>
-            上传日期
+            时间
           </th>       
           <th>
             操作
@@ -56,26 +56,26 @@
             <td>
               <input type="checkbox" v-model="file.checked">
             </td>
-            <td>
+            <td class="text-primary">
               {{file.name}}
             </td>
             <td>
-              {{file.time}}
+              {{file.time.substr(5,11)}}
             </td>
             <td class='action-line'>
-              <span class="glyphicon glyphicon-print" style="cursor:pointer"
-                v-on="click: onPrint($event,file)"></span>
-              <span class="glyphicon glyphicon-share" style="cursor:pointer"
-                ></span>
-              <span class="glyphicon glyphicon-trash" style="cursor:pointer"
-                v-on="click: onDelete($event,file)"></span>
+              <i class="glyphicon glyphicon-print" style="cursor:pointer"
+                v-on="click: onPrint($event,file)"></i>
+              <i class="glyphicon glyphicon-share" style="cursor:pointer"
+                ></i>
+              <i class="glyphicon glyphicon-trash" style="cursor:pointer"
+                v-on="click: onDelete($event,file)"></i>
             </td>
           </tr>
         </template>
       </tbody>
     </table>
   </div>
-	<div class="more-file" v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
+	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
   </div>
 </template>
 
@@ -252,44 +252,3 @@ function deleteFile(vuemodel,file) {
 }
 
 </script>
-
-<style>
-.actions-wrapper {
-  margin-bottom: 15px;
-}
-
-.more-file {
-  text-align: center;
-  width: 100%;
-  margin-top: -10px;
-  cursor: pointer;
-}
-
-.action-line {
-  width: 120px;
-}
-.action-line span {
-  margin-left: 8%;
-}
-
-.action-info {
-  padding-left: 10px;
-  height: 30px;
-  overflow: hidden;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
-}
-
-.infoexpand-enter, 
-.infoexpand-leave {
-  height: 0px;
-  -webkit-transition: all .3s ease;
-  -o-transition: all .3s ease;
-  transition: all .3s ease;
-}
-
-/*.filetable {
-  max-height:10px;
-}*/
-</style>

@@ -238,3 +238,55 @@ body.modal-open {
     font-weight: bolder;
     background-color: #FEFEFE;
 }
+
+/**
+ * filelist
+ */
+.actions-wrapper {
+  margin-bottom: 15px;
+}
+
+.more{
+  text-align: center;
+  width: 100%;
+  margin-top: -10px;
+  cursor: pointer;
+}
+
+.action-line {
+  width: 120px;
+}
+.action-line i {
+  margin-left: 8%;
+}
+
+.action-info {
+  padding-left: 10px;
+  height: 30px;
+  overflow: hidden;
+  -webkit-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.infoexpand-enter, 
+.infoexpand-leave {
+  height: 0px;
+  -webkit-transition: all .3s ease;
+  -o-transition: all .3s ease;
+  transition: all .3s ease;
+}
+.list-view  {
+    position: relative;
+    /*margin-left: 16.777777%;*/
+    /*margin-right: 16.777777%;*/
+    min-height: 55%;
+    background-color: #edeff1;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+
+/*tbody.table-body {
+  overflow-y: scroll;
+  max-height: 500px;
+}*/
