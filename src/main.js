@@ -13,7 +13,7 @@ router.on('/intro', function (page) {
   app.view = 'intro-view'
 })
 
-router.on('/menu', function (page) {
+router.on('/home', function (page) {
   	app.view = 'menu-view'
 })
 
@@ -41,4 +41,4 @@ router.on('/forget', function (page) {
   app.view = 'forget-view'
 })
 
-router.init('/menu')
+router.init('/home')
