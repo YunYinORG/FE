@@ -1,10 +1,16 @@
-
+html{
+    margin:0px;
+    height:100%;
+    width: 100%;
+}
 body {
   background-color: #57C3EA;
   /*color:#FEFEFE;*/
   position: relative;
   overflow-x: hidden;
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
+  width: 100%;
+  min-height: 98%;
 }
 h1,h2{color: #FFF}
 h3,h4,h5,h6{color: #FEFEFE}
@@ -169,7 +175,8 @@ a.signin {
 
 footer {
     width: 100%;
-    background-color: inherit;
+    margin-top: 30px;
+    background-color: transparent;
     transition:0.25s ease-out;
     -webkit-transition:0.25s ease-out;
 }
@@ -191,14 +198,16 @@ body.modal-open {
   position: relative;
 }
 
-.button{
+.menu-view .button{
     color: #FFF;
     border-radius: 17px;
     display: inline-block;
     text-decoration: none;
-    text-transform: uppercase;
-    font-size: 0.875em;
-    padding: 8px 150px;
+    cursor:pointer;
+    /*text-transform: uppercase;*/
+    font-size: 1em;
+    padding: 10px 15% 10px 15%;
+    white-space:nowrap;
     border: 2px solid;
 }
 
