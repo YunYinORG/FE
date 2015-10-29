@@ -10434,12 +10434,18 @@
 	
 	  compiled: function() {
 	    var vuemodel = this
-	    yy_request.rest_api('get','user/',null,function(status,info){
-	      if(status==1) {
-	        vuemodel.username = info.name
-	      } else {
-	        vuemodel.username = null
-	      }
+	    yy_request.rest_api({
+	    	method: 'get',
+	    	api: 'user/',
+	    	opSuccess: function(info) {
+	    		vuemodel.username = info.name
+	    	},
+	    	opFail: function() {
+	    		vuemodel.username = null
+	    	},
+	    	authFail: function() {
+	    		vuemodel.username = null
+	    	}
 	    })
 	  },
 	  components: {
@@ -10469,30 +10475,60 @@
 	
 	var po = __webpack_require__(92)
 	
-	var baseurl = 'http://api.yunyin.org/'
+	
+	var baseurl = 'http://localhost/'
 	
 	module.exports = {
-		rest_api: function(method,resource,data,successfn) {
+		rest_api: function(options) {
+			var default_verifySuccess = function(info) {
+	
+			}
+	
+			var default_opSuccess = function(info) {
+	
+			}
+	
+			var default_opFail = function(info) {
+	
+			}
+	
+			var default_authFail = function(status) {
+				po.app.showLoginModal = true
+				po.app.username = null
+			}
+	
+			var default_networkError = function(status) {
+				alert('网络请求出错：'+ status)
+			}
+	
+			var method = options.method || 'get';
+			var api = options.api;
+			var data = options.data || null;
+			var verifySuccess = options.verifySuccess || default_verifySuccess;
+			var opSuccess = options.opSuccess || default_opSuccess;
+			var opFail = options.opFail || default_opFail;
+			var authFail = options.authFail || default_authFail;
+			var networkError= options.networkError || default_networkError;
+	
 			return new yyajax({
 				method: method,
-				url: baseurl + resource,
+				url: baseurl + api,
 				data: data,
-				withCredentials:true,
+				withCredentials: true,
 				success: function(responseText,status) {
-					var rpdata = JSON.parse(responseText)
-					if(resource=='auth/') {
-						successfn(rpdata.status,rpdata.info)
-					} else {
-						if(rpdata.status==-1) {
-							po.app.showLoginModal = true
-							po.app.username = null
-						} else {
-							successfn(rpdata.status,rpdata.info)
-						}
+					var rpdata = JSON.parse(responseText);
+					if(rpdata.status==2) {
+						verifySuccess(rpdata.info);
+					} else if(rpdata.status==1) {
+						opSuccess(rpdata.info);
+					} else if(rpdata.status==0) {
+						opFail(rpdata.info);
+					} else if(rpdata.status==-1) {
+						authFail(rpdata.info);
 					}
 				},
 				error: function(status) {
-					alert('网络请求出错：'+ status)
+					networkError(status);
 				}
 			})
 		},
@@ -10609,7 +10645,6 @@
 		},
 	
 	}
-
 
 /***/ },
 /* 92 */
@@ -10997,7 +11032,7 @@
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"menu-view\">\r\n    <div class=\"text-center\">\r\n      <h2>云印服务</h2>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <h5>make a Better campus!</h5>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <ul class=\"default-list\">\r\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\r\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"fui-upload\"></i>上传</a></li>\r\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\r\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-cloud\"></i>共享</a></li>\r\n      </ul>\r\n    </div>\r\n  </div>";
+	module.exports = "<div class=\"menu-view\">\r\n    <div class=\"text-center\">\r\n      <h2>云印服务</h2>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <h5>随时随地更方便的校园打印</h5>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <ul class=\"default-list\">\r\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\r\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-cloud-upload\"></i>上传</a></li>\r\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\r\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-globe\"></i>共享</a></li>\r\n      </ul>\r\n    </div>\r\n  </div>";
 
 /***/ },
 /* 103 */
@@ -11182,28 +11217,23 @@
 	}
 	
 	function loadTasks(vuemodel) {
-	  yy_request.rest_api('get','task/',{page:vuemodel.displayedPage},function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'task/',
+	    data: {
+	      page:vuemodel.displayedPage,
+	    },
+	    opSuccess: function(info) {
 	      var taskdata = info
 	
 	      if(taskdata.length==vuemodel.tasksPerPage) {
-	      	vuemodel.moreData = true
+	        vuemodel.moreData = true
 	      } else {
-	      	vuemodel.moreData = false
+	        vuemodel.moreData = false
 	      }
 	      vuemodel.taskData = vuemodel.taskData.concat(taskdata)
-	    }
+	    },
 	  })
-	}
-	
-	function deleteTask(vuemodel,task) {
-	  yy_request.rest_api('delete','task/'+task.id+'/',null,function(status,info){
-	  	if(status==1){
-	    	vuemodel.taskData.$remove(task)
-	  	} else {
-	    	alert("OOps,删除失败啦")
-	  	}
-		})	
 	}
 
 /***/ },
@@ -11461,19 +11491,24 @@
 	
 	
 	function loadData(vuemodel) {
-	  yy_request.rest_api('get','file/',{page:vuemodel.displayedPage},function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'file/',
+	    data: {
+	      page: vuemodel.displayedPage,
+	    },  
+	    opSuccess: function(info) {
 	      var filedata = info
 	      for(var i in filedata) {
 	        filedata[i].checked = false
 	      }
 	      if(filedata.length==vuemodel.filesPerPage) {
-	      	vuemodel.moreData = true
+	        vuemodel.moreData = true
 	      } else {
-	      	vuemodel.moreData = false
+	        vuemodel.moreData = false
 	      }
 	      vuemodel.fileData = vuemodel.fileData.concat(filedata)
-	      }
+	    },
 	  })
 	}
 	
@@ -11484,14 +11519,17 @@
 	}
 	
 	function deleteFile(vuemodel,file) {
-	  yy_request.rest_api('delete','file/'+file.id+'/',null,function(status,info){
-	  	if(status==1){
-	    	vuemodel.fileData.$remove(file)
+	  yy_request.rest_api({
+	    method: 'delete',
+	    api: 'file/'+file.id+'/',
+	    opSuccess: function(info) {
+	      vuemodel.fileData.$remove(file)
 	      vuemodel.actionFileDone += 1
-	  	} else {
-	    	vuemodel.actionFileFail += 1
-	  	}
-		})	
+	    },
+	    opFail: function(info) {
+	      vuemodel.actionFileFail += 1
+	    },
+	  })	
 	}
 
 /***/ },
@@ -11611,67 +11649,78 @@
 					po.app.infoModalText = "两次密码输入不一致"
 					po.app.showInfoModal = true
 				} else {
-					var ajax_data = {
-						old: md5(this.oldPwd),
-						password: md5(this.newPwd)
-					}
-					yy_request.rest_api('put','user/'+this.uid,ajax_data,function(status,info){
-						if(status==1) {
+				  yy_request.rest_api({
+				    method: 'put',
+				    api: 'user/' + this.uid,
+				    data: {
+							old: md5(this.oldPwd),
+							password: md5(this.newPwd)			    
+				    },
+				    opSuccess: function(info) {
 							po.app.infoModalText = "密码修改成功"
 							po.app.showInfoModal = true
 							vuemodel.showPasswordEdit = false
-						} else {
+				    },
+				    opFail: function(info) {
 							po.app.infoModalText = info
 							po.app.showInfoModal = true
-						}
-					})
+				    },
+				  })
 				}
 			},
 	
 			onBindPhone: function() {
 				var vuemodel = this
-				var ajax_data = {
-					phone: this.newPhone
-				}
-				yy_request.rest_api('post',"user/"+this.uid+"/phone",ajax_data,function(status,info){
-					if(status==1) {
+			  yy_request.rest_api({
+			    method: 'post',
+			    api: "user/"+this.uid+"/phone",
+			    data: {
+	  				phone: this.newPhone  
+			    },
+			    opSuccess: function(info) {
 						vuemodel.verifyStage = 'code'
 						vuemodel.verifyWay = 'phone'
 						vuemodel.verifyInfo = vuemodel.newPhone
 						vuemodel.showCodeModal = true
-					} else {
+			    },
+			    opFail: function(info) {
 						po.app.infoModalText = info
 						po.app.showInfoModal = true
-					}
-				})
+			    },
+			  })
 			},
 	
 	
 			onBindMail: function() {
 				var vuemodel = this
-				var ajax_data = {
-					email: this.newMail
-				}
-				yy_request.rest_api('post',"user/"+this.uid+"/email",ajax_data,function(status,info){
-					if(status==1) {
+			  yy_request.rest_api({
+			    method: 'post',
+			    api: "user/"+this.uid+"/email",
+			    data: {
+						email: this.newMail
+			    },
+			    opSuccess: function(info) {
 						vuemodel.verifyStage = 'code'
 						vuemodel.verifyWay = 'email'
 						vuemodel.verifyInfo = vuemodel.newMail
 						vuemodel.showCodeModal = true
-					} else {
+			    },
+			    opFail: function(info) {
 						po.app.infoModalText = info
 						po.app.showInfoModal = true
-					}
-				})
+			    },
+			  })
 			},
 	
 			onLogout: function() {
-				yy_request.rest_api('get',"auth/logout",null,function(status,info){
-					if(status==1) {
+			  yy_request.rest_api({
+			    method: 'get',
+			    api: 'auth/logout',
+			    opSuccess: function(info) {
 						window.location.hash = "#/menu"
 						po.app.showLoginModal = true 
-					}
-				})		
+			    },
+			  })					
 			},
 		},
 	
@@ -11681,20 +11730,24 @@
 	}
 	
 	function get_user_detail(vuemodel) {
-		yy_request.rest_api('get','user/',null,function(status,info){
-			if(status==1) {
-				vuemodel.uid = info.id
-				yy_request.rest_api('get','user/'+vuemodel.uid,null,function(status,info){
-					if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'user/',
+	    opSuccess: function(info) {
+	    	vuemodel.uid = info.id
+	    	yy_request.rest_api({
+	    		method: 'get',
+	    		api: 'user/'+vuemodel.uid,
+	    		opSuccess: function(info) {
 						vuemodel.userName = info.name
 						vuemodel.userSID = info.number
 						vuemodel.userSch = info.school 
 						vuemodel.userPhone = info.phone || "还没有绑定手机" 
-						vuemodel.userMail = info.email || "还没有绑定邮箱"
-					}
-				})
-			}
-		})
+						vuemodel.userMail = info.email || "还没有绑定邮箱"    			
+	    		}
+	    	})
+	    },
+	  })
 	}
 
 /***/ },
@@ -12111,17 +12164,19 @@
 	}
 	
 	function bindUserInfo(vuemodel) {
-	  var api_url = 'user/' + vuemodel.userId +'/' + vuemodel.verifyWay
-	  var ajax_data = {
-	    code: vuemodel.code,
-	  }
-	  yy_request.rest_api('put',api_url,ajax_data,function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'put',
+	    api: 'user/' + vuemodel.userId +'/' + vuemodel.verifyWay,
+	    data: {
+	      code: vuemodel.code,
+	    },
+	    opSuccess: function(info) {
 	      vuemodel.stage = 'finish'
 	      vuemodel.errorInfo = ""
-	    } else {
+	    },
+	    opFail: function(info) {
 	      vuemodel.errorInfo = info
-	    }
+	    },
 	  })
 	}
 	
@@ -12130,30 +12185,39 @@
 	  var ajax_data = {
 	    code: vuemodel.code,
 	  }
-	  yy_request.rest_api('post',api_url,ajax_data,function(status,info){
-	    if(status==1) {
+	
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'password/code',
+	    data: {
+	      code: vuemodel.code,
+	    },
+	    opSuccess: function(info) {
 	      vuemodel.stage = 'reset'
 	      vuemodel.errorInfo = ""
-	    } else {
+	    },
+	    opFail: function(info) {
 	      vuemodel.errorInfo = info
-	    }
+	    },
 	  })
 	}
 	
 	function resetPassword(vuemodel) {
-	  var api_url = 'password/'
 	  var md5 = __webpack_require__(129)
-	  var ajax_data = {
-	    password: md5(vuemodel.password)
-	  }
-	  yy_request.rest_api('post',api_url,ajax_data,function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'password/',
+	    data: {
+	      password: md5(vuemodel.password)
+	    },
+	    opSuccess: function(info) {
 	      vuemodel.stage = 'finish'
 	      vuemodel.errorInfo = ""
-	    } else {
+	    },
+	    opFail: function(info) {
 	      vuemodel.errorInfo = info
-	    }
-	  }) 
+	    },
+	  })
 	}
 
 /***/ },
@@ -12377,8 +12441,10 @@
 	
 		compiled: function() {
 			var vuemodel = this
-			yy_request.rest_api('get','school/',null,function(status,info) {
-				if(status==1) {
+	  	yy_request.rest_api({
+		    method: 'get',
+		    api: 'school/',
+		    opSuccess: function(info) {
 					var options = []
 					for(var key in info) {
 						options.push({
@@ -12387,9 +12453,9 @@
 							verifyinfo: '验证系统：' + info[key].verify +'(' +info[key].verifyurl +')'
 						})
 					}
-					vuemodel.schoolList = options
-				}
-			})
+					vuemodel.schoolList = options	    	
+		    },
+		  })
 		},
 	
 		methods: {
@@ -12437,51 +12503,59 @@
 	}
 	
 	function refreshCode(vuemodel) {
-	  var refreshCodeAPI = 'school/' + vuemodel.schoolId + '/code/'
-	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'school/' + vuemodel.schoolId + '/code/',
+	    opSuccess: function(info) {
 	      vuemodel.$$.verifycode.src = info.img
-	      vuemodel.showCode = true
-	    } else {
+	      vuemodel.showCode = true    	
+	    },
+	    opFail: function(info) {
 	      vuemodel.showCode = false
-	    }
+	    },
 	  })
 	}
 	
 	function sendPhoneCode(vuemodel) {
-		var ajax_data = {
-			number: vuemodel.findId,
-			phone: vuemodel.findInfo,
-		}
-	  yy_request.rest_api('post','password/phone',ajax_data,function(status,info) {
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'password/phone/',
+	    data: {
+				number: vuemodel.findId,
+				phone: vuemodel.findInfo,    
+	    },
+	    opSuccess: function(info) {
 				vuemodel.verifyStage = 'code'
 				vuemodel.verifyWay = 'phone'
 				vuemodel.verifyInfo = vuemodel.findInfo
 				vuemodel.showCodeModal = true
-	    } else {
+	    },
+	    opFail: function(info) {
 				po.app.infoModalText = info
 				po.app.showInfoModal = true
-	    }
-	  })	
+	    },
+	  })
 	}
 	
 	function sendEmailCode(vuemodel) {
-		var ajax_data = {
-			number: vuemodel.findId,
-			email: vuemodel.findInfo,
-		}
-	  yy_request.rest_api('post','password/email',ajax_data,function(status,info) {
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'password/email/',
+	    data: {
+				number: vuemodel.findId,
+				email: vuemodel.findInfo,   
+	    },
+	    opSuccess: function(info) {
 				vuemodel.verifyStage = 'code'
 				vuemodel.verifyWay = 'email'
 				vuemodel.verifyInfo = vuemodel.findInfo
 				vuemodel.showCodeModal = true
-	    } else {
+	    },
+	    opFail: function(info) {
 				po.app.infoModalText = info
 				po.app.showInfoModal = true
-	    }
-	  })	
+	    },
+	  })
 	}
 	
 	function verifyUserSchool(vuemodel) {
@@ -12493,14 +12567,18 @@
 		if(vuemodel.showCode) {
 			ajax_data.code = vuemodel.code
 		}
-	  yy_request.rest_api('post','password/verify',ajax_data,function(status,info) {
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'password/verify/',
+	    data: ajax_data,
+	    opSuccess: function(info) {
 				vuemodel.verifyStage = 'reset'
 				vuemodel.showCodeModal = true
-	    } else {
+	    },
+	    opFail: function(info) {
 				po.app.infoModalText = info
 				po.app.showInfoModal = true
-	    }
+	    },
 	  })	
 	}
 
@@ -12715,13 +12793,16 @@
 	  methods: {
 	    onNumberChange: function(e) {
 	      var vuemodel = this
-	      var ajax_data = {
-	        number: vuemodel.studentid
-	      }
-	      yy_request.rest_api('post','school/number/',ajax_data,function(status,info) {
-	        var sch_value = []
-	        var sch_key = []
-	        if(status==1) {
+	      var sch_value = []
+	      var sch_key = []
+	
+	      yy_request.rest_api({
+	        method: 'post',
+	        api: 'school/number/',
+	        data: {
+	          number: vuemodel.studentid
+	        },
+	        opSuccess: function(info) {
 	          for(var key in info){
 	            sch_key.push(key)
 	            sch_value.push(info[key])
@@ -12737,8 +12818,9 @@
 	            vuemodel.usertype = 'new'
 	            vuemodel.errorinfo = ""
 	            refreshCode(vuemodel)
-	          }
-	        } else {
+	          }         
+	        },
+	        opFail: function(info) {
 	          vuemodel.usertype = 'wrong'
 	          vuemodel.errorinfo = "学号格式有误"
 	        }
@@ -12756,17 +12838,17 @@
 	
 	    newPassword: function(e) {
 	      var md5 = __webpack_require__(129)
-	
 	      var vuemodel = this
 	
-	      var ajax_data = {
-	        password: md5(vuemodel.pwnew)
-	      }
-	
-	      yy_request.rest_api('post','user/',ajax_data,function(status,info){
-	        if(status==1) {
+	      yy_request.rest_api({
+	        method: 'post',
+	        api: 'user/',
+	        data: {
+	          password: md5(vuemodel.pwnew)
+	        },
+	        opSuccess: function(info) {
 	          vuemodel.showDone  = true
-	          vuemodel.showReset = false
+	          vuemodel.showReset = false        
 	        }
 	      })
 	    },
@@ -12792,15 +12874,18 @@
 	}
 	
 	function oldUserLogin(vuemodel) {
-	  var ajax_data = {
-	    number: vuemodel.studentid,
-	    password: vuemodel.password,
-	  }
-	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'auth/',
+	    data: {
+	      number: vuemodel.studentid,
+	      password: vuemodel.password,
+	    },
+	    opSuccess: function(info) {
 	      loginSuccess(vuemodel)
-	      vuemodel.errorinfo = ""
-	    } else {
+	      vuemodel.errorinfo = ""       
+	    },
+	    opFail: function(info) {
 	      vuemodel.errorinfo = "账号或密码错误，请重新尝试"
 	    }
 	  })
@@ -12808,15 +12893,20 @@
 	
 	function refreshCode(vuemodel) {
 	  var refreshCodeAPI = 'school/' + vuemodel.schoolid + '/code/'
-	  yy_request.rest_api('get',refreshCodeAPI,null,function(status,info) {
-	    if(status==1) {
+	
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: refreshCodeAPI,
+	    opSuccess: function(info) {
 	      vuemodel.$$.verifycode.src = info.img
 	      vuemodel.cookie = info.verify_cookie
-	      vuemodel.showCode = true
-	    } else {
+	      vuemodel.showCode = true      
+	    },
+	    opFail: function(info) {
 	      vuemodel.showCode = false
 	    }
 	  })
+	
 	}
 	
 	function newUserVerify(vuemodel) {
@@ -12831,27 +12921,38 @@
 	    ajax_data.verify_cookie = vuemodel.cookie
 	  }
 	
-	  yy_request.rest_api('post','auth/',ajax_data,function(status,info){
-	    if(status==-1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'auth/',
+	    data: ajax_data,
+	    verifySuccess: function(info) {
+	      vuemodel.showReset = true
+	      vuemodel.showLogin = false    
+	    },
+	    authFail: function(info) {
 	      vuemodel.errorinfo = "学校身份信息验证失败，请确认信息正确"
 	      if(vuemodel.showCode) {
 	        refreshCode(vuemodel)
-	      }
-	    } else {
-	      vuemodel.showReset = true
-	      vuemodel.showLogin = false
+	      }     
 	    }
 	  })
 	}
 	
 	function loginSuccess(vuemodel) {
-	  // yy_request.rest_api('get','user/',null,function(status,info){
-	  //   if(status==1) {
-	  //     po.app.username = info.name
-	  //   } else {
-	  //     po.app.username = '云印用户'
-	  //   }
-	  // })
+	
+	  yy_request.rest_api({
+	      method: 'get',
+	      api: 'user/',
+	      opSuccess: function(info) {
+	        po.app.username = info.name
+	      },
+	      opFail: function(info) {
+	        po.app.username = null
+	      },
+	      authFail: function(info) {
+	        po.app.username = null
+	      }
+	  })
 	
 	  vuemodel.show = false
 	
@@ -12863,7 +12964,7 @@
 	
 	  },1000)
 	
-	  window.location.reload()
+	  // window.location.reload()
 	
 	  // if(po.app.view=='intro-view') {
 	  //   window.location.hash = '#/menu'
@@ -13059,19 +13160,23 @@
 	        if(!("submitState" in pf) || pf.submitState=="fail") {
 	          var ajax_data = taskSettingToAjaxData(ts)
 	          ajax_data.fid = pf.id
+	
 	          pf.submitState = "uploading"
-	          yy_request.rest_api('post','task/',ajax_data,function(status,info){
-	            if(status==1) {
-	              // vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
+	
+	          yy_request.rest_api({
+	            method: 'post',
+	            api: 'task/',
+	            data: ajax_data,
+	            opSuccess: function(info) {
 	              pf.submitState = "done"
 	              var temp_number = vuemodel.submittedTaskNumber + 1
 	              vuemodel.taskInfoText = "正在提交打印任务("+ temp_number +"/" + fileNumber + ")"
-	
 	              vuemodel.submittedTaskNumber = temp_number
-	            } else {
+	            },
+	            opFail: function(info) {
 	              pf.submitState = "fail"
 	              vuemodel.taskInfoText = "好像出现了点问题，请重试"
-	            }
+	            },
 	          })
 	        }
 	      } 
@@ -13087,41 +13192,47 @@
 	    onDeleteTask: function() {
 	      var vuemodel = this
 	      vuemodel.taskInfoText="正在删除打印任务"
-	      yy_request.rest_api('delete','task/'+this.params.taskId,null,function(status,info){
-	        if(status==1) {
+	
+	      yy_request.rest_api({
+	        method: 'delete',
+	        api: 'task/' + this.params.taskId,
+	        opSuccess: function(info) {
 	          vuemodel.taskInfoText="任务删除成功"
 	          setTimeout(function(){
 	            vuemodel.taskInfoText = ""
 	            vuemodel.show = false
 	            vuemodel.onTaskChange()
 	          },1000)
-	        } else {
+	        },
+	        opFail: function(info) {
 	          vuemodel.taskInfoText="删除失败"
-	        }
-	      }) 
+	        },
+	      })
 	    },
 	
 	    onEditTask: function() {
 	      var vuemodel = this
-	      vuemodel.taskInfoText="正在修改打印任务"
-	      var ts = vuemodel.taskSetting
-	      var ajax_data = {
-	        pid: ts.printerId,
-	        copies: parseInt(ts.copies),
-	        color: ts.isInStore? '':ts.isColor,
-	        isdouble: ts.isInStore? '':ts.isDoubleSide,
-	        // ppt: vuemodel.ppt,
-	        requirements: ts.isInStore? '':ts.requirements
-	      }
-	      yy_request.rest_api('put','task/'+this.params.taskId,ajax_data,function(status,info){
-	        if(status==1) {
-	          vuemodel.taskInfoText="修改成功"
-	        } else {
-	          vuemodel.taskInfoText="修改失败"
-	        }
-	      })
-	    },
+	      vuemodel.taskInfoText = "正在修改打印任务"
+	      var ajax_data = taskSettingToAjaxData(vuemodel.taskSetting)
 	
+	      yy_request.rest_api({
+	        method: 'put',
+	        api: 'task/' + this.params.taskId,
+	        data: ajax_data,
+	        opSuccess: function(info) {
+	          vuemodel.taskInfoText="任务修改成功"
+	          setTimeout(function(){
+	            vuemodel.taskInfoText = ""
+	            vuemodel.show = false
+	            vuemodel.onTaskChange()
+	          },1000)
+	        },
+	        opFail: function(info) {
+	          vuemodel.taskInfoText="删除失败"
+	        },
+	      })
+	
+	    },
 	
 	  },
 	
@@ -13133,8 +13244,10 @@
 	}
 	
 	function getTaskSetting(vuemodel) {
-	  yy_request.rest_api('get','task/'+vuemodel.params.taskId,null,function(status,info) {
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'task/'+vuemodel.params.taskId,
+	    opSuccess: function(info) {
 	      vuemodel.taskSetting.printerId = info.pri_id
 	      vuemodel.taskSetting.copies = parseInt(info.copies)
 	      if(info.color==null && info.isdouble==null) {
@@ -13145,18 +13258,7 @@
 	      vuemodel.taskSetting.isColor = info.color==null? false:true
 	      vuemodel.taskSetting.isDoubleSide = info.isdouble==null? false:true
 	      vuemodel.taskSetting.requirements = htmldecode(info.requirements)
-	      console.log(htmldecode(info.requirements))
-	    }
-	  })
-	}
-	
-	function editTask(vuemodel) {
-	  var ajax_data = taskSettingToAjaxData(ts)
-	
-	  yy_request.rest_api('post','task/'+vuemodel.taskID,ajax_data,function(status,info){
-	    if(status==1) {
-	      vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
-	    }
+	    },
 	  })
 	}
 	
@@ -13173,7 +13275,6 @@
 	  }
 	  return ajax_data
 	}
-	
 	
 	function htmldecode(s) {
 	  var div = document.createElement('div')
@@ -13253,15 +13354,18 @@
 	      var filedata = this.fileList
 	
 	      if("id" in filedata[index]) {
-	        yy_request.rest_api('delete','file/'+filedata[index].id+'/',null,function(status,info){
-	          if(status==1){
+	        yy_request.rest_api({
+	          method: 'delete',
+	          api: 'file/'+filedata[index].id+'/',
+	          opSuccess: function(info) {
 	            filedata.$remove(index)
-	          } else {
+	          },
+	          opFail: function(info) {
 	            filedata[index].status = "删除失败，请重试"
 	            filedata[index].isfailed = true
 	            filedata[index].issuccess = false
 	            filedata[index].isuploading = false
-	          }
+	          },
 	        })
 	      } else {
 	        filedata.$remove(index)
@@ -13296,16 +13400,20 @@
 	}
 	
 	function uploadFile(filedata) {
-	  yy_request.rest_api('post','file/token/',{"name":filedata.fileobject.name},function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'file/token/',
+	    data: {
+	      name: filedata.fileobject.name
+	    },
+	    opSuccess: function(info) {
 	      filedata.token = info.token
-	     // filedata.key = info.key
+	
 	      yy_request.ajax({
 	        method: 'post',
 	        url: 'http://upload.qiniu.com/',
 	        data: {
 	          token: filedata.token,
-	      //    key: filedata.key,
 	          file: filedata.fileobject,
 	        },
 	        content: 'multipart',
@@ -13319,24 +13427,30 @@
 	          filedata.isuploading = false
 	        },
 	      })
-	    }
+	    },
 	  })
 	}
 	
 	function uploadConfirm(filedata,key) {
-	  yy_request.rest_api('post','file',{key:key},function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'file/',
+	    data: {
+	      key: key,
+	    },
+	    opSuccess: function(info) {
 	      filedata.status = '上传成功'
 	      filedata.isfailed = false
 	      filedata.issuccess = true
 	      filedata.isuploading = false
 	      filedata.id = info.id
-	    } else {
+	    },
+	    opFail: function(info) {
 	      filedata.status = '上传失败'
 	      filedata.isfailed = true
 	      filedata.issuccess = false
 	      filedata.isuploading = false
-	    }
+	    },
 	  })
 	}
 
@@ -13498,21 +13612,25 @@
 	}
 	
 	function getPrinterList(vuemodel) {
-	  yy_request.rest_api('get','printers/',null,function(status,info){
-	    if(status==1) { 
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'printers/',
+	    opSuccess: function(info) {
 	      for(var i in info) {
 	        vuemodel.printerList.push({
 	          text: info[i].name+' ['+info[i].address+']',
 	          value: info[i].id,
 	        })
 	      }
-	    }
+	    },
 	  })
 	}
 	
 	function getPrinterDetail(vuemodel) {
-	  yy_request.rest_api('get','printers/'+vuemodel.taskSetting.printerId,null,function(status,info){
-	    if(status==1) {
+	  yy_request.rest_api({
+	    method: 'get',
+	    api: 'printers/'+vuemodel.taskSetting.printerId,
+	    opSuccess: function(info) {
 	      vuemodel.printerInfo = {
 	        name: info.name,
 	        address: info.address,
@@ -13522,7 +13640,7 @@
 	        price3: info.price.s,
 	        price4: info.price.d,
 	      }
-	    }
+	    },
 	  })
 	}
 
@@ -13679,8 +13797,6 @@
 /* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var yy_request = __webpack_require__(91)
-	
 	module.exports = {
 	  props: {
 	    show: {
@@ -13713,7 +13829,7 @@
 /* 187 */
 /***/ function(module, exports) {
 
-	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\r\n    <div class=\"nav-switch\"\r\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n    </div>\r\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\r\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\r\n    <div class=\"clear\"></div>\r\n  </header>\r\n  <!--aside-->\r\n   <aside v-class=\"open : showSlideMenu\"> \r\n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\"> 首页 <i class=\"glyphicon glyphicon-home\"></i></a></h6> \r\n   <h6><a href=\"#/print\">快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \r\n   <p class=\"small\">文件</p>\r\n   <ul> \r\n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\">订单管理<i class=\"glyphicon glyphicon-tasks\"></i></a></li> \r\n    <li><a href=\"#/upload\" v-on=\"click: showUploadModal = true,\r\n                            click: showSlideMenu = false\">上传文件<i class=\"fui-upload\"></i></a></li> \r\n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"fui-folder\"></i></a></li> \r\n   </ul> \r\n   <p class=\"small\">资源</p> \r\n   <ul> \r\n    <li><a href=\"#\">我的共享<i class=\"glyphicon glyphicon-star\"></i> </a></li> \r\n    <li><a href=\"#\">共享文库<i class=\"glyphicon glyphicon-cloud\"></i></a></li> \r\n    <li><a href=\"#\">店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \r\n   </ul> \r\n   <p>个人</p> \r\n   <ul> \r\n    <li><a href=\"#/user\">个人信息<i class=\"fui-user\"></i></a></li> \r\n    <li><a href=\"#\" v-on=\"click: onLogout\">退出登录<i class=\"fui-exit\"></i></a></li> \r\n   </ul> \r\n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店 <i class=\"fui-home\"></i></a></h6> \r\n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡 <i class=\"fui-credit-card\"></i></a></h6> \r\n  </aside>\r\n\r\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\r\n    <component is=\"{{view}}\"\r\n      class=\"view\"\r\n      v-transition\r\n      transition-mode=\"out-in\">\r\n    </component>\r\n  </section>\r\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\r\n      <ul class=\"list-inline\">\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\r\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\r\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\r\n        <li><a href=\"#\">微信</a></li>\r\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\r\n      </ul>\r\n  </footer>\r\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\r\n    on-file-change=\"{{onFileChange}}\"\r\n    on-task-change=\"{{onTaskChange}}\"\r\n    params=\"{{fileTaskParams}}\"></filetask-modal>\r\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\r\n  <info-modal show=\"{{@showInfoModal}}\"\r\n    info-text=\"{{infoModalText}}\"></info-modal>";
+	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\r\n    <div class=\"nav-switch\"\r\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n    </div>\r\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\r\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\r\n    <div class=\"clear\"></div>\r\n  </header>\r\n  <!--aside-->\r\n   <aside v-class=\"open : showSlideMenu\"> \r\n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\" >首页<i class=\"glyphicon glyphicon-home\"></i></a></h6> \r\n   <h6><a href=\"#/print\" >快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \r\n   <h6>文件</h6>\r\n   <ul> \r\n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\" >订单管理<i class=\"glyphicon glyphicon-list-alt\"></i></a></li> \r\n    <li><a href=\"#/upload\" v-on=\"click: showUploadModal = true,\r\n                            click: showSlideMenu = false\" >上传文件<i class=\"glyphicon glyphicon-cloud-upload\"></i></a></li> \r\n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"glyphicon fui-folder\"></i></a></li> \r\n   </ul> \r\n   <h6>资源</h6> \r\n   <ul> \r\n    <li><a href=\"#\" >我的共享<i class=\"glyphicon glyphicon-star\"></i></a></li> \r\n    <li><a href=\"#\" >共享文库<i class=\"glyphicon glyphicon-globe\"></i></a></li> \r\n    <li><a href=\"#\" >店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \r\n   </ul> \r\n   <h6>个人</h6> \r\n   <ul> \r\n    <li><a href=\"#/user\" >个人信息<i class=\"glyphicon glyphicon-user\"></i></a></li> \r\n    <li><a href=\"#\" v-on=\"click: onLogout\">退出登录<i class=\"glyphicon fui-exit\"></i></a></li> \r\n   </ul> \r\n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店<i class=\"glyphicon fui-home\"></i></a></h6> \r\n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡<i class=\"glyphicon fui-credit-card\"></i></a></h6> \r\n  </aside>\r\n\r\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\r\n    <component is=\"{{view}}\"\r\n      class=\"view\"\r\n      v-transition\r\n      transition-mode=\"out-in\">\r\n    </component>\r\n  </section>\r\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\r\n      <ul class=\"list-inline\">\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\r\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\r\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\r\n        <li><a href=\"#\">微信</a></li>\r\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\r\n      </ul>\r\n  </footer>\r\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\r\n    on-file-change=\"{{onFileChange}}\"\r\n    on-task-change=\"{{onTaskChange}}\"\r\n    params=\"{{fileTaskParams}}\"></filetask-modal>\r\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\r\n  <info-modal show=\"{{@showInfoModal}}\"\r\n    info-text=\"{{infoModalText}}\"></info-modal>";
 
 /***/ },
 /* 188 */

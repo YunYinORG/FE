@@ -118,30 +118,24 @@ module.exports = {
 }
 
 function loadTasks(vuemodel) {
-  yy_request.rest_api('get','task/',{page:vuemodel.displayedPage},function(status,info){
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'task/',
+    data: {
+      page:vuemodel.displayedPage,
+    },
+    opSuccess: function(info) {
       var taskdata = info
 
       if(taskdata.length==vuemodel.tasksPerPage) {
-      	vuemodel.moreData = true
+        vuemodel.moreData = true
       } else {
-      	vuemodel.moreData = false
+        vuemodel.moreData = false
       }
       vuemodel.taskData = vuemodel.taskData.concat(taskdata)
-    }
+    },
   })
 }
-
-function deleteTask(vuemodel,task) {
-  yy_request.rest_api('delete','task/'+task.id+'/',null,function(status,info){
-  	if(status==1){
-    	vuemodel.taskData.$remove(task)
-  	} else {
-    	alert("OOps,删除失败啦")
-  	}
-	})	
-}
-
 
 
 

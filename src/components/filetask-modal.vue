@@ -163,19 +163,23 @@ module.exports = {
         if(!("submitState" in pf) || pf.submitState=="fail") {
           var ajax_data = taskSettingToAjaxData(ts)
           ajax_data.fid = pf.id
+
           pf.submitState = "uploading"
-          yy_request.rest_api('post','task/',ajax_data,function(status,info){
-            if(status==1) {
-              // vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
+
+          yy_request.rest_api({
+            method: 'post',
+            api: 'task/',
+            data: ajax_data,
+            opSuccess: function(info) {
               pf.submitState = "done"
               var temp_number = vuemodel.submittedTaskNumber + 1
               vuemodel.taskInfoText = "正在提交打印任务("+ temp_number +"/" + fileNumber + ")"
-
               vuemodel.submittedTaskNumber = temp_number
-            } else {
+            },
+            opFail: function(info) {
               pf.submitState = "fail"
               vuemodel.taskInfoText = "好像出现了点问题，请重试"
-            }
+            },
           })
         }
       } 
@@ -191,41 +195,47 @@ module.exports = {
     onDeleteTask: function() {
       var vuemodel = this
       vuemodel.taskInfoText="正在删除打印任务"
-      yy_request.rest_api('delete','task/'+this.params.taskId,null,function(status,info){
-        if(status==1) {
+
+      yy_request.rest_api({
+        method: 'delete',
+        api: 'task/' + this.params.taskId,
+        opSuccess: function(info) {
           vuemodel.taskInfoText="任务删除成功"
           setTimeout(function(){
             vuemodel.taskInfoText = ""
             vuemodel.show = false
             vuemodel.onTaskChange()
           },1000)
-        } else {
+        },
+        opFail: function(info) {
           vuemodel.taskInfoText="删除失败"
-        }
-      }) 
+        },
+      })
     },
 
     onEditTask: function() {
       var vuemodel = this
-      vuemodel.taskInfoText="正在修改打印任务"
-      var ts = vuemodel.taskSetting
-      var ajax_data = {
-        pid: ts.printerId,
-        copies: parseInt(ts.copies),
-        color: ts.isInStore? '':ts.isColor,
-        isdouble: ts.isInStore? '':ts.isDoubleSide,
-        // ppt: vuemodel.ppt,
-        requirements: ts.isInStore? '':ts.requirements
-      }
-      yy_request.rest_api('put','task/'+this.params.taskId,ajax_data,function(status,info){
-        if(status==1) {
-          vuemodel.taskInfoText="修改成功"
-        } else {
-          vuemodel.taskInfoText="修改失败"
-        }
-      })
-    },
+      vuemodel.taskInfoText = "正在修改打印任务"
+      var ajax_data = taskSettingToAjaxData(vuemodel.taskSetting)
 
+      yy_request.rest_api({
+        method: 'put',
+        api: 'task/' + this.params.taskId,
+        data: ajax_data,
+        opSuccess: function(info) {
+          vuemodel.taskInfoText="任务修改成功"
+          setTimeout(function(){
+            vuemodel.taskInfoText = ""
+            vuemodel.show = false
+            vuemodel.onTaskChange()
+          },1000)
+        },
+        opFail: function(info) {
+          vuemodel.taskInfoText="删除失败"
+        },
+      })
+
+    },
 
   },
 
@@ -237,8 +247,10 @@ module.exports = {
 }
 
 function getTaskSetting(vuemodel) {
-  yy_request.rest_api('get','task/'+vuemodel.params.taskId,null,function(status,info) {
-    if(status==1) {
+  yy_request.rest_api({
+    method: 'get',
+    api: 'task/'+vuemodel.params.taskId,
+    opSuccess: function(info) {
       vuemodel.taskSetting.printerId = info.pri_id
       vuemodel.taskSetting.copies = parseInt(info.copies)
       if(info.color==null && info.isdouble==null) {
@@ -249,18 +261,7 @@ function getTaskSetting(vuemodel) {
       vuemodel.taskSetting.isColor = info.color==null? false:true
       vuemodel.taskSetting.isDoubleSide = info.isdouble==null? false:true
       vuemodel.taskSetting.requirements = htmldecode(info.requirements)
-      console.log(htmldecode(info.requirements))
-    }
-  })
-}
-
-function editTask(vuemodel) {
-  var ajax_data = taskSettingToAjaxData(ts)
-
-  yy_request.rest_api('post','task/'+vuemodel.taskID,ajax_data,function(status,info){
-    if(status==1) {
-      vuemodel.submittedTaskNumber = vuemodel.submittedTaskNumber + 1
-    }
+    },
   })
 }
 
@@ -277,7 +278,6 @@ function taskSettingToAjaxData(taskSetting) {
   }
   return ajax_data
 }
-
 
 function htmldecode(s) {
   var div = document.createElement('div')
