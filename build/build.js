@@ -10486,7 +10486,7 @@
 	var po = __webpack_require__(92)
 	
 	
-	var baseurl = 'http://api.yunyin.org/'
+	var baseurl = 'http://localhost/index.php/'
 	
 	module.exports = {
 		rest_api: function(options) {
