@@ -13,28 +13,28 @@
   </header>
   <!--aside-->
    <aside v-class="open : showSlideMenu"> 
-   <h6><a href="#/home" v-on="click: showSlideMenu = false"> 首页 <i class="glyphicon glyphicon-home"></i></a></h6> 
-   <h6><a href="#/print">快速打印<i class="glyphicon glyphicon-print"></i></a></h6> 
-   <p class="small">文件</p>
+   <h6><a href="#/home" v-on="click: showSlideMenu = false" >首页<i class="glyphicon glyphicon-home"></i></a></h6> 
+   <h6><a href="#/print" >快速打印<i class="glyphicon glyphicon-print"></i></a></h6> 
+   <h6>文件</h6>
    <ul> 
-    <li><a href="#/print" v-on="click: showSlideMenu = false">订单管理<i class="glyphicon glyphicon-tasks"></i></a></li> 
+    <li><a href="#/print" v-on="click: showSlideMenu = false" >订单管理<i class="glyphicon glyphicon-list-alt"></i></a></li> 
     <li><a href="#/upload" v-on="click: showUploadModal = true,
-                            click: showSlideMenu = false">上传文件<i class="fui-upload"></i></a></li> 
-    <li><a href="#/file" v-on="click: showSlideMenu = false">我的文件<i class="fui-folder"></i></a></li> 
+                            click: showSlideMenu = false" >上传文件<i class="glyphicon glyphicon-cloud-upload"></i></a></li> 
+    <li><a href="#/file" v-on="click: showSlideMenu = false">我的文件<i class="glyphicon fui-folder"></i></a></li> 
    </ul> 
-   <p class="small">资源</p> 
+   <h6>资源</h6> 
    <ul> 
-    <li><a href="#">我的共享<i class="glyphicon glyphicon-star"></i> </a></li> 
-    <li><a href="#">共享文库<i class="glyphicon glyphicon-cloud"></i></a></li> 
-    <li><a href="#">店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
+    <li><a href="#" >我的共享<i class="glyphicon glyphicon-star"></i></a></li> 
+    <li><a href="#" >共享文库<i class="glyphicon glyphicon-globe"></i></a></li> 
+    <li><a href="#" >店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
    </ul> 
-   <p>个人</p> 
+   <h6>个人</h6> 
    <ul> 
-    <li><a href="#/user">个人信息<i class="fui-user"></i></a></li> 
-    <li><a href="#" v-on="click: onLogout">退出登录<i class="fui-exit"></i></a></li> 
+    <li><a href="#/user" >个人信息<i class="glyphicon glyphicon-user"></i></a></li> 
+    <li><a href="#" v-on="click: onLogout">退出登录<i class="glyphicon fui-exit"></i></a></li> 
    </ul> 
-   <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店 <i class="fui-home"></i></a></h6> 
-   <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡 <i class="fui-credit-card"></i></a></h6> 
+   <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店<i class="glyphicon fui-home"></i></a></h6> 
+   <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡<i class="glyphicon fui-credit-card"></i></a></h6> 
   </aside>
 
   <section class="other" v-class="slide-aside : showSlideMenu">
@@ -112,7 +112,17 @@ module.exports = {
       } else {
         window.location.hash="#/print"
       }
-    }
+    },
+        onLogout: function() {
+      yy_request.rest_api({
+        method: 'get',
+        api: 'auth/logout',
+        opSuccess: function(info) {
+          window.location.hash = "#/home"
+          po.app.showLoginModal = true 
+        },
+      })          
+    },
   },
 
   compiled: function() {
