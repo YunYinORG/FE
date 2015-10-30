@@ -81,7 +81,7 @@ module.exports = {
 }
 
 .modal-container {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
   margin: 0px auto;
   padding: 10px 20px;
   background-color: #fff;
