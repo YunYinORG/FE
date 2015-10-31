@@ -141,7 +141,8 @@ module.exports = {
     	api: 'user/',
     	opSuccess: function(info) {
         po.islogin = true
-    		vuemodel.username = info.name
+        po.userinfo = info.user
+    		vuemodel.username = info.user.name
     	},
     	opFail: function() {
         po.islogin = false

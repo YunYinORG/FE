@@ -36,10 +36,8 @@ module.exports = {
             filedata.$remove(index)
           },
           opFail: function(info) {
-            filedata[index].status = "删除失败，请重试"
-            filedata[index].isfailed = true
-            filedata[index].issuccess = false
-            filedata[index].isuploading = false
+            filedata[index].info = "删除失败，请重试"
+            filedata[index].status = "fail"
           },
         })
       } else {
@@ -54,10 +52,8 @@ module.exports = {
         var ifile = input_files[i]
         var filedata = {
           fileobject: ifile,
-          status: "上传中",
-          isfailed: false,
-          issuccess: false,
-          isuploading: true,
+          info: "上传中",
+          status: "uploading",
         }
 
         this.fileList.push(filedata)
@@ -96,10 +92,8 @@ function uploadFile(filedata) {
           uploadConfirm(filedata,JSON.parse(rs).key)      
         },
         error: function(rs) {
-          filedata.status = '上传失败'
-          filedata.isfailed = true
-          filedata.issuccess = false
-          filedata.isuploading = false
+          filedata.info = '上传失败'
+          filedata.status = 'fail'
         },
       })
     },
@@ -114,17 +108,13 @@ function uploadConfirm(filedata,key) {
       key: key,
     },
     opSuccess: function(info) {
-      filedata.status = '上传成功'
-      filedata.isfailed = false
-      filedata.issuccess = true
-      filedata.isuploading = false
+      filedata.info = '上传成功'
+      filedata.status = 'success'
       filedata.id = info.id
     },
     opFail: function(info) {
-      filedata.status = '上传失败'
-      filedata.isfailed = true
-      filedata.issuccess = false
-      filedata.isuploading = false
+      filedata.info = info
+      filedata.status = 'fail'
     },
   })
 }

@@ -11,21 +11,48 @@
         task-setting="{{@taskSetting}}"></task-setting>
     </div>
     <div class="modal-footer">
-      <div v-if="currentBody=='file-uploader'">
-        <div class="info-text text-left" v-transition="textshow" v-show="fileInfoText!=''">
-          <small v-text="fileInfoText"></small>
-        </div>   
-        <button class="btn btn-primary btn-wide" v-on="click: onFinish">完成</button>
-        <button class="btn btn-primary btn-wide" v-on="click: onToPrint">去打印</button>
+      <div v-if="currentBody=='file-uploader'" class="row">
+        <div class="col-xs-12 col-sm-6 text-left" >
+          <div class="info-wrapper" v-show="fileInfoText!=''">
+            <small class="info-text">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              {{fileInfoText}}
+            </small>            
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+          <button class="btn btn-primary btn-block" v-on="click: onFinish">完成</button>
+        </div>
+        <div class="col-xs-6 col-sm-3">
+          <button class="btn btn-primary btn-block" 
+            v-on="click: onToPrint"
+            v-class="btn-default: !toPrintReady,
+                     btn-primary: toPrintReady">去打印</button>
+        </div>
       </div>
       <div v-if="currentBody=='task-setting'">
-        <div class="info-text text-left" v-transition="textshow" v-show="taskInfoText!=''">
-          <small v-text="taskInfoText"></small>
-        </div>      
-        <button v-if="newTask" class="btn btn-warning btn-wide" v-on="click: onCancelTask">取消任务</button>
-        <button v-if="newTask" class="btn btn-primary btn-wide" v-on="click: onAddTasks">提交任务</button>      
-        <button v-if="!newTask" class="btn btn-danger btn-wide " v-on="click: onDeleteTask">删除任务</button>
-        <button v-if="!newTask" class="btn btn-primary btn-wide" v-on="click: onEditTask">修改任务</button>
+        <div class="col-xs-12 col-sm-6 text-left" >
+          <div class="info-wrapper" v-show="taskInfoText!=''">
+            <small class="info-text">
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+              {{taskInfoText}}
+            </small>            
+          </div>
+        </div>
+        <div class="col-xs-6 col-sm-3" v-if="newTask">
+          <button class="btn btn-warning btn-block" v-on="click: onCancelTask">取消任务</button>
+        </div>
+        <div class="col-xs-6 col-sm-3" v-if="newTask">
+          <button class="btn btn-primary btn-block" v-on="click: onAddTasks"
+            v-class="btn-default: taskSetting.printerId==null,
+                     btn-primary: taskSetting.printerId!=null">提交任务</button>
+        </div>
+        <div class="col-xs-6 col-sm-3" v-if="!newTask" >
+          <button class="btn btn-danger btn-block " v-on="click: onDeleteTask">删除任务</button>
+        </div>
+        <div class="col-xs-6 col-sm-3" v-if="!newTask" > 
+          <button class="btn btn-primary btn-block" v-on="click: onEditTask">修改任务</button>
+        </div>
       </div>
     </div>
   </modal>
@@ -92,7 +119,18 @@ module.exports = {
       }
     },
 
-
+    toPrintReady: function() {
+      if(this.params.fileList.length==0) {
+        return false
+      }
+      for(var i in this.params.fileList) {
+        if(this.params.fileList[i].status!='success') {
+          return false
+        }
+      }
+      this.fileInfoText = ''
+      return true
+    },
 
     submittedTaskNumber: {
       get: function() {
@@ -117,7 +155,7 @@ module.exports = {
     onFinish: function(e) {
       for(var i in this.params.fileList) {
         if(this.params.fileList[i].isuploading==true) {
-          alert('请耐心等待文件上传完成，如出现上传时间过长请手动删除文件，我们会在近期加上进度显示 ^_^')
+          this.fileInfoText = '请耐心等待文件上传完成，如出现上传时间过长请手动删除文件，我们会在近期加上进度显示 ^_^'
           return 'fail'
         }
       }    
@@ -129,14 +167,10 @@ module.exports = {
     },
 
     onToPrint: function(e) {
-      var count = 0
-      for(var i in this.params.fileList) {
-        if(this.params.fileList[i].issuccess==true) {
-          count += 1
-        }
-      }    
-      if(this.params.fileList.length==count) {
+      if(this.toPrintReady) {
         this.params.mode="newtask"
+      } else if(this.params.fileList.length==0){
+        this.fileInfoText = "请选择要上传的文件"
       } else {
         this.fileInfoText = "请先等待文件上传完成或删除失败的文件"
       }
@@ -144,45 +178,50 @@ module.exports = {
 
 
     onAddTasks: function(e) {
-      var ts = this.taskSetting
-      var vuemodel = this
-      var fileNumber = this.params.fileList.length
-      
-      var count = 0
-      for(var i in this.params.fileList) {
-        if(this.params.fileList[i].submitState=="done") {
-          count += 1
+      if(this.taskSetting.printerId!=null) {
+        var ts = this.taskSetting
+        var vuemodel = this
+        var fileNumber = this.params.fileList.length
+        
+        var count = 0
+        for(var i in this.params.fileList) {
+          if(this.params.fileList[i].submitState=="done") {
+            count += 1
+          }
         }
+        this.stn = count
+
+        vuemodel.taskInfoText = "正在提交打印任务(1/" + fileNumber + ")"
+
+        for(var i in this.params.fileList) {
+          var pf = this.params.fileList[i]
+          if(!("submitState" in pf) || pf.submitState=="fail") {
+            var ajax_data = taskSettingToAjaxData(ts)
+            ajax_data.fid = pf.id
+
+            pf.submitState = "uploading"
+
+            yy_request.rest_api({
+              method: 'post',
+              api: 'task/',
+              data: ajax_data,
+              opSuccess: function(info) {
+                pf.submitState = "done"
+                var temp_number = vuemodel.submittedTaskNumber + 1
+                vuemodel.taskInfoText = "正在提交打印任务("+ temp_number +"/" + fileNumber + ")"
+                vuemodel.submittedTaskNumber = temp_number
+              },
+              opFail: function(info) {
+                pf.submitState = "fail"
+                vuemodel.taskInfoText = "好像出现了点问题，请重试"
+              },
+            })
+          }
+        }        
+      } else {
+        this.taskInfoText = "请选择要去的打印店"
       }
-      this.stn = count
-
-      vuemodel.taskInfoText = "正在提交打印任务(1/" + fileNumber + ")"
-
-      for(var i in this.params.fileList) {
-        var pf = this.params.fileList[i]
-        if(!("submitState" in pf) || pf.submitState=="fail") {
-          var ajax_data = taskSettingToAjaxData(ts)
-          ajax_data.fid = pf.id
-
-          pf.submitState = "uploading"
-
-          yy_request.rest_api({
-            method: 'post',
-            api: 'task/',
-            data: ajax_data,
-            opSuccess: function(info) {
-              pf.submitState = "done"
-              var temp_number = vuemodel.submittedTaskNumber + 1
-              vuemodel.taskInfoText = "正在提交打印任务("+ temp_number +"/" + fileNumber + ")"
-              vuemodel.submittedTaskNumber = temp_number
-            },
-            opFail: function(info) {
-              pf.submitState = "fail"
-              vuemodel.taskInfoText = "好像出现了点问题，请重试"
-            },
-          })
-        }
-      } 
+ 
     },
 
     onCancelTask: function() {
@@ -288,23 +327,8 @@ function htmldecode(s) {
 </script>
 
 <style>
-.modal-body {
-  -webkit-transition: height .3s ease;
-  -o-transition: height .3s ease;
-  transition: height .3s ease;
-}
-
-.textshow-enter,
-.textshow-leave {
-   opacity: 0;
-   -webkit-transition: all .3s ease;
-   -o-transition: all .3s ease;
-   transition: all .3s ease;
-}
-
-.info-text {
-  float: left;
-  width: 200px;
+.info-wrapper {
+  padding-bottom: 10px;
 }
 
 </style>

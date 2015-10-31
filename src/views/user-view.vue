@@ -89,8 +89,7 @@
   	stage = "{{verifyStage}}" 
     verify-type = "bind"
     verify-way="{{verifyWay}}"
-    verify-info="{{verifyInfo}}"
-    user-id="{{uid}}"></verifycode-modal>
+    verify-info="{{verifyInfo}}"></verifycode-modal>
 </template>
 
 <script>
@@ -101,7 +100,6 @@ var md5 = require("blueimp-md5")
 module.exports = {
 	data: function() {
 		return {
-			uid: '',
 			userName: '',
 			userSID: '',
 			userSch: '',
@@ -119,12 +117,23 @@ module.exports = {
 			verifyStage: 'code',
 			verifyWay:'',
 			verifyInfo:'',
-
 		}
 	},
 
 	compiled: function() {
-		get_user_detail(this)
+		var vuemodel = this
+		if(po.userinfo!=null) {
+			get_user_detail(vuemodel)
+		} else {
+		  yy_request.rest_api({
+		    method: 'get',
+		    api: 'user/',
+		    opSuccess: function(info) {
+		    	po.userinfo = info.user
+		    	get_user_detail(vuemodel)
+		    },
+		  })			
+		}
 	},
 
 	methods: {
@@ -136,7 +145,7 @@ module.exports = {
 			} else {
 			  yy_request.rest_api({
 			    method: 'put',
-			    api: 'user/' + this.uid,
+			    api: 'user/' + po.userinfo.id,
 			    data: {
 						old: md5(this.oldPwd),
 						password: md5(this.newPwd)			    
@@ -158,7 +167,7 @@ module.exports = {
 			var vuemodel = this
 		  yy_request.rest_api({
 		    method: 'post',
-		    api: "user/"+this.uid+"/phone",
+		    api: "user/"+po.userinfo.id+"/phone",
 		    data: {
   				phone: this.newPhone  
 		    },
@@ -180,7 +189,7 @@ module.exports = {
 			var vuemodel = this
 		  yy_request.rest_api({
 		    method: 'post',
-		    api: "user/"+this.uid+"/email",
+		    api: "user/"+po.userinfo.id+"/email",
 		    data: {
 					email: this.newMail
 		    },
@@ -204,25 +213,20 @@ module.exports = {
 }
 
 function get_user_detail(vuemodel) {
-  yy_request.rest_api({
-    method: 'get',
-    api: 'user/',
-    opSuccess: function(info) {
-    	vuemodel.uid = info.id
-    	yy_request.rest_api({
-    		method: 'get',
-    		api: 'user/'+vuemodel.uid,
-    		opSuccess: function(info) {
-					vuemodel.userName = info.name
-					vuemodel.userSID = info.number
-					vuemodel.userSch = info.school 
-					vuemodel.userPhone = info.phone || "还没有绑定手机" 
-					vuemodel.userMail = info.email || "还没有绑定邮箱"    			
-    		}
-    	})
-    },
-  })
+	yy_request.rest_api({
+		method: 'get',
+		api: 'user/' + po.userinfo.id,
+		opSuccess: function(info) {
+			vuemodel.userName = info.name
+			vuemodel.userSID = info.number
+			vuemodel.userSch = info.school 
+			vuemodel.userPhone = info.phone || "还没有绑定手机" 
+			vuemodel.userMail = info.email || "还没有绑定邮箱"    			
+		},
+	})
 }
+
+
 
 </script>
 
@@ -237,19 +241,6 @@ function get_user_detail(vuemodel) {
 
 .input-group {
 	height: 0;
-}
-.expand-transition {
-	transition: all 0.4s ease;
-	overflow: hidden;
-	opacity: 1;
-	max-height: 250px;
-	width: 100%;
-}
-
-.expand-enter, .expand-leave {
-	opacity: 0;
-	width: 0;
-	max-height: 0;
 }
 
 #password-reset .ip {
