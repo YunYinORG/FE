@@ -44,16 +44,6 @@
       transition-mode="out-in">
     </component>
   </section>
-  <footer class='text-center' v-class="slide-aside : showSlideMenu">
-      <ul class="list-inline">
-        <li><a target="_blank" href="http://www.yunyin.org/">&copy;云印南天</a></li>
-        <li><a target="_blank" rel="nofollow" href="https://github.com/YunYinORG/">开源项目</a></li>
-        <li><a target="_blank" href="http://www.yunyin.org/pages/">文档中心</a></li>
-        <li><a target="_blank" href="http://weibo.com/cloudPrint/">新浪微博</a></li>
-        <li><a href="#">微信</a></li>
-        <li><a rel="nofollow" href="http://printer.yunyin.org/">打印店</a></li>
-      </ul>
-  </footer>
   <filetask-modal show="{{@showFileTaskModal}}"
     on-file-change="{{onFileChange}}"
     on-task-change="{{onTaskChange}}"
