@@ -20,8 +20,8 @@
             </div>
           </div>
           <div>
-            <input id="rmb" type="checkbox" v-model="remeber">
-            <label for="rmb">自动登录</label>
+            <input id="rmb" type="checkbox" checked="checked" v-model="remeber">
+            <label for="rmb">记住我</label>
             <small class="pull-right" style="cursor:pointer" v-on="click: onForgetPassword">忘记密码?</small>
           </div>        
 
@@ -37,7 +37,7 @@
 
           <div class="form-group">
             <button type="button" id="submit" class="btn btn-embossed btn-primary btn-block"
-              v-on="click: onSubmit">登录/注册</button>
+              v-on="click: onSubmit">登录</button>
           </div>
           <div>
             <small class="text-danger" v-text="errorinfo" v-show="erroinfo!=''"></small>
