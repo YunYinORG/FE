@@ -57,6 +57,7 @@ module.exports = {
 	position: relative;
 	width: 140px;
 	height: 30px;
+	left: 0;
 	-webkit-transition: left .3s ease;
 	-o-transition: left .3s ease;
 	transition: left .3s ease;

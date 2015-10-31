@@ -30,8 +30,8 @@
 </template>
 
 <script>
-
 var yy_request = require('../js/yunyin_request')
+var po = require('../js/public_object.js')
 
 module.exports = {
   props: {
@@ -44,10 +44,6 @@ module.exports = {
     verifyWay: String,
     verifyType: String,
     verifyInfo: String,
-    userId: {
-      type: String,
-      required: false,
-    },
   },
 
   data: function () {
@@ -114,7 +110,7 @@ module.exports = {
 function bindUserInfo(vuemodel) {
   yy_request.rest_api({
     method: 'put',
-    api: 'user/' + vuemodel.userId +'/' + vuemodel.verifyWay,
+    api: 'user/' + po.userinfo.id +'/' + vuemodel.verifyWay,
     data: {
       code: vuemodel.code,
     },

@@ -29,7 +29,7 @@
     </div>
 	</div>
 
-  <div class="action-info" v-show="showActionInfo" v-transition="infoexpand">
+  <div class="info-line" v-show="showActionInfo" v-transition="infoexpand">
     <small class="text-primary" v-text="actionInfoText"></small>
   </div>  
   <div class="table-responsive">
@@ -62,7 +62,7 @@
             <td>
               {{file.time.substr(5,11)}}
             </td>
-            <td class='action-line'>
+            <td class='action-td'>
               <i class="glyphicon glyphicon-print" style="cursor:pointer"
                 v-on="click: onPrint($event,file)"></i>
               <i class="glyphicon glyphicon-share" style="cursor:pointer"

@@ -9,9 +9,9 @@
 
     <div class="panel panel-success text-center">
       <div class="panel-heading">
-        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.name}}</p>
-        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.address}}</p>
-        <p style="font-size: 22px; margin-bottom:0">{{printerInfo.phone}}</p>
+        <p>{{printerInfo.name}}</p>
+        <p>{{printerInfo.address}}</p>
+        <p>{{printerInfo.phone}}</p>
       </div>
       <div class="panel-body">
         <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>
@@ -22,14 +22,14 @@
     </div>
     
     <div class="row">
-      <div class="col-sm-3 cl">
+      <div class="col-xs-6 col-sm-3 cl">
         <custom-switch
           true-text="到店"
           false-text="提前"
           value="{{@taskSetting.isInStore}}">
         </custom-switch>
       </div>
-      <div class="col-sm-3 cl">
+      <div class="col-xs-6 col-sm-3 cl">
         <custom-switch
           v-if="!taskSetting.isInStore"
           v-transition="expand"
@@ -38,7 +38,7 @@
           value="{{@taskSetting.isDoubleSide}}">
         </custom-switch>
       </div>
-      <div class="col-sm-3 cl">
+      <div class="col-xs-6 col-sm-3 cl">
         <custom-switch
           v-if="!taskSetting.isInStore"
           v-transition="expand"
@@ -47,7 +47,7 @@
           value="{{@taskSetting.isColor}}">
         </custom-switch>
       </div>
-      <div class="col-sm-3">
+      <div class="col-xs-6 col-sm-3">
         <div class="input-group copies-wrapper" v-if="!taskSetting.isInStore" v-transition="expand">
           <input v-model="taskSetting.copies" type="number" placeholder="份数" class="form-control input-sm" id="print-copies" min="1" value="1"/>
           <span class="input-group-addon input-sm">份</span>
@@ -135,29 +135,35 @@ function getPrinterDetail(vuemodel) {
     border-color: #d6e9c6;
 }
 
+.panel-heading > p {
+  font-size: 22px;
+  margin-bottom: 0px;
+}
 .panel-body > p{
     font-size: 20px;
     margin: 5px;
 }
+
+@media screen and (max-width: 767px) {
+  .panel-heading > p {
+    font-size: 20px;
+  }
+
+  .panel-body > p{
+    font-size: 18px;
+    margin: 3x;
+  }
+}
+
 label[for='print-copies']{
     font-size: 25px;
     margin-top: -8px;
     margin-left: 10px;
 }
+
 .cl {
   margin-top: 2px;
-}
-
-.requirement {
-  margin-top: 15px;
-}
-
-.expand-enter,
-.expand-leave {
-  max-height: 0;
-  -webkit-transition: max-height 0.3s ease;
-  -o-transition: max-height 0.3s ease;
-  transition: max-height 0.3s ease;
+  margin-bottom: 10px;
 }
 
 </style>

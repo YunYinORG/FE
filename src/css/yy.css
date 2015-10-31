@@ -252,15 +252,14 @@ body.modal-open {
   cursor: pointer;
 }
 
-.action-line {
+.action-td {
   width: 120px;
 }
-.action-line i {
+.action-td i {
   margin-left: 8%;
 }
 
-.action-info {
-  padding-left: 10px;
+.info-line {
   height: 30px;
   overflow: hidden;
   -webkit-transition: all .3s ease;
@@ -275,6 +274,22 @@ body.modal-open {
   -o-transition: all .3s ease;
   transition: all .3s ease;
 }
+
+.expand-transition {
+  transition: all 0.3s ease;
+  overflow: hidden;
+  opacity: 1;
+  max-height: 250px;
+  width: 100%;
+}
+
+.expand-enter, .expand-leave {
+  opacity: 0;
+  width: 0;
+  max-height: 0;
+}
+
+
 .list-view  {
     position: relative;
     /*margin-left: 16.777777%;*/
