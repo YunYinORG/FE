@@ -14,10 +14,8 @@
         <p>{{printerInfo.phone}}</p>
       </div>
       <div class="panel-body">
-        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>
-        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>
-        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>
-        <p style="margin-bottom: 0">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>
+        <p>黑白(A4)单面:¥{{printerInfo.price1}}/页,双面:¥{{printerInfo.price2}}/页</p>
+        <p style="margin-bottom: 0">彩印(A4)单面:¥{{printerInfo.price3}}/页,双面:¥{{printerInfo.price4}}/页</p>
       </div>
     </div>
     
