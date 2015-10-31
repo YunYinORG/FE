@@ -2,8 +2,8 @@
 	<div class="myselect-wrapper">			
 		<div class="btn-wrapper" v-on="click: showChoices = !showChoices">
 			<div class="chosen-text">
-				<small>{{displayText}}</small>
 				<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"></span>
+				<small>{{displayText}}</small>	
 			</div>
 		</div>
 		<div v-if="showChoices" class="choice-wrapper">
@@ -109,4 +109,11 @@ module.exports = {
 		-o-transition: background .5s ease;
 		transition: background .5s ease;
 	}
+
+	.chosen-text,
+	.option-wrapper {
+		text-overflow:ellipsis;
+		white-space:nowrap;
+		overflow:hidden
+	} 
 </style>

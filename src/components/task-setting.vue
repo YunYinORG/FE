@@ -146,11 +146,11 @@ function getPrinterDetail(vuemodel) {
 
 @media screen and (max-width: 767px) {
   .panel-heading > p {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   .panel-body > p{
-    font-size: 18px;
+    font-size: 16px;
     margin: 3x;
   }
 }

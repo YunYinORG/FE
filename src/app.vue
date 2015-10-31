@@ -6,11 +6,13 @@
       <div class="line"></div>
       <div class="line"></div>
     </div>
+
     <a href='#/home' class="logo"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
    width="1417.32px" height="1417.32px" viewBox="0 0 1417.32 1417.32" enable-background="new 0 0 1417.32 1417.32" xml:space="preserve"><circle fill="#F3D759" stroke="#F3D759" stroke-width="0.25" stroke-miterlimit="10" cx="521.644" cy="748.74" r="186.655"/><circle fill="#FDFDFD" stroke="#FDFDFD" stroke-width="0.25" stroke-miterlimit="10" cx="817.723" cy="828.998" r="207.395"/><polygon fill="#2277AB" stroke="#2277AB" stroke-width="0.25" stroke-miterlimit="10" points="857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 "/><path fill="#FDFDFD" stroke="#FDFDFD" stroke-width="0.25" stroke-miterlimit="10" d="M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z"/></svg></a>
     <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
     <div class="clear"></div>
   </header>
+  <div id="app-spinner" v-show="showSpinner">Loading...</div>
   <!--aside-->
    <aside v-class="open : showSlideMenu"> 
    <h6><a href="#/home" v-on="click: showSlideMenu = false" >首页<i class="glyphicon glyphicon-home"></i></a></h6> 
@@ -48,7 +50,8 @@
     on-file-change="{{onFileChange}}"
     on-task-change="{{onTaskChange}}"
     params="{{fileTaskParams}}"></filetask-modal>
-  <login-modal show="{{@showLoginModal}}"></login-modal>
+  <login-modal show="{{@showLoginModal}}"
+      v-if = "showLoginModal"></login-modal>
   <info-modal show="{{@showInfoModal}}"
     info-text="{{infoModalText}}"></info-modal>
 </template>
@@ -79,6 +82,7 @@ module.exports = {
       ],
       mySelectValue: null,
       username: null,
+      showSpinner: false,
     }
   },
 

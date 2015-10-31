@@ -12,8 +12,10 @@
 					<small v-class="
 						text: status=='uploading',
 						text-danger: status=='fail',
-						text-primary: status=='success'"
-						v-text="info"></small>
+						text-primary: status=='success'">{{info}}
+					<u v-if="status=='fail'" v-on="click: onUpload($index)" style="margin-left:10px">重传</u>
+					</small>
+					<small><a>
 				</div>
 			</div>
 		</div>
@@ -25,7 +27,7 @@
 
 <script>
 module.exports = {
-	props:['onRemove'],
+	props:['onRemove','onUpload'],
 
 	compiled: function() {
 		var img_src = 'src/img/' + this.fileobject.name.split('.').pop() + '.png'
@@ -58,9 +60,4 @@ module.exports = {
 .img-col {
 	padding: 0;
 }
-
-/*.file > div {
-	display: inline-block;
-	vertical-align: middle;
-}*/
 </style>

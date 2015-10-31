@@ -10426,6 +10426,7 @@
 	      ],
 	      mySelectValue: null,
 	      username: null,
+	      showSpinner: false,
 	    }
 	  },
 	
@@ -10531,6 +10532,8 @@
 	var baseurl = 'http://api.yunyin.org/'
 	
 	
+	var ajax_array = []
+	
 	module.exports = {
 		rest_api: function(options) {
 			var default_verifySuccess = function(info) {
@@ -10563,12 +10566,16 @@
 			var authFail = options.authFail || default_authFail;
 			var networkError= options.networkError || default_networkError;
 	
-			return new yyajax({
+			var ajax_obj = new yyajax({
 				method: method,
 				url: baseurl + api,
 				data: data,
 				withCredentials: true,
 				success: function(responseText,status) {
+					ajax_array.pop(this)
+					if(po.app!=null && ajax_array.length==0) {
+						po.app.showSpinner = false
+					}
 					var rpdata = JSON.parse(responseText);
 					if(rpdata.status==2) {
 						verifySuccess(rpdata.info);
@@ -10579,11 +10586,23 @@
 					} else if(rpdata.status==-1) {
 						authFail(rpdata.info);
 					}
+	
 				},
 				error: function(status) {
+					ajax_array.pop(this)
+					if(po.app!=null && ajax_array.length==0) {
+						po.app.showSpinner = false
+					}
 					networkError(status);
 				}
 			})
+			ajax_array.push(ajax_obj)
+			if(po.app!=null) {		
+				po.app.showSpinner = true			
+			}
+	
+	
+			return ajax_obj
 		},
 	
 		ajax: function(options) {
@@ -12510,7 +12529,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	exports.push([module.id, ".myselect-wrapper {\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\t/*z-index: 9999;*/\n\t\toverflow: visible;\n\t\tbackground: #0BBD9E;\n\t\tborder-radius: 3px;\n\t\tmargin-bottom: 20px;\n\t\tcursor: pointer;\n\t}\n\n\t.myselect-wrapper .btn-wrapper {\n\t\tpadding-left: 10px;\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tline-height: 41px;\n\t\tcolor: #FFFFFF;\t\t\n\t}\n\n\t.myselect-wrapper .chosen-text span {\n\t\tfloat: right;\t\n\t\tline-height: 41px;\n\t\tmargin-right: 10px; \n\t}\n\n\t.myselect-wrapper .choice-wrapper {\n\t\tz-index: 9999;\n\t\tposition: relative;\n\t\tbackground: #F3F4F5;\n\t\topacity: 1;\n\t\tmargin-top: 10px;\t\n\t\tborder-radius: 3px;\n\t\tmax-height: 300px;\n\t\toverflow:scroll;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div{\n\t\theight: 35px;\n\t\tline-height: 35px;\n\t\tpadding-left: 10px;\n\t\tbackground: #F3F4F5;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\n\t\tbackground: #E1E4E7;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}", ""]);
+	exports.push([module.id, ".myselect-wrapper {\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\t/*z-index: 9999;*/\n\t\toverflow: visible;\n\t\tbackground: #0BBD9E;\n\t\tborder-radius: 3px;\n\t\tmargin-bottom: 20px;\n\t\tcursor: pointer;\n\t}\n\n\t.myselect-wrapper .btn-wrapper {\n\t\tpadding-left: 10px;\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tline-height: 41px;\n\t\tcolor: #FFFFFF;\t\t\n\t}\n\n\t.myselect-wrapper .chosen-text span {\n\t\tfloat: right;\t\n\t\tline-height: 41px;\n\t\tmargin-right: 10px; \n\t}\n\n\t.myselect-wrapper .choice-wrapper {\n\t\tz-index: 9999;\n\t\tposition: relative;\n\t\tbackground: #F3F4F5;\n\t\topacity: 1;\n\t\tmargin-top: 10px;\t\n\t\tborder-radius: 3px;\n\t\tmax-height: 300px;\n\t\toverflow:scroll;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div{\n\t\theight: 35px;\n\t\tline-height: 35px;\n\t\tpadding-left: 10px;\n\t\tbackground: #F3F4F5;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\n\t\tbackground: #E1E4E7;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.chosen-text,\n\t.option-wrapper {\n\t\ttext-overflow:ellipsis;\n\t\twhite-space:nowrap;\n\t\toverflow:hidden\n\t}", ""]);
 
 /***/ },
 /* 142 */
@@ -12559,7 +12578,7 @@
 /* 143 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
+	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t\t<small>{{displayText}}</small>\t\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
 
 /***/ },
 /* 144 */
@@ -12820,7 +12839,7 @@
 	    api: 'auth/',
 	    data: ajax_data,
 	    verifySuccess: function(info) {
-	      vuemodel.fromSchool = info.user.sch_id
+	      vuemodel.fromSchool = info.user.school
 	      vuemodel.newUserName = info.user.name
 	      vuemodel.showReset = true
 	      vuemodel.showLogin = false    
@@ -13064,7 +13083,7 @@
 	              },
 	              opFail: function(info) {
 	                pf.submitState = "fail"
-	                vuemodel.taskInfoText = "好像出现了点问题，请重试"
+	                vuemodel.taskInfoText = info
 	              },
 	            })
 	          }
@@ -13098,7 +13117,7 @@
 	          },1000)
 	        },
 	        opFail: function(info) {
-	          vuemodel.taskInfoText="删除失败"
+	          vuemodel.taskInfoText="任务删除失败"
 	        },
 	      })
 	    },
@@ -13121,7 +13140,7 @@
 	          },1000)
 	        },
 	        opFail: function(info) {
-	          vuemodel.taskInfoText="删除失败"
+	          vuemodel.taskInfoText="任务修改失败"
 	        },
 	      })
 	
@@ -13274,6 +13293,14 @@
 	      this.hasFileInput = false 
 	      this.hasFileInput = true //in case sometimes onChange Event will not be fired
 	    },
+	
+	    reuploadFile: function(index) {
+	      var filedata = this.fileList[index]
+	      filedata.info = "上传中"
+	      filedata.status = "uploading"
+	      uploadFile(filedata)
+	    },
+	
 	  },
 	
 	  components: {
@@ -13370,14 +13397,14 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	exports.push([module.id, ".file {\n\tmargin-bottom: 5px;\n}\n.file img {\n    width: 80%;\n}\n\n.filename-wrapper {\n\ttext-overflow:ellipsis;\n\twhite-space:nowrap;\n\toverflow:hidden\n} \n\n@media screen and (max-width: 767px) {\n\t.file img {\n\t\twidth: 60px;\n\t\theight: 60px;\n\t}\n}\n\n.img-col {\n\tpadding: 0;\n}\n\n/*.file > div {\n\tdisplay: inline-block;\n\tvertical-align: middle;\n}*/", ""]);
+	exports.push([module.id, ".file {\n\tmargin-bottom: 5px;\n}\n.file img {\n    width: 80%;\n}\n\n.filename-wrapper {\n\ttext-overflow:ellipsis;\n\twhite-space:nowrap;\n\toverflow:hidden\n} \n\n@media screen and (max-width: 767px) {\n\t.file img {\n\t\twidth: 60px;\n\t\theight: 60px;\n\t}\n}\n\n.img-col {\n\tpadding: 0;\n}", ""]);
 
 /***/ },
 /* 162 */
 /***/ function(module, exports) {
 
 	module.exports = {
-		props:['onRemove'],
+		props:['onRemove','onUpload'],
 	
 		compiled: function() {
 			var img_src = 'src/img/' + this.fileobject.name.split('.').pop() + '.png'
@@ -13389,13 +13416,13 @@
 /* 163 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file row\">\n\t\t<div class=\"col-xs-3 col-sm-1 img-col\">\n\t\t\t<img v-el=\"filelogo\">\n\t\t</div>\n\t\t<div class=\"col-xs-9 col-sm-7 filename-wrapper\">\n\t\t\t<small v-text=\"fileobject.name\"></small>\n\t\t</div>\n\t\t<div class=\"col-xs-7 col-sm-3\">\n\t\t\t<div id=\"upload-status\">\n\t\t\t\t<div class=\"outer-line\">\n\t\t\t\t\t<small v-class=\"\n\t\t\t\t\t\ttext: status=='uploading',\n\t\t\t\t\t\ttext-danger: status=='fail',\n\t\t\t\t\t\ttext-primary: status=='success'\"\n\t\t\t\t\t\tv-text=\"info\"></small>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-xs-2 col-sm-1 delete-file\">\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\n\t\t</div>\n\t</div>";
+	module.exports = "<div class=\"file row\">\n\t\t<div class=\"col-xs-3 col-sm-1 img-col\">\n\t\t\t<img v-el=\"filelogo\">\n\t\t</div>\n\t\t<div class=\"col-xs-9 col-sm-7 filename-wrapper\">\n\t\t\t<small v-text=\"fileobject.name\"></small>\n\t\t</div>\n\t\t<div class=\"col-xs-7 col-sm-3\">\n\t\t\t<div id=\"upload-status\">\n\t\t\t\t<div class=\"outer-line\">\n\t\t\t\t\t<small v-class=\"\n\t\t\t\t\t\ttext: status=='uploading',\n\t\t\t\t\t\ttext-danger: status=='fail',\n\t\t\t\t\t\ttext-primary: status=='success'\">{{info}}\n\t\t\t\t\t<u v-if=\"status=='fail'\" v-on=\"click: onUpload($index)\" style=\"margin-left:10px\">重传</u>\n\t\t\t\t\t</small>\n\t\t\t\t\t<small><a>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-xs-2 col-sm-1 delete-file\">\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\n\t\t</div>\n\t</div>\n</template>";
 
 /***/ },
 /* 164 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"files-wrapper\">\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\n\t</div>\n\t<div class=\"upload-btn\">\n\t\t<div class=\"upload-area\">点击上传文件</div>\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\n\t</div>";
+	module.exports = "<div id=\"files-wrapper\">\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\" on-upload=\"{{reuploadFile}}}\"></upload-file>\n\t</div>\n\t<div class=\"upload-btn\">\n\t\t<div class=\"upload-area\">点击上传文件</div>\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\n\t</div>";
 
 /***/ },
 /* 165 */
@@ -13437,7 +13464,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-heading > p {\n  font-size: 22px;\n  margin-bottom: 0px;\n}\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\n\n@media screen and (max-width: 767px) {\n  .panel-heading > p {\n    font-size: 20px;\n  }\n\n  .panel-body > p{\n    font-size: 18px;\n    margin: 3x;\n  }\n}\n\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n\n.cl {\n  margin-top: 2px;\n  margin-bottom: 10px;\n}", ""]);
+	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-heading > p {\n  font-size: 22px;\n  margin-bottom: 0px;\n}\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\n\n@media screen and (max-width: 767px) {\n  .panel-heading > p {\n    font-size: 18px;\n  }\n\n  .panel-body > p{\n    font-size: 16px;\n    margin: 3x;\n  }\n}\n\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n\n.cl {\n  margin-top: 2px;\n  margin-bottom: 10px;\n}", ""]);
 
 /***/ },
 /* 168 */
@@ -13677,7 +13704,7 @@
 /* 181 */
 /***/ function(module, exports) {
 
-	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\n    <div class=\"nav-switch\"\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <!--aside-->\n   <aside v-class=\"open : showSlideMenu\"> \n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\" >首页<i class=\"glyphicon glyphicon-home\"></i></a></h6> \n   <h6><a href=\"#/print\" >快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \n   <h6>文件</h6>\n   <ul> \n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\" >订单管理<i class=\"glyphicon glyphicon-list-alt\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onUploadFile,\n                            click: showSlideMenu = false\" >上传文件<i class=\"glyphicon glyphicon-cloud-upload\"></i></a></li> \n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"glyphicon fui-folder\"></i></a></li> \n   </ul> \n   <h6>资源</h6> \n   <ul> \n    <li><a href=\"#\" >我的共享<i class=\"glyphicon glyphicon-star\"></i></a></li> \n    <li><a href=\"#\" >共享文库<i class=\"glyphicon glyphicon-globe\"></i></a></li> \n    <li><a href=\"#\" >店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \n   </ul> \n   <h6>个人</h6> \n   <ul> \n    <li><a href=\"#/user\" v-on=\"click: showSlideMenu = false\">个人信息<i class=\"glyphicon glyphicon-user\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onLogout,click: showSlideMenu = false\">退出登录<i class=\"glyphicon fui-exit\"></i></a></li> \n   </ul> \n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店<i class=\"glyphicon fui-home\"></i></a></h6> \n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡<i class=\"glyphicon fui-credit-card\"></i></a></h6> \n  </aside>\n\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\"\n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\"\n    info-text=\"{{infoModalText}}\"></info-modal>";
+	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\n    <div class=\"nav-switch\"\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <div id=\"app-spinner\" v-show=\"showSpinner\">Loading...</div>\n  <!--aside-->\n   <aside v-class=\"open : showSlideMenu\"> \n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\" >首页<i class=\"glyphicon glyphicon-home\"></i></a></h6> \n   <h6><a href=\"#/print\" >快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \n   <h6>文件</h6>\n   <ul> \n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\" >订单管理<i class=\"glyphicon glyphicon-list-alt\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onUploadFile,\n                            click: showSlideMenu = false\" >上传文件<i class=\"glyphicon glyphicon-cloud-upload\"></i></a></li> \n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"glyphicon fui-folder\"></i></a></li> \n   </ul> \n   <h6>资源</h6> \n   <ul> \n    <li><a href=\"#\" >我的共享<i class=\"glyphicon glyphicon-star\"></i></a></li> \n    <li><a href=\"#\" >共享文库<i class=\"glyphicon glyphicon-globe\"></i></a></li> \n    <li><a href=\"#\" >店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \n   </ul> \n   <h6>个人</h6> \n   <ul> \n    <li><a href=\"#/user\" v-on=\"click: showSlideMenu = false\">个人信息<i class=\"glyphicon glyphicon-user\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onLogout,click: showSlideMenu = false\">退出登录<i class=\"glyphicon fui-exit\"></i></a></li> \n   </ul> \n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店<i class=\"glyphicon fui-home\"></i></a></h6> \n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡<i class=\"glyphicon fui-credit-card\"></i></a></h6> \n  </aside>\n\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\"\n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"\n      v-if = \"showLoginModal\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\"\n    info-text=\"{{infoModalText}}\"></info-modal>";
 
 /***/ },
 /* 182 */

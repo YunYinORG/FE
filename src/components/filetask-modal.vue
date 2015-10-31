@@ -213,7 +213,7 @@ module.exports = {
               },
               opFail: function(info) {
                 pf.submitState = "fail"
-                vuemodel.taskInfoText = "好像出现了点问题，请重试"
+                vuemodel.taskInfoText = info
               },
             })
           }
@@ -247,7 +247,7 @@ module.exports = {
           },1000)
         },
         opFail: function(info) {
-          vuemodel.taskInfoText="删除失败"
+          vuemodel.taskInfoText="任务删除失败"
         },
       })
     },
@@ -270,7 +270,7 @@ module.exports = {
           },1000)
         },
         opFail: function(info) {
-          vuemodel.taskInfoText="删除失败"
+          vuemodel.taskInfoText="任务修改失败"
         },
       })
 
