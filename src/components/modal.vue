@@ -112,12 +112,17 @@ module.exports = {
   top: -80px;
 }  
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 767px) {
+  .modal-wrapper {
+  top: 20px;
+  }
+
   .modal-enter .modal-wrapper,
   .modal-leave .modal-wrapper {
   opacity: 0;
-  top: 40px;
-  }  
+  top: 20px;
+  }
+  
 }
 
 </style>

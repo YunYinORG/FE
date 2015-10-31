@@ -56,7 +56,7 @@ header {
 }
 
 section {
-    position: relative;
+    /*position: relative;*/
     transition:0.25s ease-out;
     -webkit-transition:0.25s ease-out;
 }
@@ -166,7 +166,6 @@ a.signin {
 
 .view {
   opacity: 1;
-  position: absolute;
   -moz-transition: opacity 0.2s ease;
   -webkit-transition: opacity 0.2s ease;
   -o-transition: opacity 0.2s ease;

@@ -55,35 +55,55 @@
 	var Router = __webpack_require__(180).Router
 	var router = new Router()
 	
-	router.on('/intro', function (page) {
+	router.on('/intro', function () {
 	  app.view = 'intro-view'
 	})
 	
-	router.on('/home', function (page) {
-	  	app.view = 'menu-view'
+	router.on('/home', function () {
+		app.view = 'menu-view'
 	})
 	
-	router.on('/print', function (page) {
-	  app.view = 'print-view'
+	router.on('/print', function () {
+		if(po.islogin) {
+	  	app.view = 'print-view'		
+		} else {
+			app.showLoginModal = true
+		}
 	})
 	
-	router.on('/share', function (page) {
-	  app.view = 'share-view'
+	router.on('/share', function () {
+		if(po.islogin) {
+	  	app.view = 'share-view'		
+		} else {
+			app.showLoginModal = true
+		}
 	})
 	
-	router.on('/book', function (page) {
-	  app.view = 'textbook-view'
+	router.on('/book', function () {
+		if(po.islogin) {
+	  	app.view = 'book-view'		
+		} else {
+			app.showLoginModal = true
+		}
 	})
 	
-	router.on('/file', function (page) {
-	  app.view = 'file-view'
+	router.on('/file', function () {
+		if(po.islogin) {
+	  	app.view = 'file-view'		
+		} else {
+			app.showLoginModal = true
+		}
 	})
 	
-	router.on('/user', function (page) {
-	  app.view = 'user-view'
+	router.on('/user', function () {
+		if(po.islogin) {
+	  	app.view = 'user-view'		
+		} else {
+			app.showLoginModal = true
+		}
 	})
 	
-	router.on('/forget', function (page) {
+	router.on('/forget', function () {
 	  app.view = 'forget-view'
 	})
 	
@@ -10382,6 +10402,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var yy_request = __webpack_require__(91)
+	var po = __webpack_require__(92)
 	
 	module.exports = {
 	  el: '#app',
@@ -10409,6 +10430,19 @@
 	  },
 	
 	  methods: {
+	    onUploadFile: function() {
+	      if(po.islogin) {
+	        this.fileTaskParams = {
+	          mode: 'newfile',
+	          fileList: [],
+	          taskId: {},
+	        }
+	        this.showFileTaskModal = true
+	      } else {
+	        this.showLoginModal = true
+	      }
+	    },
+	
 	    onClickLogin: function() {
 	      if(this.username==null) {
 	        this.showLoginModal = true
@@ -10416,25 +10450,30 @@
 	        window.location.hash = "#/user"
 	      }
 	    },
+	
 	    onFileChange: function() {
 	      if(window.location.hash=="#/file") {
-	        window.location.reload()
+	        po.vueFileList.onFileChange()
 	      } else {
 	        window.location.hash="#/file"
 	      }
 	    },
+	
 	    onTaskChange: function() {
 	      if(window.location.hash=="#/print") {
-	        window.location.reload()
+	        po.vueTaskList.onTaskChange()
 	      } else {
 	        window.location.hash="#/print"
 	      }
 	    },
-	        onLogout: function() {
+	
+	    onLogout: function() {
 	      yy_request.rest_api({
 	        method: 'get',
 	        api: 'auth/logout',
 	        opSuccess: function(info) {
+	          po.islogin = false
+	          po.app.username = null
 	          window.location.hash = "#/home"
 	          po.app.showLoginModal = true 
 	        },
@@ -10448,12 +10487,15 @@
 	    	method: 'get',
 	    	api: 'user/',
 	    	opSuccess: function(info) {
+	        po.islogin = true
 	    		vuemodel.username = info.name
 	    	},
 	    	opFail: function() {
+	        po.islogin = false
 	    		vuemodel.username = null
 	    	},
 	    	authFail: function() {
+	        po.islogin = false
 	    		vuemodel.username = null
 	    	}
 	    })
@@ -10464,7 +10506,7 @@
 	    'print-view': __webpack_require__(103),
 	    'file-view': __webpack_require__(109),
 	    'share-view': __webpack_require__(115),
-	    'textbook-view': __webpack_require__(116),
+	    'book-view': __webpack_require__(116),
 	    'user-view': __webpack_require__(117),
 	    'forget-view': __webpack_require__(133),
 	    'login-modal': __webpack_require__(144),
@@ -10486,7 +10528,7 @@
 	var po = __webpack_require__(92)
 	
 	
-	var baseurl = 'http://api.yunyin.org/'
+	var baseurl = 'http://localhost/'
 	
 	module.exports = {
 		rest_api: function(options) {
@@ -10662,6 +10704,8 @@
 
 	module.exports = {
 		app: null,
+		islogin: true,
+		userinfo: null,
 	}
 
 /***/ },
@@ -10704,14 +10748,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".intro-view {\r\n  position: relative;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".intro-view {\n  position: relative;\n}", ""]);
 
 /***/ },
 /* 96 */
@@ -11011,7 +11048,7 @@
 /* 99 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"intro-view\">\r\n    <h1>这里是介绍页</h1>\r\n    <h2>云印是什么</h2>\r\n    <hr>\r\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\r\n    <hr>  \r\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\r\n    <hr>\r\n    <h3>如何使用云印</h3>\r\n    <hr>\r\n    <h3>加入云印</h3>\r\n    <hr>\r\n    <button v-on=\"click: this.$parent.showLoginModal = true\">立即使用</button>   \r\n  </div>";
+	module.exports = "<div class=\"intro-view\">\n    <h1>这里是介绍页</h1>\n    <h2>云印是什么</h2>\n    <hr>\n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>  \n    <h3>致力于为学生创造便捷的校园打印体验</h3>\n    <hr>\n    <h3>如何使用云印</h3>\n    <hr>\n    <h3>加入云印</h3>\n    <hr>\n    <button v-on=\"click: this.$parent.showLoginModal = true\">立即使用</button>   \n  </div>";
 
 /***/ },
 /* 100 */
@@ -11023,17 +11060,23 @@
 
 /***/ },
 /* 101 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+	var po = __webpack_require__(92)
+	
 	module.exports = {
 	  methods: {
 	    onOpenFileTaskModal: function() {
-	      this.$parent.fileTaskParams = {
-	        mode: 'newfile',
-	        fileList: [],
-	        taskId: {},
+	      if(po.islogin) {
+	        po.app.fileTaskParams = {
+	          mode: 'newfile',
+	          fileList: [],
+	          taskId: {},
+	        }
+	        po.app.showFileTaskModal = true
+	      } else {
+	        po.app.showLoginModal = true
 	      }
-	      this.$parent.showFileTaskModal = true
 	    }
 	  }
 	}
@@ -11042,7 +11085,7 @@
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"menu-view\">\r\n    <div class=\"text-center\">\r\n      <h2>云印服务</h2>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <h5>随时随地更方便的校园打印</h5>\r\n    </div>\r\n    <div class=\"text-center\">\r\n      <ul class=\"default-list\">\r\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\r\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-cloud-upload\"></i>上传</a></li>\r\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\r\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-globe\"></i>共享</a></li>\r\n      </ul>\r\n    </div>\r\n  </div>";
+	module.exports = "<div class=\"menu-view\">\n    <div class=\"text-center\">\n      <h2>云印服务</h2>\n    </div>\n    <div class=\"text-center\">\n      <h5>随时随地更方便的校园打印</h5>\n    </div>\n    <div class=\"text-center\">\n      <ul class=\"default-list\">\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-cloud-upload\"></i>上传</a></li>\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-globe\"></i>共享</a></li>\n      </ul>\n    </div>\n  </div>";
 
 /***/ },
 /* 103 */
@@ -11072,6 +11115,7 @@
 /* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
+	__webpack_require__(181)
 	module.exports = __webpack_require__(106)
 	module.exports.template = __webpack_require__(107)
 
@@ -11099,6 +11143,7 @@
 	
 	  compiled: function () {
 	  	loadTasks(this)
+	    po.vueTaskList = this
 	  },
 	
 	  computed: {
@@ -11135,8 +11180,8 @@
 	  		loadTasks(this)
 	  	},
 	
-	  	onFileChange: function() {
-	  		this.fileData = []
+	  	onTaskChange: function() {
+	  		this.taskData = []
 	  		this.displayedPage = 1
 	  		loadTasks(this)
 	  	}
@@ -11168,13 +11213,13 @@
 /* 107 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-12 col-sm-8 text-center\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <i class=\"glyphicon glyphicon-open\"></i>\r\n        添加新打印任务\r\n      </button>\r\n    </div>\r\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n  </div>\r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>状态</th>\r\n          <th>任务名</th>\r\n          <th>打印店</th>\r\n          <th>设置</th>\r\n          <th>时间</th>       \r\n          <th>操作</th>\r\n        </tr>\r\n      </thead>\r\n      <tbody class=\"table-body\">\r\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\r\n          <tr>\r\n            <td>{{task.status}}</td>\r\n            <td class=\"text-primary\">{{task.name}}</td>\r\n            <td>{{task.printer}}</td>\r\n            <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\r\n            <td>{{task.time.substr(5,11)}}</td>\r\n            <td style=\"text-align:center\">\r\n              <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\r\n                v-on=\"click: onEditTask($event,task)\"></i>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>  \r\n  </div>\r\n\r\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
+	module.exports = "<div class=\"row actions-wrapper\">\n    <div id=\"newtask-wrapper\" class=\"col-xs-12 col-sm-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>状态</th>\n          <th>任务名</th>\n          <th>打印店</th>\n          <th>设置</th>\n          <th>时间</th>       \n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\n          <tr>\n            <td>{{task.status}}</td>\n            <td class=\"text-primary\">{{task.name}}</td>\n            <td>{{task.printer}}</td>\n            <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\n            <td>{{task.time.substr(5,11)}}</td>\n            <td style=\"text-align:center\">\n              <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n                v-on=\"click: onEditTask($event,task)\"></i>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
 /* 108 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\r\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\r\n  \t\t<tasklist></tasklist>\t\t\r\n\t</div>\r\n</div>";
+	module.exports = "<div class=\"row\">\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\n  \t\t<tasklist></tasklist>\t\t\n\t</div>\n</div>";
 
 /***/ },
 /* 109 */
@@ -11235,6 +11280,7 @@
 	
 	  compiled: function () {
 	  	loadData(this)
+	    po.vueFileList = this
 	  },
 	
 	  computed: {
@@ -11382,13 +11428,13 @@
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"filetable\">\r\n\t<div class=\"row actions-wrapper\">\r\n    <div class=\"col-xs-12 col-sm-9\">\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\r\n        <i class=\"glyphicon glyphicon-open\"></i>\r\n        <span class=\"hidden-xs\">上传文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\r\n        <i class=\"glyphicon glyphicon-print\"></i>\r\n        <span class=\"hidden-xs\">打印文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\r\n        <i class=\"glyphicon glyphicon-share\"></i>\r\n        <span class=\"hidden-xs\">分享文件</span>\r\n      </button>\r\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\r\n        <i class=\"glyphicon glyphicon-trash\"></i>\r\n        <span class=\"hidden-xs\">删除文件</span>\r\n      </button>\r\n    </div>\r\n    <div class=\"hidden-xs col-sm-3\">\r\n      <div class=\"input-group\">\r\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\r\n        <span class=\"input-group-btn\">\r\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\r\n        </span>\r\n      </div>\r\n    </div>\r\n\t</div>\r\n\r\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\r\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\r\n  </div>  \r\n  <div class=\"table-responsive\">\r\n    <table class=\"table table-hover\">\r\n      <thead>\r\n        <tr>\r\n          <th>\r\n            <input type=\"checkbox\" v-model=\"checkedAll\">\r\n          </th>\r\n          <th>\r\n            文件名\r\n          </th>\r\n          <th>\r\n            时间\r\n          </th>       \r\n          <th>\r\n            操作\r\n          </th>\r\n        </tr>\r\n      </thead>\r\n      <tbody>\r\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\r\n          <tr>\r\n            <td>\r\n              <input type=\"checkbox\" v-model=\"file.checked\">\r\n            </td>\r\n            <td class=\"text-primary\">\r\n              {{file.name}}\r\n            </td>\r\n            <td>\r\n              {{file.time.substr(5,11)}}\r\n            </td>\r\n            <td class='action-line'>\r\n              <i class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\r\n                v-on=\"click: onPrint($event,file)\"></i>\r\n              <i class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\r\n                ></i>\r\n              <i class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\r\n                v-on=\"click: onDelete($event,file)\"></i>\r\n            </td>\r\n          </tr>\r\n        </template>\r\n      </tbody>\r\n    </table>\r\n  </div>\r\n\t<div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div><!--没有更多时应为灰色-->\r\n  </div>";
+	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-12 col-sm-9\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        <span class=\"hidden-xs\">上传文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <i class=\"glyphicon glyphicon-print\"></i>\n        <span class=\"hidden-xs\">打印文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <i class=\"glyphicon glyphicon-share\"></i>\n        <span class=\"hidden-xs\">分享文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <i class=\"glyphicon glyphicon-trash\"></i>\n        <span class=\"hidden-xs\">删除文件</span>\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"action-info\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            时间\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\n          <tr>\n            <td>\n              <input type=\"checkbox\" v-model=\"file.checked\">\n            </td>\n            <td class=\"text-primary\">\n              {{file.name}}\n            </td>\n            <td>\n              {{file.time.substr(5,11)}}\n            </td>\n            <td class='action-line'>\n              <i class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\n                v-on=\"click: onPrint($event,file)\"></i>\n              <i class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\n                ></i>\n              <i class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\n                v-on=\"click: onDelete($event,file)\"></i>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>\n  </div>\n\t<div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div>\n  </div>";
 
 /***/ },
 /* 114 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row\">\r\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\r\n  \t\t<filelist></filelist>\t\t\r\n\t</div>\r\n</div>";
+	module.exports = "<div class=\"row\">\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\n  \t\t<filelist></filelist>\t\t\n\t</div>\n</div>";
 
 /***/ },
 /* 115 */
@@ -11442,14 +11488,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".user-view {\r\n\tposition: relative;\r\n}\r\n\r\n#userinfo > .well{\r\n    padding: 10px;\r\n}\r\n\r\n.input-group {\r\n\theight: 0;\r\n}\r\n.expand-transition {\r\n\ttransition: all 0.4s ease;\r\n\toverflow: hidden;\r\n\topacity: 1;\r\n\tmax-height: 250px;\r\n\twidth: 100%;\r\n}\r\n\r\n.expand-enter, .expand-leave {\r\n\topacity: 0;\r\n\twidth: 0;\r\n\tmax-height: 0;\r\n}\r\n\r\n#password-reset .ip {\r\n\tmargin-top: 5px;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".user-view {\n\tposition: relative;\n}\n\n#userinfo > .well{\n    padding: 10px;\n}\n\n.input-group {\n\theight: 0;\n}\n.expand-transition {\n\ttransition: all 0.4s ease;\n\toverflow: hidden;\n\topacity: 1;\n\tmax-height: 250px;\n\twidth: 100%;\n}\n\n.expand-enter, .expand-leave {\n\topacity: 0;\n\twidth: 0;\n\tmax-height: 0;\n}\n\n#password-reset .ip {\n\tmargin-top: 5px;\n}", ""]);
 
 /***/ },
 /* 120 */
@@ -11905,14 +11944,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
 	exports.push([module.id, "", ""]);
-	
-	// exports
-
 
 /***/ },
 /* 125 */
@@ -12095,14 +12127,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".modal-mask {\r\n  position: fixed;\r\n  z-index: 9000;\r\n  top: 0;\r\n  left: 0;\r\n  bottom: 0;\r\n  right: 0;\r\n  background-color: rgba(0, 0, 0, .5);\r\n  /*display: table;*/\r\n  transition: opacity .3s ease;\r\n  overflow-x: hidden;\r\n  overflow-y: auto;\r\n}\r\n\r\n.modal-wrapper {\r\n  position: relative;\r\n  margin: 20px auto;\r\n  top: 40px;\r\n  transition: all .3s ease;\r\n}\r\n\r\n.modal-container {\r\n  /*overflow-y: scroll;*/\r\n  margin: 0px auto;\r\n  padding: 10px 20px;\r\n  background-color: #fff;\r\n  border-radius: 4px;\r\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\r\n}\r\n\r\n.modal-header h3 {\r\n  margin-top: 0;\r\n  color: #42b983;\r\n}\r\n\r\n.modal-body {\r\n  margin: 10px 0;\r\n  padding: 5px 15px;\r\n}\r\n\r\n.modal-default-button {\r\n  float: right;\r\n}\r\n\r\n.modal-enter, .modal-leave {\r\n  opacity: 0;\r\n}\r\n\r\n.modal-enter .modal-wrapper,\r\n.modal-leave .modal-wrapper {\r\n  top: -80px;\r\n}  \r\n\r\n@media screen and (max-width: 800px) {\r\n  .modal-enter .modal-wrapper,\r\n  .modal-leave .modal-wrapper {\r\n  opacity: 0;\r\n  top: 40px;\r\n  }  \r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".modal-mask {\n  position: fixed;\n  z-index: 9000;\n  top: 0;\n  left: 0;\n  bottom: 0;\n  right: 0;\n  background-color: rgba(0, 0, 0, .5);\n  /*display: table;*/\n  transition: opacity .3s ease;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n.modal-wrapper {\n  position: relative;\n  margin: 20px auto;\n  top: 40px;\n  transition: all .3s ease;\n}\n\n.modal-container {\n  /*overflow-y: scroll;*/\n  margin: 0px auto;\n  padding: 10px 20px;\n  background-color: #fff;\n  border-radius: 4px;\n  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);\n}\n\n.modal-header h3 {\n  margin-top: 0;\n  color: #42b983;\n}\n\n.modal-body {\n  margin: 10px 0;\n  padding: 5px 15px;\n}\n\n.modal-default-button {\n  float: right;\n}\n\n.modal-enter, .modal-leave {\n  opacity: 0;\n}\n\n.modal-enter .modal-wrapper,\n.modal-leave .modal-wrapper {\n  top: -80px;\n}  \n\n@media screen and (max-width: 767px) {\n  .modal-wrapper {\n  top: 20px;\n  }\n\n  .modal-enter .modal-wrapper,\n  .modal-leave .modal-wrapper {\n  opacity: 0;\n  top: 20px;\n  }\n  \n}", ""]);
 
 /***/ },
 /* 129 */
@@ -12144,19 +12169,19 @@
 /* 130 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"modal-mask\" v-show=\"show\" v-transition=\"modal\" v-class=\"open: bodyModalOpen\">\r\n    <div class=\"modal-wrapper\">\r\n      <div class=\"modal-container\" v-style=\"max-width: width+'px' \">\r\n        <div class=\"modal-header\">\r\n          {{defaultTitle}}\r\n          <button type=\"button\" class=\"close\"\r\n            v-on=\"click: show = false\">\r\n            <span aria-hidden=\"true\">&times;</span>\r\n          </button>\r\n        </div>\r\n        <content select=\".modal-body\">\r\n          <div class=\"modal-body\">\r\n            default body\r\n          </div>\r\n        </content>\r\n        <content select=\".modal-footer\">\r\n          <div class=\"modal-footer\">\r\n            default footer\r\n          </div>\r\n        </content>\r\n      </div>\r\n    </div>\r\n  </div>";
+	module.exports = "<div class=\"modal-mask\" v-show=\"show\" v-transition=\"modal\" v-class=\"open: bodyModalOpen\">\n    <div class=\"modal-wrapper\">\n      <div class=\"modal-container\" v-style=\"max-width: width+'px' \">\n        <div class=\"modal-header\">\n          {{defaultTitle}}\n          <button type=\"button\" class=\"close\"\n            v-on=\"click: show = false\">\n            <span aria-hidden=\"true\">&times;</span>\n          </button>\n        </div>\n        <content select=\".modal-body\">\n          <div class=\"modal-body\">\n            default body\n          </div>\n        </content>\n        <content select=\".modal-footer\">\n          <div class=\"modal-footer\">\n            default footer\n          </div>\n        </content>\n      </div>\n    </div>\n  </div>";
 
 /***/ },
 /* 131 */
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{modalTitle}}\">\r\n    <div class=\"modal-body\">\r\n      <div v-show=\"stage=='code'\">\r\n        <p class=\"text-center text-primary\">{{codeInfo}}</p>\r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\r\n            placeholder=\"请输入验证码\"\r\n            v-model=\"code\">\r\n        </div>\r\n      </div>\r\n      <div v-show=\"stage=='reset'\">\r\n        <p class=\"text-center text-primary\">验证成功，请在下面重新设置您的密码</p>\r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\r\n            placeholder=\"请输入新的密码\"\r\n            v-model=\"password\">\r\n        </div>        \r\n      </div>\r\n      <div v-show=\"stage=='finish'\">\r\n        <p class=\"text-center text-primary\">{{finishInfo}}</p>     \r\n      </div> \r\n      <p class=\"text-center text-danger\" v-text=\"errorInfo\" v-show=\"errorInfo!=''\"></p>    \r\n    </div>   \r\n    <div class=\"modal-footer\">\r\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show = false\">取消</button>\r\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: onConfirm\">确定</button>\r\n    </div>    \r\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{modalTitle}}\">\n    <div class=\"modal-body\">\n      <div v-show=\"stage=='code'\">\n        <p class=\"text-center text-primary\">{{codeInfo}}</p>\n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\n            placeholder=\"请输入验证码\"\n            v-model=\"code\">\n        </div>\n      </div>\n      <div v-show=\"stage=='reset'\">\n        <p class=\"text-center text-primary\">验证成功，请在下面重新设置您的密码</p>\n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\n            placeholder=\"请输入新的密码\"\n            v-model=\"password\">\n        </div>        \n      </div>\n      <div v-show=\"stage=='finish'\">\n        <p class=\"text-center text-primary\">{{finishInfo}}</p>     \n      </div> \n      <p class=\"text-center text-danger\" v-text=\"errorInfo\" v-show=\"errorInfo!=''\"></p>    \n    </div>   \n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show = false\">取消</button>\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: onConfirm\">确定</button>\n    </div>    \n  </modal>";
 
 /***/ },
 /* 132 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"user-view\">\r\n\t\t<div class=\"text-center\">\r\n\t\t\t<h3><strong v-text=\"userName\">我</strong>的信息</h3>\r\n\t\t</div>\r\n\t\t<div class=\"row\">\r\n\t\t\t<div class=\"well col-xs-12 col-sm-8 col-sm-offset-2\" id=\"userinfo\">\r\n\t\t\t\t<div id=\"user_name\">\r\n\t\t\t\t\t<div class=\"row text-center text-info\">\r\n\t\t\t\t\t<span v-text=\"userSID\">学号</span>(<span v-text=\"userSch\">学校</span>)\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t<!-- \t<div id=\"user_school\" class='well'>\r\n\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">学校</div>\r\n\t\t\t\t\t\t<span class=\"col-xs-8 col-sm-8 col-sm-offset-2 text-info\" v-text=\"userSch\"></span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div> -->\r\n\t\t\t\t<div id=\"user_tel\" class='well'>\r\n\t\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">手机</div>\r\n\t\t\t\t\t\t<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text=\"userPhone\"></span>\r\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPhoneEdit=!showPhoneEdit\"></span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div id=\"phone-wrapper\"  v-if=\"showPhoneEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t\t<div class=\"input-group col-xs-12\" style='margin-top:10px'>\r\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">+86</span>\r\n\t\t\t\t\t\t\t<input type=\"text\" placeholder='你的手机号' class=\"form-control\" v-model=\"newPhone\"/>\r\n\t\t\t\t\t\t\t<span class=\"input-group-btn\">\r\n\t\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindPhone\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\r\n\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div id=\"user_mail\" class='well'>\r\n\t\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t\t<div class='col-xs-4 col-sm-2 text-right'>邮箱</div>\r\n\t\t\t\t\t\t<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text=\"userMail\"></span>\r\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on=\"click: showMailEdit=!showMailEdit\"></span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div id=\"mail-wrapper\" v-if=\"showMailEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t\t<div class='input-group' style='margin-top:10px'>\r\n\t\t\t\t\t\t\t<input type=\"email\" placeholder='你的常用邮箱' class=\"form-control\" v-model=\"newMail\"/>\r\n\t\t\t\t\t\t\t<span class=\"input-group-btn\">\r\n\t\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindMail\">\r\n\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\r\n\t\t\t\t\t\t\t\t</button>\r\n\t\t\t\t\t\t\t</span>\r\n\t\t\t\t\t\t</div>\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t<div id=\"user_pwd\" class='well'>\r\n\t\t\t\t\t<div class=\"row detail\">\r\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">\r\n\t\t\t\t\t\t\t密码\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<span class=\"col-xs-6 col-sm-7 col-sm-offset-2 text-primary\">********</span>\r\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on=\"click: showPasswordEdit=!showPasswordEdit\"></span>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div id='password-reset' style='margin-top:10px' v-if=\"showPasswordEdit\" v-transition=\"expand\">\r\n\t\t\t\t\t\t<div class=\"input-group ip\">\r\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">当前密码</span>\r\n\t\t\t\t\t\t\t<input class=\"form-control\" placeholder='正在使用的密码' type=\"password\" required v-model=\"oldPwd\">\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"input-group ip\">\r\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">新的密码</span>\r\n\t\t\t\t\t\t\t<input class=\"form-control\" placeholder='要设置的密码' type=\"password\" required v-model=\"newPwd\">\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<div class=\"input-group ip\">\r\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">确认密码</span>\r\n\t\t\t\t\t\t\t<input  class=\"form-control\" placeholder='重复刚设置的密码' type=\"password\" required v-model=\"newPwdRepeat\">\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t\t<br/>\r\n\t\t\t\t\t\t<div class=\"row\">\r\n\t\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary col-xs-4 col-xs-offset-1\"\r\n\t\t\t\t\t\t\t\tv-on=\"click: onChangePassword\">确定</button>\r\n\t\t\t\t\t\t\t<button class='cancel btn btn-embossed btn-primary col-xs-4 col-xs-offset-2'\r\n\t\t\t\t\t\t\t\tv-on=\"click: showPasswordEdit=false\">取消</button>\r\n\t\t\t\t\t\t</div>\r\n\t\t\t\t\t</div>\r\n\t\t\t\t</div>\r\n\t\t\t\t\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n  <verifycode-modal show=\"{{@showCodeModal}}\"\r\n  \tstage = \"{{verifyStage}}\" \r\n    verify-type = \"bind\"\r\n    verify-way=\"{{verifyWay}}\"\r\n    verify-info=\"{{verifyInfo}}\"\r\n    user-id=\"{{uid}}\"></verifycode-modal>";
+	module.exports = "<div class=\"user-view\">\n\t\t<div class=\"text-center\">\n\t\t\t<h3><strong v-text=\"userName\">我</strong>的信息</h3>\n\t\t</div>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"well col-xs-12 col-sm-8 col-sm-offset-2\" id=\"userinfo\">\n\t\t\t\t<div id=\"user_name\" style=\"margin-bottom: 15px\">\n\t\t\t\t\t<div class=\"row text-center text-info\">\n\t\t\t\t\t<span v-text=\"userSID\">学号</span>(<span v-text=\"userSch\">学校</span>)\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t<!-- \t<div id=\"user_school\" class='well'>\n\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">学校</div>\n\t\t\t\t\t\t<span class=\"col-xs-8 col-sm-8 col-sm-offset-2 text-info\" v-text=\"userSch\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t</div> -->\n\t\t\t\t<div id=\"user_tel\" class='well'>\n\t\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">手机</div>\n\t\t\t\t\t\t<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text=\"userPhone\"></span>\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil' v-on=\"click: showPhoneEdit=!showPhoneEdit\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id=\"phone-wrapper\"  v-if=\"showPhoneEdit\" v-transition=\"expand\">\n\t\t\t\t\t\t<div class=\"input-group col-xs-12\" style='margin-top:10px'>\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">+86</span>\n\t\t\t\t\t\t\t<input type=\"text\" placeholder='你的手机号' class=\"form-control\" v-model=\"newPhone\"/>\n\t\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindPhone\">\n\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"user_mail\" class='well'>\n\t\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t\t<div class='col-xs-4 col-sm-2 text-right'>邮箱</div>\n\t\t\t\t\t\t<span class='col-xs-6 col-sm-7 col-sm-offset-2 text-primary' v-text=\"userMail\"></span>\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on=\"click: showMailEdit=!showMailEdit\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id=\"mail-wrapper\" v-if=\"showMailEdit\" v-transition=\"expand\">\n\t\t\t\t\t\t<div class='input-group' style='margin-top:10px'>\n\t\t\t\t\t\t\t<input type=\"email\" placeholder='你的常用邮箱' class=\"form-control\" v-model=\"newMail\"/>\n\t\t\t\t\t\t\t<span class=\"input-group-btn\">\n\t\t\t\t\t\t\t\t<button class='btn btn-primary' v-on=\"click: onBindMail\">\n\t\t\t\t\t\t\t\t\t<span class=\"glyphicon glyphicon-check\"></span>绑定\n\t\t\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\t</span>\n\t\t\t\t\t\t</div>\t\t\t\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"user_pwd\" class='well'>\n\t\t\t\t\t<div class=\"row detail\">\n\t\t\t\t\t\t<div class=\"col-xs-4 col-sm-2 text-right\">\n\t\t\t\t\t\t\t密码\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<span class=\"col-xs-6 col-sm-7 col-sm-offset-2 text-primary\">********</span>\n\t\t\t\t\t\t<span class='col-xs-2 col-sm-1 glyphicon glyphicon-pencil pull-right' v-on=\"click: showPasswordEdit=!showPasswordEdit\"></span>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div id='password-reset' style='margin-top:10px' v-if=\"showPasswordEdit\" v-transition=\"expand\">\n\t\t\t\t\t\t<div class=\"input-group ip\">\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">当前密码</span>\n\t\t\t\t\t\t\t<input class=\"form-control\" placeholder='正在使用的密码' type=\"password\" required v-model=\"oldPwd\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"input-group ip\">\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">新的密码</span>\n\t\t\t\t\t\t\t<input class=\"form-control\" placeholder='要设置的密码' type=\"password\" required v-model=\"newPwd\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"input-group ip\">\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">确认密码</span>\n\t\t\t\t\t\t\t<input  class=\"form-control\" placeholder='重复刚设置的密码' type=\"password\" required v-model=\"newPwdRepeat\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<br/>\n\t\t\t\t\t\t<div class=\"row\">\n\t\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary col-xs-4 col-xs-offset-1\"\n\t\t\t\t\t\t\t\tv-on=\"click: onChangePassword\">确定</button>\n\t\t\t\t\t\t\t<button class='cancel btn btn-embossed btn-primary col-xs-4 col-xs-offset-2'\n\t\t\t\t\t\t\t\tv-on=\"click: showPasswordEdit=false\">取消</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t\n\t\t\t</div>\n\t\t</div>\n\t</div>\n  <verifycode-modal show=\"{{@showCodeModal}}\"\n  \tstage = \"{{verifyStage}}\" \n    verify-type = \"bind\"\n    verify-way=\"{{verifyWay}}\"\n    verify-info=\"{{verifyInfo}}\"\n    user-id=\"{{uid}}\"></verifycode-modal>";
 
 /***/ },
 /* 133 */
@@ -12198,14 +12223,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".forget-view {\r\n\tposition: relative;\r\n}\r\n\r\n.forget-view > .well {\r\n  margin-left: 16.777777%;\r\n  margin-right: 16.777777%;\r\n  min-height: 55%;\r\n  background-color: #edeff1;\r\n}\t\r\n\r\n.find-title {\r\n\tmargin-top: 30px;\r\n}\r\n\r\n.input-group {\r\n\tmargin-bottom: 10px;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".forget-view {\n\tposition: relative;\n\n}\n\n.find-title {\n\tmargin-top: 30px;\n}\n\n.input-group {\n\tmargin-bottom: 10px;\n}", ""]);
 
 /***/ },
 /* 136 */
@@ -12457,14 +12475,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".myselect-wrapper {\r\n\t\twidth: 100%;\r\n\t\theight: 41px;\r\n\t\t/*z-index: 9999;*/\r\n\t\toverflow: visible;\r\n\t\tbackground: #0BBD9E;\r\n\t\tborder-radius: 3px;\r\n\t\tmargin-bottom: 20px;\r\n\t\tcursor: pointer;\r\n\t}\r\n\r\n\t.myselect-wrapper .btn-wrapper {\r\n\t\tpadding-left: 10px;\r\n\t\twidth: 100%;\r\n\t\theight: 41px;\r\n\t\tline-height: 41px;\r\n\t\tcolor: #FFFFFF;\t\t\r\n\t}\r\n\r\n\t.myselect-wrapper .chosen-text span {\r\n\t\tfloat: right;\t\r\n\t\tline-height: 41px;\r\n\t\tmargin-right: 10px; \r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper {\r\n\t\tz-index: 9999;\r\n\t\tposition: relative;\r\n\t\tbackground: #F3F4F5;\r\n\t\topacity: 1;\r\n\t\tmargin-top: 10px;\t\r\n\t\tborder-radius: 3px;\r\n\t\tmax-height: 300px;\r\n\t\toverflow:scroll;\r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper div{\r\n\t\theight: 35px;\r\n\t\tline-height: 35px;\r\n\t\tpadding-left: 10px;\r\n\t\tbackground: #F3F4F5;\r\n\t\t-webkit-transition: background .5s ease;\r\n\t\t-o-transition: background .5s ease;\r\n\t\ttransition: background .5s ease;\r\n\t}\r\n\r\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\r\n\t\tbackground: #E1E4E7;\r\n\t\t-webkit-transition: background .5s ease;\r\n\t\t-o-transition: background .5s ease;\r\n\t\ttransition: background .5s ease;\r\n\t}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".myselect-wrapper {\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\t/*z-index: 9999;*/\n\t\toverflow: visible;\n\t\tbackground: #0BBD9E;\n\t\tborder-radius: 3px;\n\t\tmargin-bottom: 20px;\n\t\tcursor: pointer;\n\t}\n\n\t.myselect-wrapper .btn-wrapper {\n\t\tpadding-left: 10px;\n\t\twidth: 100%;\n\t\theight: 41px;\n\t\tline-height: 41px;\n\t\tcolor: #FFFFFF;\t\t\n\t}\n\n\t.myselect-wrapper .chosen-text span {\n\t\tfloat: right;\t\n\t\tline-height: 41px;\n\t\tmargin-right: 10px; \n\t}\n\n\t.myselect-wrapper .choice-wrapper {\n\t\tz-index: 9999;\n\t\tposition: relative;\n\t\tbackground: #F3F4F5;\n\t\topacity: 1;\n\t\tmargin-top: 10px;\t\n\t\tborder-radius: 3px;\n\t\tmax-height: 300px;\n\t\toverflow:scroll;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div{\n\t\theight: 35px;\n\t\tline-height: 35px;\n\t\tpadding-left: 10px;\n\t\tbackground: #F3F4F5;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}\n\n\t.myselect-wrapper .choice-wrapper div.option-wrapper:hover{\n\t\tbackground: #E1E4E7;\n\t\t-webkit-transition: background .5s ease;\n\t\t-o-transition: background .5s ease;\n\t\ttransition: background .5s ease;\n\t}", ""]);
 
 /***/ },
 /* 140 */
@@ -12513,13 +12524,13 @@
 /* 141 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\r\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\r\n\t\t\t<div class=\"chosen-text\">\r\n\t\t\t\t<small>{{displayText}}</small>\r\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\r\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\r\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\r\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\r\n\t\t</div>\r\n\t</div>";
+	module.exports = "<div class=\"myselect-wrapper\">\t\t\t\n\t\t<div class=\"btn-wrapper\" v-on=\"click: showChoices = !showChoices\">\n\t\t\t<div class=\"chosen-text\">\n\t\t\t\t<small>{{displayText}}</small>\n\t\t\t\t<span class=\"glyphicon glyphicon-triangle-bottom\" aria-hidden=\"true\"></span>\n\t\t\t</div>\n\t\t</div>\n\t\t<div v-if=\"showChoices\" class=\"choice-wrapper\">\n\t\t\t<div class=\"desc-wrapper\"><small style=\"color:#888888\">{{desc}}</small></div>\n\t\t\t<div class=\"option-wrapper\" v-repeat=\"option in options\"\n\t\t\t\tv-on=\"click: onChoose($event,option)\"><small>{{option.text}}</small></div>\n\t\t</div>\n\t</div>";
 
 /***/ },
 /* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<div class=\"forget-view\">\r\n\t\t<div class=\"text-center\">\r\n\t\t\t<h3>云印密码找回</h3>\r\n\t\t</div>\r\n\t\t<div class=\"well\">\r\n\t\t\t<p class=\"well text-center\">为了防止你的账号信息滥用，你可以通过手机验证、邮箱验证、或校园账号验证（南开URP或者天大办公网），找回你的密码。 \r\n\t\t\t<br>如果账号不在系统中，请前往云印南天首页直接登录。\r\n\t\t\t</p>\r\n\t\t\t<div class=\"btn-group btn-group-justified\">\r\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onByPhone\" v-class=\"active : findWay=='phone'\">绑定手机找回</a>\r\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onByMail\" v-class=\"active : findWay=='email'\">绑定邮箱找回</a>\r\n\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onBySchool\" v-class=\"active : findWay=='school'\">校园账号找回</a>\r\n\t\t\t</div>\r\n\t\t\t<h5 class=\"text-center find-title\" v-text=\"findTitle\"></h5>\r\n\t\t\t<div class=\"row\">\r\n\t\t\t\t<div class=\"form-group col-sm-12 col-md-6 col-md-offset-3\" style=\"margin-bottom: 0\">\r\n\t\t\t\t\t<div v-show=\"findWay=='school'\">\r\n\t\t\t\t    <custom-select\r\n\t\t\t\t      options=\"{{schoolList}}\"\r\n\t\t\t\t      value=\"{{@schoolId}}\"\r\n\t\t\t\t      desc=\"请选择您的学校\"\r\n\t\t\t\t      on-select-change={{onSchoolChange}}>\r\n\t\t\t    \t</custom-select>\r\n\t\t\t    \t<p class=\"text-center\" v-if=\"verifyInfo!=''\">{{verifyInfo}}</p>\t\t\t\t\t\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">学号</span>\r\n\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入您的学号\" v-model=\"findId\">\r\n\t\t\t\t\t</div>\r\n\t\t\t\t\t<div class=\"input-group\">\r\n\t\t\t\t\t\t<span class=\"input-group-addon\">{{findHint}}</span>\r\n\t\t\t\t\t\t<input type=\"{{findType}}\" class=\"form-control\" placeholder=\"{{findPlaceholder}}\" v-model=\"findInfo\">\r\n\t\t\t\t\t</div>\r\n\t        <p>\r\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\r\n        \t</p>\r\n\t\t\t\t</div>\r\n        <div v-show=\"showCode && findWay=='school'\" class=\"form-group col-sm-12 col-md-6 col-md-offset-3\">\r\n          <img id=\"code-img\" src=\"" + __webpack_require__(143) + "\" alt=\"验证码\" v-el=\"verifycode\" style=\"width:auto;height:45px\"\r\n            v-on=\"click: changeCode\">\r\n          <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \r\n            placeholder=\"请输入验证码\"\r\n            v-model=\"code\">\r\n        </div>\r\n\t\t\t\t<div class=\"submit-wrapper col-sm-12 col-md-6 col-md-offset-3\">\r\n\t\t\t\t\t<button class=\"btn btn-embossed btn-primary btn-block\"\r\n\t\t\t\t\t\tv-on=\"click: onSubmit\">提交</button>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>\r\n  <verifycode-modal show=\"{{@showCodeModal}}\"\r\n  \tstage = \"{{verifyStage}}\" \r\n\t  verify-type=\"reset\"\r\n\t  verify-way=\"{{verifyWay}}\"\r\n\t  verify-info=\"{{verifyInfo}}\"></verifycode-modal>";
+	module.exports = "<div class=\"forget-view\">\n\t\t<div class=\"text-center\">\n\t\t\t<h3>云印密码找回</h3>\n\t\t</div>\n\t\t<div class=\"row\">\n\t\t\t<div class=\"well col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\n\t\t\t\t<p class=\"well text-center\">为了防止你的账号信息滥用，你可以通过手机验证、邮箱验证、或校园账号验证（南开URP或者天大办公网），找回你的密码。 \n\t\t\t\t<br>如果账号不在系统中，请前往云印南天首页直接登录。\n\t\t\t\t</p>\n\t\t\t\t<div class=\"btn-group btn-group-justified\">\n\t\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onByPhone\" v-class=\"active : findWay=='phone'\">绑定手机找回</a>\n\t\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onByMail\" v-class=\"active : findWay=='email'\">绑定邮箱找回</a>\n\t\t\t\t\t<a class=\"btn btn-primary\" v-on=\"click: onBySchool\" v-class=\"active : findWay=='school'\">校园账号找回</a>\n\t\t\t\t</div>\n\t\t\t\t<h5 class=\"text-center find-title\" v-text=\"findTitle\"></h5>\n\t\t\t\t<div class=\"row\">\n\t\t\t\t\t<div class=\"form-group col-sm-12 col-md-6 col-md-offset-3\" style=\"margin-bottom: 0\">\n\t\t\t\t\t\t<div v-show=\"findWay=='school'\">\n\t\t\t\t\t    <custom-select\n\t\t\t\t\t      options=\"{{schoolList}}\"\n\t\t\t\t\t      value=\"{{@schoolId}}\"\n\t\t\t\t\t      desc=\"请选择您的学校\"\n\t\t\t\t\t      on-select-change={{onSchoolChange}}>\n\t\t\t\t    \t</custom-select>\n\t\t\t\t    \t<p class=\"text-center\" v-if=\"verifyInfo!=''\">{{verifyInfo}}</p>\t\t\t\t\t\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">学号</span>\n\t\t\t\t\t\t\t<input type=\"text\" class=\"form-control\" placeholder=\"请输入您的学号\" v-model=\"findId\">\n\t\t\t\t\t\t</div>\n\t\t\t\t\t\t<div class=\"input-group\">\n\t\t\t\t\t\t\t<span class=\"input-group-addon\">{{findHint}}</span>\n\t\t\t\t\t\t\t<input type=\"{{findType}}\" class=\"form-control\" placeholder=\"{{findPlaceholder}}\" v-model=\"findInfo\">\n\t\t\t\t\t\t</div>\n\t\t        <p>\n\t            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n\t        \t</p>\n\t\t\t\t\t</div>\n\t        <div v-show=\"showCode && findWay=='school'\" class=\"form-group col-sm-12 col-md-6 col-md-offset-3\">\n\t          <img id=\"code-img\" src=\"" + __webpack_require__(143) + "\" alt=\"验证码\" v-el=\"verifycode\" style=\"width:auto;height:45px\"\n\t            v-on=\"click: changeCode\">\n\t          <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\" \n\t            placeholder=\"请输入验证码\"\n\t            v-model=\"code\">\n\t        </div>\n\t\t\t\t\t<div class=\"submit-wrapper col-sm-12 col-md-6 col-md-offset-3\">\n\t\t\t\t\t\t<button class=\"btn btn-embossed btn-primary btn-block\"\n\t\t\t\t\t\t\tv-on=\"click: onSubmit\">提交</button>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\t\t\t\n\t\t</div>\n\t</div>\n  <verifycode-modal show=\"{{@showCodeModal}}\"\n  \tstage = \"{{verifyStage}}\" \n\t  verify-type=\"reset\"\n\t  verify-way=\"{{verifyWay}}\"\n\t  verify-info=\"{{verifyInfo}}\"></verifycode-modal>";
 
 /***/ },
 /* 143 */
@@ -12567,14 +12578,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, "#code-img {\r\n  width: 40%;\r\n}\r\n#code-input {\r\n  width: 40%;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, "#code-img {\n  width: 40%;\n}\n#code-input {\n  width: 40%;\n}", ""]);
 
 /***/ },
 /* 147 */
@@ -12610,13 +12614,15 @@
 	      showLogin: true,
 	      showReset: false,
 	      showDone: false,
+	      fromSchool: '',
+	      newUserName: '',
 	    }
 	  },
 	
 	  computed: {
 	    title: function() {
 	      if(this.showLogin) {
-	        return "登陆云印，享受校园便捷打印"
+	        return "请登录云印"
 	      } else if(this.showReset) {
 	        return "设置您的云印密码"
 	      } else {
@@ -12682,10 +12688,24 @@
 	          password: md5(vuemodel.pwnew)
 	        },
 	        opSuccess: function(info) {
+	          loginSuccess(info.user)
 	          vuemodel.showDone  = true
 	          vuemodel.showReset = false        
 	        }
 	      })
+	    },
+	
+	    noNewPassword: function(e) {
+	      var vuemodel = this
+	      yy_request.rest_api({
+	        method: 'post',
+	        api: 'user/',
+	        opSuccess: function(info) {
+	          loginSuccess(info.user)
+	          vuemodel.showDone  = true
+	          vuemodel.showReset = false        
+	        }
+	      })      
 	    },
 	
 	    changeCode: function(e) {
@@ -12693,7 +12713,7 @@
 	    },
 	
 	    afterLogin: function(e) {
-	      loginSuccess(this)
+	      afterLogin(this)
 	    },
 	
 	    onForgetPassword: function(e) {
@@ -12717,11 +12737,15 @@
 	      password: vuemodel.password,
 	    },
 	    opSuccess: function(info) {
-	      loginSuccess(vuemodel)
+	      loginSuccess(info.user)
+	      afterLogin(vuemodel)
 	      vuemodel.errorinfo = ""       
 	    },
 	    opFail: function(info) {
-	      vuemodel.errorinfo = "账号或密码错误，请重新尝试"
+	      vuemodel.errorinfo = info
+	    },
+	    authFail: function(info) {
+	      vuemodel.errorinfo = info
 	    }
 	  })
 	}
@@ -12761,6 +12785,8 @@
 	    api: 'auth/',
 	    data: ajax_data,
 	    verifySuccess: function(info) {
+	      vuemodel.fromSchool = info.user.sch_id
+	      vuemodel.newUserName = info.user.name
 	      vuemodel.showReset = true
 	      vuemodel.showLogin = false    
 	    },
@@ -12773,21 +12799,13 @@
 	  })
 	}
 	
-	function loginSuccess(vuemodel) {
+	function loginSuccess(user) {
+	  po.islogin = true
+	  po.userinfo = user
+	  po.app.username = user.name
+	}
 	
-	  yy_request.rest_api({
-	      method: 'get',
-	      api: 'user/',
-	      opSuccess: function(info) {
-	        po.app.username = info.name
-	      },
-	      opFail: function(info) {
-	        po.app.username = null
-	      },
-	      authFail: function(info) {
-	        po.app.username = null
-	      }
-	  })
+	function afterLogin(vuemodel) {
 	
 	  vuemodel.show = false
 	
@@ -12810,7 +12828,7 @@
 /* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\r\n        <form action=\"\">\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\r\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\r\n                v-model=\"studentid\"\r\n                v-on=\"change: onNumberChange\">\r\n            </div>\r\n          </div>\r\n          <div class=\"form-group\">\r\n            <div class=\"input-group\">\r\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\r\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\r\n                v-on=\"keyup: onSubmit | key 'enter'\"\r\n                v-model=\"password\">\r\n            </div>\r\n          </div>\r\n          <div>\r\n            <input id=\"rmb\" type=\"checkbox\" checked=\"checked\" v-model=\"remeber\">\r\n            <label for=\"rmb\">记住我</label>\r\n            <small class=\"pull-right\" style=\"cursor:pointer\" v-on=\"click: onForgetPassword\">忘记密码?</small>\r\n          </div>        \r\n\r\n\r\n\r\n          <div v-show=\"showCode\" class=\"form-group\">\r\n            <img id=\"code-img\" src=\"" + __webpack_require__(143) + "\" alt=\"验证码\" v-el=\"verifycode\"\r\n              v-on=\"click: changeCode\">\r\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\"\r\n              placeholder=\"请输入验证码\"\r\n              v-model=\"code\">\r\n          </div>\r\n\r\n          <div class=\"form-group\">\r\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\r\n              v-on=\"click: onSubmit\">登录</button>\r\n          </div>\r\n          <div>\r\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\r\n          </div>\r\n        </form>\r\n      </div> <!-- #login-wrapper -->\r\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\r\n        <p class=\"text-center\">\r\n          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>\r\n        </p>\r\n        <div class=\"form-group\">\r\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\r\n            placeholder=\"新的密码\"\r\n            v-model=\"pwnew\">\r\n        </div>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: newPassword\">设置密码</button>\r\n        </div>\r\n      </div> <!-- #reset-wrapper -->\r\n      <div id=\"done-wrapper\" v-if=\"showDone\">\r\n        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>\r\n        <br>\r\n        <br>\r\n        <div class=\"form-group\">\r\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\r\n            v-on=\"click: afterLogin\">立即使用</button>\r\n        </div>\r\n      </div> <!-- #done-wrapper -->\r\n    </div> <!-- .modal-body -->\r\n    <div class=\"modal-footer\">\r\n      <small>首次注册请使用本校办公网系统账号及密码登录</small>\r\n      <small><a>了解更多</a></small>\r\n    </div>\r\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div id=\"login-wrapper\" v-if=\"showLogin\">\n        <form action=\"\">\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-user\"></span></span>\n              <input type=\"text\" class=\"form-control\" id=\"username\" placeholder=\"请输入您的学号\"\n                v-model=\"studentid\"\n                v-on=\"change: onNumberChange\">\n            </div>\n          </div>\n          <div class=\"form-group\">\n            <div class=\"input-group\">\n              <span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-lock\"></span></span>\n              <input type=\"password\" class=\"form-control\" id=\"pwd\" placeholder=\"请输入您的密码\"\n                v-on=\"keyup: onSubmit | key 'enter'\"\n                v-model=\"password\">\n            </div>\n          </div>\n          <div>\n            <input id=\"rmb\" type=\"checkbox\" checked=\"checked\" v-model=\"remeber\">\n            <label for=\"rmb\">记住我</label>\n            <small class=\"pull-right\" style=\"cursor:pointer\" v-on=\"click: onForgetPassword\">忘记密码?</small>\n          </div>        \n\n\n\n          <div v-show=\"showCode\" class=\"form-group\">\n            <img id=\"code-img\" src=\"" + __webpack_require__(143) + "\" alt=\"验证码\" v-el=\"verifycode\"\n              v-on=\"click: changeCode\">\n            <input type=\"text\" class=\"form-control pull-right\" id=\"code-input\"\n              placeholder=\"请输入验证码\"\n              v-model=\"code\">\n          </div>\n\n          <div class=\"form-group\">\n            <button type=\"button\" id=\"submit\" class=\"btn btn-embossed btn-primary btn-block\"\n              v-on=\"click: onSubmit\">登录</button>\n          </div>\n          <div>\n            <small class=\"text-danger\" v-text=\"errorinfo\" v-show=\"erroinfo!=''\"></small>\n          </div>\n        </form>\n      </div> <!-- #login-wrapper -->\n      <div id=\"reset-wrapper\" v-if=\"showReset\">\n        <p>\n          <p class='text-left text-primary'>欢迎加入云印，来自 {{fromSchool}} 的 {{newUserName}} </p>\n          <small class=\"text-center\">请为云印设置一个新的密码，以后您将使用这个密码登录云印服务，您也可以选择\n            <a v-on=\"click: noNewPassword\" style=\"cursor:pointer\">不重设密码</a>\n          </small>\n        </p>\n        <div class=\"form-group\">\n          <input type=\"text\" class=\"form-control\" id=\"nwpd-input\"\n            placeholder=\"新的密码\"\n            v-model=\"pwnew\">\n        </div>\n        <div class=\"form-group\">\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: newPassword\">设置密码</button>\n        </div>\n      </div> <!-- #reset-wrapper -->\n      <div id=\"done-wrapper\" v-if=\"showDone\">\n        <small>欢迎您加入云印,即刻开始您的校园云打印之旅</small>\n        <br>\n        <br>\n        <div class=\"form-group\">\n          <button type=\"button\" id=\"newpwd\" class=\"btn btn-embossed btn-primary btn-block\"\n            v-on=\"click: afterLogin\">立即使用</button>\n        </div>\n      </div> <!-- #done-wrapper -->\n    </div> <!-- .modal-body -->\n    <div class=\"modal-footer\">\n      <p class=\"text-left\"><small>新用户可以直接使用本校学生账号及密码登录哦<a class=\"pull-right\">了解更多</a></small></p>\n    </div>\n  </modal>";
 
 /***/ },
 /* 149 */
@@ -12852,14 +12870,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".modal-body {\r\n  -webkit-transition: height .3s ease;\r\n  -o-transition: height .3s ease;\r\n  transition: height .3s ease;\r\n}\r\n\r\n.textshow-enter,\r\n.textshow-leave {\r\n   opacity: 0;\r\n   -webkit-transition: all .3s ease;\r\n   -o-transition: all .3s ease;\r\n   transition: all .3s ease;\r\n}\r\n\r\n.info-text {\r\n  float: left;\r\n  width: 200px;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".modal-body {\n  -webkit-transition: height .3s ease;\n  -o-transition: height .3s ease;\n  transition: height .3s ease;\n}\n\n.textshow-enter,\n.textshow-leave {\n   opacity: 0;\n   -webkit-transition: all .3s ease;\n   -o-transition: all .3s ease;\n   transition: all .3s ease;\n}\n\n.info-text {\n  float: left;\n  width: 200px;\n}", ""]);
 
 /***/ },
 /* 152 */
@@ -13157,14 +13168,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".upload-btn {\r\n  height: 40px;\r\n  border-style: solid;\r\n  border-width: 2px;\r\n  border-radius: 3px;  \r\n  background: #ffffff;\r\n  position: relative;\r\n  margin-top: 20px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.upload-area {\r\n  text-align:center;\r\n  padding-top: 7px;\r\n  font-size: 15px;\r\n  font-weight: 800;\r\n}\r\n\r\n#upload-file {\r\n    cursor: pointer;\r\n    font-size: 30px;\r\n    outline: medium none;\r\n    position: absolute;\r\n    filter:alpha(opacity=0);\r\n    -moz-opacity:0;\r\n    opacity:0; \r\n    left: 0px;\r\n    top: 0px;\r\n    width: 100%;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".upload-btn {\n  height: 40px;\n  border-style: solid;\n  border-width: 2px;\n  border-radius: 3px;  \n  background: #ffffff;\n  position: relative;\n  margin-top: 20px;\n  margin-bottom: 10px;\n}\n\n.upload-area {\n  text-align:center;\n  padding-top: 7px;\n  font-size: 15px;\n  font-weight: 800;\n}\n\n#upload-file {\n    cursor: pointer;\n    font-size: 30px;\n    outline: medium none;\n    position: absolute;\n    filter:alpha(opacity=0);\n    -moz-opacity:0;\n    opacity:0; \n    left: 0px;\n    top: 0px;\n    width: 100%;\n}", ""]);
 
 /***/ },
 /* 156 */
@@ -13329,14 +13333,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".file {\r\n\tmargin-bottom: 5px;\r\n}\r\n.file img {\r\n    width: 80%;\r\n}\r\n\r\n.img-col {\r\n\tpadding: 0;\r\n}\r\n\r\n/*.file > div {\r\n\tdisplay: inline-block;\r\n\tvertical-align: middle;\r\n}*/", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".file {\n\tmargin-bottom: 5px;\n}\n.file img {\n    width: 80%;\n}\n\n.img-col {\n\tpadding: 0;\n}\n\n/*.file > div {\n\tdisplay: inline-block;\n\tvertical-align: middle;\n}*/", ""]);
 
 /***/ },
 /* 160 */
@@ -13355,13 +13352,13 @@
 /* 161 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file row\">\r\n\t\t<div class=\"col-xs-1 img-col\">\r\n\t\t\t<img v-el=\"filelogo\">\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-7\">\r\n\t\t\t<small v-text=\"fileobject.name\"></small>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-3\">\r\n\t\t\t<div id=\"upload-status\">\r\n\t\t\t\t<div class=\"outer-line\">\r\n\t\t\t\t\t<small v-class=\"\r\n\t\t\t\t\t\ttext: isuploading,\r\n\t\t\t\t\t\ttext-danger: isfailed,\r\n\t\t\t\t\t\ttext-primary: issuccess\"\r\n\t\t\t\t\t\tv-text=\"status\"></small>\r\n\t\t\t\t</div>\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t\t<div class=\"col-xs-1 delete-file\">\r\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\r\n\t\t</div>\r\n\t</div>";
+	module.exports = "<div class=\"file row\">\n\t\t<div class=\"col-xs-1 img-col\">\n\t\t\t<img v-el=\"filelogo\">\n\t\t</div>\n\t\t<div class=\"col-xs-7\">\n\t\t\t<small v-text=\"fileobject.name\"></small>\n\t\t</div>\n\t\t<div class=\"col-xs-3\">\n\t\t\t<div id=\"upload-status\">\n\t\t\t\t<div class=\"outer-line\">\n\t\t\t\t\t<small v-class=\"\n\t\t\t\t\t\ttext: isuploading,\n\t\t\t\t\t\ttext-danger: isfailed,\n\t\t\t\t\t\ttext-primary: issuccess\"\n\t\t\t\t\t\tv-text=\"status\"></small>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class=\"col-xs-1 delete-file\">\n\t\t\t<span class=\"glyphicon glyphicon-trash\" v-on=\"click: onRemove($index)\"></span>\n\t\t</div>\n\t</div>";
 
 /***/ },
 /* 162 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"files-wrapper\">\r\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\r\n\t</div>\r\n\t<div class=\"upload-btn\">\r\n\t\t<div class=\"upload-area\">点击上传文件</div>\r\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\r\n\t</div>";
+	module.exports = "<div id=\"files-wrapper\">\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\"></upload-file>\n\t</div>\n\t<div class=\"upload-btn\">\n\t\t<div class=\"upload-area\">点击上传文件</div>\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\n\t</div>";
 
 /***/ },
 /* 163 */
@@ -13403,14 +13400,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".panel-success > .panel-heading{\r\n    color: white;\r\n    background-color: #1abc9c;\r\n    border-color: #d6e9c6;\r\n}\r\n\r\n.panel-body > p{\r\n    font-size: 20px;\r\n    margin: 5px;\r\n}\r\nlabel[for='print-copies']{\r\n    font-size: 25px;\r\n    margin-top: -8px;\r\n    margin-left: 10px;\r\n}\r\n.cl {\r\n  margin-top: 2px;\r\n}\r\n\r\n.requirement {\r\n  margin-top: 15px;\r\n}\r\n\r\n.expand-enter,\r\n.expand-leave {\r\n  max-height: 0;\r\n  -webkit-transition: max-height 0.3s ease;\r\n  -o-transition: max-height 0.3s ease;\r\n  transition: max-height 0.3s ease;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".panel-success > .panel-heading{\n    color: white;\n    background-color: #1abc9c;\n    border-color: #d6e9c6;\n}\n\n.panel-body > p{\n    font-size: 20px;\n    margin: 5px;\n}\nlabel[for='print-copies']{\n    font-size: 25px;\n    margin-top: -8px;\n    margin-left: 10px;\n}\n.cl {\n  margin-top: 2px;\n}\n\n.requirement {\n  margin-top: 15px;\n}\n\n.expand-enter,\n.expand-leave {\n  max-height: 0;\n  -webkit-transition: max-height 0.3s ease;\n  -o-transition: max-height 0.3s ease;\n  transition: max-height 0.3s ease;\n}", ""]);
 
 /***/ },
 /* 166 */
@@ -13519,14 +13509,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".myswitch-wrapper {\r\n\toverflow: hidden;\r\n\theight: 30px;\r\n\twidth: 80px;\r\n\tborder-radius: 4px;\r\n\tcursor: pointer;\r\n}\r\n\r\n.inframe {\r\n\tposition: relative;\r\n\twidth: 140px;\r\n\theight: 30px;\r\n\t-webkit-transition: left .3s ease;\r\n\t-o-transition: left .3s ease;\r\n\ttransition: left .3s ease;\r\n}\r\n\r\n.inframe.off {\r\n\tleft: -60px;\r\n\t-webkit-transition: left .3s ease;\r\n\t-o-transition: left .3s ease;\r\n\ttransition: left .3s ease;\r\n}\r\n\r\n.handle {\r\n\tfloat: left;\r\n\theight: 30px;\r\n\twidth: 20px;\r\n\tborder-width: 0;\r\n\tbackground-color: #0BBD9E;\r\n}\r\n\r\n.on-text, .off-text {\r\n\tfloat: left;\r\n\theight: 30px;\r\n\twidth: 60px;\r\n\tborder-width: 0;\r\n\ttext-align: center;\r\n\tline-height: 30px;\r\n\tcolor: #0BBD9E;\r\n\tbackground-color: #34495D;\r\n}", ""]);
-	
-	// exports
-
+	exports.push([module.id, ".myswitch-wrapper {\n\toverflow: hidden;\n\theight: 30px;\n\twidth: 80px;\n\tborder-radius: 4px;\n\tcursor: pointer;\n}\n\n.inframe {\n\tposition: relative;\n\twidth: 140px;\n\theight: 30px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.inframe.off {\n\tleft: -60px;\n\t-webkit-transition: left .3s ease;\n\t-o-transition: left .3s ease;\n\ttransition: left .3s ease;\n}\n\n.handle {\n\tfloat: left;\n\theight: 30px;\n\twidth: 20px;\n\tborder-width: 0;\n\tbackground-color: #0BBD9E;\n}\n\n.on-text, .off-text {\n\tfloat: left;\n\theight: 30px;\n\twidth: 60px;\n\tborder-width: 0;\n\ttext-align: center;\n\tline-height: 30px;\n\tcolor: #0BBD9E;\n\tbackground-color: #34495D;\n}", ""]);
 
 /***/ },
 /* 170 */
@@ -13565,19 +13548,19 @@
 /* 171 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"myswitch-wrapper\">\r\n\t\t<div class=\"inframe\" v-on=\"click: onSwitch\" v-class=\"off: !value\">\r\n\t\t\t<div class=\"on-text\">\r\n\t\t\t\t{{trueText}}\r\n\t\t\t</div>\r\n\t\t\t<div class=\"handle\">\r\n\t\t\t</div>\r\n\t\t\t<div class=\"off-text\">\r\n\t\t\t\t{{falseText}}\r\n\t\t\t</div>\r\n\t\t</div>\r\n\t</div>";
+	module.exports = "<div class=\"myswitch-wrapper\">\n\t\t<div class=\"inframe\" v-on=\"click: onSwitch\" v-class=\"off: !value\">\n\t\t\t<div class=\"on-text\">\n\t\t\t\t{{trueText}}\n\t\t\t</div>\n\t\t\t<div class=\"handle\">\n\t\t\t</div>\n\t\t\t<div class=\"off-text\">\n\t\t\t\t{{falseText}}\n\t\t\t</div>\n\t\t</div>\n\t</div>";
 
 /***/ },
 /* 172 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"taskinfo-wrapper\">\r\n    <custom-select\r\n      options=\"{{printerList}}\"\r\n      value=\"{{@taskSetting.printerId}}\"\r\n      desc=\"选择想去的打印店\"\r\n      on-select-change={{showPrinterInfo}}>\r\n    </custom-select>\r\n\r\n    <div class=\"panel panel-success text-center\">\r\n      <div class=\"panel-heading\">\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.name}}</p>\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.address}}</p>\r\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.phone}}</p>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>\r\n        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>\r\n        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>\r\n        <p style=\"margin-bottom: 0\">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-sm-3 cl\">\r\n        <custom-switch\r\n          true-text=\"到店\"\r\n          false-text=\"提前\"\r\n          value=\"{{@taskSetting.isInStore}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"双面\"\r\n          false-text=\"单面\"\r\n          value=\"{{@taskSetting.isDoubleSide}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"彩印\"\r\n          false-text=\"黑白\"\r\n          value=\"{{@taskSetting.isColor}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-sm-3\">\r\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\r\n          <span class=\"input-group-addon input-sm\">份</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\r\n    </div>\r\n\r\n  </div>";
+	module.exports = "<div class=\"taskinfo-wrapper\">\n    <custom-select\n      options=\"{{printerList}}\"\n      value=\"{{@taskSetting.printerId}}\"\n      desc=\"选择想去的打印店\"\n      on-select-change={{showPrinterInfo}}>\n    </custom-select>\n\n    <div class=\"panel panel-success text-center\">\n      <div class=\"panel-heading\">\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.name}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.address}}</p>\n        <p style=\"font-size: 22px; margin-bottom:0\">{{printerInfo.phone}}</p>\n      </div>\n      <div class=\"panel-body\">\n        <p>黑白单面（A4）：¥{{printerInfo.price1}}/页</p>\n        <p>黑白双面（A4）：¥{{printerInfo.price2}}/页</p>\n        <p>彩印单面（A4）：¥{{printerInfo.price3}}/页</p>\n        <p style=\"margin-bottom: 0\">彩印双面（A4）：¥{{printerInfo.price4}}/页</p>\n      </div>\n    </div>\n    \n    <div class=\"row\">\n      <div class=\"col-sm-3 cl\">\n        <custom-switch\n          true-text=\"到店\"\n          false-text=\"提前\"\n          value=\"{{@taskSetting.isInStore}}\">\n        </custom-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <custom-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"双面\"\n          false-text=\"单面\"\n          value=\"{{@taskSetting.isDoubleSide}}\">\n        </custom-switch>\n      </div>\n      <div class=\"col-sm-3 cl\">\n        <custom-switch\n          v-if=\"!taskSetting.isInStore\"\n          v-transition=\"expand\"\n          true-text=\"彩印\"\n          false-text=\"黑白\"\n          value=\"{{@taskSetting.isColor}}\">\n        </custom-switch>\n      </div>\n      <div class=\"col-sm-3\">\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\n          <span class=\"input-group-addon input-sm\">份</span>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\n    </div>\n\n  </div>";
 
 /***/ },
 /* 173 */
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" \r\n    width=\"{{modalWidth}}\" \r\n    default-title=\"{{modalTitle}}\">\r\n    <div class=\"modal-body\">\r\n      <file-uploader \r\n        v-if=\"currentBody=='file-uploader'\"\r\n        file-list=\"{{@params.fileList}}\"></file-uploader>\r\n      <task-setting\r\n        v-if=\"currentBody=='task-setting'\"\r\n        task-setting=\"{{@taskSetting}}\"></task-setting>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <div v-if=\"currentBody=='file-uploader'\">\r\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"fileInfoText!=''\">\r\n          <small v-text=\"fileInfoText\"></small>\r\n        </div>   \r\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onFinish\">完成</button>\r\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onToPrint\">去打印</button>\r\n      </div>\r\n      <div v-if=\"currentBody=='task-setting'\">\r\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"taskInfoText!=''\">\r\n          <small v-text=\"taskInfoText\"></small>\r\n        </div>      \r\n        <button v-if=\"newTask\" class=\"btn btn-warning btn-wide\" v-on=\"click: onCancelTask\">取消任务</button>\r\n        <button v-if=\"newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onAddTasks\">提交任务</button>      \r\n        <button v-if=\"!newTask\" class=\"btn btn-danger btn-wide \" v-on=\"click: onDeleteTask\">删除任务</button>\r\n        <button v-if=\"!newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onEditTask\">修改任务</button>\r\n      </div>\r\n    </div>\r\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" \n    width=\"{{modalWidth}}\" \n    default-title=\"{{modalTitle}}\">\n    <div class=\"modal-body\">\n      <file-uploader \n        v-if=\"currentBody=='file-uploader'\"\n        file-list=\"{{@params.fileList}}\"></file-uploader>\n      <task-setting\n        v-if=\"currentBody=='task-setting'\"\n        task-setting=\"{{@taskSetting}}\"></task-setting>\n    </div>\n    <div class=\"modal-footer\">\n      <div v-if=\"currentBody=='file-uploader'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"fileInfoText!=''\">\n          <small v-text=\"fileInfoText\"></small>\n        </div>   \n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onFinish\">完成</button>\n        <button class=\"btn btn-primary btn-wide\" v-on=\"click: onToPrint\">去打印</button>\n      </div>\n      <div v-if=\"currentBody=='task-setting'\">\n        <div class=\"info-text text-left\" v-transition=\"textshow\" v-show=\"taskInfoText!=''\">\n          <small v-text=\"taskInfoText\"></small>\n        </div>      \n        <button v-if=\"newTask\" class=\"btn btn-warning btn-wide\" v-on=\"click: onCancelTask\">取消任务</button>\n        <button v-if=\"newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onAddTasks\">提交任务</button>      \n        <button v-if=\"!newTask\" class=\"btn btn-danger btn-wide \" v-on=\"click: onDeleteTask\">删除任务</button>\n        <button v-if=\"!newTask\" class=\"btn btn-primary btn-wide\" v-on=\"click: onEditTask\">修改任务</button>\n      </div>\n    </div>\n  </modal>";
 
 /***/ },
 /* 174 */
@@ -13619,14 +13602,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(96)();
-	// imports
-	
-	
-	// module
 	exports.push([module.id, "", ""]);
-	
-	// exports
-
 
 /***/ },
 /* 177 */
@@ -13658,13 +13634,13 @@
 /* 178 */
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\r\n    <div class=\"modal-body\">\r\n      <h5 class=\"text-center text-primary\">{{infoText}}</h5>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show=false\">确定</button>\r\n    </div>    \r\n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <h5 class=\"text-center text-primary\">{{infoText}}</h5>\n    </div>\n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: show=false\">确定</button>\n    </div>    \n  </modal>";
 
 /***/ },
 /* 179 */
 /***/ function(module, exports) {
 
-	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\r\n    <div class=\"nav-switch\"\r\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n      <div class=\"line\"></div>\r\n    </div>\r\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\r\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\r\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\r\n    <div class=\"clear\"></div>\r\n  </header>\r\n  <!--aside-->\r\n   <aside v-class=\"open : showSlideMenu\"> \r\n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\" >首页<i class=\"glyphicon glyphicon-home\"></i></a></h6> \r\n   <h6><a href=\"#/print\" >快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \r\n   <h6>文件</h6>\r\n   <ul> \r\n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\" >订单管理<i class=\"glyphicon glyphicon-list-alt\"></i></a></li> \r\n    <li><a href=\"#/upload\" v-on=\"click: showUploadModal = true,\r\n                            click: showSlideMenu = false\" >上传文件<i class=\"glyphicon glyphicon-cloud-upload\"></i></a></li> \r\n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"glyphicon fui-folder\"></i></a></li> \r\n   </ul> \r\n   <h6>资源</h6> \r\n   <ul> \r\n    <li><a href=\"#\" >我的共享<i class=\"glyphicon glyphicon-star\"></i></a></li> \r\n    <li><a href=\"#\" >共享文库<i class=\"glyphicon glyphicon-globe\"></i></a></li> \r\n    <li><a href=\"#\" >店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \r\n   </ul> \r\n   <h6>个人</h6> \r\n   <ul> \r\n    <li><a href=\"#/user\" >个人信息<i class=\"glyphicon glyphicon-user\"></i></a></li> \r\n    <li><a href=\"#\" v-on=\"click: onLogout\">退出登录<i class=\"glyphicon fui-exit\"></i></a></li> \r\n   </ul> \r\n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店<i class=\"glyphicon fui-home\"></i></a></h6> \r\n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡<i class=\"glyphicon fui-credit-card\"></i></a></h6> \r\n  </aside>\r\n\r\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\r\n    <component is=\"{{view}}\"\r\n      class=\"view\"\r\n      v-transition\r\n      transition-mode=\"out-in\">\r\n    </component>\r\n  </section>\r\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\r\n      <ul class=\"list-inline\">\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\r\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\r\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\r\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\r\n        <li><a href=\"#\">微信</a></li>\r\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\r\n      </ul>\r\n  </footer>\r\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\r\n    on-file-change=\"{{onFileChange}}\"\r\n    on-task-change=\"{{onTaskChange}}\"\r\n    params=\"{{fileTaskParams}}\"></filetask-modal>\r\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\r\n  <info-modal show=\"{{@showInfoModal}}\"\r\n    info-text=\"{{infoModalText}}\"></info-modal>";
+	module.exports = "<header class=\"turn-left\" v-class=\"slide-aside : showSlideMenu\">\n    <div class=\"nav-switch\"\n      v-on=\"click: showSlideMenu = !showSlideMenu\">\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n      <div class=\"line\"></div>\n    </div>\n    <a href='#/home' class=\"logo\"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" x=\"0px\" y=\"0px\"\n   width=\"1417.32px\" height=\"1417.32px\" viewBox=\"0 0 1417.32 1417.32\" enable-background=\"new 0 0 1417.32 1417.32\" xml:space=\"preserve\"><circle fill=\"#F3D759\" stroke=\"#F3D759\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"521.644\" cy=\"748.74\" r=\"186.655\"/><circle fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" cx=\"817.723\" cy=\"828.998\" r=\"207.395\"/><polygon fill=\"#2277AB\" stroke=\"#2277AB\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" points=\"857.456,526.371 868.509,526.371 894.234,483.269 906.638,483.269 934.734,452.064 935.391,452.064 935.03,451.734 935.391,451.334 934.591,451.334 912.404,431.107 896.79,431.107 890.566,402.661 867.008,402.661 867.008,365.646 827.576,365.646 816.303,210.329 805.03,365.646 766.773,365.646 766.773,402.661 742.041,402.661 735.816,431.107 721.377,431.107 699.193,451.333 698.391,451.333 698.752,451.734 698.392,452.064 699.049,452.064 727.145,483.268 739.549,483.268 765.273,526.371 775.15,526.371 775.15,545.027 783.134,545.027 698.391,1203.805 935.381,1203.795 850.576,545.027 857.456,545.027 \"/><path fill=\"#FDFDFD\" stroke=\"#FDFDFD\" stroke-width=\"0.25\" stroke-miterlimit=\"10\" d=\"M983.704,791.936 c-71.413,0-134.391,36.097-171.696,91.035c-16.33-86.422-92.221-151.791-183.391-151.791c-91.45,0-167.531,65.771-183.543,152.588 c-16.831-5.749-34.879-8.873-53.657-8.873c-91.633,0-165.916,74.283-165.916,165.916c0,82.642,60.424,151.16,139.5,163.813v0.639 h643.342c102.925-12.186,182.756-99.729,182.756-205.932C1191.099,884.79,1098.245,791.936,983.704,791.936z\"/></svg></a>\n    <a class=\"signin\" v-on=\"click: onClickLogin\" v-text=\"username==null? '登录':username\"></a>\n    <div class=\"clear\"></div>\n  </header>\n  <!--aside-->\n   <aside v-class=\"open : showSlideMenu\"> \n   <h6><a href=\"#/home\" v-on=\"click: showSlideMenu = false\" >首页<i class=\"glyphicon glyphicon-home\"></i></a></h6> \n   <h6><a href=\"#/print\" >快速打印<i class=\"glyphicon glyphicon-print\"></i></a></h6> \n   <h6>文件</h6>\n   <ul> \n    <li><a href=\"#/print\" v-on=\"click: showSlideMenu = false\" >订单管理<i class=\"glyphicon glyphicon-list-alt\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onUploadFile,\n                            click: showSlideMenu = false\" >上传文件<i class=\"glyphicon glyphicon-cloud-upload\"></i></a></li> \n    <li><a href=\"#/file\" v-on=\"click: showSlideMenu = false\">我的文件<i class=\"glyphicon fui-folder\"></i></a></li> \n   </ul> \n   <h6>资源</h6> \n   <ul> \n    <li><a href=\"#\" >我的共享<i class=\"glyphicon glyphicon-star\"></i></a></li> \n    <li><a href=\"#\" >共享文库<i class=\"glyphicon glyphicon-globe\"></i></a></li> \n    <li><a href=\"#\" >店内资源<i class=\"glyphicon glyphicon-book\"></i></a></li> \n   </ul> \n   <h6>个人</h6> \n   <ul> \n    <li><a href=\"#/user\" v-on=\"click: showSlideMenu = false\">个人信息<i class=\"glyphicon glyphicon-user\"></i></a></li> \n    <li><a href=\"#\" v-on=\"click: onLogout,click: showSlideMenu = false\">退出登录<i class=\"glyphicon fui-exit\"></i></a></li> \n   </ul> \n   <h6><a href=\"#/printer\" v-on=\"click: showSlideMenu = false\">打印店<i class=\"glyphicon fui-home\"></i></a></h6> \n   <h6><a href=\"#/card\" v-on=\"click: showSlideMenu = false\">校园卡<i class=\"glyphicon fui-credit-card\"></i></a></h6> \n  </aside>\n\n  <section class=\"other\" v-class=\"slide-aside : showSlideMenu\">\n    <component is=\"{{view}}\"\n      class=\"view\"\n      v-transition\n      transition-mode=\"out-in\">\n    </component>\n  </section>\n  <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\n      <ul class=\"list-inline\">\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档中心</a></li>\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">新浪微博</a></li>\n        <li><a href=\"#\">微信</a></li>\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\n      </ul>\n  </footer>\n  <filetask-modal show=\"{{@showFileTaskModal}}\"\n    on-file-change=\"{{onFileChange}}\"\n    on-task-change=\"{{onTaskChange}}\"\n    params=\"{{fileTaskParams}}\"></filetask-modal>\n  <login-modal show=\"{{@showLoginModal}}\"></login-modal>\n  <info-modal show=\"{{@showInfoModal}}\"\n    info-text=\"{{infoModalText}}\"></info-modal>";
 
 /***/ },
 /* 180 */
@@ -14395,6 +14371,39 @@
 	
 	
 	}( true ? exports : window));
+
+/***/ },
+/* 181 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(182);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(97)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./tasklist.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./tasklist.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 182 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(96)();
+	exports.push([module.id, "@media screen and (max-width: 767px) {\n#newtask-wrapper {\n  text-align: center;\n}\n}", ""]);
 
 /***/ }
 /******/ ]);
