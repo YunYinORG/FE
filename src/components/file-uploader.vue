@@ -1,6 +1,6 @@
 <template>
 	<div id="files-wrapper">
-		<upload-file v-repeat="fileList" on-remove="{{removeFile}}"></upload-file>
+		<upload-file v-repeat="fileList" on-remove="{{removeFile}}" on-upload="{{reuploadFile}}}"></upload-file>
 	</div>
 	<div class="upload-btn">
 		<div class="upload-area">点击上传文件</div>
@@ -63,6 +63,14 @@ module.exports = {
       this.hasFileInput = false 
       this.hasFileInput = true //in case sometimes onChange Event will not be fired
     },
+
+    reuploadFile: function(index) {
+      var filedata = this.fileList[index]
+      filedata.info = "上传中"
+      filedata.status = "uploading"
+      uploadFile(filedata)
+    },
+
   },
 
   components: {

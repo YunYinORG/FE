@@ -279,7 +279,7 @@ function newUserVerify(vuemodel) {
     api: 'auth/',
     data: ajax_data,
     verifySuccess: function(info) {
-      vuemodel.fromSchool = info.user.sch_id
+      vuemodel.fromSchool = info.user.school
       vuemodel.newUserName = info.user.name
       vuemodel.showReset = true
       vuemodel.showLogin = false    
