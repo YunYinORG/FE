@@ -9,35 +9,55 @@ window.bb = app
 var Router = require('director').Router
 var router = new Router()
 
-router.on('/intro', function (page) {
+router.on('/intro', function () {
   app.view = 'intro-view'
 })
 
-router.on('/home', function (page) {
-  	app.view = 'menu-view'
+router.on('/home', function () {
+	app.view = 'menu-view'
 })
 
-router.on('/print', function (page) {
-  app.view = 'print-view'
+router.on('/print', function () {
+	if(po.islogin) {
+  	app.view = 'print-view'		
+	} else {
+		app.showLoginModal = true
+	}
 })
 
-router.on('/share', function (page) {
-  app.view = 'share-view'
+router.on('/share', function () {
+	if(po.islogin) {
+  	app.view = 'share-view'		
+	} else {
+		app.showLoginModal = true
+	}
 })
 
-router.on('/book', function (page) {
-  app.view = 'textbook-view'
+router.on('/book', function () {
+	if(po.islogin) {
+  	app.view = 'book-view'		
+	} else {
+		app.showLoginModal = true
+	}
 })
 
-router.on('/file', function (page) {
-  app.view = 'file-view'
+router.on('/file', function () {
+	if(po.islogin) {
+  	app.view = 'file-view'		
+	} else {
+		app.showLoginModal = true
+	}
 })
 
-router.on('/user', function (page) {
-  app.view = 'user-view'
+router.on('/user', function () {
+	if(po.islogin) {
+  	app.view = 'user-view'		
+	} else {
+		app.showLoginModal = true
+	}
 })
 
-router.on('/forget', function (page) {
+router.on('/forget', function () {
   app.view = 'forget-view'
 })
 

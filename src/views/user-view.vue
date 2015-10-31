@@ -5,7 +5,7 @@
 		</div>
 		<div class="row">
 			<div class="well col-xs-12 col-sm-8 col-sm-offset-2" id="userinfo">
-				<div id="user_name">
+				<div id="user_name" style="margin-bottom: 15px">
 					<div class="row text-center text-info">
 					<span v-text="userSID">学号</span>(<span v-text="userSch">学校</span>)
 					</div>

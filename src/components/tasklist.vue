@@ -1,6 +1,6 @@
 <template>
   <div class="row actions-wrapper">
-    <div class="col-xs-12 col-sm-8 text-center">
+    <div id="newtask-wrapper" class="col-xs-12 col-sm-8">
       <button class="btn btn-embossed btn-primary" v-on="click: onUploadFile">
         <i class="glyphicon glyphicon-open"></i>
         添加新打印任务
@@ -68,6 +68,7 @@ module.exports = {
 
   compiled: function () {
   	loadTasks(this)
+    po.vueTaskList = this
   },
 
   computed: {
@@ -104,8 +105,8 @@ module.exports = {
   		loadTasks(this)
   	},
 
-  	onFileChange: function() {
-  		this.fileData = []
+  	onTaskChange: function() {
+  		this.taskData = []
   		this.displayedPage = 1
   		loadTasks(this)
   	}
@@ -133,3 +134,11 @@ function loadTasks(vuemodel) {
   })
 }
 </script>
+
+<style>
+@media screen and (max-width: 767px) {
+#newtask-wrapper {
+  text-align: center;
+}
+}
+</style>

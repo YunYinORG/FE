@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "p" : "webpack -p --output-file yy.js"
   },
   "repository": {
     "type": "git",

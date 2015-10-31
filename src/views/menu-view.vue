@@ -27,15 +27,21 @@
   </footer>
 </template>
 <script>
+var po = require('../js/public_object.js')
+
 module.exports = {
   methods: {
     onOpenFileTaskModal: function() {
-      this.$parent.fileTaskParams = {
-        mode: 'newfile',
-        fileList: [],
-        taskId: {},
+      if(po.islogin) {
+        po.app.fileTaskParams = {
+          mode: 'newfile',
+          fileList: [],
+          taskId: {},
+        }
+        po.app.showFileTaskModal = true
+      } else {
+        po.app.showLoginModal = true
       }
-      this.$parent.showFileTaskModal = true
     }
   }
 }

@@ -18,7 +18,7 @@
    <h6>文件</h6>
    <ul> 
     <li><a href="#/print" v-on="click: showSlideMenu = false" >订单管理<i class="glyphicon glyphicon-list-alt"></i></a></li> 
-    <li><a href="#/upload" v-on="click: showUploadModal = true,
+    <li><a href="#" v-on="click: onUploadFile,
                             click: showSlideMenu = false" >上传文件<i class="glyphicon glyphicon-cloud-upload"></i></a></li> 
     <li><a href="#/file" v-on="click: showSlideMenu = false">我的文件<i class="glyphicon fui-folder"></i></a></li> 
    </ul> 
@@ -30,8 +30,8 @@
    </ul> 
    <h6>个人</h6> 
    <ul> 
-    <li><a href="#/user" >个人信息<i class="glyphicon glyphicon-user"></i></a></li> 
-    <li><a href="#" v-on="click: onLogout">退出登录<i class="glyphicon fui-exit"></i></a></li> 
+    <li><a href="#/user" v-on="click: showSlideMenu = false">个人信息<i class="glyphicon glyphicon-user"></i></a></li> 
+    <li><a href="#" v-on="click: onLogout,click: showSlideMenu = false">退出登录<i class="glyphicon fui-exit"></i></a></li> 
    </ul> 
    <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店<i class="glyphicon fui-home"></i></a></h6> 
    <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡<i class="glyphicon fui-credit-card"></i></a></h6> 
@@ -55,6 +55,7 @@
 
 <script>
 var yy_request = require('./js/yunyin_request')
+var po = require('./js/public_object.js')
 
 module.exports = {
   el: '#app',
@@ -82,6 +83,19 @@ module.exports = {
   },
 
   methods: {
+    onUploadFile: function() {
+      if(po.islogin) {
+        this.fileTaskParams = {
+          mode: 'newfile',
+          fileList: [],
+          taskId: {},
+        }
+        this.showFileTaskModal = true
+      } else {
+        this.showLoginModal = true
+      }
+    },
+
     onClickLogin: function() {
       if(this.username==null) {
         this.showLoginModal = true
@@ -89,25 +103,30 @@ module.exports = {
         window.location.hash = "#/user"
       }
     },
+
     onFileChange: function() {
       if(window.location.hash=="#/file") {
-        window.location.reload()
+        po.vueFileList.onFileChange()
       } else {
         window.location.hash="#/file"
       }
     },
+
     onTaskChange: function() {
       if(window.location.hash=="#/print") {
-        window.location.reload()
+        po.vueTaskList.onTaskChange()
       } else {
         window.location.hash="#/print"
       }
     },
-        onLogout: function() {
+
+    onLogout: function() {
       yy_request.rest_api({
         method: 'get',
         api: 'auth/logout',
         opSuccess: function(info) {
+          po.islogin = false
+          po.app.username = null
           window.location.hash = "#/home"
           po.app.showLoginModal = true 
         },
@@ -121,12 +140,15 @@ module.exports = {
     	method: 'get',
     	api: 'user/',
     	opSuccess: function(info) {
+        po.islogin = true
     		vuemodel.username = info.name
     	},
     	opFail: function() {
+        po.islogin = false
     		vuemodel.username = null
     	},
     	authFail: function() {
+        po.islogin = false
     		vuemodel.username = null
     	}
     })
@@ -137,7 +159,7 @@ module.exports = {
     'print-view': require('./views/print-view.vue'),
     'file-view': require('./views/file-view.vue'),
     'share-view': require('./views/share-view.vue'),
-    'textbook-view': require('./views/textbook-view.vue'),
+    'book-view': require('./views/book-view.vue'),
     'user-view': require('./views/user-view.vue'),
     'forget-view': require('./views/forget-view.vue'),
     'login-modal': require('./components/login-modal.vue'),

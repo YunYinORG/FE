@@ -45,8 +45,11 @@
         </form>
       </div> <!-- #login-wrapper -->
       <div id="reset-wrapper" v-if="showReset">
-        <p class="text-center">
-          <small>请为云印设置一个新的密码，以后您将使用这个密码登录云印服务</small>
+        <p>
+          <p class='text-left text-primary'>欢迎加入云印，来自 {{fromSchool}} 的 {{newUserName}} </p>
+          <small class="text-center">请为云印设置一个新的密码，以后您将使用这个密码登录云印服务，您也可以选择
+            <a v-on="click: noNewPassword" style="cursor:pointer">不重设密码</a>
+          </small>
         </p>
         <div class="form-group">
           <input type="text" class="form-control" id="nwpd-input"
@@ -59,7 +62,7 @@
         </div>
       </div> <!-- #reset-wrapper -->
       <div id="done-wrapper" v-if="showDone">
-        <small>欢迎您加入云印,即刻开始您的云打印之旅</small>
+        <small>欢迎您加入云印,即刻开始您的校园云打印之旅</small>
         <br>
         <br>
         <div class="form-group">
@@ -69,8 +72,7 @@
       </div> <!-- #done-wrapper -->
     </div> <!-- .modal-body -->
     <div class="modal-footer">
-      <small>首次注册请使用本校办公网系统账号及密码登录</small>
-      <small><a>了解更多</a></small>
+      <p class="text-left"><small>新用户可以直接使用本校学生账号及密码登录哦<a class="pull-right">了解更多</a></small></p>
     </div>
   </modal>
 </template>
@@ -106,13 +108,15 @@ module.exports = {
       showLogin: true,
       showReset: false,
       showDone: false,
+      fromSchool: '',
+      newUserName: '',
     }
   },
 
   computed: {
     title: function() {
       if(this.showLogin) {
-        return "登陆云印，享受校园便捷打印"
+        return "请登录云印"
       } else if(this.showReset) {
         return "设置您的云印密码"
       } else {
@@ -178,10 +182,24 @@ module.exports = {
           password: md5(vuemodel.pwnew)
         },
         opSuccess: function(info) {
+          loginSuccess(info.user)
           vuemodel.showDone  = true
           vuemodel.showReset = false        
         }
       })
+    },
+
+    noNewPassword: function(e) {
+      var vuemodel = this
+      yy_request.rest_api({
+        method: 'post',
+        api: 'user/',
+        opSuccess: function(info) {
+          loginSuccess(info.user)
+          vuemodel.showDone  = true
+          vuemodel.showReset = false        
+        }
+      })      
     },
 
     changeCode: function(e) {
@@ -189,7 +207,7 @@ module.exports = {
     },
 
     afterLogin: function(e) {
-      loginSuccess(this)
+      afterLogin(this)
     },
 
     onForgetPassword: function(e) {
@@ -213,11 +231,15 @@ function oldUserLogin(vuemodel) {
       password: vuemodel.password,
     },
     opSuccess: function(info) {
-      loginSuccess(vuemodel)
+      loginSuccess(info.user)
+      afterLogin(vuemodel)
       vuemodel.errorinfo = ""       
     },
     opFail: function(info) {
-      vuemodel.errorinfo = "账号或密码错误，请重新尝试"
+      vuemodel.errorinfo = info
+    },
+    authFail: function(info) {
+      vuemodel.errorinfo = info
     }
   })
 }
@@ -257,6 +279,8 @@ function newUserVerify(vuemodel) {
     api: 'auth/',
     data: ajax_data,
     verifySuccess: function(info) {
+      vuemodel.fromSchool = info.user.sch_id
+      vuemodel.newUserName = info.user.name
       vuemodel.showReset = true
       vuemodel.showLogin = false    
     },
@@ -269,21 +293,13 @@ function newUserVerify(vuemodel) {
   })
 }
 
-function loginSuccess(vuemodel) {
+function loginSuccess(user) {
+  po.islogin = true
+  po.userinfo = user
+  po.app.username = user.name
+}
 
-  yy_request.rest_api({
-      method: 'get',
-      api: 'user/',
-      opSuccess: function(info) {
-        po.app.username = info.name
-      },
-      opFail: function(info) {
-        po.app.username = null
-      },
-      authFail: function(info) {
-        po.app.username = null
-      }
-  })
+function afterLogin(vuemodel) {
 
   vuemodel.show = false
 

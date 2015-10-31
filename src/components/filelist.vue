@@ -75,7 +75,7 @@
       </tbody>
     </table>
   </div>
-	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div><!--没有更多时应为灰色-->
+	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div>
   </div>
 </template>
 
@@ -108,6 +108,7 @@ module.exports = {
 
   compiled: function () {
   	loadData(this)
+    po.vueFileList = this
   },
 
   computed: {
