@@ -32,7 +32,7 @@
   <div class="info-line" v-show="showActionInfo" v-transition="infoexpand">
     <small class="text-primary" v-text="actionInfoText"></small>
   </div>  
-  <div class="table-responsive">
+  <!-- <div class="table-responsive"> -->
     <table class="table table-hover">
       <thead>
         <tr>
@@ -74,7 +74,7 @@
         </template>
       </tbody>
     </table>
-  </div>
+  <!-- </div> -->
 	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div>
   </div>
 </template>
