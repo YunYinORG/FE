@@ -11427,7 +11427,7 @@
 	      page: vuemodel.displayedPage,
 	    },  
 	    opSuccess: function(info) {
-	      alert(JSON.stringfy(info))
+	      alert(JSON.stringify(info))
 	      var filedata = info
 	      for(var i in filedata) {
 	        filedata[i].checked = false
