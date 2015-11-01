@@ -11170,7 +11170,6 @@
 	  		displayedPage: 1,
 	  		tasksPerPage: 10,
 	  		taskData: [],
-	  		displayTask: [],
 	  		searchString: '',
 	  		showUploadModal: false,
 	  		moreData: false,
@@ -11249,7 +11248,7 @@
 /* 109 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row actions-wrapper\">\n    <div id=\"newtask-wrapper\" class=\"col-xs-12 col-sm-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>状态</th>\n          <th>任务名</th>\n          <th>打印店</th>\n          <th>设置</th>\n          <th>时间</th>       \n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <template v-repeat=\"task:displayTask\" track-by=\"id\">\n          <tr>\n            <td>{{task.status}}</td>\n            <td class=\"text-primary\">{{task.name}}</td>\n            <td>{{task.printer}}</td>\n            <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\n            <td>{{task.time.substr(5,11)}}</td>\n            <td style=\"text-align:center\">\n              <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n                v-on=\"click: onEditTask($event,task)\"></i>\n            </td>\n          </tr>\n        </template>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
+	module.exports = "<div class=\"row actions-wrapper\">\n    <div id=\"newtask-wrapper\" class=\"col-xs-12 col-sm-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>状态</th>\n          <th>任务名</th>\n          <th>打印店</th>\n          <th>设置</th>\n          <th>时间</th>       \n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <tr v-repeat=\"task:displayTask\" track-by=\"id\">\n          <td>{{task.status}}</td>\n          <td class=\"text-primary\">{{task.name}}</td>\n          <td>{{task.printer}}</td>\n          <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\n          <td>{{task.time.substr(5,11)}}</td>\n          <td style=\"text-align:center\">\n            <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n              v-on=\"click: onEditTask($event,task)\"></i>\n          </td>\n        </tr>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
 /* 110 */
@@ -11297,13 +11296,11 @@
 	  	return {
 	  		displayedPage: 1,
 	  		filesPerPage: 10,
-	  		fileData: [{checked:false,name:'test.test',time:'1@#!@#!2@@'},{checked:false,name:'test2.t',time:'1@#!@#!2@@'},],
-	  		// displayFile: [],
+	  		fileData: [],
 	  		checkedAll: false,
 	  		searchString: '',
 	  		showUploadModal: false,
 	  		moreData: false,
-	  		pfiles:[],
 	  		showNewTaskModal: false,
 	      taskMode: 'add',
 	      showActionInfo: false,
@@ -11325,7 +11322,6 @@
 	  		var filtereddata = this.fileData.filter(function(x){
 	  			return x.name.indexOf(searchstr)!=-1
 	  		})
-	      alert(JSON.stringify(filtereddata))
 	  		return filtereddata
 	  	},
 	
@@ -11372,10 +11368,12 @@
 	  		} else {
 	  			var checkedfile = getCheckedList(this) 			
 	  		}
-	      po.app.fileTaskParams.mode = "newtask"
-	      po.app.fileTaskParams.fileList = checkedfile
-	      po.app.fileTaskParams.taskId = null     
-	  		po.app.showFileTaskModal = true
+	      if(checkedfile.length>0) {
+	        po.app.fileTaskParams.mode = "newtask"
+	        po.app.fileTaskParams.fileList = checkedfile
+	        po.app.fileTaskParams.taskId = null     
+	        po.app.showFileTaskModal = true       
+	      }
 	  	},
 	
 	  	onShare: function(op_file) {
@@ -11391,15 +11389,15 @@
 	        } else {
 	          var checkedfile = getCheckedList(this)      
 	        }
+	        if(checkedfile.length>0) {
+	          this.actionFileTotal = checkedfile.length
+	          this.actionFileDone = 0
+	          this.actionFileFail = 0
 	
-	        this.actionFileTotal = checkedfile.length
-	        this.actionFileDone = 0
-	        this.actionFileFail = 0
-	
-	        for(var i in checkedfile) {
-	          deleteFile(this,checkedfile[i])
-	        }
-	
+	          for(var i in checkedfile) {
+	            deleteFile(this,checkedfile[i])
+	          }          
+	        } 
 	      } else {
 	        alert('请等待之前的操作完成，谢谢！')
 	      }
@@ -11437,7 +11435,6 @@
 	        vuemodel.moreData = false
 	      }
 	      vuemodel.fileData = vuemodel.fileData.concat(filedata)
-	      alert('data load done')
 	    },
 	  })
 	}
@@ -11466,7 +11463,7 @@
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-12 col-sm-9\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        <span class=\"hidden-xs\">上传文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <i class=\"glyphicon glyphicon-print\"></i>\n        <span class=\"hidden-xs\">打印文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <i class=\"glyphicon glyphicon-share\"></i>\n        <span class=\"hidden-xs\">分享文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <i class=\"glyphicon glyphicon-trash\"></i>\n        <span class=\"hidden-xs\">删除文件</span>\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"info-line\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <!-- <div class=\"table-responsive\"> -->\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            时间\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <template v-repeat=\"file:displayFile\" track-by=\"id\">\n          <div>{{file.name}}</div>\n<!--           <tr>\n            <td>\n              <input type=\"checkbox\" v-model=\"file.checked\">\n            </td>\n            <td class=\"text-primary\">\n              {{file.name}}\n            </td>\n            <td>\n              {{file.time.substr(5,11)}}\n            </td>\n            <td class='action-td'>\n              <i class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\n                v-on=\"click: onPrint($event,file)\"></i>\n              <i class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\n                ></i>\n              <i class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\n                v-on=\"click: onDelete($event,file)\"></i>\n            </td>\n          </tr> -->\n        </template>\n      </tbody>\n    </table>\n  <!-- </div> -->\n\t<div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div>\n  </div>";
+	module.exports = "<div class=\"filetable\">\n\t<div class=\"row actions-wrapper\">\n    <div class=\"col-xs-12 col-sm-9\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        <span class=\"hidden-xs\">上传文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onPrint\">\n        <i class=\"glyphicon glyphicon-print\"></i>\n        <span class=\"hidden-xs\">打印文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onShare\">\n        <i class=\"glyphicon glyphicon-share\"></i>\n        <span class=\"hidden-xs\">分享文件</span>\n      </button>\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onDelete\">\n        <i class=\"glyphicon glyphicon-trash\"></i>\n        <span class=\"hidden-xs\">删除文件</span>\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n\t</div>\n\n  <div class=\"info-line\" v-show=\"showActionInfo\" v-transition=\"infoexpand\">\n    <small class=\"text-primary\" v-text=\"actionInfoText\"></small>\n  </div>  \n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>\n            <input type=\"checkbox\" v-model=\"checkedAll\">\n          </th>\n          <th>\n            文件名\n          </th>\n          <th>\n            时间\n          </th>       \n          <th>\n            操作\n          </th>\n        </tr>\n      </thead>\n      <tbody>\n        <tr v-repeat=\"file:displayFile\" track-by=\"id\">\n          <td>\n            <input type=\"checkbox\" v-model=\"file.checked\">\n          </td>\n          <td class=\"text-primary\">\n            {{file.name}}\n          </td>\n          <td>\n            {{file.time.substr(5,11)}}\n          </td>\n          <td class='action-td'>\n            <i class=\"glyphicon glyphicon-print\" style=\"cursor:pointer\"\n              v-on=\"click: onPrint($event,file)\"></i>\n            <i class=\"glyphicon glyphicon-share\" style=\"cursor:pointer\"\n              ></i>\n            <i class=\"glyphicon glyphicon-trash\" style=\"cursor:pointer\"\n              v-on=\"click: onDelete($event,file)\"></i>\n          </td>\n        </tr>\n      </tbody>\n    </table>\n  </div>\n\t<div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多</div>\n  </div>";
 
 /***/ },
 /* 116 */

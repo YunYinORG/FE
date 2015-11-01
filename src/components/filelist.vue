@@ -32,7 +32,7 @@
   <div class="info-line" v-show="showActionInfo" v-transition="infoexpand">
     <small class="text-primary" v-text="actionInfoText"></small>
   </div>  
-  <!-- <div class="table-responsive"> -->
+  <div class="table-responsive">
     <table class="table table-hover">
       <thead>
         <tr>
@@ -51,18 +51,6 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>adf</td>
-          <td>哈哈哈</td>
-          <td>嘿嘿嘿</td>
-          <td>yoyo</td>
-        </tr>
-        <tr>
-          <td>adf</td>
-          <td>哈哈哈</td>
-          <td>hihihi</td>
-          <td>yoyo</td>
-        </tr>
         <tr v-repeat="file:displayFile" track-by="id">
           <td>
             <input type="checkbox" v-model="file.checked">
@@ -84,7 +72,7 @@
         </tr>
       </tbody>
     </table>
-  <!-- </div> -->
+  </div>
 	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div>
   </div>
 </template>
@@ -99,13 +87,11 @@ module.exports = {
   	return {
   		displayedPage: 1,
   		filesPerPage: 10,
-  		fileData: [{checked:false,name:'test.test',time:'1@#!@#!2@@'},{checked:false,name:'test2.t',time:'1@#!@#!2@@'},],
-  		// displayFile: [],
+  		fileData: [],
   		checkedAll: false,
   		searchString: '',
   		showUploadModal: false,
   		moreData: false,
-  		pfiles:[],
   		showNewTaskModal: false,
       taskMode: 'add',
       showActionInfo: false,
@@ -127,7 +113,6 @@ module.exports = {
   		var filtereddata = this.fileData.filter(function(x){
   			return x.name.indexOf(searchstr)!=-1
   		})
-      alert(JSON.stringify(filtereddata))
   		return filtereddata
   	},
 
@@ -174,10 +159,12 @@ module.exports = {
   		} else {
   			var checkedfile = getCheckedList(this) 			
   		}
-      po.app.fileTaskParams.mode = "newtask"
-      po.app.fileTaskParams.fileList = checkedfile
-      po.app.fileTaskParams.taskId = null     
-  		po.app.showFileTaskModal = true
+      if(checkedfile.length>0) {
+        po.app.fileTaskParams.mode = "newtask"
+        po.app.fileTaskParams.fileList = checkedfile
+        po.app.fileTaskParams.taskId = null     
+        po.app.showFileTaskModal = true       
+      }
   	},
 
   	onShare: function(op_file) {
@@ -193,15 +180,15 @@ module.exports = {
         } else {
           var checkedfile = getCheckedList(this)      
         }
+        if(checkedfile.length>0) {
+          this.actionFileTotal = checkedfile.length
+          this.actionFileDone = 0
+          this.actionFileFail = 0
 
-        this.actionFileTotal = checkedfile.length
-        this.actionFileDone = 0
-        this.actionFileFail = 0
-
-        for(var i in checkedfile) {
-          deleteFile(this,checkedfile[i])
-        }
-
+          for(var i in checkedfile) {
+            deleteFile(this,checkedfile[i])
+          }          
+        } 
       } else {
         alert('请等待之前的操作完成，谢谢！')
       }
@@ -239,7 +226,6 @@ function loadData(vuemodel) {
         vuemodel.moreData = false
       }
       vuemodel.fileData = vuemodel.fileData.concat(filedata)
-      alert('data load done')
     },
   })
 }
