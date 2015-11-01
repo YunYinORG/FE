@@ -19,7 +19,7 @@
   <!--aside-->
    <aside v-class="open : showSlideMenu"> 
    <h6><a href="#/home" v-on="click: showSlideMenu = false" >首页<i class="glyphicon glyphicon-home"></i></a></h6> 
-   <h6><a href="#/print" >快速打印<i class="glyphicon glyphicon-print"></i></a></h6> 
+   <h6><a href="#/print" >快速打印<i class="disable glyphicon glyphicon-print"></i></a></h6> 
    <h6>文件</h6>
    <ul> 
     <li><a href="#/print" v-on="click: showSlideMenu = false" >订单管理<i class="glyphicon glyphicon-list-alt"></i></a></li> 

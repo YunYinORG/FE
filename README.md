@@ -1,12 +1,13 @@
 # 云印前端
 
-前端vue组件构建形式参考[vue-hackernews](https://github.com/vuejs/vue-hackernews)项目构建
+前端基于vue组件构建
 
-##目录组织形式（临时）
+##目录组织形式
 >
 ```
 .
 ├── index.html          首页html
+├── debug.html          调试也
 ├── webpack.config.js   webpack打包配置文件
 ├── build               打包编译输出目录
 │   ├── build.js             webpack打包生成的主js文件
@@ -36,21 +37,8 @@
 ```
 >>
 
-##测试说明
+本地开发调试请使用[云印vagrant](https://github.com/YunYinORG/vagrant)
 
-### Building
-``` bash
-# if node.js & npm not exist, install node.js and npm first
-sudo yum install nodejs npm
-# change into project directory, install project package dependencies
-sudo npm install --no-bin-link
-# build and watch project directory:
-npm run dev
-# build:
-npm run build
-```
-将目录置于vagrant测试环境的前端文件夹下，访问[http://127.0.0.1:8888/front/index.html](http://127.0.0.1:8888/front/index.html)
+自动更新代码 `cd /var/www/front/; webpack -w` 
 
-##待解决问题
-+ 使用iframe跨子域名的ajax请求问题
-+ AJAX请求中加入requestedwith XMLHttpRequest header 
+release代码 `npm run p`
