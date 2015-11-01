@@ -51,27 +51,25 @@
         </tr>
       </thead>
       <tbody>
-        <template v-repeat="file:displayFile" track-by="id">
-          <tr>
-            <td>
-              <input type="checkbox" v-model="file.checked">
-            </td>
-            <td class="text-primary">
-              {{file.name}}
-            </td>
-            <td>
-              {{file.time.substr(5,11)}}
-            </td>
-            <td class='action-td'>
-              <i class="glyphicon glyphicon-print" style="cursor:pointer"
-                v-on="click: onPrint($event,file)"></i>
-              <i class="glyphicon glyphicon-share" style="cursor:pointer"
-                ></i>
-              <i class="glyphicon glyphicon-trash" style="cursor:pointer"
-                v-on="click: onDelete($event,file)"></i>
-            </td>
-          </tr>
-        </template>
+        <tr v-repeat="file:displayFile" track-by="id">
+          <td>
+            <input type="checkbox" v-model="file.checked">
+          </td>
+          <td class="text-primary">
+            {{file.name}}
+          </td>
+          <td>
+            {{file.time.substr(5,11)}}
+          </td>
+          <td class='action-td'>
+            <i class="glyphicon glyphicon-print" style="cursor:pointer"
+              v-on="click: onPrint($event,file)"></i>
+            <i class="glyphicon glyphicon-share" style="cursor:pointer"
+              ></i>
+            <i class="glyphicon glyphicon-trash" style="cursor:pointer"
+              v-on="click: onDelete($event,file)"></i>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -90,12 +88,10 @@ module.exports = {
   		displayedPage: 1,
   		filesPerPage: 10,
   		fileData: [],
-  		displayFile: [],
   		checkedAll: false,
   		searchString: '',
   		showUploadModal: false,
   		moreData: false,
-  		pfiles:[],
   		showNewTaskModal: false,
       taskMode: 'add',
       showActionInfo: false,
@@ -163,10 +159,12 @@ module.exports = {
   		} else {
   			var checkedfile = getCheckedList(this) 			
   		}
-      po.app.fileTaskParams.mode = "newtask"
-      po.app.fileTaskParams.fileList = checkedfile
-      po.app.fileTaskParams.taskId = null     
-  		po.app.showFileTaskModal = true
+      if(checkedfile.length>0) {
+        po.app.fileTaskParams.mode = "newtask"
+        po.app.fileTaskParams.fileList = checkedfile
+        po.app.fileTaskParams.taskId = null     
+        po.app.showFileTaskModal = true       
+      }
   	},
 
   	onShare: function(op_file) {
@@ -182,15 +180,15 @@ module.exports = {
         } else {
           var checkedfile = getCheckedList(this)      
         }
+        if(checkedfile.length>0) {
+          this.actionFileTotal = checkedfile.length
+          this.actionFileDone = 0
+          this.actionFileFail = 0
 
-        this.actionFileTotal = checkedfile.length
-        this.actionFileDone = 0
-        this.actionFileFail = 0
-
-        for(var i in checkedfile) {
-          deleteFile(this,checkedfile[i])
-        }
-
+          for(var i in checkedfile) {
+            deleteFile(this,checkedfile[i])
+          }          
+        } 
       } else {
         alert('请等待之前的操作完成，谢谢！')
       }

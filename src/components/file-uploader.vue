@@ -4,7 +4,7 @@
 	</div>
 	<div class="upload-btn">
 		<div class="upload-area">点击上传文件</div>
-		<input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
+		<input v-if="hasFileInput" id="upload-file" type="file" name="file" accept="image/*,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation" v-on="change:uploadFiles" v-el="fileinput" multiple="multiple">
 	</div>		
 </template>
 

@@ -6,9 +6,8 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://localhost/'
+var baseurl = 'http://api.yunyin.org/'
 
-var ajax_array = []
 
 module.exports = {
 	rest_api: function(options) {
@@ -42,16 +41,12 @@ module.exports = {
 		var authFail = options.authFail || default_authFail;
 		var networkError= options.networkError || default_networkError;
 
-		var ajax_obj = new yyajax({
+		return new yyajax({
 			method: method,
 			url: baseurl + api,
 			data: data,
 			withCredentials: true,
 			success: function(responseText,status) {
-				ajax_array.pop(this)
-				if(po.app!=null && ajax_array.length==0) {
-					po.app.showSpinner = false
-				}
 				var rpdata = JSON.parse(responseText);
 				if(rpdata.status==2) {
 					verifySuccess(rpdata.info);
@@ -62,23 +57,11 @@ module.exports = {
 				} else if(rpdata.status==-1) {
 					authFail(rpdata.info);
 				}
-
 			},
 			error: function(status) {
-				ajax_array.pop(this)
-				if(po.app!=null && ajax_array.length==0) {
-					po.app.showSpinner = false
-				}
 				networkError(status);
 			}
 		})
-		ajax_array.push(ajax_obj)
-		if(po.app!=null) {		
-			po.app.showSpinner = true			
-		}
-
-
-		return ajax_obj
 	},
 
 	ajax: function(options) {

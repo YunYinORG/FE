@@ -217,6 +217,9 @@ aside .glyphicon{
     font-size: 20px;
     /*color: #57C3EA;*/
 }
+aside .disable{
+    color: gray;
+}
 aside > ul{
     margin: 0.2em 0.5em 0.3em 1em;
 }
@@ -274,7 +277,7 @@ body.modal-open {
   position: relative;
 }
 
-.menu-view .button{
+.menu-view .button,.btn-white{
     color: #FFF;
     border-radius: 17px;
     display: inline-block;

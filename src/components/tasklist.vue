@@ -28,19 +28,17 @@
         </tr>
       </thead>
       <tbody class="table-body">
-        <template v-repeat="task:displayTask" track-by="id">
-          <tr>
-            <td>{{task.status}}</td>
-            <td class="text-primary">{{task.name}}</td>
-            <td>{{task.printer}}</td>
-            <td><span>{{task.copies}}</span>份<span>{{task.double==null? " ":(task.double=="1"? "双面":"单面")}}</span><span>{{task.color==null? "-": (task.color=="1"? "彩色":"黑白")}}</span></td>
-            <td>{{task.time.substr(5,11)}}</td>
-            <td style="text-align:center">
-              <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:pointer"
-                v-on="click: onEditTask($event,task)"></i>
-            </td>
-          </tr>
-        </template>
+        <tr v-repeat="task:displayTask" track-by="id">
+          <td>{{task.status}}</td>
+          <td class="text-primary">{{task.name}}</td>
+          <td>{{task.printer}}</td>
+          <td><span>{{task.copies}}</span>份<span>{{task.double==null? " ":(task.double=="1"? "双面":"单面")}}</span><span>{{task.color==null? "-": (task.color=="1"? "彩色":"黑白")}}</span></td>
+          <td>{{task.time.substr(5,11)}}</td>
+          <td style="text-align:center">
+            <i class="glyphicon glyphicon-pencil" aria-hidden="true" style="cursor:pointer"
+              v-on="click: onEditTask($event,task)"></i>
+          </td>
+        </tr>
       </tbody>
     </table>  
   </div>
@@ -59,7 +57,6 @@ module.exports = {
   		displayedPage: 1,
   		tasksPerPage: 10,
   		taskData: [],
-  		displayTask: [],
   		searchString: '',
   		showUploadModal: false,
   		moreData: false,
