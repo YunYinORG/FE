@@ -52,7 +52,8 @@
       </thead>
       <tbody>
         <template v-repeat="file:displayFile" track-by="id">
-          <tr>
+          <div>{{file.name}}</div>
+<!--           <tr>
             <td>
               <input type="checkbox" v-model="file.checked">
             </td>
@@ -70,7 +71,7 @@
               <i class="glyphicon glyphicon-trash" style="cursor:pointer"
                 v-on="click: onDelete($event,file)"></i>
             </td>
-          </tr>
+          </tr> -->
         </template>
       </tbody>
     </table>
