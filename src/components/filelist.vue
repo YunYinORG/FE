@@ -90,7 +90,7 @@ module.exports = {
   		displayedPage: 1,
   		filesPerPage: 10,
   		fileData: [{checked:false,name:'test.test',time:'1@#!@#!2@@'},{checked:false,name:'test2.t',time:'1@#!@#!2@@'},],
-  		displayFile: [],
+  		// displayFile: [],
   		checkedAll: false,
   		searchString: '',
   		showUploadModal: false,
@@ -118,6 +118,7 @@ module.exports = {
   			return x.name.indexOf(searchstr)!=-1
   		})
   		return filtereddata
+      alert(JSON.stringify(filtereddata))
   	},
 
   	checkedAll: {
