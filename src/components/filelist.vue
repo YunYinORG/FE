@@ -63,28 +63,25 @@
           <td>hihihi</td>
           <td>yoyo</td>
         </tr>
-        <!-- <template v-repeat="file:displayFile" track-by="id"> -->
-          <!-- <div>{{file.name}}</div> -->
-<!--           <tr>
-            <td>
-              <input type="checkbox" v-model="file.checked">
-            </td>
-            <td class="text-primary">
-              {{file.name}}
-            </td>
-            <td>
-              {{file.time.substr(5,11)}}
-            </td>
-            <td class='action-td'>
-              <i class="glyphicon glyphicon-print" style="cursor:pointer"
-                v-on="click: onPrint($event,file)"></i>
-              <i class="glyphicon glyphicon-share" style="cursor:pointer"
-                ></i>
-              <i class="glyphicon glyphicon-trash" style="cursor:pointer"
-                v-on="click: onDelete($event,file)"></i>
-            </td>
-          </tr> -->
-        <!-- </template> -->
+        <tr v-repeat="file:displayFile" track-by="id">
+          <td>
+            <input type="checkbox" v-model="file.checked">
+          </td>
+          <td class="text-primary">
+            {{file.name}}
+          </td>
+          <td>
+            {{file.time.substr(5,11)}}
+          </td>
+          <td class='action-td'>
+            <i class="glyphicon glyphicon-print" style="cursor:pointer"
+              v-on="click: onPrint($event,file)"></i>
+            <i class="glyphicon glyphicon-share" style="cursor:pointer"
+              ></i>
+            <i class="glyphicon glyphicon-trash" style="cursor:pointer"
+              v-on="click: onDelete($event,file)"></i>
+          </td>
+        </tr>
       </tbody>
     </table>
   <!-- </div> -->
