@@ -117,8 +117,8 @@ module.exports = {
   		var filtereddata = this.fileData.filter(function(x){
   			return x.name.indexOf(searchstr)!=-1
   		})
-  		return filtereddata
       alert(JSON.stringify(filtereddata))
+  		return filtereddata
   	},
 
   	checkedAll: {
