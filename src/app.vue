@@ -26,17 +26,17 @@
    </ul> 
    <h6>资源</h6> 
    <ul> 
-    <li><a href="#" >我的共享<i class="glyphicon glyphicon-star"></i></a></li> 
-    <li><a href="#" >共享文库<i class="glyphicon glyphicon-globe"></i></a></li> 
-    <li><a href="#" >店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
+    <li><a href="#" >我的共享<i class="disable glyphicon glyphicon-star"></i></a></li> 
+    <li><a href="#" >共享文库<i class="disable glyphicon glyphicon-globe"></i></a></li> 
+    <li><a href="#" >店内资源<i class="disable glyphicon glyphicon-book"></i></a></li> 
    </ul> 
    <h6>个人</h6> 
    <ul> 
     <li><a href="#/user" v-on="click: showSlideMenu = false">个人信息<i class="glyphicon glyphicon-user"></i></a></li> 
     <li><a href="#" v-on="click: onLogout,click: showSlideMenu = false">退出登录<i class="glyphicon fui-exit"></i></a></li> 
    </ul> 
-   <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店<i class="glyphicon fui-home"></i></a></h6> 
-   <h6><a href="#/card" v-on="click: showSlideMenu = false">校园卡<i class="glyphicon fui-credit-card"></i></a></h6> 
+   <h6><a href="#" v-on="click: showSlideMenu = false">打印店<i class="disable glyphicon fui-home"></i></a></h6> 
+   <h6><a href="#" v-on="click: showSlideMenu = false">校园卡<i class="disable glyphicon fui-credit-card"></i></a></h6> 
   </aside>
 
   <section class="other" v-class="slide-aside : showSlideMenu">

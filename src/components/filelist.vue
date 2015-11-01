@@ -211,6 +211,7 @@ module.exports = {
 
 
 function loadData(vuemodel) {
+  alert('ready to request data')
   yy_request.rest_api({
     method: 'get',
     api: 'file/',
@@ -218,6 +219,7 @@ function loadData(vuemodel) {
       page: vuemodel.displayedPage,
     },  
     opSuccess: function(info) {
+      alert(JSON.stringfy(info))
       var filedata = info
       for(var i in filedata) {
         filedata[i].checked = false

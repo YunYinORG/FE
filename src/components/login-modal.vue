@@ -72,7 +72,7 @@
       </div> <!-- #done-wrapper -->
     </div> <!-- .modal-body -->
     <div class="modal-footer">
-      <p class="text-left"><small>新用户可以直接使用本校学生账号及密码登录哦<a class="pull-right">了解更多</a></small></p>
+      <p class="text-left"><small>新用户可以直接使用本校学生账号及密码登录哦<a class="pull-right" href="privacy.html" target="_blank">了解更多</a></small></p>
     </div>
   </modal>
 </template>
