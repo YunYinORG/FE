@@ -116,10 +116,10 @@ function getPrinterDetail(vuemodel) {
         name: info.name,
         address: info.address,
         phone: info.phone,
-        price1: info.price.c_s,
-        price2: info.price.c_d,
-        price3: info.price.s,
-        price4: info.price.d,
+        price1: info.price.s,
+        price2: info.price.d,
+        price4: info.price.c_s,
+        price3: info.price.c_d,
       }
     },
   })
