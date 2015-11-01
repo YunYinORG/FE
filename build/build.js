@@ -13487,7 +13487,7 @@
 /* 165 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"files-wrapper\">\r\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\" on-upload=\"{{reuploadFile}}}\"></upload-file>\r\n\t</div>\r\n\t<div class=\"upload-btn\">\r\n\t\t<div class=\"upload-area\">点击上传文件</div>\r\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\"image/*,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\r\n\t</div>";
+	module.exports = "<div id=\"files-wrapper\">\r\n\t\t<upload-file v-repeat=\"fileList\" on-remove=\"{{removeFile}}\" on-upload=\"{{reuploadFile}}}\"></upload-file>\r\n\t</div>\r\n\t<div class=\"upload-btn\">\r\n\t\t<div class=\"upload-area\">点击上传文件</div>\r\n\t\t<input v-if=\"hasFileInput\" id=\"upload-file\" type=\"file\" name=\"file\" accept=\".doc,.docx,.odt,.rtf,.wps,.ppt,.pptx,.odp,.dps,.xls,.xlsx,.ods,.csv,.et,image/*,application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/pdf, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.presentation\" v-on=\"change:uploadFiles\" v-el=\"fileinput\" multiple=\"multiple\">\r\n\t</div>";
 
 /***/ },
 /* 166 */
