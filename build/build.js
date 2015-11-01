@@ -11297,7 +11297,7 @@
 	  	return {
 	  		displayedPage: 1,
 	  		filesPerPage: 10,
-	  		fileData: [],
+	  		fileData: [{checked:false,name:'test.test',time:'1@#!@#!2@@'},{checked:false,name:'test2.t',time:'1@#!@#!2@@'},],
 	  		displayFile: [],
 	  		checkedAll: false,
 	  		searchString: '',
@@ -11419,7 +11419,6 @@
 	
 	
 	function loadData(vuemodel) {
-	  alert('ready to request data')
 	  yy_request.rest_api({
 	    method: 'get',
 	    api: 'file/',
@@ -11427,7 +11426,6 @@
 	      page: vuemodel.displayedPage,
 	    },  
 	    opSuccess: function(info) {
-	      alert(JSON.stringify(info))
 	      var filedata = info
 	      for(var i in filedata) {
 	        filedata[i].checked = false
@@ -11438,6 +11436,7 @@
 	        vuemodel.moreData = false
 	      }
 	      vuemodel.fileData = vuemodel.fileData.concat(filedata)
+	      alert('data load done')
 	    },
 	  })
 	}
