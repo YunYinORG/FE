@@ -63,7 +63,7 @@
 <script>
   
 var yy_request = require('../js/yunyin_request')
-
+var po = require('../js/public_object.js')
 module.exports = {
   props: {
     taskSetting: Object,
@@ -95,7 +95,7 @@ module.exports = {
 function getPrinterList(vuemodel) {
   yy_request.rest_api({
     method: 'get',
-    api: 'printers/',
+    api: 'printers/?sch_id='+po.userinfo.sch_id,
     opSuccess: function(info) {
       for(var i in info) {
         vuemodel.printerList.push({

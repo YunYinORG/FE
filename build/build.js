@@ -13542,7 +13542,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var yy_request = __webpack_require__(91)
-	
+	var po = __webpack_require__(92)
 	module.exports = {
 	  props: {
 	    taskSetting: Object,
@@ -13574,7 +13574,7 @@
 	function getPrinterList(vuemodel) {
 	  yy_request.rest_api({
 	    method: 'get',
-	    api: 'printers/',
+	    api: 'printers/?sch_id='+po.userinfo.sch_id,
 	    opSuccess: function(info) {
 	      for(var i in info) {
 	        vuemodel.printerList.push({
