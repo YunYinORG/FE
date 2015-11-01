@@ -9,21 +9,20 @@
 
     <div class="panel panel-success text-center">
       <div class="panel-heading">
-        <p>{{printerInfo.name}}</p>
-        <p>{{printerInfo.address}}</p>
-        <p>{{printerInfo.phone}}</p>
+        <p>营业时间:{{printerInfo.open}}</p>
+        <p>{{printerInfo.other}}</p>
       </div>
       <div class="panel-body">
-        <p>黑白(A4)单面:¥{{printerInfo.price1}}/页,双面:¥{{printerInfo.price2}}/页</p>
-        <p style="margin-bottom: 0">彩印(A4)单面:¥{{printerInfo.price3}}/页,双面:¥{{printerInfo.price4}}/页</p>
+        <p>黑白(A4)单面:¥{{printerInfo.price.s}}/页,双面:¥{{printerInfo.price.d}}/页</p>
+        <p style="margin-bottom: 0">彩印(A4)单面:¥{{printerInfo.price.c_s}}/页,双面:¥{{printerInfo.price.c_d}}/页</p>
       </div>
     </div>
-    
+
     <div class="row">
       <div class="col-xs-6 col-sm-3 cl">
         <custom-switch
           true-text="到店"
-          false-text="提前"
+          false-text="预设"
           value="{{@taskSetting.isInStore}}">
         </custom-switch>
       </div>
@@ -57,11 +56,11 @@
       <textarea v-model="taskSetting.requirements" type="text" placeholder="还有什么需要告诉店家的请写在这里" class="form-control" ></textarea>
     </div>
 
-  </div>  
+  </div>
 </template>
 
 <script>
-  
+
 var yy_request = require('../js/yunyin_request')
 var po = require('../js/public_object.js')
 module.exports = {
@@ -72,7 +71,7 @@ module.exports = {
   data: function () {
     return {
       printerList: [],
-      printerInfo: {},
+      printerInfo: {price:{}},
     }
   },
 
@@ -99,7 +98,7 @@ function getPrinterList(vuemodel) {
     opSuccess: function(info) {
       for(var i in info) {
         vuemodel.printerList.push({
-          text: info[i].name+' ['+info[i].address+']',
+          text: info[i].name+' 【'+info[i].address+'】',
           value: info[i].id,
         })
       }
@@ -112,15 +111,7 @@ function getPrinterDetail(vuemodel) {
     method: 'get',
     api: 'printers/'+vuemodel.taskSetting.printerId,
     opSuccess: function(info) {
-      vuemodel.printerInfo = {
-        name: info.name,
-        address: info.address,
-        phone: info.phone,
-        price1: info.price.s,
-        price2: info.price.d,
-        price4: info.price.c_s,
-        price3: info.price.c_d,
-      }
+      vuemodel.printerInfo=info;
     },
   })
 }

@@ -13552,7 +13552,7 @@
 	  data: function () {
 	    return {
 	      printerList: [],
-	      printerInfo: {},
+	      printerInfo: {price:{}},
 	    }
 	  },
 	
@@ -13579,7 +13579,7 @@
 	    opSuccess: function(info) {
 	      for(var i in info) {
 	        vuemodel.printerList.push({
-	          text: info[i].name+' ['+info[i].address+']',
+	          text: info[i].name+' 【'+info[i].address+'】',
 	          value: info[i].id,
 	        })
 	      }
@@ -13592,15 +13592,7 @@
 	    method: 'get',
 	    api: 'printers/'+vuemodel.taskSetting.printerId,
 	    opSuccess: function(info) {
-	      vuemodel.printerInfo = {
-	        name: info.name,
-	        address: info.address,
-	        phone: info.phone,
-	        price1: info.price.s,
-	        price2: info.price.d,
-	        price4: info.price.c_s,
-	        price3: info.price.c_d,
-	      }
+	      vuemodel.printerInfo=info;
 	    },
 	  })
 	}
@@ -13697,7 +13689,7 @@
 /* 175 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"taskinfo-wrapper\">\r\n    <custom-select\r\n      options=\"{{printerList}}\"\r\n      value=\"{{@taskSetting.printerId}}\"\r\n      desc=\"选择想去的打印店\"\r\n      on-select-change={{showPrinterInfo}}>\r\n    </custom-select>\r\n\r\n    <div class=\"panel panel-success text-center\">\r\n      <div class=\"panel-heading\">\r\n        <p>{{printerInfo.name}}</p>\r\n        <p>{{printerInfo.address}}</p>\r\n        <p>{{printerInfo.phone}}</p>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <p>黑白(A4)单面:¥{{printerInfo.price1}}/页,双面:¥{{printerInfo.price2}}/页</p>\r\n        <p style=\"margin-bottom: 0\">彩印(A4)单面:¥{{printerInfo.price3}}/页,双面:¥{{printerInfo.price4}}/页</p>\r\n      </div>\r\n    </div>\r\n    \r\n    <div class=\"row\">\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          true-text=\"到店\"\r\n          false-text=\"提前\"\r\n          value=\"{{@taskSetting.isInStore}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"双面\"\r\n          false-text=\"单面\"\r\n          value=\"{{@taskSetting.isDoubleSide}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"彩印\"\r\n          false-text=\"黑白\"\r\n          value=\"{{@taskSetting.isColor}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3\">\r\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\r\n          <span class=\"input-group-addon input-sm\">份</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\r\n    </div>\r\n\r\n  </div>";
+	module.exports = "<div class=\"taskinfo-wrapper\">\r\n    <custom-select\r\n      options=\"{{printerList}}\"\r\n      value=\"{{@taskSetting.printerId}}\"\r\n      desc=\"选择想去的打印店\"\r\n      on-select-change={{showPrinterInfo}}>\r\n    </custom-select>\r\n\r\n    <div class=\"panel panel-success text-center\">\r\n      <div class=\"panel-heading\">\r\n        <p>营业时间:{{printerInfo.open}}</p>\r\n        <p>{{printerInfo.other}}</p>\r\n      </div>\r\n      <div class=\"panel-body\">\r\n        <p>黑白(A4)单面:¥{{printerInfo.price.s}}/页,双面:¥{{printerInfo.price.d}}/页</p>\r\n        <p style=\"margin-bottom: 0\">彩印(A4)单面:¥{{printerInfo.price.c_s}}/页,双面:¥{{printerInfo.price.c_d}}/页</p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          true-text=\"到店\"\r\n          false-text=\"预设\"\r\n          value=\"{{@taskSetting.isInStore}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"双面\"\r\n          false-text=\"单面\"\r\n          value=\"{{@taskSetting.isDoubleSide}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3 cl\">\r\n        <custom-switch\r\n          v-if=\"!taskSetting.isInStore\"\r\n          v-transition=\"expand\"\r\n          true-text=\"彩印\"\r\n          false-text=\"黑白\"\r\n          value=\"{{@taskSetting.isColor}}\">\r\n        </custom-switch>\r\n      </div>\r\n      <div class=\"col-xs-6 col-sm-3\">\r\n        <div class=\"input-group copies-wrapper\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n          <input v-model=\"taskSetting.copies\" type=\"number\" placeholder=\"份数\" class=\"form-control input-sm\" id=\"print-copies\" min=\"1\" value=\"1\"/>\r\n          <span class=\"input-group-addon input-sm\">份</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"requirement\" v-if=\"!taskSetting.isInStore\" v-transition=\"expand\">\r\n      <textarea v-model=\"taskSetting.requirements\" type=\"text\" placeholder=\"还有什么需要告诉店家的请写在这里\" class=\"form-control\" ></textarea>\r\n    </div>\r\n\r\n  </div>";
 
 /***/ },
 /* 176 */
