@@ -47,12 +47,12 @@
             v-class="btn-default: taskSetting.printerId==null,
                      btn-primary: taskSetting.printerId!=null">提交任务</button>
         </div>
-        <div class="col-xs-6 col-sm-3" v-if="!newTask" >
+        <div class="col-xs-6 col-sm-4 col-sm-offset-2" v-if="!newTask" >
           <button class="btn btn-danger btn-block " v-on="click: onDeleteTask">删除任务</button>
         </div>
-        <div class="col-xs-6 col-sm-3" v-if="!newTask" > 
+<!--         <div class="col-xs-6 col-sm-3" v-if="!newTask" > 
           <button class="btn btn-primary btn-block" v-on="click: onEditTask">修改任务</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </modal>
@@ -85,11 +85,18 @@ module.exports = {
         copies: 1,
         requirements: "",
       },
-      taskId: null,
       currentBody: '',
       fileInfoText: "",
       taskInfoText: "",
       stn: 0,
+      statusDict: {
+        "0": "用户取消",
+        "1": "已上传",
+        "2": "已下载",
+        "3": "已打印",
+        "4": "打印完成",
+        "-1": "打印店取消",
+      }
     }
   },
 
@@ -131,6 +138,8 @@ module.exports = {
       this.fileInfoText = ''
       return true
     },
+
+
 
     submittedTaskNumber: {
       get: function() {
@@ -233,23 +242,28 @@ module.exports = {
 
     onDeleteTask: function() {
       var vuemodel = this
-      vuemodel.taskInfoText="正在删除打印任务"
 
-      yy_request.rest_api({
-        method: 'delete',
-        api: 'task/' + this.params.taskId,
-        opSuccess: function(info) {
-          vuemodel.taskInfoText="任务删除成功"
-          setTimeout(function(){
-            vuemodel.taskInfoText = ""
-            vuemodel.show = false
-            vuemodel.onTaskChange()
-          },1000)
-        },
-        opFail: function(info) {
-          vuemodel.taskInfoText="任务删除失败"
-        },
-      })
+      if(this.params.taskinfo.status=='1' || (this.params.taskinfo.status=='4' && this.params.taskinfo.payed=="1")) {
+        vuemodel.taskInfoText="正在删除打印任务"
+
+        yy_request.rest_api({
+          method: 'delete',
+          api: 'task/' + this.params.taskinfo.id,
+          opSuccess: function(info) {
+            vuemodel.taskInfoText="任务删除成功"
+            setTimeout(function(){
+              vuemodel.taskInfoText = ""
+              vuemodel.show = false
+              vuemodel.onTaskChange()
+            },1000)
+          },
+          opFail: function(info) {
+            vuemodel.taskInfoText="任务删除失败"
+          },
+        })
+      } else {
+        vuemodel.taskInfoText = "不可以删除" + vuemodel.statusDict[vuemodel.params.taskinfo.status] + "的任务哦"
+      }
     },
 
     onEditTask: function() {
@@ -259,7 +273,7 @@ module.exports = {
 
       yy_request.rest_api({
         method: 'put',
-        api: 'task/' + this.params.taskId,
+        api: 'task/' + this.params.taskinfo.id,
         data: ajax_data,
         opSuccess: function(info) {
           vuemodel.taskInfoText="任务修改成功"
@@ -288,7 +302,7 @@ module.exports = {
 function getTaskSetting(vuemodel) {
   yy_request.rest_api({
     method: 'get',
-    api: 'task/'+vuemodel.params.taskId,
+    api: 'task/'+vuemodel.params.taskinfo.id,
     opSuccess: function(info) {
       vuemodel.taskSetting.printerId = info.pri_id
       vuemodel.taskSetting.copies = parseInt(info.copies)

@@ -41,6 +41,9 @@ module.exports = {
           },
         })
       } else {
+        if('ajax_obj' in filedata[index]) {
+          filedata[index].ajax_obj.XHR.abort()
+        }
         filedata.$remove(index)
       }          
     },
@@ -79,7 +82,7 @@ module.exports = {
 }
 
 function uploadFile(filedata) {
-  yy_request.rest_api({
+  filedata.ajax_obj = yy_request.rest_api({
     method: 'post',
     api: 'file/token/',
     data: {
@@ -88,7 +91,7 @@ function uploadFile(filedata) {
     opSuccess: function(info) {
       filedata.token = info.token
 
-      yy_request.ajax({
+      filedata.ajax_obj = yy_request.ajax({
         method: 'post',
         url: 'http://upload.qiniu.com/',
         data: {
@@ -105,11 +108,15 @@ function uploadFile(filedata) {
         },
       })
     },
+    opFail: function(info) {
+      filedata.info = info
+      filedata.status = 'fail'      
+    },
   })
 }
 
 function uploadConfirm(filedata,key) {
-  yy_request.rest_api({
+  filedata.ajax_obj = yy_request.rest_api({
     method: 'post',
     api: 'file/',
     data: {

@@ -154,9 +154,34 @@ section {
     transform: rotate(360deg);
   }
 }
-
-
 /*-----------*/
+
+#network-hint {
+  position:relative;
+  height: 30px;
+  z-index: 9999;
+  background: #FFFF66;
+  width: 100%;
+  text-align: center;
+  opacity: 0.9;
+}
+
+.hint-transition {
+  margin-top: 0px;
+  -webkit-transition: margin-top 0.4s ease-in-out;
+  -moz-transition: margin-top 0.4s ease-in-out;
+  transition: margin-top 0.4s ease-in-out;   
+}
+
+.hint-enter,
+.hint-leave {
+  margin-top: -30px;
+  -webkit-transition: margin-top 0.4s ease-in-out;
+  -moz-transition: margin-top 0.4s ease-in-out;
+  transition: margin-top 0.4s ease-in-out;    
+}
+
+
 /*aside*/
 .nav-switch{
   width: 32px;

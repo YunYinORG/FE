@@ -29,7 +29,10 @@
       </thead>
       <tbody class="table-body">
         <tr v-repeat="task:displayTask" track-by="id">
-          <td>{{task.status}}</td>
+          <td v-class="text-muted: task.status=='0' || task.status=='-1',
+                       text-info: task.status=='1',
+                       text-success: task.status=='2'"
+          >{{statusDict[task.status]}}</td>
           <td class="text-primary">{{task.name}}</td>
           <td>{{task.printer}}</td>
           <td><span>{{task.copies}}</span>份<span>{{task.double==null? " ":(task.double=="1"? "双面":"单面")}}</span><span>{{task.color==null? "-": (task.color=="1"? "彩色":"黑白")}}</span></td>
@@ -60,6 +63,14 @@ module.exports = {
   		searchString: '',
   		showUploadModal: false,
   		moreData: false,
+      statusDict: {
+        "0": "用户取消",
+        "1": "已上传",
+        "2": "已下载",
+        "3": "已打印",
+        "4": "打印完成",
+        "-1": "打印店取消",
+      }
   	}
   },
 
@@ -83,7 +94,7 @@ module.exports = {
       po.app.fileTaskParams = {
         mode: 'newfile',
         fileList: [],
-        taskId: {},
+        taskinfo: {},
       }
       po.app.showFileTaskModal = true
     },
@@ -93,7 +104,7 @@ module.exports = {
       po.app.fileTaskParams = {
         mode: 'edittask',
         fileList: [],
-        taskId: task.id,
+        taskinfo: task,
       }
       
     },
@@ -103,7 +114,6 @@ module.exports = {
   	},
 
   	onTaskChange: function() {
-  		this.taskData = []
   		this.displayedPage = 1
   		loadTasks(this)
   	}
@@ -126,7 +136,11 @@ function loadTasks(vuemodel) {
       } else {
         vuemodel.moreData = false
       }
-      vuemodel.taskData = vuemodel.taskData.concat(taskdata)
+      if(vuemodel.displayedPage==1) {
+        vuemodel.taskData = taskdata
+      } else {
+        vuemodel.taskData = vuemodel.taskData.concat(taskdata)       
+      }
     },
   })
 }

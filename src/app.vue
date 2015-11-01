@@ -1,4 +1,8 @@
 <template>
+  <div id="app-spinner" v-show="showSpinner">Loading...</div>
+  <div id="network-hint" v-show="showNetworkHint" v-transition='hint'>
+    <small>网络连接似乎有些问题...</small>
+  </div>
   <header class="turn-left" v-class="slide-aside : showSlideMenu">
     <div class="nav-switch"
       v-on="click: showSlideMenu = !showSlideMenu">
@@ -12,7 +16,6 @@
     <a class="signin" v-on="click: onClickLogin" v-text="username==null? '登录':username"></a>
     <div class="clear"></div>
   </header>
-  <div id="app-spinner" v-show="showSpinner">Loading...</div>
   <!--aside-->
    <aside v-class="open : showSlideMenu"> 
    <h6><a href="#/home" v-on="click: showSlideMenu = false" >首页<i class="glyphicon glyphicon-home"></i></a></h6> 
@@ -46,7 +49,8 @@
       transition-mode="out-in">
     </component>
   </section>
-  <filetask-modal show="{{@showFileTaskModal}}"
+  <filetask-modal v-if = "showFileTaskModal"
+    show="{{@showFileTaskModal}}"
     on-file-change="{{onFileChange}}"
     on-task-change="{{onTaskChange}}"
     params="{{fileTaskParams}}"></filetask-modal>
@@ -73,7 +77,7 @@ module.exports = {
       fileTaskParams: {
         mode: 'newfile',
         fileList: [],
-        taskId: {},
+        taskinfo: {},
       },
       infoModalText:'',
       mySelectOptions: [
@@ -83,6 +87,7 @@ module.exports = {
       mySelectValue: null,
       username: null,
       showSpinner: false,
+      showNetworkHint: false,
     }
   },
 
@@ -92,7 +97,7 @@ module.exports = {
         this.fileTaskParams = {
           mode: 'newfile',
           fileList: [],
-          taskId: {},
+          taskinfo: {},
         }
         this.showFileTaskModal = true
       } else {
@@ -158,6 +163,7 @@ module.exports = {
     	}
     })
   },
+
   components: {
     'intro-view': require('./views/intro-view.vue'),
     'menu-view': require('./views/menu-view.vue'),

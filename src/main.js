@@ -22,6 +22,7 @@ router.on('/print', function () {
   	app.view = 'print-view'		
 	} else {
 		app.showLoginModal = true
+		window.location.hash = '#/home'
 	}
 })
 
@@ -30,6 +31,7 @@ router.on('/share', function () {
   	app.view = 'share-view'		
 	} else {
 		app.showLoginModal = true
+		window.location.hash = '#/home'
 	}
 })
 
@@ -38,6 +40,7 @@ router.on('/book', function () {
   	app.view = 'book-view'		
 	} else {
 		app.showLoginModal = true
+		window.location.hash = '#/home'
 	}
 })
 
@@ -46,6 +49,7 @@ router.on('/file', function () {
   	app.view = 'file-view'		
 	} else {
 		app.showLoginModal = true
+		window.location.hash = '#/home'
 	}
 })
 
@@ -54,6 +58,7 @@ router.on('/user', function () {
   	app.view = 'user-view'		
 	} else {
 		app.showLoginModal = true
+		window.location.hash = '#/home'
 	}
 })
 

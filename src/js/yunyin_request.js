@@ -6,8 +6,10 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://api.yunyin.org/'
+var baseurl = 'http://localhost/'
 
+
+var ajax_array = []
 
 module.exports = {
 	rest_api: function(options) {
@@ -29,7 +31,7 @@ module.exports = {
 		}
 
 		var default_networkError = function(status) {
-			alert('网络请求出错：'+ status)
+			
 		}
 
 		var method = options.method || 'get';
@@ -41,12 +43,17 @@ module.exports = {
 		var authFail = options.authFail || default_authFail;
 		var networkError= options.networkError || default_networkError;
 
-		return new yyajax({
+		var ajax_obj = new yyajax({
 			method: method,
 			url: baseurl + api,
 			data: data,
 			withCredentials: true,
 			success: function(responseText,status) {
+				po.app.showNetworkHint = false				
+				ajax_array.pop(this)
+				if(po.app!=null && ajax_array.length==0) {
+					po.app.showSpinner = false
+				}
 				var rpdata = JSON.parse(responseText);
 				if(rpdata.status==2) {
 					verifySuccess(rpdata.info);
@@ -57,11 +64,22 @@ module.exports = {
 				} else if(rpdata.status==-1) {
 					authFail(rpdata.info);
 				}
+
 			},
 			error: function(status) {
+				ajax_array.pop(this)
+				if(po.app!=null && ajax_array.length==0) {
+					po.app.showSpinner = false
+				}
+				po.app.showNetworkHint = true	
 				networkError(status);
 			}
 		})
+		ajax_array.push(ajax_obj)
+		if(po.app!=null) {		
+			po.app.showSpinner = true			
+		}
+		return ajax_obj
 	},
 
 	ajax: function(options) {

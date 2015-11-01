@@ -173,7 +173,6 @@ module.exports = {
 
   	onDelete: function($event,op_file) {
       if(this.actionName=='') {
-        this.actionName = 'delete'
 
         if(op_file!=undefined) {
           var checkedfile = [op_file]
@@ -181,6 +180,7 @@ module.exports = {
           var checkedfile = getCheckedList(this)      
         }
         if(checkedfile.length>0) {
+          this.actionName = 'delete'
           this.actionFileTotal = checkedfile.length
           this.actionFileDone = 0
           this.actionFileFail = 0
@@ -199,7 +199,6 @@ module.exports = {
   		loadData(this)
   	},
   	onFileChange: function() {
-  		this.fileData = []
   		this.displayedPage = 1
   		loadData(this)
   	}
@@ -225,7 +224,12 @@ function loadData(vuemodel) {
       } else {
         vuemodel.moreData = false
       }
-      vuemodel.fileData = vuemodel.fileData.concat(filedata)
+      if(vuemodel.displayedPage==1) {
+        vuemodel.fileData = filedata
+      } else {
+        vuemodel.fileData = vuemodel.fileData.concat(filedata)       
+      }
+
     },
   })
 }
