@@ -47,7 +47,7 @@
             v-class="btn-default: taskSetting.printerId==null,
                      btn-primary: taskSetting.printerId!=null">提交任务</button>
         </div>
-        <div class="col-xs-6 col-sm-4 col-sm-offset-2" v-if="!newTask" >
+        <div class="col-xs-12 col-sm-4 col-sm-offset-2" v-if="!newTask" >
           <button class="btn btn-danger btn-block " v-on="click: onDeleteTask">删除任务</button>
         </div>
 <!--         <div class="col-xs-6 col-sm-3" v-if="!newTask" > 
