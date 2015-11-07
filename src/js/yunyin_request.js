@@ -6,7 +6,7 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://api.yunyin.org/'
+var baseurl = 'http://localhost/'
 
 
 var ajax_array = []
