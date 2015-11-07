@@ -49,6 +49,9 @@ module.exports = {
       })
     }
     this.schoolList = this.schoolList.concat(options)
+    if(po.islogin) {
+      this.schoolId = po.userinfo.sch_id
+    }
     loadData(this)
   },
 
