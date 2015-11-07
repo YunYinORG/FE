@@ -17,7 +17,7 @@
 
 <script>
 module.exports = {
-	props: ["options","value","desc","onSelectChange"],
+  props: ["options","value","desc","onSelectChange"],
   
   data: function () {
     return {

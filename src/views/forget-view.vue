@@ -124,22 +124,16 @@ module.exports = {
 	},
 
 	compiled: function() {
-		var vuemodel = this
-  	yy_request.rest_api({
-	    method: 'get',
-	    api: 'school/',
-	    opSuccess: function(info) {
-				var options = []
-				for(var key in info) {
-					options.push({
-						value: info[key].id,
-						text: info[key].name,
-						verifyinfo: '验证系统：' + info[key].verify +'(' +info[key].verifyurl +')'
-					})
-				}
-				vuemodel.schoolList = options	    	
-	    },
-	  })
+		var info = po.schoolsinfo
+		var options = []
+		for(var key in info) {
+			options.push({
+				value: info[key].id,
+				text: info[key].name,
+				verifyinfo: '验证系统：' + info[key].verify +'(' +info[key].verifyurl +')'
+			})
+		}
+		this.schoolList = options
 	},
 
 	methods: {

@@ -19,10 +19,10 @@
   <!--aside-->
    <aside v-class="open : showSlideMenu"> 
    <h6><a href="#/home" v-on="click: showSlideMenu = false" >首页<i class="glyphicon glyphicon-home"></i></a></h6> 
-   <h6><a href="#/print" >快速打印<i class="disable glyphicon glyphicon-print"></i></a></h6> 
+   <h6><a href="#/task" >快速打印<i class="disable glyphicon glyphicon-print"></i></a></h6> 
    <h6>文件</h6>
    <ul> 
-    <li><a href="#/print" v-on="click: showSlideMenu = false" >订单管理<i class="glyphicon glyphicon-list-alt"></i></a></li> 
+    <li><a href="#/task" v-on="click: showSlideMenu = false" >订单管理<i class="glyphicon glyphicon-list-alt"></i></a></li> 
     <li><a href="#" v-on="click: onUploadFile,
                             click: showSlideMenu = false" >上传文件<i class="glyphicon glyphicon-cloud-upload"></i></a></li> 
     <li><a href="#/file" v-on="click: showSlideMenu = false">我的文件<i class="glyphicon fui-folder"></i></a></li> 
@@ -38,7 +38,7 @@
     <li><a href="#/user" v-on="click: showSlideMenu = false">个人信息<i class="glyphicon glyphicon-user"></i></a></li> 
     <li><a href="#" v-on="click: onLogout,click: showSlideMenu = false">退出登录<i class="glyphicon fui-exit"></i></a></li> 
    </ul> 
-   <h6><a href="#" v-on="click: showSlideMenu = false">打印店<i class="disable glyphicon fui-home"></i></a></h6> 
+   <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店<i class="glyphicon fui-home"></i></a></h6> 
    <h6><a href="#" v-on="click: showSlideMenu = false">校园卡<i class="disable glyphicon fui-credit-card"></i></a></h6> 
   </aside>
 
@@ -122,10 +122,10 @@ module.exports = {
     },
 
     onTaskChange: function() {
-      if(window.location.hash=="#/print") {
+      if(window.location.hash=="#/task") {
         po.vueTaskList.onTaskChange()
       } else {
-        window.location.hash="#/print"
+        window.location.hash="#/task"
       }
     },
 
@@ -144,24 +144,11 @@ module.exports = {
   },
 
   compiled: function() {
-    var vuemodel = this
-    yy_request.rest_api({
-    	method: 'get',
-    	api: 'user/',
-    	opSuccess: function(info) {
-        po.islogin = true
-        po.userinfo = info.user
-    		vuemodel.username = info.user.name
-    	},
-    	opFail: function() {
-        po.islogin = false
-    		vuemodel.username = null
-    	},
-    	authFail: function() {
-        po.islogin = false
-    		vuemodel.username = null
-    	}
-    })
+    if(po.islogin) {
+      this.username = po.userinfo.name      
+    } else {
+      this.username = null
+    }
   },
 
   components: {
@@ -172,6 +159,7 @@ module.exports = {
     'share-view': require('./views/share-view.vue'),
     'book-view': require('./views/book-view.vue'),
     'user-view': require('./views/user-view.vue'),
+    'printer-view': require('./views/printer-view.vue'),
     'forget-view': require('./views/forget-view.vue'),
     'login-modal': require('./components/login-modal.vue'),
     'filetask-modal': require('./components/filetask-modal.vue'),

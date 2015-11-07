@@ -6,7 +6,7 @@ most of the codes comes from a script named "Aui_Ajax" downloaded from internet.
 
 var po = require('./public_object.js')
 
-var baseurl = 'http://api.yunyin.org/'
+var baseurl = 'http://localhost/'
 
 
 var ajax_array = []
@@ -26,8 +26,10 @@ module.exports = {
 		}
 
 		var default_authFail = function(status) {
-			po.app.showLoginModal = true
-			po.app.username = null
+			if(po.app!=null) {
+				po.app.showLoginModal = true
+				po.app.username = null	
+			}
 		}
 
 		var default_networkError = function(status) {
@@ -48,11 +50,11 @@ module.exports = {
 			url: baseurl + api,
 			data: data,
 			withCredentials: true,
-			success: function(responseText,status) {
-				po.app.showNetworkHint = false				
+			success: function(responseText,status) {				
 				ajax_array.pop(this)
 				if(po.app!=null && ajax_array.length==0) {
 					po.app.showSpinner = false
+					po.app.showNetworkHint = false	
 				}
 				var rpdata = JSON.parse(responseText);
 				if(rpdata.status==2) {
@@ -70,8 +72,9 @@ module.exports = {
 				ajax_array.pop(this)
 				if(po.app!=null && ajax_array.length==0) {
 					po.app.showSpinner = false
+					po.app.showNetworkHint = true	
 				}
-				po.app.showNetworkHint = true	
+				
 				networkError(status);
 			}
 		})
