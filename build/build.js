@@ -63,9 +63,9 @@
 		app.view = 'menu-view'
 	})
 	
-	router.on('/print', function () {
+	router.on('/task', function () {
 		if(po.islogin) {
-	  	app.view = 'print-view'		
+	  	app.view = 'task-view'		
 		} else {
 			app.showLoginModal = true
 			window.location.hash = '#/home'
@@ -10512,7 +10512,7 @@
 	  components: {
 	    'intro-view': __webpack_require__(93),
 	    'menu-view': __webpack_require__(100),
-	    'print-view': __webpack_require__(103),
+	    'task-view': __webpack_require__(185),
 	    'file-view': __webpack_require__(111),
 	    'share-view': __webpack_require__(117),
 	    'book-view': __webpack_require__(119),
@@ -11113,33 +11113,11 @@
 /* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"menu-view\">\n    <div class=\"text-center\">\n      <h2>云印服务</h2>\n    </div>\n    <div class=\"text-center\">\n      <h5>随时随地更方便的校园打印</h5>\n    </div>\n    <div class=\"text-center\">\n      <ul class=\"default-list\">\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/print\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-cloud-upload\"></i>上传</a></li>\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-globe\"></i>共享</a></li>\n      </ul>\n    </div>\n  </div>\n    <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\n      <ul class=\"list-inline\">\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档</a></li>\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">微博</a></li>\n        <li><a href=\"#\">微信</a></li>\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\n      </ul>\n  </footer>";
+	module.exports = "<div class=\"menu-view\">\n    <div class=\"text-center\">\n      <h2>云印服务</h2>\n    </div>\n    <div class=\"text-center\">\n      <h5>随时随地更方便的校园打印</h5>\n    </div>\n    <div class=\"text-center\">\n      <ul class=\"default-list\">\n        <li><a class=\"button\" title=\"快速打印\" href=\"#/task\"><i class=\"glyphicon glyphicon-print\"></i>打印</a></li>\n        <li><a class=\"button\" title=\"上传文件到服务器上\" v-on=\"click: onOpenFileTaskModal\"><i class=\"glyphicon glyphicon-cloud-upload\"></i>上传</a></li>\n        <li><a class=\"button\" title=\"查看和管理我的文件\" href=\"#/file\"><i class=\"fui-folder\"></i>文件</a></li>\n        <li><a class=\"button\" title=\"共享的文件\" href=\"#/share\"><i class=\"glyphicon glyphicon-globe\"></i>共享</a></li>\n      </ul>\n    </div>\n  </div>\n    <footer class='text-center' v-class=\"slide-aside : showSlideMenu\">\n      <ul class=\"list-inline\">\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/\">&copy;云印南天</a></li>\n        <li><a target=\"_blank\" rel=\"nofollow\" href=\"https://github.com/YunYinORG/\">开源项目</a></li>\n        <li><a target=\"_blank\" href=\"http://www.yunyin.org/pages/\">文档</a></li>\n        <li><a target=\"_blank\" href=\"http://weibo.com/cloudPrint/\">微博</a></li>\n        <li><a href=\"#\">微信</a></li>\n        <li><a rel=\"nofollow\" href=\"http://printer.yunyin.org/\">打印店</a></li>\n      </ul>\n  </footer>";
 
 /***/ },
-/* 103 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(104)
-	module.exports.template = __webpack_require__(110)
-
-
-/***/ },
-/* 104 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = {
-		data: function() {
-			return {
-				showTaskModal:false,
-			}
-		},
-	
-	  components: {
-	    'tasklist': __webpack_require__(105),
-	  }
-	}
-
-/***/ },
+/* 103 */,
+/* 104 */,
 /* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -11287,12 +11265,7 @@
 	module.exports = "<div class=\"row actions-wrapper\">\n    <div id=\"newtask-wrapper\" class=\"col-xs-12 col-sm-8\">\n      <button class=\"btn btn-embossed btn-primary\" v-on=\"click: onUploadFile\">\n        <i class=\"glyphicon glyphicon-open\"></i>\n        添加新打印任务\n      </button>\n    </div>\n    <div class=\"hidden-xs col-sm-3 col-sm-offset-1\">\n      <div class=\"input-group\">\n        <input type=\"text\" class=\"form-control\" placeholder=\"搜索您的文件\" v-model=\"searchString\">\n        <span class=\"input-group-btn\">\n          <button class=\"btn\"><i class=\"fui-search\"></i></button>\n        </span>\n      </div>\n    </div>\n  </div>\n  <div class=\"table-responsive\">\n    <table class=\"table table-hover\">\n      <thead>\n        <tr>\n          <th>状态</th>\n          <th>任务名</th>\n          <th>打印店</th>\n          <th>设置</th>\n          <th>时间</th>       \n          <th>操作</th>\n        </tr>\n      </thead>\n      <tbody class=\"table-body\">\n        <tr v-repeat=\"task:displayTask\" track-by=\"id\">\n          <td v-class=\"text-muted: task.status=='0' || task.status=='-1',\n                       text-info: task.status=='1',\n                       text-success: task.status=='2'\"\n          >{{statusDict[task.status]}}</td>\n          <td class=\"text-primary\">{{task.name}}</td>\n          <td>{{task.printer}}</td>\n          <td><span>{{task.copies}}</span>份<span>{{task.double==null? \" \":(task.double==\"1\"? \"双面\":\"单面\")}}</span><span>{{task.color==null? \"-\": (task.color==\"1\"? \"彩色\":\"黑白\")}}</span></td>\n          <td>{{task.time.substr(5,11)}}</td>\n          <td style=\"text-align:center\">\n            <i class=\"glyphicon glyphicon-pencil\" aria-hidden=\"true\" style=\"cursor:pointer\"\n              v-on=\"click: onEditTask($event,task)\"></i>\n          </td>\n        </tr>\n      </tbody>\n    </table>  \n  </div>\n\n  <div class=\"more\" v-on=\"click: onLoadMore\" v-if=\"moreData\">加载更多...</div><!--没有更多时应为灰色-->";
 
 /***/ },
-/* 110 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"row\">\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\n  \t\t<tasklist></tasklist>\t\t\n\t</div>\n</div>";
-
-/***/ },
+/* 110 */,
 /* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -14476,6 +14449,37 @@
 	
 	
 	}( true ? exports : window));
+
+/***/ },
+/* 184 */,
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(186)
+	module.exports.template = __webpack_require__(187)
+
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = {
+		data: function() {
+			return {
+				showTaskModal:false,
+			}
+		},
+	
+	  components: {
+	    'tasklist': __webpack_require__(105),
+	  }
+	}
+
+/***/ },
+/* 187 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row\">\n\t<div class=\"list-view col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8\">\n  \t\t<tasklist></tasklist>\t\t\n\t</div>\n</div>";
 
 /***/ }
 /******/ ]);

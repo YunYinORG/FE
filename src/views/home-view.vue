@@ -19,7 +19,7 @@ module.exports = {
 
   components: {
     'menu-view': require('../views/menu-view.vue'),
-    'print-view': require('../views/print-view.vue'),
+    'task-view': require('../views/task-view.vue'),
     'file-view': require('../views/file-view.vue'),
     'share-view': require('../views/share-view.vue'),
     'textbook-view': require('../views/textbook-view.vue'),

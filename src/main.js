@@ -17,9 +17,9 @@ router.on('/home', function () {
 	app.view = 'menu-view'
 })
 
-router.on('/print', function () {
+router.on('/task', function () {
 	if(po.islogin) {
-  	app.view = 'print-view'		
+  	app.view = 'task-view'		
 	} else {
 		app.showLoginModal = true
 		window.location.hash = '#/home'
