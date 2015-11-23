@@ -203,7 +203,7 @@
 	
 	var po = __webpack_require__(23)
 	
-	var baseurl = 'http://localhost/'
+	var baseurl = 'http://api.yunyin.org/'
 	
 	
 	var ajax_array = []
