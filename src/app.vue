@@ -31,7 +31,7 @@
    <ul> 
     <li><a href="#" >我的共享<i class="disable glyphicon glyphicon-star"></i></a></li> 
     <li><a href="#" >共享文库<i class="disable glyphicon glyphicon-globe"></i></a></li> 
-    <li><a href="#" >店内资源<i class="disable glyphicon glyphicon-book"></i></a></li> 
+    <li><a href="#/book" v-on="click: showSlideMenu = false">店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
    </ul> 
    <h6>个人</h6> 
    <ul> 

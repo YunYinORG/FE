@@ -239,9 +239,9 @@ function get_user_detail(vuemodel) {
     padding: 10px;
 }
 
-.input-group {
+/*.input-group {
 	height: 0;
-}
+}*/
 
 #password-reset .ip {
 	margin-top: 5px;

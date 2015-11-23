@@ -3,7 +3,7 @@
     <div class="modal-wrapper">
       <div class="modal-container" v-style="max-width: width+'px' ">
         <div class="modal-header">
-          {{defaultTitle}}
+          <strong>{{defaultTitle}}</strong>
           <button type="button" class="close"
             v-on="click: show = false">
             <span aria-hidden="true">&times;</span>
@@ -92,6 +92,7 @@ module.exports = {
 .modal-header h3 {
   margin-top: 0;
   color: #42b983;
+
 }
 
 .modal-body {

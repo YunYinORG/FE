@@ -25,11 +25,11 @@
 				    	</custom-select>
 				    	<p class="text-center" v-if="verifyInfo!=''">{{verifyInfo}}</p>					
 						</div>
-						<div class="input-group">
+						<div class="input-group fg-input-group">
 							<span class="input-group-addon">学号</span>
 							<input type="text" class="form-control" placeholder="请输入您的学号" v-model="findId">
 						</div>
-						<div class="input-group">
+						<div class="input-group fg-input-group">
 							<span class="input-group-addon">{{findHint}}</span>
 							<input type="{{findType}}" class="form-control" placeholder="{{findPlaceholder}}" v-model="findInfo">
 						</div>
@@ -272,7 +272,7 @@ function verifyUserSchool(vuemodel) {
 	margin-top: 30px;
 }
 
-.input-group {
+.fg-input-group {
 	margin-bottom: 10px;
 }
 
