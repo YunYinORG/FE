@@ -39,7 +39,7 @@
     <li><a href="#" v-on="click: onLogout,click: showSlideMenu = false">退出登录<i class="glyphicon fui-exit"></i></a></li> 
    </ul> 
    <h6><a href="#/printer" v-on="click: showSlideMenu = false">打印店<i class="glyphicon fui-home"></i></a></h6> 
-   <h6><a href="#" v-on="click: showSlideMenu = false">校园卡<i class="disable glyphicon fui-credit-card"></i></a></h6> 
+   <h6><a href="http://find.yunyin.org/" v-on="click: showSlideMenu = false">校园卡<i class="glyphicon fui-credit-card"></i></a></h6> 
   </aside>
 
   <section class="other" v-class="slide-aside : showSlideMenu">
