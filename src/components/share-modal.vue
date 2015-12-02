@@ -5,8 +5,8 @@
         <div v-repeat="file:sharedFileList">
             <form class="form-horizontal" role="form">
               <div class="form-group">
-                <div class='col-xs-9'><strong class="text-primary">{{file.name}}</strong></div>
-                <div class="col-xs-3">
+                <div class='col-sm-9'><strong class="text-primary">{{file.name}}</strong></div>
+                <div class="col-sm-3">
                   <input type="checkbox" v-model="file.anonymous">
                   <small class="text-info text-right">匿名分享</small>
                 </div>
