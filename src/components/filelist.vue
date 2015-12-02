@@ -65,7 +65,7 @@
             <i class="glyphicon glyphicon-print" style="cursor:pointer"
               v-on="click: onPrint($event,file)"></i>
             <i class="glyphicon glyphicon-share" style="cursor:pointer"
-              ></i>
+              v-on="click: onShare($event,file)"></i>
             <i class="glyphicon glyphicon-trash" style="cursor:pointer"
               v-on="click: onDelete($event,file)"></i>
           </td>
@@ -75,6 +75,8 @@
   </div>
 	<div class="more" v-on="click: onLoadMore" v-if="moreData">加载更多</div>
   </div>
+  <share-modal show="{{@showShareModal}}"
+    shared-file-list = "{{sharedFileList}}"></share-modal>
 </template>
 
 <script>
@@ -99,6 +101,8 @@ module.exports = {
       actionFileDone: 0,
       actionFileFail: 0,
       actionFileTotal: 0,
+      showShareModal: false,
+      sharedFileList: [],
   	}
   },
 
@@ -167,8 +171,27 @@ module.exports = {
       }
   	},
 
-  	onShare: function(op_file) {
-
+  	onShare: function($event,op_file) {
+      if(op_file!=undefined) {
+        var checkedfile = [op_file]
+      } else {
+        var checkedfile = getCheckedList(this)      
+      }
+      if(checkedfile.length>0) {
+        this.sharedFileList = []
+        for(var i in checkedfile) {
+          var sfile = {
+            name: checkedfile[i].name,
+            id: checkedfile[i].id,
+            anonymous: false,
+            shareDesc: "",
+            shareName: "",
+            shareTags: "",
+          }
+          this.sharedFileList.push(sfile)
+        }
+        this.showShareModal = true     
+      }      
   	},
 
   	onDelete: function($event,op_file) {
@@ -204,6 +227,9 @@ module.exports = {
   	}
   },
 
+  components: {
+    'share-modal': require('./share-modal.vue'),
+  }
 }
 
 
