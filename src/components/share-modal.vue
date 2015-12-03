@@ -26,7 +26,7 @@
               <div class="form-group">
                 <label for="shareTags" class="col-sm-2 control-label">文件标签</label>
                 <div class="col-sm-10">
-                  <input id="shareTags" type="text" placeholder='(可不填)添加标签，以;号分隔' class="form-control" v-model="file.shareTags"/>
+                  <input id="shareTags" type="text" placeholder='(可不填)添加标签，以;号分隔' class="form-control" v-model="file.shareTags | tagDisplay"/>
                 </div>          
               </div>
             </div>
@@ -43,6 +43,8 @@
 </template>
 
 <script>
+
+var yy_request = require('../js/yunyin_request')
 
 module.exports = {
   props: {
@@ -63,13 +65,42 @@ module.exports = {
 
   methods: {
     onShare: function() {
-
+      var sfiles = this.sharedFileList
+      for(var i in sfiles) {
+        shareFile(this,sfiles[i])
+      }
     }
   },
 
   components: {
     'modal': require('./modal.vue'),
   }
+}
+
+function shareFile(vuemodel,sfile) {
+  var ajax_data = {
+    fid: sfile.id,
+    anonymous: sfile.anonymous
+  }
+  if(sfile.shareName!="") {
+    ajax_data.name = sfile.shareName
+  }
+  if(sfile.shareDesc!="") {
+    ajax_data.detail = sfile.shareDesc
+  } 
+
+  yy_request.rest_api({
+    method: 'post',
+    api: 'share/',
+    data: ajax_data,
+    opSuccess: function(info) {
+      console.log(info)
+    },
+  })
+}
+
+function postTags() {
+
 }
 
 

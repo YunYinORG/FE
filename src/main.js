@@ -7,6 +7,18 @@ var Vue = require('vue')
 var loadingInfo = document.getElementById('loading-info')
 loadingInfo.textContent = "正在初始化用户信息"
 
+// custom vue filter define
+Vue.filter('tagDisplay', {
+  read: function(val) {
+    return val.join(';')
+  },
+
+  write: function(val, oldVal) {
+  	return val.split(/[;,；， ]/).filter(function(x){return x!=""})
+  }
+})
+
+
 function get_school_info() {
 	loadingInfo.textContent = "正在读取学校列表"
 	yy_request.rest_api({

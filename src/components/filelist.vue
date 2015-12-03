@@ -186,7 +186,7 @@ module.exports = {
             anonymous: false,
             shareDesc: "",
             shareName: "",
-            shareTags: "",
+            shareTags: [],
           }
           this.sharedFileList.push(sfile)
         }

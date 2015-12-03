@@ -53,6 +53,18 @@
 	var loadingInfo = document.getElementById('loading-info')
 	loadingInfo.textContent = "正在初始化用户信息"
 	
+	// custom vue filter define
+	Vue.filter('tagDisplay', {
+	  read: function(val) {
+	    return val.join(';')
+	  },
+	
+	  write: function(val, oldVal) {
+	  	return val.split(/[;,；， ]/).filter(function(x){return x!=""})
+	  }
+	})
+	
+	
 	function get_school_info() {
 		loadingInfo.textContent = "正在读取学校列表"
 		yy_request.rest_api({
@@ -11466,7 +11478,7 @@
 	            anonymous: false,
 	            shareDesc: "",
 	            shareName: "",
-	            shareTags: "",
+	            shareTags: [],
 	          }
 	          this.sharedFileList.push(sfile)
 	        }
@@ -11606,6 +11618,8 @@
 /* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var yy_request = __webpack_require__(25)
+	
 	module.exports = {
 	  props: {
 	    show: {
@@ -11625,13 +11639,42 @@
 	
 	  methods: {
 	    onShare: function() {
-	
+	      var sfiles = this.sharedFileList
+	      for(var i in sfiles) {
+	        shareFile(this,sfiles[i])
+	      }
 	    }
 	  },
 	
 	  components: {
 	    'modal': __webpack_require__(121),
 	  }
+	}
+	
+	function shareFile(vuemodel,sfile) {
+	  var ajax_data = {
+	    fid: sfile.id,
+	    anonymous: sfile.anonymous
+	  }
+	  if(sfile.shareName!="") {
+	    ajax_data.name = sfile.shareName
+	  }
+	  if(sfile.shareDesc!="") {
+	    ajax_data.detail = sfile.shareDesc
+	  } 
+	
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'share/',
+	    data: ajax_data,
+	    opSuccess: function(info) {
+	      console.log(info)
+	    },
+	  })
+	}
+	
+	function postTags() {
+	
 	}
 
 /***/ },
@@ -11722,7 +11765,7 @@
 /* 126 */
 /***/ function(module, exports) {
 
-	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div>\n        <div v-repeat=\"file:sharedFileList\">\n            <form class=\"form-horizontal\" role=\"form\">\n              <div class=\"form-group\">\n                <div class='col-sm-9'><strong class=\"text-primary\">{{file.name}}</strong></div>\n                <div class=\"col-sm-3\">\n                  <input type=\"checkbox\" v-model=\"file.anonymous\">\n                  <small class=\"text-info text-right\">匿名分享</small>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"shareName\" class=\"col-sm-2 control-label\">分享名称</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareName\" type=\"text\" placeholder='(可不填)给你的文件取个好认的名称' class=\"form-control\" v-model=\"file.shareName\"/>\n                </div>          \n              </div>          \n              <div class=\"form-group\">\n                <label for=\"shareDesc\" class=\"col-sm-2 control-label\">文件描述</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareDesc\" type=\"text\" placeholder='(可不填)帮助别人了解你的文件有什么用' class=\"form-control\" v-model=\"file.shareDesc\"/>\n                </div>          \n              </div>                \n              <div class=\"form-group\">\n                <label for=\"shareTags\" class=\"col-sm-2 control-label\">文件标签</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareTags\" type=\"text\" placeholder='(可不填)添加标签，以;号分隔' class=\"form-control\" v-model=\"file.shareTags\"/>\n                </div>          \n              </div>\n            </div>\n          </form>\n        </div>       \n      </div>\n    </div>\n\n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide btn-warning\" v-on=\"click: show = false\">取消</button>\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: onShare\">分享</button>\n    </div>    \n  </modal>";
+	module.exports = "<modal show=\"{{@show}}\" width=\"{{modalWidth}}\" default-title=\"{{title}}\">\n    <div class=\"modal-body\">\n      <div>\n        <div v-repeat=\"file:sharedFileList\">\n            <form class=\"form-horizontal\" role=\"form\">\n              <div class=\"form-group\">\n                <div class='col-sm-9'><strong class=\"text-primary\">{{file.name}}</strong></div>\n                <div class=\"col-sm-3\">\n                  <input type=\"checkbox\" v-model=\"file.anonymous\">\n                  <small class=\"text-info text-right\">匿名分享</small>\n                </div>\n              </div>\n              <div class=\"form-group\">\n                <label for=\"shareName\" class=\"col-sm-2 control-label\">分享名称</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareName\" type=\"text\" placeholder='(可不填)给你的文件取个好认的名称' class=\"form-control\" v-model=\"file.shareName\"/>\n                </div>          \n              </div>          \n              <div class=\"form-group\">\n                <label for=\"shareDesc\" class=\"col-sm-2 control-label\">文件描述</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareDesc\" type=\"text\" placeholder='(可不填)帮助别人了解你的文件有什么用' class=\"form-control\" v-model=\"file.shareDesc\"/>\n                </div>          \n              </div>                \n              <div class=\"form-group\">\n                <label for=\"shareTags\" class=\"col-sm-2 control-label\">文件标签</label>\n                <div class=\"col-sm-10\">\n                  <input id=\"shareTags\" type=\"text\" placeholder='(可不填)添加标签，以;号分隔' class=\"form-control\" v-model=\"file.shareTags | tagDisplay\"/>\n                </div>          \n              </div>\n            </div>\n          </form>\n        </div>       \n      </div>\n    </div>\n\n    <div class=\"modal-footer\">\n      <button class=\"btn btn-primary btn-wide btn-warning\" v-on=\"click: show = false\">取消</button>\n      <button class=\"btn btn-primary btn-wide\" v-on=\"click: onShare\">分享</button>\n    </div>    \n  </modal>";
 
 /***/ },
 /* 127 */
