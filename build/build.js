@@ -216,7 +216,7 @@
 	
 	var po = __webpack_require__(24)
 	
-	var baseurl = 'http://localhost/'
+	var baseurl = 'http://vagrant.yunyin.org/'
 	
 	
 	var ajax_array = []
@@ -11668,13 +11668,33 @@
 	    api: 'share/',
 	    data: ajax_data,
 	    opSuccess: function(info) {
-	      console.log(info)
+	      for(var i in sfile.shareTags) {
+	        postTag(sfile.shareTags[i],info.id)
+	      }
 	    },
 	  })
 	}
 	
-	function postTags() {
+	function postTag(tag,sfileId) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'tags/',
+	    data: {"name":tag},
+	    opSuccess: function(info) {
+	      associateTag(info.id,sfileId)
+	    },
+	  })  
+	}
 	
+	function associateTag(tagId,sfileId) {
+	  yy_request.rest_api({
+	    method: 'post',
+	    api: 'tags/' + tagId,
+	    data: {"sid":sfileId},
+	    opSuccess: function(info) {
+	      console.log(info)
+	    },
+	  })  
 	}
 
 /***/ },
