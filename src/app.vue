@@ -29,8 +29,8 @@
    </ul> 
    <h6>资源</h6> 
    <ul> 
-    <li><a href="#" >我的共享<i class="disable glyphicon glyphicon-star"></i></a></li> 
-    <li><a href="#" >共享文库<i class="disable glyphicon glyphicon-globe"></i></a></li> 
+    <li><a href="#/myshare" v-on="click: showSlideMenu = false">我的共享<i class="glyphicon glyphicon-star"></i></a></li> 
+    <li><a href="#/sharelib" v-on="click: showSlideMenu = false">共享文库<i class="glyphicon glyphicon-globe"></i></a></li> 
     <li><a href="#/book" v-on="click: showSlideMenu = false">店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
    </ul> 
    <h6>个人</h6> 
@@ -156,7 +156,8 @@ module.exports = {
     'menu-view': require('./views/menu-view.vue'),
     'task-view': require('./views/task-view.vue'),
     'file-view': require('./views/file-view.vue'),
-    'share-view': require('./views/share-view.vue'),
+    'myshare-view': require('./views/myshare-view.vue'),
+    'sharelib-view': require('./views/sharelib-view.vue'),
     'book-view': require('./views/book-view.vue'),
     'user-view': require('./views/user-view.vue'),
     'printer-view': require('./views/printer-view.vue'),

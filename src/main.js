@@ -83,6 +83,24 @@ function init_router() {
 		}
 	})
 
+	router.on('/myshare', function () {
+		if(po.islogin) {
+	  	app.view = 'myshare-view'		
+		} else {
+			app.showLoginModal = true
+			window.location.hash = '#/home'
+		}
+	})
+
+	router.on('/sharelib', function () {
+		if(po.islogin) {
+	  	app.view = 'sharelib-view'		
+		} else {
+			app.showLoginModal = true
+			window.location.hash = '#/home'
+		}
+	})
+
 	router.on('/user', function () {
 		if(po.islogin) {
 	  	app.view = 'user-view'		
