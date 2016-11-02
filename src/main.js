@@ -85,16 +85,16 @@ function init_router() {
 
 	router.on('/myshare', function () {
 		if(po.islogin) {
-	  	app.view = 'myshare-view'		
+	  	app.view = 'myshare-view'
 		} else {
 			app.showLoginModal = true
 			window.location.hash = '#/home'
 		}
 	})
 
-	router.on('/sharelib', function () {
+	router.on('/share', function () {
 		if(po.islogin) {
-	  	app.view = 'sharelib-view'		
+	  	app.view = 'share-view'
 		} else {
 			app.showLoginModal = true
 			window.location.hash = '#/home'
@@ -103,7 +103,7 @@ function init_router() {
 
 	router.on('/user', function () {
 		if(po.islogin) {
-	  	app.view = 'user-view'		
+	  	app.view = 'user-view'
 		} else {
 			app.showLoginModal = true
 			window.location.hash = '#/home'
@@ -111,7 +111,7 @@ function init_router() {
 	})
 
 	router.on('/printer', function () {
-	  	app.view = 'printer-view'		
+	  	app.view = 'printer-view'
 	})
 
 	router.on('/forget', function () {
