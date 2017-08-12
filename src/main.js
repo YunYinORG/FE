@@ -7,6 +7,18 @@ var Vue = require('vue')
 var loadingInfo = document.getElementById('loading-info')
 loadingInfo.textContent = "正在初始化用户信息"
 
+// custom vue filter define
+Vue.filter('tagDisplay', {
+  read: function(val) {
+    return val.join(';')
+  },
+
+  write: function(val, oldVal) {
+  	return val.split(/[;,；， ]/).filter(function(x){return x!=""})
+  }
+})
+
+
 function get_school_info() {
 	loadingInfo.textContent = "正在读取学校列表"
 	yy_request.rest_api({
@@ -71,9 +83,27 @@ function init_router() {
 		}
 	})
 
+	router.on('/myshare', function () {
+		if(po.islogin) {
+	  	app.view = 'myshare-view'
+		} else {
+			app.showLoginModal = true
+			window.location.hash = '#/home'
+		}
+	})
+
+	router.on('/share', function () {
+		if(po.islogin) {
+	  	app.view = 'share-view'
+		} else {
+			app.showLoginModal = true
+			window.location.hash = '#/home'
+		}
+	})
+
 	router.on('/user', function () {
 		if(po.islogin) {
-	  	app.view = 'user-view'		
+	  	app.view = 'user-view'
 		} else {
 			app.showLoginModal = true
 			window.location.hash = '#/home'
@@ -81,7 +111,7 @@ function init_router() {
 	})
 
 	router.on('/printer', function () {
-	  	app.view = 'printer-view'		
+	  	app.view = 'printer-view'
 	})
 
 	router.on('/forget', function () {

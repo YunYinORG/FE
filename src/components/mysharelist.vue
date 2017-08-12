@@ -6,22 +6,22 @@
         <i class="glyphicon glyphicon-open"></i>
         <span class="hidden-xs">上传文件</span>
       </button>
-      <button v-show="displayOperation.showPrint" class="btn btn-embossed btn-primary" v-on="click: onPrint">
+      <button v-show="displayOperation.showPrintShare" class="btn btn-embossed btn-primary" v-on="click: onPrint">
         <i class="glyphicon glyphicon-print"></i>
         <span class="hidden-xs">打印文件</span>
       </button>
-      <button v-show="displayOperation.showShare" class="btn btn-embossed btn-primary" v-on="click: onShare">
+      <button v-show="displayOperation.showEditShare" class="btn btn-embossed btn-primary" v-on="click: onEdit">
         <i class="glyphicon glyphicon-share"></i>
-        <span class="hidden-xs">分享文件</span>
+        <span class="hidden-xs">修改分享</span>
       </button>
-      <button v-show="displayOperation.showDelete" class="btn btn-embossed btn-primary" v-on="click: onDelete">
+      <button v-show="displayOperation.showDeleteShare" class="btn btn-embossed btn-primary" v-on="click: onDelete">
         <i class="glyphicon glyphicon-trash"></i>
-        <span class="hidden-xs">删除文件</span>
+        <span class="hidden-xs">删除分享</span>
       </button>
     </div>
     <div class="hidden-xs col-sm-3">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="搜索您的文件" v-model="searchString">
+        <input type="text" class="form-control" placeholder="搜索您的分享" v-model="searchString">
         <span class="input-group-btn">
           <button class="btn"><i class="fui-search"></i></button>
         </span>
@@ -43,7 +43,7 @@
             文件名
           </th>
           <th>
-            时间
+            分享日期
           </th>       
           <th>
             操作
@@ -64,8 +64,8 @@
           <td class='action-td'>
             <i class="glyphicon glyphicon-print" style="cursor:pointer"
               v-on="click: onPrint($event,file)"></i>
-            <i class="glyphicon glyphicon-share" style="cursor:pointer"
-              v-on="click: onShare($event,file)"></i>
+            <i class="glyphicon glyphicon-pencil" style="cursor:pointer"
+              v-on="click: onEdit($event,file)"></i>
             <i class="glyphicon glyphicon-trash" style="cursor:pointer"
               v-on="click: onDelete($event,file)"></i>
           </td>
@@ -131,9 +131,9 @@ module.exports = {
     displayOperation: function() {
       var cl = getCheckedList(this)
       var dsp = {
-        showPrint: cl.length>0,
-        showShare: cl.length==1,
-        showDelete: cl.length>0,
+        showPrintShare: cl.length>0,
+        showEditShare: cl.length==1,
+        showDeleteShare: cl.length>0,
       }
       return dsp
     },
@@ -189,22 +189,28 @@ module.exports = {
       }
   	},
 
-  	onShare: function($event,op_file) {
+  	onEdit: function($event,op_file) {
+      var vuemodel = this
       if(op_file!=undefined) {
         var checkedfile = [op_file]
       } else {
         var checkedfile = getCheckedList(this)      
       }
       if(checkedfile.length>0) {
-        this.fileForShare = {
-            name: checkedfile[0].name,
-            id: checkedfile[0].id,
-            anonymous: false,
-            shareDesc: "",
-            shareName: "",
-            shareTags: [],
-          }
-        this.showShareModal = true     
+        var file = checkedfile[0]
+        yy_request.rest_api({
+          method: 'get',
+          api: 'share/'+file.id+'/',
+          opSuccess: function(info) {
+            vuemodel.fileForShare.sid = file.id
+            vuemodel.fileForShare.anonymous = (info.anonymous=="1" ? true:false)
+            vuemodel.fileForShare.shareName = info.name
+            vuemodel.fileForShare.shareDesc = info.detail
+            vuemodel.showShareModal = true
+          },
+          opFail: function(info) {
+          },
+        })     
       }      
   	},
 
@@ -250,7 +256,7 @@ module.exports = {
 function loadData(vuemodel) {
   yy_request.rest_api({
     method: 'get',
-    api: 'file/',
+    api: 'share/',
     data: {
       page: vuemodel.displayedPage,
     },  
@@ -269,7 +275,6 @@ function loadData(vuemodel) {
       } else {
         vuemodel.fileData = vuemodel.fileData.concat(filedata)       
       }
-
     },
   })
 }
@@ -283,7 +288,7 @@ function getCheckedList(vuemodel) {
 function deleteFile(vuemodel,file) {
   yy_request.rest_api({
     method: 'delete',
-    api: 'file/'+file.id+'/',
+    api: 'share/'+file.id+'/',
     opSuccess: function(info) {
       vuemodel.fileData.$remove(file)
       vuemodel.actionFileDone += 1

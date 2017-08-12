@@ -29,8 +29,8 @@
    </ul> 
    <h6>资源</h6> 
    <ul> 
-    <li><a href="#" >我的共享<i class="disable glyphicon glyphicon-star"></i></a></li> 
-    <li><a href="#" >共享文库<i class="disable glyphicon glyphicon-globe"></i></a></li> 
+    <li><a href="#/myshare" v-on="click: showSlideMenu = false">我的共享<i class="glyphicon glyphicon-star"></i></a></li> 
+    <li><a href="#/share" v-on="click: showSlideMenu = false">共享文库<i class="glyphicon glyphicon-globe"></i></a></li> 
     <li><a href="#/book" v-on="click: showSlideMenu = false">店内资源<i class="glyphicon glyphicon-book"></i></a></li> 
    </ul> 
    <h6>个人</h6> 
@@ -61,109 +61,113 @@
 </template>
 
 <script>
-var yy_request = require('./js/yunyin_request')
-var po = require('./js/public_object.js')
+    var yy_request = require('./js/yunyin_request')
+    var po = require('./js/public_object.js')
 
-module.exports = {
-  el: '#app',
+    module.exports = {
+        el: '#app',
 
-  data: function () {
-    return {
-      view: '',
-      showLoginModal: false,
-      showFileTaskModal: false,
-      showInfoModal: false,
-      showSlideMenu: false,
-      fileTaskParams: {
-        mode: 'newfile',
-        fileList: [],
-        taskinfo: {},
-      },
-      infoModalText:'',
-      mySelectOptions: [
-        {value: 1, display: "这个打印店还不错哦"},
-        {value: 2, display: "超级无敌打印店2"},
-      ],
-      mySelectValue: null,
-      username: null,
-      showSpinner: false,
-      showNetworkHint: false,
-    }
-  },
-
-  methods: {
-    onUploadFile: function() {
-      if(po.islogin) {
-        this.fileTaskParams = {
-          mode: 'newfile',
-          fileList: [],
-          taskinfo: {},
-        }
-        this.showFileTaskModal = true
-      } else {
-        this.showLoginModal = true
-      }
-    },
-
-    onClickLogin: function() {
-      if(this.username==null) {
-        this.showLoginModal = true
-      } else {
-        window.location.hash = "#/user"
-      }
-    },
-
-    onFileChange: function() {
-      if(window.location.hash=="#/file") {
-        po.vueFileList.onFileChange()
-      } else {
-        window.location.hash="#/file"
-      }
-    },
-
-    onTaskChange: function() {
-      if(window.location.hash=="#/task") {
-        po.vueTaskList.onTaskChange()
-      } else {
-        window.location.hash="#/task"
-      }
-    },
-
-    onLogout: function() {
-      yy_request.rest_api({
-        method: 'get',
-        api: 'auth/logout',
-        opSuccess: function(info) {
-          po.islogin = false
-          po.app.username = null
-          window.location.hash = "#/home"
-          po.app.showLoginModal = true 
+        data: function() {
+            return {
+                view: '',
+                showLoginModal: false,
+                showFileTaskModal: false,
+                showInfoModal: false,
+                showSlideMenu: false,
+                fileTaskParams: {
+                    mode: 'newfile',
+                    fileList: [],
+                    taskinfo: {},
+                },
+                infoModalText: '',
+                mySelectOptions: [{
+                    value: 1,
+                    display: "这个打印店还不错哦"
+                }, {
+                    value: 2,
+                    display: "超级无敌打印店2"
+                }, ],
+                mySelectValue: null,
+                username: null,
+                showSpinner: false,
+                showNetworkHint: false,
+            }
         },
-      })          
-    },
-  },
 
-  compiled: function() {
-    if(po.islogin) {
-      this.username = po.userinfo.name      
-    } else {
-      this.username = null
+        methods: {
+            onUploadFile: function() {
+                if (po.islogin) {
+                    this.fileTaskParams = {
+                        mode: 'newfile',
+                        fileList: [],
+                        taskinfo: {},
+                    }
+                    this.showFileTaskModal = true
+                } else {
+                    this.showLoginModal = true
+                }
+            },
+
+            onClickLogin: function() {
+                if (this.username == null) {
+                    this.showLoginModal = true
+                } else {
+                    window.location.hash = "#/user"
+                }
+            },
+
+            onFileChange: function() {
+                if (window.location.hash == "#/file") {
+                    po.vueFileList.onFileChange()
+                } else {
+                    window.location.hash = "#/file"
+                }
+            },
+
+            onTaskChange: function() {
+                if (window.location.hash == "#/task") {
+                    po.vueTaskList.onTaskChange()
+                } else {
+                    window.location.hash = "#/task"
+                }
+            },
+
+            onLogout: function() {
+                yy_request.rest_api({
+                    method: 'get',
+                    api: 'auth/logout',
+                    opSuccess: function(info) {
+                        po.islogin = false
+                        po.app.username = null
+                        window.location.hash = "#/home"
+                        po.app.showLoginModal = true
+                    },
+                })
+            },
+        },
+
+        compiled: function() {
+            if (po.islogin) {
+                this.username = po.userinfo.name
+            } else {
+                this.username = null
+            }
+        },
+
+        components: {
+            'intro-view': require('./views/intro-view.vue'),
+            'menu-view': require('./views/menu-view.vue'),
+            'task-view': require('./views/task-view.vue'),
+            'file-view': require('./views/file-view.vue'),
+            'myshare-view': require('./views/myshare-view.vue'),
+            'share-view': require('./views/share-view.vue'),
+            'book-view': require('./views/book-view.vue'),
+            'user-view': require('./views/user-view.vue'),
+            'printer-view': require('./views/printer-view.vue'),
+            'forget-view': require('./views/forget-view.vue'),
+            'login-modal': require('./components/login-modal.vue'),
+            'filetask-modal': require('./components/filetask-modal.vue'),
+            'info-modal': require('./components/info-modal.vue'),
+        }
     }
-  },
-
-  components: {
-    'intro-view': require('./views/intro-view.vue'),
-    'menu-view': require('./views/menu-view.vue'),
-    'task-view': require('./views/task-view.vue'),
-    'file-view': require('./views/file-view.vue'),
-    'share-view': require('./views/share-view.vue'),
-    'book-view': require('./views/book-view.vue'),
-    'user-view': require('./views/user-view.vue'),
-    'printer-view': require('./views/printer-view.vue'),
-    'forget-view': require('./views/forget-view.vue'),
-    'login-modal': require('./components/login-modal.vue'),
-    'filetask-modal': require('./components/filetask-modal.vue'),
-    'info-modal': require('./components/info-modal.vue'),
-  }
-}
 </script>
